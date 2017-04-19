@@ -26,10 +26,10 @@ public class LoginWindow extends SimpleWindow<LoginViewModel> {
 		formPanel.setLayout(new VerticalLayout());
 		
 		new Label(formPanel)
-		.setText("Hola Héctor");
+		.setText("Hola Hector");
 		
 		new Label(formPanel)
-		.setText("Ingresar su contraseña");
+		.setText("Ingresar su contrase�a");
 		
 		new TextBox(formPanel)
 		.bindValueToProperty("password");
@@ -40,10 +40,8 @@ public class LoginWindow extends SimpleWindow<LoginViewModel> {
 	}
 	
 	private void atenderLogin(String password){
-		//System.out.println(password);
 		if(this.getModelObject().puedeLoguearse()) {
 			this.abrirVentanaListaEmpresas();
-			//System.out.println(password);
 		} else {
 			this.abrirVentanaDeErorr();
 		}

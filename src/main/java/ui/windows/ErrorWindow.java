@@ -29,7 +29,7 @@ public class ErrorWindow extends SimpleWindow<LoginViewModel> {
 		formPanel.setLayout(new ColumnLayout(2));
 		
 		new Label(formPanel)
-		.setText("ContraseÃ±a Invalida");
+		.setText("Contraseña Invalida");
 	
 	}
 }

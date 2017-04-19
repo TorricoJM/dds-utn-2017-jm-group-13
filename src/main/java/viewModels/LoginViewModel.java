@@ -21,14 +21,12 @@ public class LoginViewModel {
 		this.password = password;
 	}
 
-	public boolean puedeLoguearse() {
-		//System.out.println(this.password);
-		
-		if(this.password==Repositorios.PASSWORD){
-			System.out.println(Repositorios.PASSWORD);
+	public boolean puedeLoguearse() {		
+		if(this.password.equals(Repositorios.PASSWORD)){
 			return true;
 		}
-		return true;	//en realidad va false, puse true para probar lo que sigue xq funciona mal y nunca ingresa
+
+		return false;
 	}
 
 }

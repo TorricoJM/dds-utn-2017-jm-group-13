@@ -41,12 +41,12 @@ public class EmpresasWindow extends SimpleWindow<EmpresasViewModel> {
 
 		Column<Empresa> columnaRazonSocial = new Column<Empresa>(tableEmpresas);
 		columnaRazonSocial.setFixedSize(150);
-		columnaRazonSocial.setTitle("RazÃ³n Social");
+		columnaRazonSocial.setTitle("Razón Social");
 		columnaRazonSocial.bindContentsToProperty("razonSocial");
 
 		Column<Empresa> columnaNombreFantasia = new Column<Empresa>(tableEmpresas);
 		columnaNombreFantasia.setFixedSize(150);
-		columnaNombreFantasia.setTitle("Nombre de FantasÃ­a");
+		columnaNombreFantasia.setTitle("Nombre de Fantasía");
 		columnaNombreFantasia.bindContentsToProperty("nombreFantasia");
 
 		Column<Empresa> columnaValor = new Column<Empresa>(tableEmpresas);
