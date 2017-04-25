@@ -7,7 +7,7 @@ import org.uqbar.commons.utils.Observable;
 import com.google.gson.Gson;
 import com.sun.jersey.api.client.Client;
 
-import model.Empresas;
+import model.ListaEmpresas;
 import model.Empresa;
 import repositories.Repositorios;
 
@@ -51,8 +51,8 @@ public class EmpresasViewModel {
 	private void levantarListaEmpresas() {
 		Gson gson = new Gson();
 		String respuesta = this.traerEmpresasesDelServer();
-		Repositorios.empresas = gson.fromJson(respuesta, Empresas.class);
-		this.empresas = Repositorios.empresas.getEmpresas();
+		Repositorios.listaEmpresas = gson.fromJson(respuesta, ListaEmpresas.class);
+		this.empresas = Repositorios.listaEmpresas.getEmpresas();
 	}
 
 	private String traerEmpresasesDelServer() {
@@ -65,10 +65,10 @@ public class EmpresasViewModel {
 	}
 
 	public int cantidadEmpresas() {
-		return Repositorios.empresas.getEmpresas().toArray().length;
+		return Repositorios.listaEmpresas.getEmpresas().toArray().length;
 	}
 
 	public void guardarEmpresaSeleccionadoEnRepositorio() {
-		Repositorios.empresaSeleccionada= this.empresaSeleccionada;
+		//Repositorios.empresaSeleccionada= this.empresaSeleccionada;
 	}
 }

@@ -41,15 +41,16 @@ public class LoginWindow extends SimpleWindow<LoginViewModel> {
 	
 	private void atenderLogin(String password){
 		if(this.getModelObject().puedeLoguearse()) {
-			this.abrirVentanaListaEmpresas();
+			this.close();
+			this.abrirMenuPrincipal();
 		} else {
 			this.abrirVentanaDeErorr();
 		}
 	}
 	
-	private void abrirVentanaListaEmpresas(){
-		SimpleWindow<?> ventanaListaEmpresas= new EmpresasWindow(this);
-		ventanaListaEmpresas.open();
+	private void abrirMenuPrincipal(){
+		SimpleWindow<?> ventanaMenuPrincipal= new MenuPrincipalWindow(this);
+		ventanaMenuPrincipal.open();
 	}
 	
 	private void abrirVentanaDeErorr(){
