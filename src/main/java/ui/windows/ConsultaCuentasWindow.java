@@ -10,7 +10,7 @@ import org.uqbar.arena.windows.WindowOwner;
 
 import model.Empresa;
 import model.PeriodoFiscalDeEmpresa;
-import viewModels.ConsultaCuentasViewModel;
+import ui.viewModels.ConsultaCuentasViewModel;
 
 @SuppressWarnings("serial")
 public class ConsultaCuentasWindow extends SimpleWindow<ConsultaCuentasViewModel> {

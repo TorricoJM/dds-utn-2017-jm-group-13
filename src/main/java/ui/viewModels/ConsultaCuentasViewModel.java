@@ -1,4 +1,4 @@
-package viewModels;
+package ui.viewModels;
 
 import java.util.List;
 import org.uqbar.commons.utils.Observable;

@@ -3,6 +3,7 @@ package viewModels;
 import static org.junit.Assert.*;
 
 import repositories.*;
+import ui.viewModels.LoginViewModel;
 
 import org.junit.Before;
 import org.junit.Test;

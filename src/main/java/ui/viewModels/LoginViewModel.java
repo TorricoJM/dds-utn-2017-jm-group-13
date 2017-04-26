@@ -1,4 +1,4 @@
-package viewModels;
+package ui.viewModels;
 
 import org.uqbar.commons.utils.Observable;
 import com.google.gson.Gson;

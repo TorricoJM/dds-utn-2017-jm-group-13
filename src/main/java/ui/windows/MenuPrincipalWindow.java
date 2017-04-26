@@ -7,7 +7,7 @@ import org.uqbar.arena.widgets.Panel;
 import org.uqbar.arena.windows.SimpleWindow;
 import org.uqbar.arena.windows.WindowOwner;
 
-import viewModels.MenuPrincipalViewModel;
+import ui.viewModels.MenuPrincipalViewModel;
 
 @SuppressWarnings("serial")
 public class MenuPrincipalWindow extends SimpleWindow<MenuPrincipalViewModel> {

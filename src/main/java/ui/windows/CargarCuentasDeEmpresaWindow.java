@@ -11,7 +11,7 @@ import org.uqbar.arena.windows.SimpleWindow;
 import org.uqbar.arena.windows.WindowOwner;
 
 import model.Empresa;
-import viewModels.CargarCuentasEmpresaViewModel;
+import ui.viewModels.CargarCuentasEmpresaViewModel;
 
 @SuppressWarnings("serial")
 public class CargarCuentasDeEmpresaWindow extends SimpleWindow<CargarCuentasEmpresaViewModel> {

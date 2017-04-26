@@ -6,7 +6,7 @@ import org.uqbar.arena.widgets.Panel;
 import org.uqbar.arena.windows.SimpleWindow;
 import org.uqbar.arena.windows.WindowOwner;
 
-import viewModels.LoginViewModel;
+import ui.viewModels.LoginViewModel;
 
 @SuppressWarnings("serial")
 public class ErrorWindow extends SimpleWindow<LoginViewModel> {

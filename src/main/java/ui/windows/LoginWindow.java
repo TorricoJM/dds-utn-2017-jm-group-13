@@ -8,7 +8,7 @@ import org.uqbar.arena.widgets.PasswordField;
 import org.uqbar.arena.windows.SimpleWindow;
 import org.uqbar.arena.windows.WindowOwner;
 
-import viewModels.LoginViewModel;
+import ui.viewModels.LoginViewModel;
 
 @SuppressWarnings("serial")
 public class LoginWindow extends SimpleWindow<LoginViewModel> {
