@@ -33,8 +33,7 @@ public class Adapter_Archivos {
 	public void guardarJsonEnElArchivo(String path, String cadena){
 		  try {
 		      PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(path, false)));
-		      out.println(cadena);
-		      System.out.println(cadena);
+		      out.print(cadena);
 		      out.close();
 		  }
 		  catch (IOException e) {
