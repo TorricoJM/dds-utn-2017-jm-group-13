@@ -23,4 +23,8 @@ public class Empresa {
 		this.nombre = nombre;
 	}
 	
+	public void agregarPeriodoFiscal(PeriodoFiscalDeEmpresa periodoFiscal){
+		this.periodosFiscales.add(periodoFiscal);
+	}
+	
 }

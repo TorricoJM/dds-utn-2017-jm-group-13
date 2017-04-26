@@ -21,7 +21,6 @@ public class ConsultaCuentasWindow extends SimpleWindow<ConsultaCuentasViewModel
 
 	@Override
 	protected void addActions(Panel arg0) {
-
 	}
 
 	@Override
@@ -50,11 +49,9 @@ public class ConsultaCuentasWindow extends SimpleWindow<ConsultaCuentasViewModel
 		new Label(panelGeneral).bindValueToProperty("periodoFiscalSeleccionado.fds");
 		new Label(panelGeneral).setText("FREE CASH FLOW:");
 		new Label(panelGeneral).bindValueToProperty("periodoFiscalSeleccionado.freeCashFlow");
-		new Label(panelGeneral).setText("ingreso Neto en Operaciones Discontinuas:");
+		new Label(panelGeneral).setText("ingreso Neto en Operaciones Discontinuas:   ");
 		new Label(panelGeneral).bindValueToProperty("periodoFiscalSeleccionado.ingresoNetoOperacionesDiscontinuas");
-		new Label(panelGeneral).setText("ingreso Neto en Operaciones Continuas:");
+		new Label(panelGeneral).setText("ingreso Neto en Operaciones Continuas:      ");
 		new Label(panelGeneral).bindValueToProperty("periodoFiscalSeleccionado.ingresoNetoOperacionesContinuas");
-		
 	}
-
 }

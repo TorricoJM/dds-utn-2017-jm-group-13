@@ -1,9 +1,6 @@
 package model;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileReader;
+import java.io.*;
 
 public class Adapter_Archivos {
 	
@@ -30,5 +27,17 @@ public class Adapter_Archivos {
 		}
 		
 		return respuesta;
+	}
+	
+	public void guardarJsonEnElArchivo(String path, String cadena){
+		  try {
+		      PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(path, false)));
+		      out.println(cadena);
+		      System.out.println(cadena);
+		      out.close();
+		  }
+		  catch (IOException e) {
+		      System.out.println(e);
+		  }
 	}
 }
