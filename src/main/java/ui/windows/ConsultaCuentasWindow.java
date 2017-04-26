@@ -1,16 +1,12 @@
 package ui.windows;
 
-import org.uqbar.arena.bindings.ObservableProperty;
 import org.uqbar.arena.bindings.PropertyAdapter;
 import org.uqbar.arena.layout.ColumnLayout;
-import org.uqbar.arena.widgets.Button;
 import org.uqbar.arena.widgets.Label;
 import org.uqbar.arena.widgets.Panel;
 import org.uqbar.arena.widgets.Selector;
 import org.uqbar.arena.windows.SimpleWindow;
 import org.uqbar.arena.windows.WindowOwner;
-import org.uqbar.lacar.ui.model.ListBuilder;
-import org.uqbar.lacar.ui.model.bindings.Binding;
 
 import model.Empresa;
 import model.PeriodoFiscalDeEmpresa;
@@ -50,12 +46,15 @@ public class ConsultaCuentasWindow extends SimpleWindow<ConsultaCuentasViewModel
 		
 		new Label(panelGeneral).setText("EBITDA:");
 		new Label(panelGeneral).bindValueToProperty("periodoFiscalSeleccionado.ebitda");
+		new Label(panelGeneral).setText("FDS:");
+		new Label(panelGeneral).bindValueToProperty("periodoFiscalSeleccionado.fds");
+		new Label(panelGeneral).setText("FREE CASH FLOW:");
+		new Label(panelGeneral).bindValueToProperty("periodoFiscalSeleccionado.freeCashFlow");
+		new Label(panelGeneral).setText("ingreso Neto en Operaciones Discontinuas:");
+		new Label(panelGeneral).bindValueToProperty("periodoFiscalSeleccionado.ingresoNetoOperacionesDiscontinuas");
+		new Label(panelGeneral).setText("ingreso Neto en Operaciones Continuas:");
+		new Label(panelGeneral).bindValueToProperty("periodoFiscalSeleccionado.ingresoNetoOperacionesContinuas");
 		
 	}
-	
-	private void avisarMostrar(){
-		this.getModelObject().mostrarEmpresaSeleccionda();
-	}
-
 
 }
