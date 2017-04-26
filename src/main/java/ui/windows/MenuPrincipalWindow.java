@@ -53,8 +53,8 @@ public class MenuPrincipalWindow extends SimpleWindow<MenuPrincipalViewModel> {
 		ventanaConsultaCuentas.open();
 	}
 	private void abrirVentanaOpcionElegirEmpresa() {
-		SimpleWindow<?> ventanaOpcionDeEmpresa = new CargarCuentasDeEmpresaWindow(this);
-		ventanaOpcionDeEmpresa.open();
+		//SimpleWindow<?> ventanaOpcionDeEmpresa = new CargarCuentasDeEmpresaWindow(this);
+		//ventanaOpcionDeEmpresa.open();
 	}
 
 
