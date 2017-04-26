@@ -22,6 +22,19 @@
       ]
     },
     {
+      "nombre": "Microsoft",
+      "periodosFiscales": [
+      	{
+      		"periodo": "2015",
+			"ebitda": 1123.23,
+			"fds": 123.12,
+			"freeCashFlow": 999.1,
+			"ingresoNetoOperacionesDiscontinuas": 111,
+			"ingresoNetoOperacionesContinuas": 22.55
+      	}
+      ]
+    },
+    {
       "nombre": "Facebook",
       "periodosFiscales": [
       	{
