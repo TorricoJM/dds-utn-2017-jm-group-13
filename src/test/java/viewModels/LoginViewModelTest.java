@@ -13,7 +13,9 @@ public class LoginViewModelTest {
 	
 	@Before
 	public void init() {
+		
      	login = new LoginViewModel();
+     	
  	}
 	
 	@Test

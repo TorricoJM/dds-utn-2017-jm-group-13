@@ -26,7 +26,8 @@ public class Adapter_Archivos {
 			respuesta = new String(data);
 		}
 		catch (Exception eAbrirArchivo) {
-			System.out.println(eAbrirArchivo);	//cubro la posibilidad que hayan errores
+			System.out.println(eAbrirArchivo); //cubro la posibilidad que hayan errores
+			
 		}
 		
 		return respuesta;
