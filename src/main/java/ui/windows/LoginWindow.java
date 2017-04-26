@@ -29,7 +29,7 @@ public class LoginWindow extends SimpleWindow<LoginViewModel> {
 		.setText("Hola Hector");
 		
 		new Label(formPanel)
-		.setText("Ingresar su contraseña");
+		.setText("Ingrese su contraseña");
 		
 		new PasswordField(formPanel)
 		.bindValueToProperty("password");

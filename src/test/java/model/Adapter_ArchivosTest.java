@@ -32,4 +32,15 @@ public Adapter_Archivos adapter;
 	
 	}
 	
+	@Test
+	public void guardarJsonEnElArchivo() {
+		
+		String path = "./test.txt";
+		String cadena = "cadenaTestEjemplo";
+		adapter.guardarJsonEnElArchivo(path, cadena);
+		
+		String cadenaArchivo = adapter.obtenerJsonDelArchivo(path);
+		assertEquals(cadena, cadenaArchivo);
+		
+	}
 }
