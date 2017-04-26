@@ -11,11 +11,11 @@ public class PeriodoFiscalDeEmpresa {
 	private Float ingresoNetoOperacionesContinuas;
 	
 	
-	public String getId() {
+	public String getPeriodo() {
 		return periodo;
 	}
-	public void setId(String id) {
-		this.periodo = id;
+	public void setPeriodo(String periodo) {
+		this.periodo = periodo;
 	}
 	public Float getEbitda() {
 		return ebitda;

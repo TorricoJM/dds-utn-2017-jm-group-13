@@ -1,11 +1,11 @@
 package model;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class ListaEmpresas {
 	
-	private List<Empresa> empresas = new ArrayList<>();
+	private List<Empresa> empresas = new LinkedList<>();
 
 	public List<Empresa> getEmpresas() {
 		return empresas;

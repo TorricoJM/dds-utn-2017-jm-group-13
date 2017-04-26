@@ -4,6 +4,14 @@
       "nombre": "CocaCola",
       "periodosFiscales": [
       	{
+      		"periodo": "2015",
+			"ebitda": 88.56,
+			"fds": 123.12,
+			"freeCashFlow": 456,
+			"ingresoNetoOperacionesDiscontinuas": 789,
+			"ingresoNetoOperacionesContinuas": 111999
+      	},
+      	{
       		"periodo": "2016",
 			"ebitda": 1468.50,
 			"fds": 123,
@@ -15,7 +23,17 @@
     },
     {
       "nombre": "Facebook",
-      "periodosFiscales": []
+      "periodosFiscales": [
+      	{
+      		"periodo": "2016",
+			"ebitda": 1468.50,
+			"fds": 123,
+			"freeCashFlow": 456,
+			"ingresoNetoOperacionesDiscontinuas": 789,
+			"ingresoNetoOperacionesContinuas": 111999
+      	}
+      
+      ]
     }
   ]
 }

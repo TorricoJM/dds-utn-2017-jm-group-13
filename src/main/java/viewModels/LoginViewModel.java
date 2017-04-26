@@ -35,7 +35,6 @@ public class LoginViewModel {
 	private void levantarCuentasDeArchivo(String path){	//con esto, levantamos las cuentas de las empresas una sola vez
 		Gson gson = new Gson();
 		String cadenaAParsear = new Adapter_Archivos().obtenerJsonDelArchivo(path);
-		System.out.println(cadenaAParsear);
 		Repositorios.listaEmpresas = gson.fromJson(cadenaAParsear, model.ListaEmpresas.class);
 	}
 }
