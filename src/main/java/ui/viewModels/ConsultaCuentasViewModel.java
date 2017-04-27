@@ -55,8 +55,4 @@ public class ConsultaCuentasViewModel {
 	private void traerEmpresasDelRepo(){
 		this.empresas = Repositorios.listaEmpresas.getEmpresas();
 	}
-	
-	public void mostrarEmpresaSeleccionda(){
-		System.out.println(this.empresaSeleccionada.getNombre());
-	}
 }

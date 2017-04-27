@@ -42,7 +42,7 @@ public class MenuPrincipalWindow extends SimpleWindow<MenuPrincipalViewModel> {
 		new Label(formPanel).setText("");
 		new Label(formPanel).setText("Actualizacion de Datos");
 		new Button(formPanel).setCaption("Datos de Cuentas")
-			.onClick(() -> this.abrirVentanaOpcionElegirEmpresa());
+			.onClick(() -> this.abrirVentanaCargarCuentasEmpresa());
 		new Button(formPanel).setCaption("Datos de indicadores");
 		new Button(formPanel).setCaption("Metodologias");
 		
@@ -52,7 +52,7 @@ public class MenuPrincipalWindow extends SimpleWindow<MenuPrincipalViewModel> {
 		SimpleWindow<?> ventanaConsultaCuentas= new ConsultaCuentasWindow(this);
 		ventanaConsultaCuentas.open();
 	}
-	private void abrirVentanaOpcionElegirEmpresa() {
+	private void abrirVentanaCargarCuentasEmpresa() {
 		SimpleWindow<?> ventanaOpcionDeEmpresa = new CargarCuentasDeEmpresaWindow(this);
 		ventanaOpcionDeEmpresa.open();
 	}

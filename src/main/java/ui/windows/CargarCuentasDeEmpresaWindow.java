@@ -51,6 +51,11 @@ public class CargarCuentasDeEmpresaWindow extends SimpleWindow<CargarCuentasEmpr
 		new Label(panelGeneral).setText("ingreso Neto en Operaciones Continuas:      ");
 		new NumericField(panelGeneral).bindValueToProperty("ingresosDiscontinuosValorLocal");
 		
-		new Button(panelGeneral).setCaption("Guardar").onClick(() -> this.getModelObject().guardarDatosDeCuentas());
+		new Button(panelGeneral).setCaption("Guardar").onClick(() -> this.guardarDatosYSalir());
+	}
+	
+	private void guardarDatosYSalir(){
+		this.getModelObject().guardarDatosDeCuentas();
+		this.close();
 	}
 }
