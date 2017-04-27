@@ -87,8 +87,12 @@ public class CargarCuentasEmpresaViewModel {
 		this.empresas = Repositorios.listaEmpresas.getEmpresas();
 	}
 	
-	public void guardarDatosDeCuentas(){
+	public boolean puedeGuardar(){
 		this.unificarPeriodoFiscalParaGuardar();
+		return ! this.elPeriodoFiscalExiste(this.empresaSeleccionada,this.periodoFiscalAGuardar);
+	}
+	
+	public void guardarDatosDeCuentas(){
 		this.agregarPeriodoFiscalEn(this.empresaSeleccionada,this.periodoFiscalAGuardar);
 		this.guardarCuentasNuevasEnElArchivo(Repositorios.PATH_ARCHIVO_CUENTAS);
 	}
@@ -105,6 +109,11 @@ public class CargarCuentasEmpresaViewModel {
 	private void agregarPeriodoFiscalEn(Empresa empresa, PeriodoFiscalDeEmpresa periodoFiscal){
 		int indiceDeEmpresa = Repositorios.listaEmpresas.getEmpresas().indexOf(empresa);
 		Repositorios.listaEmpresas.getEmpresas().get(indiceDeEmpresa).agregarPeriodoFiscal(periodoFiscal);
+	}
+	
+	private boolean elPeriodoFiscalExiste(Empresa empresa, PeriodoFiscalDeEmpresa periodoFiscal){
+		int indiceDeEmpresa = Repositorios.listaEmpresas.getEmpresas().indexOf(empresa);
+		return Repositorios.listaEmpresas.getEmpresas().get(indiceDeEmpresa).yaExisteUn(periodoFiscal);
 	}
 	
 	private void guardarCuentasNuevasEnElArchivo(String path){

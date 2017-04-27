@@ -1,7 +1,5 @@
 package ui.windows;
 
-import org.uqbar.arena.layout.ColumnLayout;
-import org.uqbar.arena.widgets.Label;
 import org.uqbar.arena.widgets.Panel;
 import org.uqbar.arena.windows.SimpleWindow;
 import org.uqbar.arena.windows.WindowOwner;
@@ -23,13 +21,7 @@ public class ErrorWindow extends SimpleWindow<LoginViewModel> {
 
 	@Override
 	protected void createFormPanel(Panel mainPanel){
-		Panel formPanel = new Panel(mainPanel);
-		
 		this.setTitle("Error");
-		formPanel.setLayout(new ColumnLayout(2));
-		
-		new Label(formPanel)
-		.setText("Contraseña Invalida");
 	
 	}
 }

@@ -26,5 +26,13 @@ public class Empresa {
 	public void agregarPeriodoFiscal(PeriodoFiscalDeEmpresa periodoFiscal){
 		this.periodosFiscales.add(periodoFiscal);
 	}
-	
+	public boolean yaExisteUn(PeriodoFiscalDeEmpresa periodoFiscal){
+		for(int i = 0; i < this.periodosFiscales.size(); i++){
+			System.out.println("Original --- " + periodoFiscal.getPeriodo());
+			System.out.println("Parametro --- " + periodosFiscales.get(i).getPeriodo());
+			if(periodosFiscales.get(i).getPeriodo().equals(periodoFiscal.getPeriodo()))
+				return true;
+		}
+		return false;
+	}
 }

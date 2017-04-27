@@ -55,7 +55,14 @@ public class CargarCuentasDeEmpresaWindow extends SimpleWindow<CargarCuentasEmpr
 	}
 	
 	private void guardarDatosYSalir(){
-		this.getModelObject().guardarDatosDeCuentas();
-		this.close();
+		if(this.getModelObject().puedeGuardar()){
+			this.getModelObject().guardarDatosDeCuentas();
+			this.close();
+		}
+		else{
+			SimpleWindow<?> ventanaError = new ErrorWindow(this);
+			ventanaError.open();
+		}
+		
 	}
 }
