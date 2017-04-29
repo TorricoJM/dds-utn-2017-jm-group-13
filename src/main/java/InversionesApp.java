@@ -11,6 +11,6 @@ public class InversionesApp extends Application{
 	
 	@Override
 	protected Window<?> createMainWindow() {
-		return new LoginWindow(this);
+		return new MenuPrincipalWindow(this);
 	}
 }
