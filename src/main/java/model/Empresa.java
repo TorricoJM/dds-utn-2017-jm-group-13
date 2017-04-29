@@ -1,38 +1,38 @@
 package model;
 
-import java.util.LinkedList;
-import java.util.List;
+import org.uqbar.commons.utils.Observable;
 
+@Observable
 public class Empresa {
 
 	private String nombre;
-	private List<PeriodoFiscalDeEmpresa> periodosFiscales = new LinkedList<>();
-
-	
-	public List<PeriodoFiscalDeEmpresa> getPeriodosFiscales() {
-		return periodosFiscales;
-	}
-	public void setPeriodosFiscales(List<PeriodoFiscalDeEmpresa> periodosFiscales) {
-		this.periodosFiscales = periodosFiscales;
-	}
+	private String periodoFiscal;
+	private String cuenta;
+	private String valor;
 	
 	public String getNombre() {
 		return nombre;
 	}
+	public String getPeriodoFiscal() {
+		return periodoFiscal;
+	}
+	public String getCuenta() {
+		return cuenta;
+	}
+	public String getValor() {
+		return valor;
+	}
+	
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	
-	public void agregarPeriodoFiscal(PeriodoFiscalDeEmpresa periodoFiscal){
-		this.periodosFiscales.add(periodoFiscal);
+	public void setPeriodoFiscal(String periodoFiscal) {
+		this.periodoFiscal = periodoFiscal;
 	}
-	public boolean yaExisteUn(PeriodoFiscalDeEmpresa periodoFiscal){
-		for(int i = 0; i < this.periodosFiscales.size(); i++){
-			System.out.println("Original --- " + periodoFiscal.getPeriodo());
-			System.out.println("Parametro --- " + periodosFiscales.get(i).getPeriodo());
-			if(periodosFiscales.get(i).getPeriodo().equals(periodoFiscal.getPeriodo()))
-				return true;
-		}
-		return false;
+	public void setCuenta(String cuenta) {
+		this.cuenta = cuenta;
+	}
+	public void setValor(String valor) {
+		this.valor = valor;
 	}
 }

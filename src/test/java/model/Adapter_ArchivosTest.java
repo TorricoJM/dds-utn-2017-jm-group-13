@@ -7,11 +7,11 @@ import static org.junit.Assert.*;
 
 public class Adapter_ArchivosTest {
 	
-public Adapter_Archivos adapter;
+public AdapterArchivos adapter;
 	
 	@Before
 	public void init() {
-     	adapter = new Adapter_Archivos();
+     	adapter = new AdapterArchivos();
  	}
 
 	@Test

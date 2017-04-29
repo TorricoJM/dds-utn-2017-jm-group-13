@@ -2,14 +2,14 @@ package model;
 
 import java.io.*;
 
-public class Adapter_Archivos {
+public class AdapterArchivos {
 	
 	File archivo;
 	FileReader fr;
 	BufferedReader br;
 	String respuesta;
 	
-	public Adapter_Archivos(){
+	public AdapterArchivos(){
 	}
 	
 	public String obtenerJsonDelArchivo(String path){

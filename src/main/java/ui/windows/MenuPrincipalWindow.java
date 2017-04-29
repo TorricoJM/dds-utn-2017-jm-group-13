@@ -34,27 +34,18 @@ public class MenuPrincipalWindow extends SimpleWindow<MenuPrincipalViewModel> {
 		panelCuentasEIndicadores.setLayout(new HorizontalLayout());
 		
 		new Button(panelCuentasEIndicadores)
-			.setCaption("Cuentas")
-			.onClick(() -> this.abrirVentanaConsultaCuentas());
+			.setCaption("Cuentas");
+			//	.onClick(() -> this.abrirVentanaConsultaCuentas());		TODO esto no va
 		new Button(panelCuentasEIndicadores)
 			.setCaption("Indicadores");
 		
 		new Label(formPanel).setText("");
 		new Label(formPanel).setText("Actualizacion de Datos");
-		new Button(formPanel).setCaption("Datos de Cuentas")
-			.onClick(() -> this.abrirVentanaCargarCuentasEmpresa());
+		new Button(formPanel).setCaption("Datos de Cuentas");
+		//.onClick();		TODO la borro para que no tire error
 		new Button(formPanel).setCaption("Datos de indicadores");
 		new Button(formPanel).setCaption("Metodologias");
 		
-	}
-
-	private void abrirVentanaConsultaCuentas() {
-		SimpleWindow<?> ventanaConsultaCuentas= new ConsultaCuentasWindow(this);
-		ventanaConsultaCuentas.open();
-	}
-	private void abrirVentanaCargarCuentasEmpresa() {
-		SimpleWindow<?> ventanaOpcionDeEmpresa = new CargarCuentasDeEmpresaWindow(this);
-		ventanaOpcionDeEmpresa.open();
 	}
 
 
