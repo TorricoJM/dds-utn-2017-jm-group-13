@@ -7,6 +7,8 @@ import org.uqbar.arena.widgets.Panel;
 import org.uqbar.arena.windows.SimpleWindow;
 import org.uqbar.arena.windows.WindowOwner;
 
+import model.LevantadorCSV;
+import repositories.Repositorios;
 import ui.viewModels.MenuPrincipalViewModel;
 
 @SuppressWarnings("serial")
@@ -34,19 +36,28 @@ public class MenuPrincipalWindow extends SimpleWindow<MenuPrincipalViewModel> {
 		panelCuentasEIndicadores.setLayout(new HorizontalLayout());
 		
 		new Button(panelCuentasEIndicadores)
-			.setCaption("Cuentas");
-			//	.onClick(() -> this.abrirVentanaConsultaCuentas());		TODO esto no va
+			.setCaption("Cuentas")
+			.onClick(() -> this.algo());	//	TODO aca llama al metodo de prueba
 		new Button(panelCuentasEIndicadores)
 			.setCaption("Indicadores");
 		
 		new Label(formPanel).setText("");
 		new Label(formPanel).setText("Actualizacion de Datos");
 		new Button(formPanel).setCaption("Datos de Cuentas");
-		//.onClick();		TODO la borro para que no tire error
 		new Button(formPanel).setCaption("Datos de indicadores");
 		new Button(formPanel).setCaption("Metodologias");
 		
 	}
 
-
+	private void algo() {
+		try{
+			LevantadorCSV.getInstance().levantarEmpresasDe("./empresas.csv");
+			System.out.println(Repositorios.listaEmpresas.get(0).getNombre() + " " 
+					+ Repositorios.listaEmpresas.get(0).getPeriodoFiscal());
+		}
+		catch(Exception e){
+			System.out.println("ERROR " + e);
+		}
+		//System.out.println(Repositorios.listaEmpresas.get(0).getNombre());
+	}
 }

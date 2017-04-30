@@ -4,7 +4,7 @@ import org.uqbar.commons.utils.Observable;
 
 @Observable
 public class Empresa {
-
+	
 	private String nombre;
 	private String periodoFiscal;
 	private String cuenta;
