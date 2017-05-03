@@ -1,38 +1,45 @@
 package model;
 
+import java.util.LinkedList;
+import java.util.List;
 import org.uqbar.commons.utils.Observable;
 
 @Observable
 public class Empresa {
-	
+
 	private String nombre;
-	private String periodoFiscal;
-	private String cuenta;
-	private String valor;
-	
+	private List<PeriodoFiscal> periodos = new LinkedList<>();
+
 	public String getNombre() {
 		return nombre;
 	}
-	public String getPeriodoFiscal() {
-		return periodoFiscal;
+
+	public List<PeriodoFiscal> getPeriodos() {
+		return periodos;
 	}
-	public String getCuenta() {
-		return cuenta;
-	}
-	public String getValor() {
-		return valor;
-	}
-	
+
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	public void setPeriodoFiscal(String periodoFiscal) {
-		this.periodoFiscal = periodoFiscal;
+
+	public void setPeriodos(List<PeriodoFiscal> periodos) {
+		this.periodos = periodos;
 	}
-	public void setCuenta(String cuenta) {
-		this.cuenta = cuenta;
+
+	public void agregarPeriodoPara(LineaEmpresa lineaEmpresa) {
+		PeriodoFiscal nuevoPeriodo = new PeriodoFiscal();
+
+		nuevoPeriodo.setPeriodo(lineaEmpresa.getPeriodo());
+		nuevoPeriodo.agregarUnaCuentaPara(lineaEmpresa);
+
+		this.periodos.add(nuevoPeriodo);
 	}
-	public void setValor(String valor) {
-		this.valor = valor;
+
+	public void cargarOModificarCuentaParaUna(LineaEmpresa lineaEmpresa) {
+		if (ValidadorDeCamposDeEmpresa.getInstance().yaExisteUnPeriodoPara(this, lineaEmpresa)) {
+			ValidadorDeCamposDeEmpresa.getInstance().obtenerPeriodoDeEmpresaDadaPor(this, lineaEmpresa)
+					.actualizarUnaCuentaPara(lineaEmpresa);
+		} else
+			this.agregarPeriodoPara(lineaEmpresa);
 	}
 }
