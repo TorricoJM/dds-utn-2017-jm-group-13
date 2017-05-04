@@ -55,11 +55,15 @@ public class MenuPrincipalWindow extends SimpleWindow<MenuPrincipalViewModel> {
 
 	private void algo() {
 		try {
-			ImportadorCSV.getInstance().levantarEmpresasDe("./empresas.csv");
+			//portadorCSV.getInstance().levantarEmpresasDe("./empresas.csv");
 			System.out.println(Repositorios.listaEmpresas.get(0).getNombre() + " "
 					+ Repositorios.listaEmpresas.get(0).getPeriodos().get(1).getPeriodo() + " "
 					+ Repositorios.listaEmpresas.get(0).getPeriodos().get(1).getCuentas().get(0).getCuenta() + " "
 					+ Repositorios.listaEmpresas.get(0).getPeriodos().get(1).getCuentas().get(0).getValor());
+			System.out.println(Repositorios.listaEmpresas.get(1).getNombre() + " "
+					+ Repositorios.listaEmpresas.get(1).getPeriodos().get(0).getPeriodo() + " "
+					+ Repositorios.listaEmpresas.get(1).getPeriodos().get(0).getCuentas().get(0).getCuenta() + " "
+					+ Repositorios.listaEmpresas.get(1).getPeriodos().get(0).getCuentas().get(0).getValor());
 		} catch (Exception e) {
 		
 		}
