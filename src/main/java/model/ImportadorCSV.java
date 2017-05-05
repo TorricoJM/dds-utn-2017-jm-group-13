@@ -1,5 +1,6 @@
 package model;
 
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.LinkedList;
@@ -20,7 +21,7 @@ public class ImportadorCSV extends ImportadorDeCuentasDeEmpresas {
 	}
 
 	@Override
-	protected List<LineaEmpresa> levantarEmpresasDelArchivo(String path){
+	protected List<LineaEmpresa> levantarEmpresasDelArchivo(String path) {
 		CSVReader reader;
 		String[] nextLine;
 		List<LineaEmpresa> empresasObtenidas = new LinkedList<>();
@@ -31,8 +32,12 @@ public class ImportadorCSV extends ImportadorDeCuentasDeEmpresas {
 				empresasObtenidas.add(this.armarEmpresaCon(nextLine));
 			}
 			reader.close();
+		} catch (FileNotFoundException exception) {
+			throw new ErrorImportacionException("No existe el archivo");
 		} catch (IOException exception) {
-			throw new ErrorManejable("Formato de archivo incorrecto. ", exception);
+			throw new ErrorImportacionException("Formato de archivo incorrecto");
+		} catch (ArrayIndexOutOfBoundsException exception) {
+			throw new ErrorImportacionException("Formato de archivo incorrecto");
 		}
 
 		return empresasObtenidas;

@@ -1,16 +1,15 @@
 package model;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.List;
 import repositories.Repositorios;
 
 public abstract class ImportadorDeCuentasDeEmpresas {
 
-	public void levantarEmpresasDe(String path) throws FileNotFoundException, IOException {
+	public void importarEmpresasDe(String path){
 		this.cargarEnRepositorio(this.levantarEmpresasDelArchivo(path));
 	} // metodo al cual se llama para importar las empresas, cualquiera sea el origen
 
+	
 	private void cargarEnRepositorio(List<LineaEmpresa> empresas) {
 		empresas.stream().forEach((empresa) -> this.insertarEmpresaEnRepositorioLocal(empresa));
 	}
@@ -39,6 +38,5 @@ public abstract class ImportadorDeCuentasDeEmpresas {
 		return ValidadorDeCamposDeEmpresa.getInstance().obtenerEmpresaAActualizarPor(lineaEmpresa);
 	}
 
-	protected abstract List<LineaEmpresa> levantarEmpresasDelArchivo(String path)
-			throws FileNotFoundException, IOException;
+	protected abstract List<LineaEmpresa> levantarEmpresasDelArchivo(String path);
 }
