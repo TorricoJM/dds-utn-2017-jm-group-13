@@ -15,49 +15,45 @@ import model.CuentaYValor;
 import model.Empresa;
 import model.PeriodoFiscal;
 
+@SuppressWarnings("serial")
 public class ConsultarCuentasWindow extends Dialog<ConsultarCuentasViewModel> {
-	
-	public ConsultarCuentasWindow(WindowOwner owner){
+
+	public ConsultarCuentasWindow(WindowOwner owner) {
 		super(owner, new ConsultarCuentasViewModel());
 	}
-	
+
 	@Override
 	protected void createFormPanel(Panel mainPanel) {
 		Panel form = new Panel(mainPanel);
 		form.setLayout(new HorizontalLayout());
 		this.setTitle("Consulta de cuentas");
-		
+
 		new Label(form).setText("Empresas");
 		Selector<Empresa> selectorEmpresa = new Selector<Empresa>(form).allowNull(true);
-		selectorEmpresa.bindItemsToProperty("empresas")
-			.setAdapter(new PropertyAdapter(Empresa.class, "nombre"));
+		selectorEmpresa.bindItemsToProperty("empresas").setAdapter(new PropertyAdapter(Empresa.class, "nombre"));
 		selectorEmpresa.bindValueToProperty("empresaSeleccionada");
-		
+
 		new Label(form).setText("Periodos");
-		Selector<PeriodoFiscal> selectorPeriodo = new Selector <PeriodoFiscal>(form).allowNull(true);
+		Selector<PeriodoFiscal> selectorPeriodo = new Selector<PeriodoFiscal>(form);
+		selectorPeriodo.setWidth(25);
 		selectorPeriodo.bindItemsToProperty("empresaSeleccionada.periodos")
-			.setAdapter(new PropertyAdapter(PeriodoFiscal.class, "periodo"));
+				.setAdapter(new PropertyAdapter(PeriodoFiscal.class, "periodo"));
 		selectorPeriodo.bindValueToProperty("periodoSeleccionado");
-		
-		
+
 		Table<CuentaYValor> table = new Table<CuentaYValor>(mainPanel, CuentaYValor.class);
-		table.setHeight(200);
-		table.setWidth(450);
-		
-		this.mostrarColumnaCuentas(table);
-		
+		table.bindItemsToProperty("periodoSeleccionado.cuentas");
+		table.setNumberVisibleRows(10);
+
+		this.mostrarColumnas(table);
+
 	}
-	
-	protected void mostrarColumnaCuentas(Table<CuentaYValor> table){
-		
-		Column<CuentaYValor> columnaNombres = new Column<CuentaYValor>(table);
-		columnaNombres.setTitle("Cuenta")
-			.setFixedSize(150)
-			.bindContentsToProperty("cuenta"); // no me sale mostrar las cuentas en las columnas
-		
-		
-		
+
+	private void mostrarColumnas(Table<CuentaYValor> table) {
+
+		Column<CuentaYValor> nombres = new Column<CuentaYValor>(table);
+		nombres.setTitle("Cuenta").setFixedSize(150).bindContentsToProperty("cuenta");
+
+		Column<CuentaYValor> valores = new Column<CuentaYValor>(table);
+		valores.setTitle("Valor").setFixedSize(90).bindContentsToProperty("valor");
 	}
-	
-	
 }

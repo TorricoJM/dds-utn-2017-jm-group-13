@@ -1,7 +1,6 @@
 package ui.viewModels;
 
 import java.util.List;
-import java.util.LinkedList;
 
 import org.uqbar.commons.utils.Observable;
 import model.Empresa;
@@ -15,28 +14,30 @@ public class ConsultarCuentasViewModel {
 	private Empresa empresaSeleccionada;
 	private PeriodoFiscal periodoSeleccionado;
 
-	public ConsultarCuentasViewModel(){
+	public ConsultarCuentasViewModel() {
 		this.empresas = RepositorioEmpresas.all();
 	}
-	
-	public List<Empresa> getEmpresas(){
+
+	// -------------------------------------------GETTERS AND SETTERS
+	public List<Empresa> getEmpresas() {
 		return empresas;
 	}
-	
-	public Empresa getEmpresaSeleccionada(){
+
+	public Empresa getEmpresaSeleccionada() {
 		return empresaSeleccionada;
 	}
-	
-	public void setEmpresaSeleccionada(Empresa empresaSeleccionada){
+
+	public void setEmpresaSeleccionada(Empresa empresaSeleccionada) {
 		this.empresaSeleccionada = empresaSeleccionada;
 	}
-	
-	public PeriodoFiscal periodoSeleccionado(){
+
+	public PeriodoFiscal periodoSeleccionado() {
 		return periodoSeleccionado;
 	}
-	
-	public void setPeriodoSeleccionado(PeriodoFiscal periodoSeleccionado){
+
+	public void setPeriodoSeleccionado(PeriodoFiscal periodoSeleccionado) {
 		this.periodoSeleccionado = periodoSeleccionado;
 	}
-	
+	// --------------------------------------------/GETTERS AND SETTERS
+
 }
