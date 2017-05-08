@@ -41,7 +41,12 @@ public class MenuPrincipalWindow extends SimpleWindow<MenuPrincipalViewModel> {
 
 		new Label(formPanel).setText("");
 		new Label(formPanel).setText("Actualizacion de Datos");
-		new Button(formPanel).setCaption("Datos de Cuentas").onClick(() -> this.importarArchivo());
+		/*new FileSelector(formPanel)
+			.extensions("*.csv")
+			.title("Cargar archivo")
+			.setCaption("Importar cuentas")
+			.bindValueToProperty("pathDelSelector");*/
+		new Button(formPanel).setCaption("Importar cuentas").onClick(() -> this.importarArchivo());
 		new Button(formPanel).setCaption("Datos de indicadores");
 		new Button(formPanel).setCaption("Metodologias");
 		

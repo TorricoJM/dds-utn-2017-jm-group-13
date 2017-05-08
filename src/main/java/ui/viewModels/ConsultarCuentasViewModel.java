@@ -6,7 +6,7 @@ import java.util.LinkedList;
 import org.uqbar.commons.utils.Observable;
 import model.Empresa;
 import model.PeriodoFiscal;
-import repositories.Repositorios;
+import repositories.RepositorioEmpresas;
 
 @Observable
 public class ConsultarCuentasViewModel {
@@ -16,7 +16,7 @@ public class ConsultarCuentasViewModel {
 	private PeriodoFiscal periodoSeleccionado;
 
 	public ConsultarCuentasViewModel(){
-		this.empresas = Repositorios.all();
+		this.empresas = RepositorioEmpresas.all();
 	}
 	
 	public List<Empresa> getEmpresas(){

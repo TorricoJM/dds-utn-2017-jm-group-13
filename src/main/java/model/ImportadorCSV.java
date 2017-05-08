@@ -10,25 +10,25 @@ import com.opencsv.CSVReader;
 import com.opencsv.bean.ColumnPositionMappingStrategy;
 import com.opencsv.bean.CsvToBean;
 
-public class ImportadorCSV extends ImportadorDeCuentasDeEmpresas {
+public class ImportadorCSV extends ImportadorDeEmpresas {
 
-	private static ImportadorCSV instance;
+	private String path;
 
-	public static ImportadorCSV getInstance() {
-		if (instance == null) {
-			instance = new ImportadorCSV();
-		}
-
-		return instance;
+	public ImportadorCSV(String path) {
+		this.path = path;
+	}
+	
+	private String getPath(){
+		return path;
 	}
 
 	@Override
-	protected List<LineaEmpresa> levantarEmpresasDelArchivo(String path) {
+	protected List<LineaEmpresa> obtenerEmpresas() {
 		CSVReader reader;
 		List<LineaEmpresa> empresasObtenidas = new LinkedList<>();
 
 		try {
-			reader = new CSVReader(new FileReader(path));
+			reader = new CSVReader(new FileReader(this.getPath()));
 			ColumnPositionMappingStrategy<LineaEmpresa> strat = new ColumnPositionMappingStrategy<LineaEmpresa>();
 			String[] columns = new String[] {"nombre", "periodo", "cuenta", "valor"};
 			CsvToBean<LineaEmpresa> csv = new CsvToBean<LineaEmpresa>(); 

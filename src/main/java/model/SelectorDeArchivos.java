@@ -1,7 +1,9 @@
 package model;
 
 import java.awt.Component;
+
 import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class SelectorDeArchivos {
 
@@ -10,7 +12,8 @@ public class SelectorDeArchivos {
 
 	public void seleccionar() {
 		selector.requestFocusInWindow();
+		selector.setFileFilter(new FileNameExtensionFilter(null, "csv"));
 		if (selector.showOpenDialog(componente) == JFileChooser.APPROVE_OPTION)
-			ImportadorCSV.getInstance().importarEmpresasDe(selector.getSelectedFile().getPath());
+			new ImportadorCSV(selector.getSelectedFile().getPath()).importarEmpresas();
 	}
 }

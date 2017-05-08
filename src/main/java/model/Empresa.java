@@ -10,6 +10,11 @@ public class Empresa {
 	private String nombre;
 	private List<PeriodoFiscal> periodos = new LinkedList<>();
 
+	public Empresa(String nombre) {
+		this.nombre = nombre;
+	}
+
+	// -----------------------------------------------------GETTERS AND SETTERS
 	public String getNombre() {
 		return nombre;
 	}
@@ -25,20 +30,30 @@ public class Empresa {
 	public void setPeriodos(List<PeriodoFiscal> periodos) {
 		this.periodos = periodos;
 	}
+	// ---------------------------------------------------/GETTERS AND SETTERS
 
 	public void agregarPeriodoPara(LineaEmpresa lineaEmpresa) {
-		PeriodoFiscal nuevoPeriodo = new PeriodoFiscal();
+		PeriodoFiscal nuevoPeriodo = new PeriodoFiscal(lineaEmpresa.getPeriodo());
 
-		nuevoPeriodo.setPeriodo(lineaEmpresa.getPeriodo());
 		nuevoPeriodo.agregarUnaCuentaPara(lineaEmpresa);
 
 		this.periodos.add(nuevoPeriodo);
 	}
 
+	private boolean yaExisteUnPeriodoPara(LineaEmpresa lineaEmpresa) {
+		return this.getPeriodos().stream()
+				.anyMatch((unPeriodo) -> unPeriodo.getPeriodo().equals(lineaEmpresa.getPeriodo()));
+	}
+
+	private PeriodoFiscal obtenerPeriodoDeEmpresaDadaPor(LineaEmpresa lineaEmpresa) {
+		return this.getPeriodos().stream()
+				.filter((periodoDeLista) -> periodoDeLista.getPeriodo().equals(lineaEmpresa.getPeriodo())).findFirst()
+				.get();
+	}
+
 	public void cargarOModificarCuentaParaUna(LineaEmpresa lineaEmpresa) {
-		if (ValidadorDeCamposDeEmpresa.getInstance().yaExisteUnPeriodoPara(this, lineaEmpresa)) {
-			ValidadorDeCamposDeEmpresa.getInstance().obtenerPeriodoDeEmpresaDadaPor(this, lineaEmpresa)
-					.actualizarUnaCuentaPara(lineaEmpresa);
+		if (this.yaExisteUnPeriodoPara(lineaEmpresa)) {
+			this.obtenerPeriodoDeEmpresaDadaPor(lineaEmpresa).actualizarUnaCuentaPara(lineaEmpresa);
 		} else
 			this.agregarPeriodoPara(lineaEmpresa);
 	}
