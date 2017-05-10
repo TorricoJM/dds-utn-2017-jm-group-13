@@ -40,7 +40,7 @@ public class Empresa {
 		this.periodos.add(nuevoPeriodo);
 	}
 
-	private boolean yaExisteUnPeriodoPara(LineaEmpresa lineaEmpresa) {
+	public boolean yaExisteUnPeriodoPara(LineaEmpresa lineaEmpresa) {
 		return this.getPeriodos().stream()
 				.anyMatch((unPeriodo) -> unPeriodo.getPeriodo().equals(lineaEmpresa.getPeriodo()));
 	}
