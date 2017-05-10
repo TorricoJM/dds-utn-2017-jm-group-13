@@ -59,7 +59,7 @@ public class EmpresaTest {
 		lineaEmpresa.setPeriodo("2016");
 		lineaEmpresa.setCuenta("cuentaVieja");
 		lineaEmpresa.setValor("100");
-		
+
 		periodo2016.agregarUnaCuentaPara(lineaEmpresa);
 
 		empresa.cargarOModificarCuentaParaUna(lineaEmpresa);
