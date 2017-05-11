@@ -5,12 +5,9 @@ import org.uqbar.arena.widgets.Button;
 import org.uqbar.arena.widgets.Label;
 import org.uqbar.arena.widgets.Panel;
 import org.uqbar.arena.windows.Dialog;
-import org.uqbar.arena.windows.MessageBox;
-import org.uqbar.arena.windows.MessageBox.Type;
 import org.uqbar.arena.windows.SimpleWindow;
 import org.uqbar.arena.windows.WindowOwner;
 
-import model.ErrorImportacionException;
 import ui.viewModels.MenuPrincipalViewModel;
 
 @SuppressWarnings("serial")
@@ -41,16 +38,11 @@ public class MenuPrincipalWindow extends SimpleWindow<MenuPrincipalViewModel> {
 
 		new Label(formPanel).setText("");
 		new Label(formPanel).setText("Actualizacion de Datos");
-		/*new FileSelector(formPanel)
-			.extensions("*.csv")
-			.title("Cargar archivo")
-			.setCaption("Importar cuentas")
-			.bindValueToProperty("pathDelSelector");*/
-		new Button(formPanel).setCaption("Importar cuentas").onClick(() -> this.importarArchivo());
+
+		new Button(formPanel).setCaption("Importar cuentas").onClick(() -> this.abrirSelectorArchivos());
 		new Button(formPanel).setCaption("Datos de indicadores");
 		new Button(formPanel).setCaption("Metodologias");
-		
-		
+
 	}
 
 	public void consultarCuentas() {
@@ -58,14 +50,9 @@ public class MenuPrincipalWindow extends SimpleWindow<MenuPrincipalViewModel> {
 		dialog.open();
 	}
 
-	private void importarArchivo() {
-		try {
-			this.getModelObject().importarAchivo();
-		} catch (ErrorImportacionException exception) {
-			MessageBox dialogWindow = new MessageBox(this, Type.Error);
-			dialogWindow.setMessage(exception.getMensaje());
-			dialogWindow.open();
-		}
+	private void abrirSelectorArchivos() {
+		SimpleWindow<?> selectorWindow = new SelectorArchivosWindow(this);
+		selectorWindow.open();
 	}
 
 }
