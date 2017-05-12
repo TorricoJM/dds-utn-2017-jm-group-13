@@ -1,9 +1,15 @@
 package model;
 
+import com.opencsv.bean.CsvBindByName;
+
 public class LineaEmpresa {
+	@CsvBindByName(required = true)
 	private String nombre;
+	@CsvBindByName(required = true)
 	private String periodo;
+	@CsvBindByName(required = true)
 	private String cuenta;
+	@CsvBindByName(required = true)
 	private String valor;
 	
 	

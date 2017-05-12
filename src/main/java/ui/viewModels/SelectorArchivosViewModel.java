@@ -2,12 +2,12 @@ package ui.viewModels;
 
 import org.uqbar.commons.utils.Observable;
 
-import model.ImportadorCSV;
+import model.ImportadorDeEmpresasCSV;
 
 @Observable
 public class SelectorArchivosViewModel {
 
-	private String pathArchivo = "";
+	private String pathArchivo;
 	private String nombreParaMostrar;
 
 	// -------------------------------------------GETTERS AND SETTERS
@@ -31,7 +31,7 @@ public class SelectorArchivosViewModel {
 
 	
 	public void importarAchivo() {
-		new ImportadorCSV(this.getPathArchivo()).importarEmpresas();
+		new ImportadorDeEmpresasCSV(this.getPathArchivo()).importarEmpresas();
 	}
 
 	private String obtenerNombreDelPath() {

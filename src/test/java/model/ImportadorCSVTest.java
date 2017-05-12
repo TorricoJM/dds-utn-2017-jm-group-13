@@ -9,7 +9,7 @@ import org.junit.Test;
 
 public class ImportadorCSVTest {
 
-	public ImportadorCSV importadorCSV;
+	public ImportadorDeEmpresasCSV importadorCSV;
 
 	@Test
 	public void obtenerEmpresasDaCorrecto() {
@@ -37,7 +37,7 @@ public class ImportadorCSVTest {
 		empresasEsperadas.add(e1);
 		empresasEsperadas.add(e2);
 
-		importadorCSV = new ImportadorCSV("empresas.csv");
+		importadorCSV = new ImportadorDeEmpresasCSV("empresas.csv");
 		List<LineaEmpresa> empresasObtenidas = importadorCSV.obtenerEmpresas();
 
 		// No se porque si hago assertEquals(empresasObtenidas,
@@ -62,7 +62,7 @@ public class ImportadorCSVTest {
 	@Test(expected = ErrorImportacionException.class)
 	public void obtenerEmpresasNoExisteElArchivoDaIncorrecto() {
 
-		importadorCSV = new ImportadorCSV("pathInvalido");
+		importadorCSV = new ImportadorDeEmpresasCSV("pathInvalido");
 		importadorCSV.obtenerEmpresas();
 
 	}
@@ -70,7 +70,7 @@ public class ImportadorCSVTest {
 	@Test(expected = ErrorImportacionException.class)
 	public void obtenerEmpresasMalFormatoDaIncorrecto() {
 
-		importadorCSV = new ImportadorCSV("pom.xml");
+		importadorCSV = new ImportadorDeEmpresasCSV("pom.xml");
 		importadorCSV.obtenerEmpresas();
 
 	}
@@ -78,7 +78,7 @@ public class ImportadorCSVTest {
 	@Test(expected = ErrorImportacionException.class)
 	public void obtenerEmpresasMalFormato2DaIncorrecto() {
 
-		importadorCSV = new ImportadorCSV("README.md");
+		importadorCSV = new ImportadorDeEmpresasCSV("README.md");
 		importadorCSV.obtenerEmpresas();
 
 	}
