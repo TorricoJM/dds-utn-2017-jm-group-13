@@ -1,4 +1,5 @@
-<project>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>proyecto_anual</groupId>
   <artifactId>proyecto_anual</artifactId>
@@ -42,6 +43,12 @@
 			<artifactId>opencsv</artifactId>
 			<version>3.9</version>
 		</dependency>
-   </dependencies>
+		<dependency>
+			<groupId>org.antlr</groupId>
+			<artifactId>antlr4-maven-plugin</artifactId>
+			<version>4.5.2</version>
+			<type>maven-plugin</type>
+		</dependency>
+  </dependencies>
    
 </project>

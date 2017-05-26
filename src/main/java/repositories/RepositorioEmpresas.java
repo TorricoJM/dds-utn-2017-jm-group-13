@@ -2,7 +2,6 @@ package repositories;
 
 import java.util.LinkedList;
 import java.util.List;
-
 import model.Empresa;
 import model.LineaEmpresa;
 
@@ -31,5 +30,11 @@ public class RepositorioEmpresas {
 
 	private static boolean mismoNombreQue(LineaEmpresa unaEmpresa, Empresa empresaDeLaLista) {
 		return unaEmpresa.getNombre().equals(empresaDeLaLista.getNombre());
+	}
+	
+	public static Empresa obtenerEmpresaDesdeNombre(String nombre){
+		return RepositorioEmpresas.listaEmpresas.stream()
+				.filter(empresa -> empresa.getNombre().equals(nombre))
+				.findFirst().get();
 	}
 }

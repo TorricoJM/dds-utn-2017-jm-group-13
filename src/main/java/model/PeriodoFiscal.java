@@ -53,4 +53,15 @@ public class PeriodoFiscal {
 		else
 			this.agregarUnaCuentaPara(empresa);
 	}
+
+	public boolean tieneCuenta(String cuentaOIndicador) {
+		return this.getCuentas().stream()
+				.anyMatch(cuenta -> cuenta.getCuenta().equals(cuentaOIndicador));
+	}
+
+	public CuentaYValor obtenerCuentaDesdeNombre(String cuentaOIndicador) {
+		return this.getCuentas().stream()
+				.filter(cuenta -> cuenta.getCuenta().equals(cuentaOIndicador))
+				.findFirst().get();
+	}
 }

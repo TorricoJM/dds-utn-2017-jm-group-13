@@ -57,4 +57,10 @@ public class Empresa {
 		} else
 			this.agregarPeriodoPara(lineaEmpresa);
 	}
+
+	public PeriodoFiscal obtenerPeriodoDesdeNombre(String periodoNombre) {
+		return this.getPeriodos().stream()
+				.filter(periodo -> periodo.getPeriodo().equals(periodoNombre))
+				.findFirst().get();
+	}
 }
