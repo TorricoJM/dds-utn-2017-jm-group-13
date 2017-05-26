@@ -35,8 +35,9 @@ public class EvaluadorDeIndicador {
 					.obtenerPeriodoDesdeNombre(this.getPeriodoEvaluado())
 					.obtenerCuentaDesdeNombre(cuentaOIndicador)
 					.getValor());
-		//else if 
-		//TODO
-		return 0;
+		else if (RepositorioIndicadores.tieneIndicador(cuentaOIndicador))
+			return evaluarIndicador(cuentaOIndicador, this.getPeriodoEvaluado(), this.getPeriodoEvaluado());
+		else 
+			throw new ErrorEvaluacionException("No se ha encontrado la cuenta o indicador " + cuentaOIndicador);
 	}
 }

@@ -12,4 +12,9 @@ public class RepositorioIndicadores {
 	public static void agregar(Indicador indicador) {
 		indicadores.add(indicador);
 	}
+
+	public static boolean tieneIndicador(String cuentaOIndicador) {
+		return RepositorioIndicadores.indicadores.stream()
+				.anyMatch(indicador -> indicador.getNombre().equals(cuentaOIndicador));
+	}
 }
