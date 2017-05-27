@@ -13,8 +13,9 @@ public class Antlr4ParserStrategy implements TipoParserStrategy{
     	IndicadorLexer lexer = new IndicadorLexer(input);
     	CommonTokenStream tokens = new CommonTokenStream(lexer);
     	IndicadorParser parser = new IndicadorParser(tokens, evaluador);
-    	lexer.removeErrorListeners();
+    	//lexer.removeErrorListeners();
     	parser.setErrorHandler(new BailErrorStrategy());
+    	//parser.removeErrorListeners();
     	return parser.eval().value;
 	}
 }
