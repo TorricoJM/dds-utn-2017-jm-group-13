@@ -9,7 +9,7 @@ public class Antlr4ParserStrategy implements TipoParserStrategy{
 	
 	@Override
 	public double evaluarIndicador(EvaluadorDeIndicador evaluador){
-		ANTLRInputStream input = new ANTLRInputStream(evaluador.getIndicador());
+		ANTLRInputStream input = new ANTLRInputStream(evaluador.getIndicador().getOperacion());
     	IndicadorLexer lexer = new IndicadorLexer(input);
     	CommonTokenStream tokens = new CommonTokenStream(lexer);
     	IndicadorParser parser = new IndicadorParser(tokens, evaluador);

@@ -1,14 +1,15 @@
 package model.parser;
+import model.Indicador;
 import repositories.*;
 
 public class EvaluadorDeIndicador {
 	
 	private TipoParserStrategy evaluadorStrategy = new Antlr4ParserStrategy();
-	private String indicador;
+	private Indicador indicador;
 	private String empresaEvaluada;
 	private String periodoEvaluado;
 	
-	public String getIndicador(){
+	public Indicador getIndicador(){
 		return this.indicador;
 	}
 	
@@ -20,7 +21,7 @@ public class EvaluadorDeIndicador {
 		return this.periodoEvaluado;
 	}
 	
-	public double evaluarIndicador(String indicador, String empresaNombre, String periodo){
+	public double evaluarIndicador(Indicador indicador, String empresaNombre, String periodo){
 		this.indicador = indicador;
 		this.empresaEvaluada = empresaNombre;
 		this.periodoEvaluado = periodo;
@@ -28,15 +29,16 @@ public class EvaluadorDeIndicador {
 	}
 	
 	public double obtenerValor(String cuentaOIndicador){
-		if (RepositorioEmpresas.obtenerEmpresaDesdeNombre(empresaEvaluada)
+		if (RepositorioEmpresas.obtenerEmpresaDesdeNombre(this.getEmpresaEvaluada())
 				.obtenerPeriodoDesdeNombre(this.getPeriodoEvaluado())
 				.tieneCuenta(cuentaOIndicador))
-			return Double.parseDouble(RepositorioEmpresas.obtenerEmpresaDesdeNombre(empresaEvaluada)
+			return Double.parseDouble(RepositorioEmpresas.obtenerEmpresaDesdeNombre(this.getEmpresaEvaluada())
 					.obtenerPeriodoDesdeNombre(this.getPeriodoEvaluado())
 					.obtenerCuentaDesdeNombre(cuentaOIndicador)
 					.getValor());
 		else if (RepositorioIndicadores.tieneIndicador(cuentaOIndicador))
-			return evaluarIndicador(cuentaOIndicador, this.getPeriodoEvaluado(), this.getPeriodoEvaluado());
+			
+			return this.evaluarIndicador(RepositorioIndicadores.obtenerIndicadorDesdeNombre(cuentaOIndicador), this.getEmpresaEvaluada(), this.getPeriodoEvaluado());
 		else 
 			throw new ErrorEvaluacionException("No se ha encontrado la cuenta o indicador " + cuentaOIndicador);
 	}

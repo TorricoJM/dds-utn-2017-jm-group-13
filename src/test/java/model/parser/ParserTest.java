@@ -15,6 +15,7 @@ public class ParserTest{
 	LineaEmpresa e1;
 	LineaEmpresa e2;
 	List<LineaEmpresa> empresas;
+	Indicador indicadorSimple;
 	Indicador indicador1;
 	Indicador indicador2;
 	Indicador indicador3;
@@ -47,6 +48,7 @@ public class ParserTest{
 		empresas.add(e1);
 		empresas.add(e2);
 		
+		indicadorSimple = new Indicador("indicadorSimple", "15+35");
 		indicador1 = new Indicador("indicador1", "ebitda + 100");
 		indicador2 = new Indicador("indicador2", "fds * 10");
 		indicador3 = new Indicador("indicador3", "indicador1 - fds");
@@ -61,7 +63,7 @@ public class ParserTest{
 	
 	@Test
 	public void evaluarValoresTest(){
-		resultado = evaluador.evaluarIndicador("15+35"," "," ");
+		resultado = evaluador.evaluarIndicador(indicadorSimple," "," ");
 		assertEquals(resultado,(double) 50,(double)0);
 	}
 }

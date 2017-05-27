@@ -13,8 +13,14 @@ public class RepositorioIndicadores {
 		indicadores.add(indicador);
 	}
 
-	public static boolean tieneIndicador(String cuentaOIndicador) {
+	public static boolean tieneIndicador(String nombre) {
 		return RepositorioIndicadores.indicadores.stream()
-				.anyMatch(indicador -> indicador.getNombre().equals(cuentaOIndicador));
+				.anyMatch(indicador -> indicador.getNombre().equals(nombre));
+	}
+
+	public static Indicador obtenerIndicadorDesdeNombre(String nombre) {
+		return RepositorioIndicadores.indicadores.stream()
+				.filter(indicador -> indicador.getNombre().equals(nombre))
+				.findFirst().get();
 	}
 }
