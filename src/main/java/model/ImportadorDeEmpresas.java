@@ -3,9 +3,14 @@ package model;
 import java.util.List;
 import repositories.RepositorioEmpresas;
 
-public abstract class ImportadorDeEmpresas {
+public abstract class ImportadorDeEmpresas extends ImportadorDeArchivos{
 
-	public void importarEmpresas() {
+	@Override
+	public void importar(){
+		this.importarEmpresas();
+	}
+	
+	protected void importarEmpresas() {
 		this.cargarEnRepositorio(this.obtenerEmpresas());
 	}
 

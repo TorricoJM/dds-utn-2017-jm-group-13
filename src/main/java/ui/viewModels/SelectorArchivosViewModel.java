@@ -31,7 +31,7 @@ public class SelectorArchivosViewModel {
 
 	
 	public void importarAchivo() {
-		new ImportadorDeEmpresasCSV(this.getPathArchivo()).importarEmpresas();
+		new ImportadorDeEmpresasCSV(this.getPathArchivo()).importar();
 	}
 
 	private String obtenerNombreDelPath() {
