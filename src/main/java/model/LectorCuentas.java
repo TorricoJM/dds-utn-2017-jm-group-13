@@ -1,6 +1,10 @@
 package model;
 
+import java.lang.reflect.Type;
+import java.util.List;
+
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import repositories.RepositorioCuentas;
 
@@ -13,10 +17,7 @@ public class LectorCuentas extends LectorJSON {
 	@Override
 	protected void parsearContenidoDeArchivo(String contenido) {
 		Gson gson = new Gson();
-		CuentaImportada cuentas = gson.fromJson(contenido, CuentaImportada.class);
-		RepositorioCuentas.cuentas = cuentas.getCuentas();
-		
-		System.out.println(RepositorioCuentas.cuentas.get(0));
-		System.out.println(RepositorioCuentas.cuentas.get(1));
+		Type tipoListaCuentas = new TypeToken<List<String>>(){}.getType();
+		RepositorioCuentas.cuentas = gson.fromJson(contenido, tipoListaCuentas);
 	}
 }
