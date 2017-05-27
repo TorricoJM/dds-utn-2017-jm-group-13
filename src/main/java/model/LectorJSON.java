@@ -4,13 +4,9 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-import com.google.gson.Gson;
-
-import repositories.RepositorioIndicadores;
-
-public class ImportadorIndicadores extends ImportadorDeArchivos {
-
-	private final String PATH = "./indicadores.json";
+public abstract class LectorJSON extends ImportadorDeArchivos {
+	
+	protected String PATH;
 
 	@Override
 	public void importar() {
@@ -31,9 +27,5 @@ public class ImportadorIndicadores extends ImportadorDeArchivos {
 		}
 	}
 
-	public void parsearContenidoDeArchivo(String contenido) {
-		Gson gson = new Gson();
-		IndicadorImportado indImp = gson.fromJson(contenido, IndicadorImportado.class);
-		RepositorioIndicadores.indicadores = indImp.getIndicadoresImportados();
-	}
+	protected abstract void parsearContenidoDeArchivo(String contenido);
 }
