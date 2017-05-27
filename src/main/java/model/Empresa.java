@@ -63,4 +63,5 @@ public class Empresa {
 				.filter(periodo -> periodo.getPeriodo().equals(periodoNombre))
 				.findFirst().get();
 	}
+
 }

@@ -22,6 +22,7 @@ public class ParserTest{
 	List<Indicador> indicadores;
 	EvaluadorDeIndicador evaluador;
 	public double resultado;
+	ImportadorDeEmpresasCSV importador;
 	
 	@Before
 	public void initialize(){
@@ -66,4 +67,11 @@ public class ParserTest{
 		resultado = evaluador.evaluarIndicador(indicadorSimple," "," ");
 		assertEquals(resultado,(double) 50,(double)0);
 	}
+	//TODO Faltan implementaciones
+	/*@Test
+	public void evaluarIndicador1Test(){
+		
+		resultado = evaluador.evaluarIndicador(indicador1, "sprite", "2016");
+		assertEquals(resultado,(double) 600,(double)0);
+	}*/
 }

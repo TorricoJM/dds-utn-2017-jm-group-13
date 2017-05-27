@@ -29,15 +29,13 @@ public class EvaluadorDeIndicador {
 	}
 	
 	public double obtenerValor(String cuentaOIndicador){
-		if (RepositorioEmpresas.obtenerEmpresaDesdeNombre(this.getEmpresaEvaluada())
-				.obtenerPeriodoDesdeNombre(this.getPeriodoEvaluado())
-				.tieneCuenta(cuentaOIndicador))
-			return Double.parseDouble(RepositorioEmpresas.obtenerEmpresaDesdeNombre(this.getEmpresaEvaluada())
-					.obtenerPeriodoDesdeNombre(this.getPeriodoEvaluado())
-					.obtenerCuentaDesdeNombre(cuentaOIndicador)
-					.getValor());
+		if (RepositorioCuentas.tieneCuenta(cuentaOIndicador))
+			return Double
+					.parseDouble(RepositorioEmpresas.obtenerEmpresaDesdeNombre(this.getEmpresaEvaluada())
+									.obtenerPeriodoDesdeNombre(this.getPeriodoEvaluado())
+									.obtenerCuentaDesdeNombre(cuentaOIndicador)
+									.getValor());
 		else if (RepositorioIndicadores.tieneIndicador(cuentaOIndicador))
-			
 			return this.evaluarIndicador(RepositorioIndicadores.obtenerIndicadorDesdeNombre(cuentaOIndicador), this.getEmpresaEvaluada(), this.getPeriodoEvaluado());
 		else 
 			throw new ErrorEvaluacionException("No se ha encontrado la cuenta o indicador " + cuentaOIndicador);
