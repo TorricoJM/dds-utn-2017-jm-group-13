@@ -2,12 +2,14 @@ package ui.viewModels;
 
 import org.uqbar.commons.utils.Observable;
 
-import model.ImportadorIndicadores;
+import model.LectorCuentas;
+import model.LectorIndicadores;
 
 @Observable
 public class MenuPrincipalViewModel {
 
 	public MenuPrincipalViewModel() {
-		new ImportadorIndicadores().importar();
+		new LectorIndicadores().importar();
+		new LectorCuentas().importar();
 	}
 }
