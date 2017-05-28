@@ -40,7 +40,7 @@ public class MenuPrincipalWindow extends SimpleWindow<MenuPrincipalViewModel> {
 		new Label(formPanel).setText("Actualizacion de Datos");
 
 		new Button(formPanel).setCaption("Importar cuentas").onClick(() -> this.abrirSelectorArchivos());
-		new Button(formPanel).setCaption("Datos de indicadores");
+		new Button(formPanel).setCaption("Cargar Indicador").onClick(() -> this.abrirCreadorIndicador());
 		new Button(formPanel).setCaption("Metodologias");
 
 	}
@@ -55,4 +55,9 @@ public class MenuPrincipalWindow extends SimpleWindow<MenuPrincipalViewModel> {
 		selectorWindow.open();
 	}
 
+	private void abrirCreadorIndicador() {
+		SimpleWindow<?> selectorWindow = new CrearIndicadorWindow(this);
+		selectorWindow.open();
+	}
+	
 }
