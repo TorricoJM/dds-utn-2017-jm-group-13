@@ -15,10 +15,45 @@ public class CrearIndicadorViewModel {
 	private List<String> cuentas;
 	private Indicador indicadorSeleccionado;
 	private String cuentaSeleccionada;
+	private String indicador = "";
+	private Integer constante;
 
 	public CrearIndicadorViewModel() {
 		this.indicadores = RepositorioIndicadores.all();
 		this.cuentas = RepositorioCuentas.all();
+	}
+
+	public void borrarIndicador() {
+		this.setIndicador("");
+	}
+
+	public void agregarSuma() {
+		this.setIndicador(indicador + "+");
+	}
+
+	public void agregarResta() {
+		this.setIndicador(indicador + "-");
+	}
+
+	public void agregarDivision() {
+		this.setIndicador(indicador + "/");
+	}
+
+	public void agregarMultiplicacion() {
+		this.setIndicador(indicador + "*");
+	}
+
+	public void agregarParentesisIzquierdo() {
+		this.setIndicador(indicador + "(");
+	}
+
+	public void agregarParentesisDerecho() {
+		this.setIndicador(indicador + ")");
+	}
+
+	public void agregarConstante() {
+		String constanteString = Integer.toString(constante);
+		this.setIndicador(indicador + constanteString);
 	}
 
 	public List<Indicador> getIndicadores() {
@@ -51,6 +86,22 @@ public class CrearIndicadorViewModel {
 
 	public void setCuentaSeleccionada(String cuentaSeleccionada) {
 		this.cuentaSeleccionada = cuentaSeleccionada;
+	}
+
+	public String getIndicador() {
+		return indicador;
+	}
+
+	public void setIndicador(String indicador) {
+		this.indicador = indicador;
+	}
+
+	public Integer getConstante() {
+		return constante;
+	}
+
+	public void setConstante(Integer constante) {
+		this.constante = constante;
 	}
 
 }

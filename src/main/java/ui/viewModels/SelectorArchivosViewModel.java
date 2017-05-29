@@ -23,13 +23,12 @@ public class SelectorArchivosViewModel {
 		this.pathArchivo = pathArchivo;
 		this.setNombreParaMostrar(this.obtenerNombreDelPath());
 	}
-	
-	public void setNombreParaMostrar(String nombre){
+
+	public void setNombreParaMostrar(String nombre) {
 		this.nombreParaMostrar = nombre;
 	}
 	// ------------------------------------------/GETTERS AND SETTERS
 
-	
 	public void importarAchivo() {
 		new ImportadorDeEmpresasCSV(this.getPathArchivo()).importar();
 	}

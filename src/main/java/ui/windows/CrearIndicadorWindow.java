@@ -53,27 +53,62 @@ public class CrearIndicadorWindow extends SimpleWindow<CrearIndicadorViewModel> 
 		new TextBox(mainPanel).setWidth(265);
 
 		new Label(mainPanel).setText("Indicador");
-		new Label(mainPanel).setBackground(Color.LIGHT_GRAY).setForeground(Color.WHITE).setFontSize(12).setWidth(150);
+		new Label(mainPanel).setBackground(Color.LIGHT_GRAY).setForeground(Color.WHITE).setFontSize(12).setWidth(150)
+				.bindValueToProperty("indicador");
 
 		Panel operaciones = new Panel(mainPanel);
 		operaciones.setLayout(new HorizontalLayout());
 
-		new Button(operaciones).setCaption("+").setWidth(55).setHeight(30);
-		new Button(operaciones).setCaption("-").setWidth(55).setHeight(30);
-		new Button(operaciones).setCaption("/").setWidth(55).setHeight(30);
-		new Button(operaciones).setCaption("*").setWidth(55).setHeight(30);
-		new Button(operaciones).setCaption("(").setWidth(55).setHeight(30);
-		new Button(operaciones).setCaption(")").setWidth(55).setHeight(30);
-		new Button(operaciones).setCaption("Borrar").setWidth(55).setHeight(30);
+		new Button(operaciones).setCaption("+").onClick(() -> this.agregarSuma()).setWidth(55).setHeight(30);
+		new Button(operaciones).setCaption("-").onClick(() -> this.agregarResta()).setWidth(55).setHeight(30);
+		new Button(operaciones).setCaption("/").onClick(() -> this.agregarDivision()).setWidth(55).setHeight(30);
+		new Button(operaciones).setCaption("*").onClick(() -> this.agregarMultiplicacion()).setWidth(55).setHeight(30);
+		new Button(operaciones).setCaption("(").onClick(() -> this.agregarParentesisIzquierdo()).setWidth(55)
+				.setHeight(30);
+		new Button(operaciones).setCaption(")").onClick(() -> this.agregarParentesisDerecho()).setWidth(55)
+				.setHeight(30);
+		new Button(operaciones).setCaption("Borrar").onClick(() -> this.borrarIndicador()).setWidth(55).setHeight(30);
 
 		Panel constante = new Panel(mainPanel);
 		constante.setLayout(new HorizontalLayout());
 
-		new NumericField(constante).setWidth(265);
-		new Button(constante).setCaption("Agregar constante");
+		new NumericField(constante).setWidth(256).bindValueToProperty("constante");
+		new Button(constante).setCaption("Agregar constante").onClick(() -> this.agregarConstante());
 
 		new Button(mainPanel).setCaption("Guardar");
 
+	}
+
+	private void agregarSuma() {
+		this.getModelObject().agregarSuma();
+	}
+
+	private void agregarResta() {
+		this.getModelObject().agregarResta();
+	}
+
+	private void agregarDivision() {
+		this.getModelObject().agregarDivision();
+	}
+
+	private void agregarMultiplicacion() {
+		this.getModelObject().agregarMultiplicacion();
+	}
+
+	private void agregarParentesisIzquierdo() {
+		this.getModelObject().agregarParentesisIzquierdo();
+	}
+
+	private void agregarParentesisDerecho() {
+		this.getModelObject().agregarParentesisDerecho();
+	}
+
+	private void agregarConstante() {
+		this.getModelObject().agregarConstante();
+	}
+
+	private void borrarIndicador() {
+		this.getModelObject().borrarIndicador();
 	}
 
 }
