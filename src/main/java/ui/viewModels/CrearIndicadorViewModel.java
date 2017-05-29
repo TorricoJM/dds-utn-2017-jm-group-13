@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.uqbar.commons.utils.Observable;
 
-import model.CuentaYValor;
 import model.Indicador;
 import repositories.RepositorioCuentas;
 import repositories.RepositorioIndicadores;
@@ -15,7 +14,7 @@ public class CrearIndicadorViewModel {
 	private List<Indicador> indicadores;
 	private List<String> cuentas;
 	private Indicador indicadorSeleccionado;
-	private CuentaYValor cuentaSeleccionada;
+	private String cuentaSeleccionada;
 
 	public CrearIndicadorViewModel() {
 		this.indicadores = RepositorioIndicadores.all();
@@ -46,11 +45,11 @@ public class CrearIndicadorViewModel {
 		this.indicadorSeleccionado = indicadorSeleccionado;
 	}
 
-	public CuentaYValor getCuentaSeleccionada() {
+	public String getCuentaSeleccionada() {
 		return cuentaSeleccionada;
 	}
 
-	public void setCuentaSeleccionada(CuentaYValor cuentaSeleccionada) {
+	public void setCuentaSeleccionada(String cuentaSeleccionada) {
 		this.cuentaSeleccionada = cuentaSeleccionada;
 	}
 
