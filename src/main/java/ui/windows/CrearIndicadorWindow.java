@@ -2,6 +2,7 @@ package ui.windows;
 
 import java.awt.Color;
 
+import org.uqbar.arena.bindings.PropertyAdapter;
 import org.uqbar.arena.layout.HorizontalLayout;
 import org.uqbar.arena.widgets.Button;
 import org.uqbar.arena.widgets.Label;
@@ -12,7 +13,6 @@ import org.uqbar.arena.windows.SimpleWindow;
 import org.uqbar.arena.windows.WindowOwner;
 import org.uqbar.arena.widgets.NumericField;
 
-import model.CuentaYValor;
 import model.Indicador;
 import ui.viewModels.CrearIndicadorViewModel;
 
@@ -37,44 +37,41 @@ public class CrearIndicadorWindow extends SimpleWindow<CrearIndicadorViewModel> 
 		form.setWidth(10);
 		this.setTitle("Crear Indicador");
 
-		new Label(form).setText("     ");
-		
 		new Label(form).setText("Indicadores");
-		new Selector<Indicador>(form).allowNull(true);
-		
-		new Label(form).setText("       ");
+		Selector<Indicador> selectorIndicador = new Selector<Indicador>(form).allowNull(true);
+		selectorIndicador.bindItemsToProperty("indicadores").setAdapter(new PropertyAdapter(Indicador.class, "nombre"));
+		selectorIndicador.bindValueToProperty("indicadorSeleccionado");
+		selectorIndicador.setWidth(100);
 
 		new Label(form).setText("Cuentas");
-		new Selector<CuentaYValor>(form).allowNull(true);
+		Selector<String> selectorCuenta = new Selector<String>(form).allowNull(true);
+		selectorCuenta.bindItemsToProperty("cuentas");
+		selectorCuenta.bindValueToProperty("cuentaSeleccionada");
+		selectorCuenta.setWidth(100);
 
-		Panel crearIndicador = new Panel(mainPanel);
-		crearIndicador.setLayout(new HorizontalLayout());
-		
-		new Label(crearIndicador).setText("Nombre indicador");
-		new TextBox(crearIndicador).setWidth(265);
-		
-		new Label(mainPanel).setText("");
+		new Label(mainPanel).setText("Nombre indicador");
+		new TextBox(mainPanel).setWidth(265);
+
 		new Label(mainPanel).setText("Indicador");
 		new Label(mainPanel).setBackground(Color.LIGHT_GRAY).setForeground(Color.WHITE).setFontSize(12).setWidth(150);
-		
+
 		Panel operaciones = new Panel(mainPanel);
 		operaciones.setLayout(new HorizontalLayout());
-		
+
 		new Button(operaciones).setCaption("+").setWidth(55).setHeight(30);
 		new Button(operaciones).setCaption("-").setWidth(55).setHeight(30);
 		new Button(operaciones).setCaption("/").setWidth(55).setHeight(30);
 		new Button(operaciones).setCaption("*").setWidth(55).setHeight(30);
 		new Button(operaciones).setCaption("(").setWidth(55).setHeight(30);
 		new Button(operaciones).setCaption(")").setWidth(55).setHeight(30);
-		new Button(operaciones).setCaption("←").setWidth(55).setHeight(30);
+		new Button(operaciones).setCaption("Borrar").setWidth(55).setHeight(30);
 
 		Panel constante = new Panel(mainPanel);
 		constante.setLayout(new HorizontalLayout());
-		
-		new Label(constante).setText("                        ");
-		new NumericField(constante).setWidth(60);
+
+		new NumericField(constante).setWidth(265);
 		new Button(constante).setCaption("Agregar constante");
-		
+
 		new Button(mainPanel).setCaption("Guardar");
 
 	}

@@ -59,5 +59,5 @@ public class MenuPrincipalWindow extends SimpleWindow<MenuPrincipalViewModel> {
 		SimpleWindow<?> selectorWindow = new CrearIndicadorWindow(this);
 		selectorWindow.open();
 	}
-	
+
 }

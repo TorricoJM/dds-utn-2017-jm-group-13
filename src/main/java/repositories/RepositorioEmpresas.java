@@ -31,10 +31,9 @@ public class RepositorioEmpresas {
 	private static boolean mismoNombreQue(LineaEmpresa unaEmpresa, Empresa empresaDeLaLista) {
 		return unaEmpresa.getNombre().equals(empresaDeLaLista.getNombre());
 	}
-	
-	public static Empresa obtenerEmpresaDesdeNombre(String nombre){
-		return RepositorioEmpresas.listaEmpresas.stream()
-				.filter(empresa -> empresa.getNombre().equals(nombre))
+
+	public static Empresa obtenerEmpresaDesdeNombre(String nombre) {
+		return RepositorioEmpresas.listaEmpresas.stream().filter(empresa -> empresa.getNombre().equals(nombre))
 				.findFirst().get();
 	}
 
