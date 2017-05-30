@@ -20,40 +20,48 @@ public class ConsultarIndicadoresViewModel {
 	private List<Indicador> indicadores;
 	private Indicador indicadorSeleccionado;
 	private String resultado;
-	
+
 	public ConsultarIndicadoresViewModel() {
 		this.empresas = RepositorioEmpresas.all();
 		this.indicadores = RepositorioIndicadores.all();
 	}
-	
-	
+
 	public List<Empresa> getEmpresas() {
 		return empresas;
 	}
+
 	public void setEmpresas(List<Empresa> empresas) {
 		this.empresas = empresas;
 	}
+
 	public Empresa getEmpresaSeleccionada() {
 		return empresaSeleccionada;
 	}
+
 	public void setEmpresaSeleccionada(Empresa empresaSeleccionada) {
 		this.empresaSeleccionada = empresaSeleccionada;
 	}
+
 	public PeriodoFiscal getPeriodoSeleccionado() {
 		return periodoSeleccionado;
 	}
+
 	public void setPeriodoSeleccionado(PeriodoFiscal periodoSeleccionado) {
 		this.periodoSeleccionado = periodoSeleccionado;
 	}
+
 	public List<Indicador> getIndicadores() {
 		return indicadores;
 	}
+
 	public void setIndicadores(List<Indicador> indicadores) {
 		this.indicadores = indicadores;
 	}
+
 	public Indicador getIndicadorSeleccionado() {
 		return indicadorSeleccionado;
 	}
+
 	public void setIndicadorSeleccionado(Indicador indicadorSeleccionado) {
 		this.indicadorSeleccionado = indicadorSeleccionado;
 	}
@@ -62,14 +70,14 @@ public class ConsultarIndicadoresViewModel {
 		return resultado;
 	}
 
-
 	public void setResultado(String resultado) {
 		this.resultado = resultado;
 	}
-	
+
 	public void llamarEvaluador() {
 		EvaluadorDeIndicador evaluador = new EvaluadorDeIndicador();
-		Double resultadoIndicador = evaluador.evaluarIndicador(indicadorSeleccionado,empresaSeleccionada.getNombre(),periodoSeleccionado.getPeriodo());
+		Double resultadoIndicador = evaluador.evaluarIndicador(indicadorSeleccionado, empresaSeleccionada.getNombre(),
+				periodoSeleccionado.getPeriodo());
 		DecimalFormat formato = new DecimalFormat("###############.############");
 		resultado = String.valueOf(formato.format(resultadoIndicador));
 	}
