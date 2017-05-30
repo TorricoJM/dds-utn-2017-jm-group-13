@@ -5,7 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public abstract class LectorJSON extends ImportadorDeArchivos {
-	
+
 	protected String PATH;
 
 	@Override
@@ -23,7 +23,7 @@ public abstract class LectorJSON extends ImportadorDeArchivos {
 			buf.close();
 
 		} catch (IOException exception) {
-			throw new ErrorImportacionException("No se pudo abrir el archivo de indicadores");
+			throw new ErrorImportacionException("No se pudo abrir el archivo: " + PATH);
 		}
 	}
 

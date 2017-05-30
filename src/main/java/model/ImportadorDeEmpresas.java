@@ -1,6 +1,8 @@
 package model;
 
 import java.util.List;
+
+import repositories.RepositorioCuentas;
 import repositories.RepositorioEmpresas;
 
 public abstract class ImportadorDeEmpresas extends ImportadorDeArchivos{
@@ -12,6 +14,7 @@ public abstract class ImportadorDeEmpresas extends ImportadorDeArchivos{
 	
 	protected void importarEmpresas() {
 		this.cargarEnRepositorio(this.obtenerEmpresas());
+		RepositorioCuentas.refrescar();//con esto, actualizo el repo de cuentas
 	}
 
 	private void cargarEnRepositorio(List<LineaEmpresa> empresas) {

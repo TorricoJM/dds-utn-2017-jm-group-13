@@ -23,6 +23,13 @@ public class Empresa {
 		return periodos;
 	}
 
+	public List<CuentaYValor> getCuentas() {
+		List<CuentaYValor> cuentas = new LinkedList<>();
+		this.getPeriodos().forEach(periodo -> cuentas.addAll(periodo.getCuentas()));
+		
+		return cuentas;
+	}
+	
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
