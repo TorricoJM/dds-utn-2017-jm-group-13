@@ -7,6 +7,7 @@ import org.uqbar.commons.utils.Observable;
 import model.Empresa;
 import model.Indicador;
 import model.PeriodoFiscal;
+import model.parser.EvaluadorDeIndicador;
 import repositories.RepositorioEmpresas;
 import repositories.RepositorioIndicadores;
 
@@ -17,7 +18,7 @@ public class ConsultarIndicadoresViewModel {
 	private PeriodoFiscal periodoSeleccionado;
 	private List<Indicador> indicadores;
 	private Indicador indicadorSeleccionado;
-	private String evaluador = "";
+	private String resultado;
 	
 	public ConsultarIndicadoresViewModel() {
 		this.empresas = RepositorioEmpresas.all();
@@ -55,6 +56,19 @@ public class ConsultarIndicadoresViewModel {
 	public void setIndicadorSeleccionado(Indicador indicadorSeleccionado) {
 		this.indicadorSeleccionado = indicadorSeleccionado;
 	}
+
+	public String getResultado() {
+		return resultado;
+	}
+
+
+	public void setResultado(String resultado) {
+		this.resultado = resultado;
+	}
 	
-	
+	@SuppressWarnings("static-access")
+	public void llamarEvaluador() {
+		EvaluadorDeIndicador evaluador = new EvaluadorDeIndicador();
+		resultado.valueOf(evaluador.evaluarIndicador(indicadorSeleccionado,empresaSeleccionada.getNombre(),periodoSeleccionado.getPeriodo()));
+	}
 }

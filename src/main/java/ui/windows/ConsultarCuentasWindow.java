@@ -51,9 +51,9 @@ public class ConsultarCuentasWindow extends Dialog<ConsultarCuentasViewModel> {
 	private void mostrarColumnas(Table<CuentaYValor> table) {
 
 		Column<CuentaYValor> nombres = new Column<CuentaYValor>(table);
-		nombres.setTitle("Cuenta").setFixedSize(150).bindContentsToProperty("cuenta");
+		nombres.setTitle("Cuenta").setFixedSize(200).bindContentsToProperty("cuenta");
 
 		Column<CuentaYValor> valores = new Column<CuentaYValor>(table);
-		valores.setTitle("Valor").setFixedSize(90).bindContentsToProperty("valor");
+		valores.setTitle("Valor").setFixedSize(110).bindContentsToProperty("valor");
 	}
 }

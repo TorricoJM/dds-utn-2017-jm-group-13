@@ -46,9 +46,12 @@ public class ConsultarIndicadoresWindow extends Dialog<ConsultarIndicadoresViewM
 		selectorIndicador.bindItemsToProperty("indicadores").setAdapter(new PropertyAdapter(Indicador.class, "nombre"));
 		selectorIndicador.bindValueToProperty("indicadorSeleccionado");
 		
-		new Label(mainPanel).setBackground(Color.LIGHT_GRAY).setForeground(Color.WHITE).setFontSize(12).setWidth(150);
-		//.bindValueToProperty("evaluador");
+		new Label(mainPanel).setBackground(Color.LIGHT_GRAY).setForeground(Color.WHITE).setFontSize(12).setWidth(150).bindValueToProperty("resultado");
 		
-		new Button(mainPanel).setCaption("Aplicar");
+		new Button(mainPanel).setCaption("Aplicar").onClick(() -> this.llamarEvaluador());
+	}
+	
+	private void llamarEvaluador() {
+		this.getModelObject().llamarEvaluador();
 	}
 }
