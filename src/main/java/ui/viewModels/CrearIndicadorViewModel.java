@@ -55,6 +55,14 @@ public class CrearIndicadorViewModel {
 		String constanteString = Integer.toString(constante);
 		this.setIndicador(indicador + constanteString);
 	}
+	
+	public void agregarIndicador() {
+		this.setIndicador(indicador + indicadorSeleccionado.getNombre());
+	}
+	
+	public void agregarCuenta() {
+		this.setIndicador(indicador + cuentaSeleccionada);
+	}
 
 	public List<Indicador> getIndicadores() {
 		return indicadores;

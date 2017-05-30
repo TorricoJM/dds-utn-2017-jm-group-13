@@ -48,6 +48,9 @@ public class CrearIndicadorWindow extends SimpleWindow<CrearIndicadorViewModel> 
 		selectorCuenta.bindItemsToProperty("cuentas");
 		selectorCuenta.bindValueToProperty("cuentaSeleccionada");
 		selectorCuenta.setWidth(100);
+		
+		new Button(mainPanel).setCaption("Agregar indicador").onClick(() -> this.agregarIndicador());
+		new Button(mainPanel).setCaption("Agregar cuenta").onClick(() -> this.agregarCuenta());
 
 		new Label(mainPanel).setText("Nombre indicador");
 		new TextBox(mainPanel).setWidth(265);
@@ -109,6 +112,14 @@ public class CrearIndicadorWindow extends SimpleWindow<CrearIndicadorViewModel> 
 
 	private void borrarIndicador() {
 		this.getModelObject().borrarIndicador();
+	}
+	
+	private void agregarIndicador() {
+		this.getModelObject().agregarIndicador();
+	}
+	
+	private void agregarCuenta() {
+		this.getModelObject().agregarCuenta();
 	}
 
 }
