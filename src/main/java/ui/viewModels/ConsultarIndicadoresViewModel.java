@@ -1,5 +1,6 @@
 package ui.viewModels;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 import org.uqbar.commons.utils.Observable;
@@ -66,9 +67,10 @@ public class ConsultarIndicadoresViewModel {
 		this.resultado = resultado;
 	}
 	
-	@SuppressWarnings("static-access")
 	public void llamarEvaluador() {
 		EvaluadorDeIndicador evaluador = new EvaluadorDeIndicador();
-		resultado.valueOf(evaluador.evaluarIndicador(indicadorSeleccionado,empresaSeleccionada.getNombre(),periodoSeleccionado.getPeriodo()));
+		Double resultadoIndicador = evaluador.evaluarIndicador(indicadorSeleccionado,empresaSeleccionada.getNombre(),periodoSeleccionado.getPeriodo());
+		DecimalFormat formato = new DecimalFormat("###############.############");
+		resultado = String.valueOf(formato.format(resultadoIndicador));
 	}
 }
