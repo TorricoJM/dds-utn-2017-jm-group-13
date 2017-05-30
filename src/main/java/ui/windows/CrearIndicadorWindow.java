@@ -53,7 +53,7 @@ public class CrearIndicadorWindow extends SimpleWindow<CrearIndicadorViewModel> 
 		new Button(mainPanel).setCaption("Agregar cuenta").onClick(() -> this.agregarCuenta());
 
 		new Label(mainPanel).setText("Nombre indicador");
-		new TextBox(mainPanel).setWidth(265);
+		new TextBox(mainPanel).setWidth(265).bindValueToProperty("nombreIndicador");
 
 		new Label(mainPanel).setText("Indicador");
 		new Label(mainPanel).setBackground(Color.LIGHT_GRAY).setForeground(Color.WHITE).setFontSize(12).setWidth(150)
@@ -78,10 +78,14 @@ public class CrearIndicadorWindow extends SimpleWindow<CrearIndicadorViewModel> 
 		new NumericField(constante).setWidth(256).bindValueToProperty("constante");
 		new Button(constante).setCaption("Agregar constante").onClick(() -> this.agregarConstante());
 
-		new Button(mainPanel).setCaption("Guardar");
-
+		new Button(mainPanel).setCaption("Guardar").onClick(() -> this.crearIndicador());
 	}
 
+	private void crearIndicador() {
+		this.getModelObject().crearIndicador();
+		this.close();
+	}
+	
 	private void agregarSuma() {
 		this.getModelObject().agregarSuma();
 	}
