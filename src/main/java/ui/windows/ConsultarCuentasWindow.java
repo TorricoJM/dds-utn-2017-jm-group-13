@@ -35,7 +35,7 @@ public class ConsultarCuentasWindow extends Dialog<ConsultarCuentasViewModel> {
 
 		new Label(form).setText("Periodos");
 		Selector<PeriodoFiscal> selectorPeriodo = new Selector<PeriodoFiscal>(form);
-		selectorPeriodo.setWidth(25);
+		selectorPeriodo.setWidth(30);
 		selectorPeriodo.bindItemsToProperty("empresaSeleccionada.periodos")
 				.setAdapter(new PropertyAdapter(PeriodoFiscal.class, "periodo"));
 		selectorPeriodo.bindValueToProperty("periodoSeleccionado");

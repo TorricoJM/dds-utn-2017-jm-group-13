@@ -34,7 +34,7 @@ public class MenuPrincipalWindow extends SimpleWindow<MenuPrincipalViewModel> {
 		panelCuentasEIndicadores.setLayout(new HorizontalLayout());
 
 		new Button(panelCuentasEIndicadores).setCaption("Cuentas").onClick(() -> this.consultarCuentas());
-		new Button(panelCuentasEIndicadores).setCaption("Indicadores");
+		new Button(panelCuentasEIndicadores).setCaption("Indicadores").onClick(() -> this.consultarIndicadores());
 
 		new Label(formPanel).setText("");
 		new Label(formPanel).setText("Actualizacion de Datos");
@@ -47,6 +47,11 @@ public class MenuPrincipalWindow extends SimpleWindow<MenuPrincipalViewModel> {
 
 	public void consultarCuentas() {
 		Dialog<?> dialog = new ConsultarCuentasWindow(this);
+		dialog.open();
+	}
+	
+	public void consultarIndicadores() {
+		Dialog<?> dialog = new ConsultarIndicadoresWindow(this);
 		dialog.open();
 	}
 
