@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.uqbar.commons.utils.Observable;
 
+import model.ErrorImportacionException;
 import model.Indicador;
 import repositories.RepositorioCuentas;
 import repositories.RepositorioIndicadores;
@@ -25,8 +26,12 @@ public class CrearIndicadorViewModel {
 	}
 
 	public void crearIndicador() {
-		Indicador nuevoIndicador = new Indicador(nombreIndicador,indicador);
-		RepositorioIndicadores.agregar(nuevoIndicador);
+		if(nombreIndicador == null || indicador == "") {
+			throw new ErrorImportacionException("Nombre o indicador vacio");
+		} else {
+			Indicador nuevoIndicador = new Indicador(nombreIndicador,indicador);
+			RepositorioIndicadores.agregar(nuevoIndicador);
+		}
 	}
 	
 	public void borrarIndicador() {
@@ -63,11 +68,19 @@ public class CrearIndicadorViewModel {
 	}
 
 	public void agregarIndicador() {
-		this.setIndicador(indicador + indicadorSeleccionado.getNombre());
+		if(indicadorSeleccionado == null) {
+			throw new ErrorImportacionException("Seleccione algun indicador");
+		} else {
+			this.setIndicador(indicador + indicadorSeleccionado.getNombre());
+		}
 	}
 
 	public void agregarCuenta() {
-		this.setIndicador(indicador + cuentaSeleccionada);
+		if(cuentaSeleccionada == null) {
+			throw new ErrorImportacionException("Seleccione alguna cuenta");
+		} else {
+			this.setCuentaSeleccionada(indicador + cuentaSeleccionada);
+		}
 	}
 
 	public List<Indicador> getIndicadores() {

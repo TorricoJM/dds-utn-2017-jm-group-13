@@ -9,10 +9,13 @@ import org.uqbar.arena.widgets.Label;
 import org.uqbar.arena.widgets.Panel;
 import org.uqbar.arena.widgets.Selector;
 import org.uqbar.arena.widgets.TextBox;
+import org.uqbar.arena.windows.MessageBox;
 import org.uqbar.arena.windows.SimpleWindow;
 import org.uqbar.arena.windows.WindowOwner;
+import org.uqbar.arena.windows.MessageBox.Type;
 import org.uqbar.arena.widgets.NumericField;
 
+import model.ErrorImportacionException;
 import model.Indicador;
 import ui.viewModels.CrearIndicadorViewModel;
 
@@ -48,7 +51,7 @@ public class CrearIndicadorWindow extends SimpleWindow<CrearIndicadorViewModel> 
 		selectorCuenta.bindItemsToProperty("cuentas");
 		selectorCuenta.bindValueToProperty("cuentaSeleccionada");
 		selectorCuenta.setWidth(100);
-		
+
 		new Button(mainPanel).setCaption("Agregar indicador").onClick(() -> this.agregarIndicador());
 		new Button(mainPanel).setCaption("Agregar cuenta").onClick(() -> this.agregarCuenta());
 
@@ -82,10 +85,16 @@ public class CrearIndicadorWindow extends SimpleWindow<CrearIndicadorViewModel> 
 	}
 
 	private void crearIndicador() {
-		this.getModelObject().crearIndicador();
-		this.close();
+		try {
+			this.getModelObject().crearIndicador();
+			this.close();
+		} catch (ErrorImportacionException exception) {
+			MessageBox dialogWindow = new MessageBox(this, Type.Error);
+			dialogWindow.setMessage(exception.getMensaje());
+			dialogWindow.open();
+		}
 	}
-	
+
 	private void agregarSuma() {
 		this.getModelObject().agregarSuma();
 	}
@@ -117,13 +126,24 @@ public class CrearIndicadorWindow extends SimpleWindow<CrearIndicadorViewModel> 
 	private void borrarIndicador() {
 		this.getModelObject().borrarIndicador();
 	}
-	
+
 	private void agregarIndicador() {
-		this.getModelObject().agregarIndicador();
-	}
-	
-	private void agregarCuenta() {
-		this.getModelObject().agregarCuenta();
+		try {
+			this.getModelObject().agregarIndicador();
+		} catch (ErrorImportacionException exception) {
+			MessageBox dialogWindow = new MessageBox(this, Type.Error);
+			dialogWindow.setMessage(exception.getMensaje());
+			dialogWindow.open();
+		}
 	}
 
+	private void agregarCuenta() {
+		try {
+			this.getModelObject().agregarCuenta();
+		} catch (ErrorImportacionException exception) {
+			MessageBox dialogWindow = new MessageBox(this, Type.Error);
+			dialogWindow.setMessage(exception.getMensaje());
+			dialogWindow.open();
+		}
+	}
 }
