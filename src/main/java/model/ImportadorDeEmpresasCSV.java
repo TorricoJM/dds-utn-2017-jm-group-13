@@ -38,11 +38,11 @@ public class ImportadorDeEmpresasCSV extends ImportadorDeEmpresas {
 			
 			reader.close();
 		} catch (FileNotFoundException exception) {
-			throw new ErrorImportacionException("No existe el archivo");
+			throw new Exception("No existe el archivo");
 		} catch (IOException exception) {
-			throw new ErrorImportacionException("Error al leer el archivo");
+			throw new Exception("Error al leer el archivo");
 		} catch (RuntimeException exception) {
-			throw new ErrorImportacionException("No se ha podido cargar el archivo. Formato incorrecto");
+			throw new Exception("No se ha podido cargar el archivo. Formato incorrecto");
 		}
 
 		return empresasObtenidas;

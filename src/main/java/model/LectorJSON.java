@@ -23,7 +23,7 @@ public abstract class LectorJSON extends ImportadorDeArchivos {
 			buf.close();
 
 		} catch (IOException exception) {
-			throw new ErrorImportacionException("No se pudo abrir el archivo: " + PATH);
+			throw new Exception("No se pudo abrir el archivo: " + PATH);
 		}
 	}
 

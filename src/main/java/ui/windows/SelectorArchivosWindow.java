@@ -11,7 +11,7 @@ import org.uqbar.arena.windows.SimpleWindow;
 import org.uqbar.arena.windows.WindowOwner;
 import org.uqbar.arena.windows.MessageBox.Type;
 
-import model.ErrorImportacionException;
+import model.Exception;
 import ui.viewModels.SelectorArchivosViewModel;
 
 @SuppressWarnings("serial")
@@ -45,7 +45,7 @@ public class SelectorArchivosWindow extends SimpleWindow<SelectorArchivosViewMod
 		try {
 			this.getModelObject().importarAchivo();
 			this.close();
-		} catch (ErrorImportacionException exception) {
+		} catch (Exception exception) {
 			MessageBox dialogWindow = new MessageBox(this, Type.Error);
 			dialogWindow.setMessage(exception.getMensaje());
 			dialogWindow.open();

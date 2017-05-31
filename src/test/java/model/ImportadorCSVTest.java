@@ -59,7 +59,7 @@ public class ImportadorCSVTest {
 
 	}
 
-	@Test(expected = ErrorImportacionException.class)
+	@Test(expected = Exception.class)
 	public void obtenerEmpresasNoExisteElArchivoDaIncorrecto() {
 
 		importadorCSV = new ImportadorDeEmpresasCSV("pathInvalido");
@@ -67,7 +67,7 @@ public class ImportadorCSVTest {
 
 	}
 
-	@Test(expected = ErrorImportacionException.class)
+	@Test(expected = Exception.class)
 	public void obtenerEmpresasMalFormatoDaIncorrecto() {
 
 		importadorCSV = new ImportadorDeEmpresasCSV("pom.xml");
@@ -75,7 +75,7 @@ public class ImportadorCSVTest {
 
 	}
 
-	@Test(expected = ErrorImportacionException.class)
+	@Test(expected = Exception.class)
 	public void obtenerEmpresasMalFormato2DaIncorrecto() {
 
 		importadorCSV = new ImportadorDeEmpresasCSV("README.md");

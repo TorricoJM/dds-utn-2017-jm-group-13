@@ -21,7 +21,7 @@ public abstract class ExportadorJSON {
 
 			pw.close();
 		} catch (IOException exception) {
-			throw new ErrorImportacionException("No se pudo guardar el archivo: " + PATH);
+			throw new Exception("No se pudo guardar el archivo: " + PATH);
 		}
 	}
 

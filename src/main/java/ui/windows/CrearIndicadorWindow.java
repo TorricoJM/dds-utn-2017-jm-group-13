@@ -15,7 +15,7 @@ import org.uqbar.arena.windows.WindowOwner;
 import org.uqbar.arena.windows.MessageBox.Type;
 import org.uqbar.arena.widgets.NumericField;
 
-import model.ErrorImportacionException;
+import model.Exception;
 import model.Indicador;
 import ui.viewModels.CrearIndicadorViewModel;
 
@@ -88,7 +88,7 @@ public class CrearIndicadorWindow extends SimpleWindow<CrearIndicadorViewModel> 
 		try {
 			this.getModelObject().crearIndicador();
 			this.close();
-		} catch (ErrorImportacionException exception) {
+		} catch (Exception exception) {
 			MessageBox dialogWindow = new MessageBox(this, Type.Error);
 			dialogWindow.setMessage(exception.getMensaje());
 			dialogWindow.open();
@@ -130,7 +130,7 @@ public class CrearIndicadorWindow extends SimpleWindow<CrearIndicadorViewModel> 
 	private void agregarIndicador() {
 		try {
 			this.getModelObject().agregarIndicador();
-		} catch (ErrorImportacionException exception) {
+		} catch (Exception exception) {
 			MessageBox dialogWindow = new MessageBox(this, Type.Error);
 			dialogWindow.setMessage(exception.getMensaje());
 			dialogWindow.open();
@@ -140,7 +140,7 @@ public class CrearIndicadorWindow extends SimpleWindow<CrearIndicadorViewModel> 
 	private void agregarCuenta() {
 		try {
 			this.getModelObject().agregarCuenta();
-		} catch (ErrorImportacionException exception) {
+		} catch (Exception exception) {
 			MessageBox dialogWindow = new MessageBox(this, Type.Error);
 			dialogWindow.setMessage(exception.getMensaje());
 			dialogWindow.open();

@@ -1,11 +1,11 @@
 package model;
 
 @SuppressWarnings("serial")
-public class ErrorImportacionException extends RuntimeException {
+public class Exception extends RuntimeException {
 	
 	private String mensaje;
 	
-	public ErrorImportacionException(String cadena){
+	public Exception(String cadena){
 		this.mensaje = cadena;
 	}
 	
