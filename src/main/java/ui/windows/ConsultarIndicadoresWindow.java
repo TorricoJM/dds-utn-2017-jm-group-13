@@ -9,11 +9,14 @@ import org.uqbar.arena.widgets.Label;
 import org.uqbar.arena.widgets.Panel;
 import org.uqbar.arena.widgets.Selector;
 import org.uqbar.arena.windows.Dialog;
+import org.uqbar.arena.windows.MessageBox;
 import org.uqbar.arena.windows.WindowOwner;
+import org.uqbar.arena.windows.MessageBox.Type;
 
 import model.Empresa;
 import model.Indicador;
 import model.PeriodoFiscal;
+import model.parser.ErrorEvaluacionException;
 import ui.viewModels.ConsultarIndicadoresViewModel;
 
 @SuppressWarnings("serial")
@@ -52,6 +55,12 @@ public class ConsultarIndicadoresWindow extends Dialog<ConsultarIndicadoresViewM
 	}
 	
 	private void llamarEvaluador() {
+		try {
 		this.getModelObject().llamarEvaluador();
+		} catch (ErrorEvaluacionException exception) {
+			MessageBox dialogWindow = new MessageBox(this, Type.Error);
+			dialogWindow.setMessage(exception.getMensaje());
+			dialogWindow.open();
+		}
 	}
 }
