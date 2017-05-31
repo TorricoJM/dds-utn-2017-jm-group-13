@@ -25,4 +25,5 @@ public class RepositorioIndicadores {
 		return RepositorioIndicadores.indicadores.stream().filter(indicador -> indicador.getNombre().equals(nombre))
 				.findFirst().get();
 	}
+
 }
