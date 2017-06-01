@@ -1,6 +1,8 @@
 package ui.viewModels;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.uqbar.commons.utils.Observable;
 
@@ -29,11 +31,24 @@ public class CrearIndicadorViewModel {
 	public void crearIndicador() {
 		if (nombreIndicador == null || indicador == "") {
 			throw new Exception("Nombre o indicador vacio");
-		} else {
+		} else if (!this.tieneNombreValido(nombreIndicador) || RepositorioIndicadores.tieneIndicador(nombreIndicador)) 
+			throw new Exception("Nombre repetido o no válido");
+		else
+			{
 			Indicador nuevoIndicador = new Indicador(nombreIndicador, indicador);
 			RepositorioIndicadores.agregar(nuevoIndicador);
 			new ExportadorIndicadores().exportar();
-		}
+			}
+	}
+
+	private boolean tieneNombreValido(String nombre) {
+		final String Regex = "[a-zA-Z]+[a-zA-Z ]*[a-zA-Z]+";
+		final String input = nombre;
+		Pattern patron;
+		Matcher matcheador;
+		patron = Pattern.compile(Regex);
+		matcheador = patron.matcher(input);
+		return matcheador.matches();
 	}
 
 	public void borrarIndicador() {

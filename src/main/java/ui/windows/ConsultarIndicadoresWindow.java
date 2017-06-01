@@ -4,6 +4,7 @@ import java.awt.Color;
 
 import org.uqbar.arena.bindings.PropertyAdapter;
 import org.uqbar.arena.layout.HorizontalLayout;
+import org.uqbar.arena.layout.VerticalLayout;
 import org.uqbar.arena.widgets.Button;
 import org.uqbar.arena.widgets.Label;
 import org.uqbar.arena.widgets.Panel;
@@ -49,9 +50,14 @@ public class ConsultarIndicadoresWindow extends Dialog<ConsultarIndicadoresViewM
 		selectorIndicador.bindItemsToProperty("indicadores").setAdapter(new PropertyAdapter(Indicador.class, "nombre"));
 		selectorIndicador.bindValueToProperty("indicadorSeleccionado");
 		
-		new Label(mainPanel).setBackground(Color.LIGHT_GRAY).setForeground(Color.WHITE).setFontSize(12).setWidth(150).bindValueToProperty("resultado");
+		new Label(mainPanel).setText("OPERACION:").setWidth(150);
+		new Label(mainPanel).setBackground(Color.DARK_GRAY).setForeground(Color.WHITE).setFontSize(12).bindValueToProperty("indicadorSeleccionado.operacion");
 		
 		new Button(mainPanel).setCaption("Aplicar").onClick(() -> this.llamarEvaluador());
+		Panel form2 = new Panel(mainPanel);
+		form2.setLayout(new VerticalLayout());
+		new Label(form2).setText("RESULTADO:").setWidth(400);
+		new Label(form2).setBackground(Color.DARK_GRAY).setForeground(Color.WHITE).setFontSize(12).setWidth(150).bindValueToProperty("resultado");
 	}
 	
 	private void llamarEvaluador() {

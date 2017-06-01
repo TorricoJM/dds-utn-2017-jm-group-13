@@ -2,11 +2,9 @@ package model;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 import org.uqbar.commons.utils.Observable;
 
-import model.parser.ErrorEvaluacionException;
 
 @Observable
 public class PeriodoFiscal {
@@ -63,12 +61,8 @@ public class PeriodoFiscal {
 	}
 
 	public CuentaYValor obtenerCuentaDesdeNombre(String cuentaOIndicador) {
-		try{
 		return this.getCuentas().stream()
 				.filter(cuenta -> cuenta.getCuenta().equals(cuentaOIndicador))
 				.findFirst().get();
-		} catch (NoSuchElementException exception) {
-			throw new ErrorEvaluacionException("No se encuentra la cuenta: \"" + cuentaOIndicador + "\" para el periodo: " + this.getPeriodo());
-		}
 	}
 }

@@ -18,7 +18,7 @@ public class RepositorioIndicadores {
 	}
 
 	public static boolean tieneIndicador(String nombre) {
-		return RepositorioIndicadores.indicadores.stream().anyMatch(indicador -> indicador.getNombre().equals(nombre));
+		return RepositorioIndicadores.indicadores.stream().anyMatch(indicador -> indicador.getNombre().toLowerCase().equals(nombre.toLowerCase()));
 	}
 
 	public static Indicador obtenerIndicadorDesdeNombre(String nombre) {

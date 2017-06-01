@@ -37,4 +37,11 @@ public class RepositorioEmpresas {
 				.findFirst().get();
 	}
 
+	public static double obtenerValorDeCuentaDeEmpresaEnPeriodo(String cuenta, String empresa,
+			String periodo) {
+		return Double.parseDouble(RepositorioEmpresas.obtenerEmpresaDesdeNombre(empresa)
+				.obtenerPeriodoDesdeNombre(periodo).obtenerCuentaDesdeNombre(cuenta)
+				.getValor());
+	}
+
 }

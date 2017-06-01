@@ -1,5 +1,7 @@
-package model.parser.antlr4parser;
 // Generated from Indicador.g4 by ANTLR 4.5.1
+
+package model.parser.antlr4parser;
+
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.Token;

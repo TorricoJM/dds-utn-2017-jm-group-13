@@ -1,13 +1,13 @@
-package model.parser.antlr4parser;
 // Generated from Indicador.g4 by ANTLR 4.5.1
+
+package model.parser.antlr4parser;
+import model.parser.Antlr4ParserStrategy;
+
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.misc.*;
 import org.antlr.v4.runtime.tree.*;
-
-import model.parser.EvaluadorDeIndicador;
-
 import java.util.List;
 import java.util.Iterator;
 import java.util.ArrayList;
@@ -79,12 +79,12 @@ public class IndicadorParser extends Parser {
 	public ATN getATN() { return _ATN; }
 
 
-	public IndicadorParser(TokenStream tokens,EvaluadorDeIndicador evaluador){
+	public IndicadorParser(TokenStream tokens,Antlr4ParserStrategy evaluador){
 		super(tokens);
 		this.evaluador = evaluador;
 		_interp = new ParserATNSimulator(this,_ATN,_decisionToDFA,_sharedContextCache);
 		}
-	public EvaluadorDeIndicador evaluador;
+	public Antlr4ParserStrategy evaluador;
 
 	public IndicadorParser(TokenStream input) {
 		super(input);
