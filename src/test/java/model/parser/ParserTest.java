@@ -7,6 +7,8 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+import imports.ImportadorDeEmpresasCSV;
+import indicators.Indicador;
 import model.*;
 
 public class ParserTest{

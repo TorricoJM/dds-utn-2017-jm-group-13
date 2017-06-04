@@ -1,6 +1,6 @@
 package model.parser;
 
-import model.Indicador;
+import indicators.Indicador;
 
 public interface TipoParserStrategy {
 	public double evaluarIndicador(Indicador indicador, String empresaEvaluada, String periodoEvaluado);

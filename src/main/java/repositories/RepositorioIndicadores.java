@@ -3,7 +3,7 @@ package repositories;
 import java.util.LinkedList;
 import java.util.List;
 
-import model.Indicador;
+import indicators.Indicador;
 
 public class RepositorioIndicadores {
 

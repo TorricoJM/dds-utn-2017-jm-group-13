@@ -1,4 +1,4 @@
-package model;
+package indicators;
 
 import org.uqbar.commons.utils.Observable;
 

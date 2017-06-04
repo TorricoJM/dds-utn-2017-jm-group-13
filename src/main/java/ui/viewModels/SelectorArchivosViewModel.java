@@ -2,7 +2,7 @@ package ui.viewModels;
 
 import org.uqbar.commons.utils.Observable;
 
-import model.ImportadorDeEmpresasCSV;
+import imports.ImportadorDeEmpresasCSV;
 
 @Observable
 public class SelectorArchivosViewModel {

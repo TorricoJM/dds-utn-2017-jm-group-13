@@ -7,6 +7,8 @@ import java.util.List;
 
 import org.junit.Test;
 
+import imports.ImportadorDeEmpresasCSV;
+
 public class ImportadorCSVTest {
 
 	public ImportadorDeEmpresasCSV importadorCSV;

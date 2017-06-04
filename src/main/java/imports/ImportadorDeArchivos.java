@@ -1,4 +1,4 @@
-package model;
+package imports;
 
 public abstract class ImportadorDeArchivos {
 	

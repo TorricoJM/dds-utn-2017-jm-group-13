@@ -3,8 +3,8 @@ package model.parser;
 import java.util.LinkedList;
 import java.util.List;
 
+import indicators.Indicador;
 import model.parser.objetosParser.ExpresionParser;
-import model.Indicador;
 
 public class ObjetosParserStrategy implements TipoParserStrategy{
 	

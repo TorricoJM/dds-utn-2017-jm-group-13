@@ -14,8 +14,8 @@ import org.uqbar.arena.windows.MessageBox;
 import org.uqbar.arena.windows.WindowOwner;
 import org.uqbar.arena.windows.MessageBox.Type;
 
+import indicators.Indicador;
 import model.Empresa;
-import model.Indicador;
 import model.PeriodoFiscal;
 import model.parser.ErrorEvaluacionException;
 import ui.viewModels.ConsultarIndicadoresViewModel;

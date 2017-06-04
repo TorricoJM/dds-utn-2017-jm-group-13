@@ -6,9 +6,9 @@ import java.util.regex.Pattern;
 
 import org.uqbar.commons.utils.Observable;
 
+import exports.ExportadorIndicadores;
+import indicators.Indicador;
 import model.Exception;
-import model.ExportadorIndicadores;
-import model.Indicador;
 import repositories.RepositorioCuentas;
 import repositories.RepositorioIndicadores;
 
@@ -32,7 +32,7 @@ public class CrearIndicadorViewModel {
 		if (nombreIndicador == null || indicador == "") {
 			throw new Exception("Nombre o indicador vacio");
 		} else if (!this.tieneNombreValido(nombreIndicador) || RepositorioIndicadores.tieneIndicador(nombreIndicador)) 
-			throw new Exception("Nombre repetido o no v·lido");
+			throw new Exception("Nombre repetido o no v√°lido");
 		else
 			{
 			Indicador nuevoIndicador = new Indicador(nombreIndicador, indicador);

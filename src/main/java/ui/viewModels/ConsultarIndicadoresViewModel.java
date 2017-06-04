@@ -5,8 +5,8 @@ import java.util.List;
 
 import org.uqbar.commons.utils.Observable;
 
+import indicators.Indicador;
 import model.Empresa;
-import model.Indicador;
 import model.PeriodoFiscal;
 import repositories.RepositorioEmpresas;
 import repositories.RepositorioIndicadores;

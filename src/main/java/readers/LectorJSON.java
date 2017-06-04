@@ -1,8 +1,11 @@
-package model;
+package readers;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+
+import imports.ImportadorDeArchivos;
+import model.Exception;
 
 public abstract class LectorJSON extends ImportadorDeArchivos {
 

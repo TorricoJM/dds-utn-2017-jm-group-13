@@ -1,7 +1,9 @@
-package model;
+package imports;
 
 import java.util.List;
 
+import model.Empresa;
+import model.LineaEmpresa;
 import repositories.RepositorioCuentas;
 import repositories.RepositorioEmpresas;
 

@@ -1,4 +1,4 @@
-package model;
+package imports;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -9,6 +9,9 @@ import java.util.List;
 import com.opencsv.CSVReader;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.HeaderColumnNameMappingStrategy;
+
+import model.Exception;
+import model.LineaEmpresa;
 
 public class ImportadorDeEmpresasCSV extends ImportadorDeEmpresas {
 

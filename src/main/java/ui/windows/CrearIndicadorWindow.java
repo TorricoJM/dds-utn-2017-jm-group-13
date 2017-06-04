@@ -13,10 +13,12 @@ import org.uqbar.arena.windows.MessageBox;
 import org.uqbar.arena.windows.SimpleWindow;
 import org.uqbar.arena.windows.WindowOwner;
 import org.uqbar.arena.windows.MessageBox.Type;
+
+import indicators.Indicador;
+
 import org.uqbar.arena.widgets.NumericField;
 
 import model.Exception;
-import model.Indicador;
 import ui.viewModels.CrearIndicadorViewModel;
 
 @SuppressWarnings("serial")

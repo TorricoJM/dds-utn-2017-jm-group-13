@@ -1,12 +1,13 @@
 package ui.viewModels;
 
 import model.Exception;
-import model.Indicador;
 import repositories.RepositorioIndicadores;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
+
+import indicators.Indicador;
 
 public class CrearIndicadorViewModelTest {
 

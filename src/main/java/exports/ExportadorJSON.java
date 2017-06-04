@@ -1,8 +1,10 @@
-package model;
+package exports;
 
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+
+import model.Exception;
 
 public abstract class ExportadorJSON {
 
