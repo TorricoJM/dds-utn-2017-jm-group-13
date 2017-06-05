@@ -8,6 +8,7 @@ import org.uqbar.commons.utils.Observable;
 
 import exports.ExportadorIndicadores;
 import indicators.Indicador;
+import indicators.IndicadorCustom;
 import model.Exception;
 import repositories.RepositorioCuentas;
 import repositories.RepositorioIndicadores;
@@ -35,7 +36,7 @@ public class CrearIndicadorViewModel {
 			throw new Exception("Nombre repetido o no válido");
 		else
 			{
-			Indicador nuevoIndicador = new Indicador(nombreIndicador, indicador);
+			Indicador nuevoIndicador = new IndicadorCustom(nombreIndicador, indicador);
 			RepositorioIndicadores.agregar(nuevoIndicador);
 			new ExportadorIndicadores().exportar();
 			}

@@ -2,9 +2,17 @@ package indicators;
 
 public class PredefinidoROA extends Indicador {
 
-	public PredefinidoROA(String nombre, String operacion) {
-		super("ROA", "Utilidad Neta/Activo Total");
+	private static PredefinidoROA instance;
+	
+	private PredefinidoROA(String nombre, String operacion) {
+		super(nombre, operacion);
 		// TODO Auto-generated constructor stub
 	}
 
+	public static PredefinidoROA getInstance() {
+		if (instance == null) {
+			instance = new PredefinidoROA("ROA", "Utilidad Neta/Activo Total");
+		}
+		return instance;
+	}
 }
