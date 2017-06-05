@@ -2,10 +2,15 @@ package model.parser.objetosParser;
 
 public class SumaParser implements ExpresionParser{
 	
-	public ExpresionParser exp1;
-	public ExpresionParser exp2;
+	public ExpresionParser op1;
+	public ExpresionParser op2;
+	
+	public SumaParser(ExpresionParser op1, ExpresionParser op2) {
+		this.op1 = op1;
+		this.op2 = op2;
+	}
 	
 	public double operar(String empresaEvaluada, String periodoEvaluado) {
-		return exp1.operar(empresaEvaluada, periodoEvaluado)+exp2.operar(empresaEvaluada, periodoEvaluado);
+		return op1.operar(empresaEvaluada, periodoEvaluado)+op2.operar(empresaEvaluada, periodoEvaluado);
 	}
 }
