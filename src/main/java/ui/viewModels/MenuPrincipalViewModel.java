@@ -9,7 +9,7 @@ import readers.LectorIndicadores;
 public class MenuPrincipalViewModel {
 
 	public MenuPrincipalViewModel() {
-		new LectorIndicadores().importar();
 		new LectorCuentas().importar();
+		new LectorIndicadores().importar();
 	}
 }

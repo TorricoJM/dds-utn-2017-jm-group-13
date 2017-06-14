@@ -16,6 +16,9 @@ public class ImportadorCSVTest {
 	@Test
 	public void obtenerEmpresasDaCorrecto() {
 
+		importadorCSV = new ImportadorDeEmpresasCSV("empresas.csv");
+		importadorCSV.importar();
+		
 		LineaEmpresa e = new LineaEmpresa();
 		e.setNombre("coca cola");
 		e.setPeriodo("2017");
@@ -67,11 +70,11 @@ public class ImportadorCSVTest {
 		empresasEsperadas.add(e5);
 		empresasEsperadas.add(e6);
 
-		importadorCSV = new ImportadorDeEmpresasCSV("empresas.csv");
-		List<LineaEmpresa> empresasObtenidas = importadorCSV.importar();
+		
 
 		// No se porque si hago assertEquals(empresasObtenidas,
 		// empresasEsperadas) no funciona y comparando atributo a atrubuto si.
+		List<LineaEmpresa> empresasObtenidas = new LinkedList<>();
 		assertEquals(empresasObtenidas.get(0).getNombre(), empresasEsperadas.get(0).getNombre());
 		assertEquals(empresasObtenidas.get(0).getPeriodo(), empresasEsperadas.get(0).getPeriodo());
 		assertEquals(empresasObtenidas.get(0).getCuenta(), empresasEsperadas.get(0).getCuenta());
@@ -110,10 +113,10 @@ public class ImportadorCSVTest {
 	}
 
 	@Test(expected = Exception.class)
-	public void obtenerEmpresasNoExisteElArchivoDaIncorrecto() {
+	public void fallaAlImportarAlNoExistirArchivo() {
 
 		importadorCSV = new ImportadorDeEmpresasCSV("pathInvalido");
-		importadorCSV.obtenerEmpresas();
+		importadorCSV.importar();
 
 	}
 
