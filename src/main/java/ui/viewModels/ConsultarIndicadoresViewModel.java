@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.uqbar.commons.utils.Observable;
 
-import indicators.Indicador;
+import indicators.DataIndicador;
 import model.Empresa;
 import model.PeriodoFiscal;
 import repositories.RepositorioEmpresas;
@@ -16,8 +16,8 @@ public class ConsultarIndicadoresViewModel {
 	private List<Empresa> empresas;
 	private Empresa empresaSeleccionada;
 	private PeriodoFiscal periodoSeleccionado;
-	private List<Indicador> indicadores;
-	private Indicador indicadorSeleccionado;
+	private List<DataIndicador> indicadores;
+	private DataIndicador indicadorSeleccionado;
 	private String resultado;
 
 	public ConsultarIndicadoresViewModel() {
@@ -49,19 +49,19 @@ public class ConsultarIndicadoresViewModel {
 		this.periodoSeleccionado = periodoSeleccionado;
 	}
 
-	public List<Indicador> getIndicadores() {
+	public List<DataIndicador> getIndicadores() {
 		return indicadores;
 	}
 
-	public void setIndicadores(List<Indicador> indicadores) {
+	public void setIndicadores(List<DataIndicador> indicadores) {
 		this.indicadores = indicadores;
 	}
 
-	public Indicador getIndicadorSeleccionado() {
+	public DataIndicador getIndicadorSeleccionado() {
 		return indicadorSeleccionado;
 	}
 
-	public void setIndicadorSeleccionado(Indicador indicadorSeleccionado) {
+	public void setIndicadorSeleccionado(DataIndicador indicadorSeleccionado) {
 		this.indicadorSeleccionado = indicadorSeleccionado;
 	}
 

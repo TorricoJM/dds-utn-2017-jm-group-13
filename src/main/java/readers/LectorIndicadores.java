@@ -6,7 +6,7 @@ import java.util.List;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import indicators.Indicador;
+import indicators.DataIndicador;
 import repositories.RepositorioIndicadores;
 
 public class LectorIndicadores extends LectorJSON {
@@ -18,7 +18,7 @@ public class LectorIndicadores extends LectorJSON {
 	@Override
 	protected void parsearContenidoDeArchivo(String contenido) {
 		Gson gson = new Gson();
-		Type tipoListaIndicadores = new TypeToken<List<Indicador>>(){}.getType();
+		Type tipoListaIndicadores = new TypeToken<List<DataIndicador>>(){}.getType();
 		RepositorioIndicadores.getInstance().setIndicadores(gson.fromJson(contenido, tipoListaIndicadores));
 	}
 }

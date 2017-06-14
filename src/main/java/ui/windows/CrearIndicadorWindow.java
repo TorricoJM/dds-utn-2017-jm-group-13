@@ -14,7 +14,7 @@ import org.uqbar.arena.windows.SimpleWindow;
 import org.uqbar.arena.windows.WindowOwner;
 import org.uqbar.arena.windows.MessageBox.Type;
 
-import indicators.Indicador;
+import indicators.DataIndicador;
 
 import org.uqbar.arena.widgets.NumericField;
 
@@ -43,8 +43,8 @@ public class CrearIndicadorWindow extends SimpleWindow<CrearIndicadorViewModel> 
 		this.setTitle("Crear Indicador");
 
 		new Label(form).setText("Indicadores");
-		Selector<Indicador> selectorIndicador = new Selector<Indicador>(form).allowNull(true);
-		selectorIndicador.bindItemsToProperty("indicadores").setAdapter(new PropertyAdapter(Indicador.class, "nombre"));
+		Selector<DataIndicador> selectorIndicador = new Selector<DataIndicador>(form).allowNull(true);
+		selectorIndicador.bindItemsToProperty("indicadores").setAdapter(new PropertyAdapter(DataIndicador.class, "nombre"));
 		selectorIndicador.bindValueToProperty("indicadorSeleccionado");
 		selectorIndicador.setWidth(100);
 

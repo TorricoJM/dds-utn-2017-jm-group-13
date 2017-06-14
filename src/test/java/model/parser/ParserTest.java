@@ -9,24 +9,24 @@ import org.junit.Before;
 import org.junit.Test;
 
 import imports.ImportadorDeEmpresasCSV;
-import indicators.Indicador;
+import indicators.DataIndicador;
 import model.parser.objetosParser.*;
 
 public class ParserTest{
-	Indicador indicadorSimple;
-	Indicador indicadorA;
-	Indicador indicadorB;
-	Indicador indicadorC;
-	List<Indicador> indicadores;
+	DataIndicador indicadorSimple;
+	DataIndicador indicadorA;
+	DataIndicador indicadorB;
+	DataIndicador indicadorC;
+	List<DataIndicador> indicadores;
 	public double resultado;
 	ImportadorDeEmpresasCSV importador;
 	
 	@Before
 	public void initialize(){
-		indicadorSimple = new Indicador("indicadorSimple", "15+35");
-		indicadorA = new Indicador("indicadorA", "ebitda + 100");
-		indicadorB = new Indicador("indicadorB", "fds * 10");
-		indicadorC = new Indicador("indicadorC", "indicador1 + fds");
+		indicadorSimple = new DataIndicador("indicadorSimple", "15+35");
+		indicadorA = new DataIndicador("indicadorA", "ebitda + 100");
+		indicadorB = new DataIndicador("indicadorB", "fds * 10");
+		indicadorC = new DataIndicador("indicadorC", "indicador1 + fds");
 		
 		indicadores = new LinkedList<>();
 		indicadores.add(indicadorA);

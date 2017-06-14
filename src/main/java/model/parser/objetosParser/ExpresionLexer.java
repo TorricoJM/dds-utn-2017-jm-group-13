@@ -52,7 +52,7 @@ public class ExpresionLexer{
 			return new CuentaParser(id);
 		}
 		else if (RepositorioIndicadores.getInstance().tieneIndicador(id)){
-			return new IndicadorParser(id);
+			return new IndicadorParser(id, RepositorioIndicadores.getInstance().obtenerIndicadorDesdeNombre(id).getOperacion());
 		}
 		else if (this.idMatcheaCon(id, "^(\\d+\\.)?\\d+$")){
 			return new ConstanteParser(id);

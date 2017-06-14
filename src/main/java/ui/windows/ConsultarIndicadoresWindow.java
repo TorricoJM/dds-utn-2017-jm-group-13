@@ -14,7 +14,7 @@ import org.uqbar.arena.windows.MessageBox;
 import org.uqbar.arena.windows.WindowOwner;
 import org.uqbar.arena.windows.MessageBox.Type;
 
-import indicators.Indicador;
+import indicators.DataIndicador;
 import model.Empresa;
 import model.PeriodoFiscal;
 import model.parser.ErrorEvaluacionException;
@@ -46,8 +46,8 @@ public class ConsultarIndicadoresWindow extends Dialog<ConsultarIndicadoresViewM
 		selectorPeriodo.bindValueToProperty("periodoSeleccionado");
 		
 		new Label(form).setText("Indicador");
-		Selector<Indicador> selectorIndicador = new Selector<Indicador>(form).allowNull(true);
-		selectorIndicador.bindItemsToProperty("indicadores").setAdapter(new PropertyAdapter(Indicador.class, "nombre"));
+		Selector<DataIndicador> selectorIndicador = new Selector<DataIndicador>(form).allowNull(true);
+		selectorIndicador.bindItemsToProperty("indicadores").setAdapter(new PropertyAdapter(DataIndicador.class, "nombre"));
 		selectorIndicador.bindValueToProperty("indicadorSeleccionado");
 		
 		new Label(mainPanel).setText("OPERACION:").setWidth(150);

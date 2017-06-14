@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 import org.uqbar.commons.utils.Observable;
 
 import exports.ExportadorIndicadores;
-import indicators.Indicador;
+import indicators.DataIndicador;
 import indicators.IndicadorCustom;
 import model.Exception;
 import repositories.RepositorioCuentas;
@@ -16,9 +16,9 @@ import repositories.RepositorioIndicadores;
 @Observable
 public class CrearIndicadorViewModel {
 
-	private List<Indicador> indicadores;
+	private List<DataIndicador> indicadores;
 	private List<String> cuentas;
-	private Indicador indicadorSeleccionado;
+	private DataIndicador indicadorSeleccionado;
 	private String cuentaSeleccionada;
 	private String indicador = "";
 	private Integer constante;
@@ -36,7 +36,7 @@ public class CrearIndicadorViewModel {
 				|| RepositorioIndicadores.getInstance().tieneIndicador(nombreIndicador))
 			throw new Exception("Nombre repetido o no válido");
 		else {
-			Indicador nuevoIndicador = new IndicadorCustom(nombreIndicador, indicador);
+			DataIndicador nuevoIndicador = new IndicadorCustom(nombreIndicador, indicador);
 			RepositorioIndicadores.getInstance().agregar(nuevoIndicador);
 			new ExportadorIndicadores().exportar();
 		}
@@ -101,11 +101,11 @@ public class CrearIndicadorViewModel {
 		}
 	}
 
-	public List<Indicador> getIndicadores() {
+	public List<DataIndicador> getIndicadores() {
 		return indicadores;
 	}
 
-	public void setIndicadores(List<Indicador> indicadores) {
+	public void setIndicadores(List<DataIndicador> indicadores) {
 		this.indicadores = indicadores;
 	}
 
@@ -117,11 +117,11 @@ public class CrearIndicadorViewModel {
 		this.cuentas = cuentas;
 	}
 
-	public Indicador getIndicadorSeleccionado() {
+	public DataIndicador getIndicadorSeleccionado() {
 		return indicadorSeleccionado;
 	}
 
-	public void setIndicadorSeleccionado(Indicador indicadorSeleccionado) {
+	public void setIndicadorSeleccionado(DataIndicador indicadorSeleccionado) {
 		this.indicadorSeleccionado = indicadorSeleccionado;
 	}
 

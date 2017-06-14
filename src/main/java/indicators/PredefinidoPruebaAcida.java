@@ -1,6 +1,6 @@
 package indicators;
 
-public class PredefinidoPruebaAcida extends Indicador{
+public class PredefinidoPruebaAcida extends DataIndicador{
 
 	private static PredefinidoPruebaAcida instance;
 	

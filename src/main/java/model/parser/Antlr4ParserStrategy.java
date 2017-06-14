@@ -6,7 +6,7 @@ import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.BailErrorStrategy;
 import org.antlr.v4.runtime.CommonTokenStream;
 
-import indicators.Indicador;
+import indicators.DataIndicador;
 import model.parser.antlr4parser.*;
 import repositories.RepositorioCuentas;
 import repositories.RepositorioEmpresas;
@@ -26,10 +26,10 @@ public class Antlr4ParserStrategy implements TipoParserStrategy {
 	}
 
 	
-	public double evaluarIndicador(Indicador indicador, String empresaEvaluada, String periodoEvaluado) {
+	public double evaluarIndicador(String operacion, String empresaEvaluada, String periodoEvaluado) {
 		this.empresaEvaluada = empresaEvaluada;
 		this.periodoEvaluado = periodoEvaluado;
-		ANTLRInputStream input = new ANTLRInputStream(indicador.getOperacion());
+		ANTLRInputStream input = new ANTLRInputStream(operacion);
 		IndicadorLexer lexer = new IndicadorLexer(input);
 		CommonTokenStream tokens = new CommonTokenStream(lexer);
 		IndicadorParser parser = new IndicadorParser(tokens, this);

@@ -1,6 +1,6 @@
 package indicators;
 
-public class PredefinidoROA extends Indicador {
+public class PredefinidoROA extends DataIndicador {
 
 	private static PredefinidoROA instance;
 	

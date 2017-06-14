@@ -3,7 +3,6 @@ package model.parser;
 import java.util.LinkedList;
 import java.util.List;
 
-import indicators.Indicador;
 import model.parser.objetosParser.ExpresionLexer;
 import model.parser.objetosParser.ExpresionParser;
 
@@ -11,9 +10,9 @@ public class ObjetosParserStrategy implements TipoParserStrategy{
 	
 	public List<ExpresionParser> expresiones = new LinkedList<>();
 
-	public double evaluarIndicador(Indicador indicador, String empresaEvaluada, String periodoEvaluado){
+	public double evaluarIndicador(String operacion, String empresaEvaluada, String periodoEvaluado){
 		if (expresiones.isEmpty()){
-			expresiones = new ExpresionLexer().generarArbolExpresiones(indicador.getOperacion());
+			expresiones = new ExpresionLexer().generarArbolExpresiones(operacion);
 		}
 		return this.evaluarArbolExpresiones(empresaEvaluada, periodoEvaluado);
 	}
