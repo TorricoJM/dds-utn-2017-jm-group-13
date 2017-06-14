@@ -23,7 +23,7 @@ public class CrearIndicadorViewModelTest {
 		
 		indicadorViewModel.crearIndicador();
 		
-		Indicador indicador = RepositorioIndicadores.obtenerIndicadorDesdeNombre("Indicador Nombre Test");
+		Indicador indicador = RepositorioIndicadores.getInstance().obtenerIndicadorDesdeNombre("Indicador Nombre Test");
 		assertTrue(indicador.getOperacion().equals(indicadorViewModel.getIndicador()));
 
 	}

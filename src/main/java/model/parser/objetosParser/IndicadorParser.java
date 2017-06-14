@@ -11,7 +11,7 @@ public class IndicadorParser implements ExpresionParser{
 	}
 
 	public double operar(String empresaEvaluada, String periodoEvaluado){
-		return RepositorioIndicadores.
+		return RepositorioIndicadores.getInstance().
 				obtenerIndicadorDesdeNombre(nombre).
 				evaluateEn(empresaEvaluada,periodoEvaluado);
 	}

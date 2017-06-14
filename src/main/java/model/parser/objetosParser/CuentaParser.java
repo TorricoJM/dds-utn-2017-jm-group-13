@@ -11,7 +11,7 @@ public class CuentaParser implements ExpresionParser {
 	}
 
 	public double operar(String empresaEvaluada, String periodoEvaluado){
-		return RepositorioEmpresas
+		return RepositorioEmpresas.getInstance()
 				.obtenerValorDeCuentaDeEmpresaEnPeriodo(nombre, empresaEvaluada, periodoEvaluado);
 	}
 }

@@ -15,7 +15,7 @@ public class ConsultarCuentasViewModel {
 	private PeriodoFiscal periodoSeleccionado;
 
 	public ConsultarCuentasViewModel() {
-		this.empresas = RepositorioEmpresas.all();
+		this.empresas = RepositorioEmpresas.getInstance().getListaEmpresas();
 	}
 
 	// -------------------------------------------GETTERS AND SETTERS

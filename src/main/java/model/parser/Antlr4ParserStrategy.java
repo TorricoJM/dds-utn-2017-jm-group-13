@@ -38,14 +38,14 @@ public class Antlr4ParserStrategy implements TipoParserStrategy {
 	}
 	
 	public double obtenerValor(String cuentaOIndicador) {
-		if (RepositorioCuentas.tieneCuenta(cuentaOIndicador))
+		if (RepositorioCuentas.getInstance().tieneCuenta(cuentaOIndicador))
 			try {
-			return RepositorioEmpresas.obtenerValorDeCuentaDeEmpresaEnPeriodo(cuentaOIndicador, this.empresaEvaluada, this.periodoEvaluado);
+			return RepositorioEmpresas.getInstance().obtenerValorDeCuentaDeEmpresaEnPeriodo(cuentaOIndicador, this.empresaEvaluada, this.periodoEvaluado);
 			} catch (NoSuchElementException e){
 				throw new ErrorEvaluacionException("No se encuentra la cuenta: \"" + cuentaOIndicador + "\" para el periodo: " + this.getPeriodoEvaluado() + " de la empresa: " + this.getEmpresaEvaluada());
 			}
-		else if (RepositorioIndicadores.tieneIndicador(cuentaOIndicador))
-			return RepositorioIndicadores.obtenerIndicadorDesdeNombre(cuentaOIndicador).evaluateEn(this.empresaEvaluada,this.periodoEvaluado);
+		else if (RepositorioIndicadores.getInstance().tieneIndicador(cuentaOIndicador))
+			return RepositorioIndicadores.getInstance().obtenerIndicadorDesdeNombre(cuentaOIndicador).evaluateEn(this.empresaEvaluada,this.periodoEvaluado);
 		else
 			throw new ErrorEvaluacionException("No se ha encontrado la cuenta o indicador " + cuentaOIndicador);
 	}

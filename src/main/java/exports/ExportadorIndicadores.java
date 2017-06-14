@@ -19,7 +19,7 @@ public class ExportadorIndicadores extends ExportadorJSON {
 	protected String parsearContenidoDeRepositorio() {
 		Gson gson = new Gson();
 		Type tipoListaIndicadores = new TypeToken<List<Indicador>>(){}.getType();
-		return gson.toJson(RepositorioIndicadores.indicadores, tipoListaIndicadores);
+		return gson.toJson(RepositorioIndicadores.getInstance().getIndicadores(), tipoListaIndicadores);
 	}
 
 }

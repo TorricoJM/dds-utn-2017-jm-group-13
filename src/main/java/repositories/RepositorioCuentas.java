@@ -8,31 +8,45 @@ import model.CuentaYValor;
 
 public class RepositorioCuentas {
 
-	public static List<String> cuentas = new LinkedList<>();
+	private static RepositorioCuentas instance;
 
-	public static List<String> all() {
+	public static RepositorioCuentas getInstance() {
+		if (instance == null) {
+			instance = new RepositorioCuentas();
+		}
+
+		return instance;
+	}
+
+	private List<String> cuentas = new LinkedList<>();
+
+	public List<String> getCuentas() {
 		return cuentas;
 	}
 
-	public static boolean tieneCuenta(String cuentaOIndicador) {
-		return RepositorioCuentas.cuentas.stream().anyMatch(cuenta -> cuenta.equals(cuentaOIndicador));
+	public void setCuentas(List<String> cuentasNuevas) {
+		this.cuentas = cuentasNuevas;
 	}
 
-	private static void agregarCuenta(CuentaYValor cuenta) {
-		if (!RepositorioCuentas.tieneCuenta(cuenta.getCuenta())) {
-			RepositorioCuentas.cuentas.add(cuenta.getCuenta());
+	public boolean tieneCuenta(String cuentaOIndicador) {
+		return this.getCuentas().stream().anyMatch(cuenta -> cuenta.equals(cuentaOIndicador));
+	}
+
+	private void agregarCuenta(CuentaYValor cuenta) {
+		if (!this.tieneCuenta(cuenta.getCuenta())) {
+			this.getCuentas().add(cuenta.getCuenta());
 		}
 	}
 
-	public static void refrescar() {
+	public void refrescar() {
 		List<CuentaYValor> cuentas = new LinkedList<>();
-		RepositorioEmpresas.listaEmpresas.forEach(empresa -> cuentas.addAll(empresa.getCuentas()));
-		cuentas.forEach(cuenta -> RepositorioCuentas.agregarCuenta(cuenta));
+		RepositorioEmpresas.getInstance().getListaEmpresas().forEach(empresa -> cuentas.addAll(empresa.getCuentas()));
+		cuentas.forEach(cuenta -> this.agregarCuenta(cuenta));
 
-		RepositorioCuentas.actualizarArchivoCuentas();
+		this.actualizarArchivoCuentas();
 	}
 
-	private static void actualizarArchivoCuentas() {
+	private void actualizarArchivoCuentas() {
 		new ExportadorCuentas().exportar();
 	}
 }

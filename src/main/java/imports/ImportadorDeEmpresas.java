@@ -16,7 +16,7 @@ public abstract class ImportadorDeEmpresas extends ImportadorDeArchivos{
 	
 	protected void importarEmpresas() {
 		this.cargarEnRepositorio(this.obtenerEmpresas());
-		RepositorioCuentas.refrescar();//con esto, actualizo el repo de cuentas
+		RepositorioCuentas.getInstance().refrescar();//con esto, actualizo el repo de cuentas
 	}
 
 	private void cargarEnRepositorio(List<LineaEmpresa> empresas) {
@@ -24,10 +24,10 @@ public abstract class ImportadorDeEmpresas extends ImportadorDeArchivos{
 	}
 
 	private void insertarEmpresaEnRepositorioLocal(LineaEmpresa lineaEmpresa) {
-		if (RepositorioEmpresas.yaEstaCargadaUna(lineaEmpresa)) {
+		if (RepositorioEmpresas.getInstance().yaEstaCargadaUna(lineaEmpresa)) {
 			this.actualizarValorDe(lineaEmpresa);
 		} else
-			RepositorioEmpresas.agregar(this.crearEmpresaEnBaseA(lineaEmpresa));
+			RepositorioEmpresas.getInstance().agregar(this.crearEmpresaEnBaseA(lineaEmpresa));
 	}
 
 	private Empresa crearEmpresaEnBaseA(LineaEmpresa lineaEmpresa) {
@@ -42,7 +42,7 @@ public abstract class ImportadorDeEmpresas extends ImportadorDeArchivos{
 	}
 
 	private Empresa traerEmpresaDelRepositorioDadaPor(LineaEmpresa lineaEmpresa) {
-		return RepositorioEmpresas.obtenerEmpresaAActualizarPor(lineaEmpresa);
+		return RepositorioEmpresas.getInstance().obtenerEmpresaAActualizarPor(lineaEmpresa);
 	}
 
 	protected abstract List<LineaEmpresa> obtenerEmpresas();

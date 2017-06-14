@@ -68,7 +68,7 @@ public class ImportadorCSVTest {
 		empresasEsperadas.add(e6);
 
 		importadorCSV = new ImportadorDeEmpresasCSV("empresas.csv");
-		List<LineaEmpresa> empresasObtenidas = importadorCSV.obtenerEmpresas();
+		List<LineaEmpresa> empresasObtenidas = importadorCSV.importar();
 
 		// No se porque si hago assertEquals(empresasObtenidas,
 		// empresasEsperadas) no funciona y comparando atributo a atrubuto si.

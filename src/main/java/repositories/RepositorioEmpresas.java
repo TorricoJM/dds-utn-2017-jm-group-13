@@ -7,39 +7,49 @@ import model.LineaEmpresa;
 
 public class RepositorioEmpresas {
 
-	public static List<Empresa> listaEmpresas = new LinkedList<>();
+	private static RepositorioEmpresas instance;
+	
+	public static RepositorioEmpresas getInstance() {
+		if(instance == null){
+			instance = new RepositorioEmpresas();
+		}
+		
+		return instance;
+	}
+	
+	private List<Empresa> listaEmpresas = new LinkedList<>();
 
-	public static List<Empresa> all() {
+	public List<Empresa> getListaEmpresas() {
 		return listaEmpresas;
 	}
 
-	public static void agregar(Empresa empresa) {
+	public void agregar(Empresa empresa) {
 		listaEmpresas.add(empresa);
 	}
 
-	public static Empresa obtenerEmpresaAActualizarPor(LineaEmpresa unaEmpresa) {
-		return RepositorioEmpresas.listaEmpresas.stream()
-				.filter((empresaExistente) -> RepositorioEmpresas.mismoNombreQue(unaEmpresa, empresaExistente))
+	public Empresa obtenerEmpresaAActualizarPor(LineaEmpresa unaEmpresa) {
+		return this.getListaEmpresas().stream()
+				.filter((empresaExistente) -> this.mismoNombreQue(unaEmpresa, empresaExistente))
 				.findFirst().get();
 	}
 
-	public static boolean yaEstaCargadaUna(LineaEmpresa lineaEmpresa) {
-		return RepositorioEmpresas.listaEmpresas.stream()
-				.anyMatch((empresaDeLaLista) -> RepositorioEmpresas.mismoNombreQue(lineaEmpresa, empresaDeLaLista));
+	public boolean yaEstaCargadaUna(LineaEmpresa lineaEmpresa) {
+		return this.getListaEmpresas().stream()
+				.anyMatch((empresaDeLaLista) -> this.mismoNombreQue(lineaEmpresa, empresaDeLaLista));
 	}
 
-	private static boolean mismoNombreQue(LineaEmpresa unaEmpresa, Empresa empresaDeLaLista) {
+	private boolean mismoNombreQue(LineaEmpresa unaEmpresa, Empresa empresaDeLaLista) {
 		return unaEmpresa.getNombre().equals(empresaDeLaLista.getNombre());
 	}
 
-	public static Empresa obtenerEmpresaDesdeNombre(String nombre) {
-		return RepositorioEmpresas.listaEmpresas.stream().filter(empresa -> empresa.getNombre().equals(nombre))
+	public Empresa obtenerEmpresaDesdeNombre(String nombre) {
+		return this.getListaEmpresas().stream().filter(empresa -> empresa.getNombre().equals(nombre))
 				.findFirst().get();
 	}
 
-	public static double obtenerValorDeCuentaDeEmpresaEnPeriodo(String cuenta, String empresa,
+	public double obtenerValorDeCuentaDeEmpresaEnPeriodo(String cuenta, String empresa,
 			String periodo) {
-		return Double.parseDouble(RepositorioEmpresas.obtenerEmpresaDesdeNombre(empresa)
+		return Double.parseDouble(this.obtenerEmpresaDesdeNombre(empresa)
 				.obtenerPeriodoDesdeNombre(periodo).obtenerCuentaDesdeNombre(cuenta)
 				.getValor());
 	}

@@ -18,6 +18,6 @@ public class LectorCuentas extends LectorJSON {
 	protected void parsearContenidoDeArchivo(String contenido) {
 		Gson gson = new Gson();
 		Type tipoListaCuentas = new TypeToken<List<String>>(){}.getType();
-		RepositorioCuentas.cuentas = gson.fromJson(contenido, tipoListaCuentas);
+		RepositorioCuentas.getInstance().setCuentas(gson.fromJson(contenido, tipoListaCuentas));
 	}
 }

@@ -19,7 +19,7 @@ public class ExportadorCuentas extends ExportadorJSON {
 	protected String parsearContenidoDeRepositorio() {
 		Gson gson = new Gson();
 		Type tipoListaCuentas = new TypeToken<List<CuentaYValor>>(){}.getType();
-		return gson.toJson(RepositorioCuentas.cuentas, tipoListaCuentas);
+		return gson.toJson(RepositorioCuentas.getInstance().getCuentas(), tipoListaCuentas);
 	}
 
 }

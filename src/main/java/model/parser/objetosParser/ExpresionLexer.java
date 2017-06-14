@@ -48,10 +48,10 @@ public class ExpresionLexer{
 	}
 
 	public ExpresionParser identificar(String id) {
-		if (RepositorioCuentas.tieneCuenta(id)){
+		if (RepositorioCuentas.getInstance().tieneCuenta(id)){
 			return new CuentaParser(id);
 		}
-		else if (RepositorioIndicadores.tieneIndicador(id)){
+		else if (RepositorioIndicadores.getInstance().tieneIndicador(id)){
 			return new IndicadorParser(id);
 		}
 		else if (this.idMatcheaCon(id, "^(\\d+\\.)?\\d+$")){

@@ -11,32 +11,46 @@ import indicators.PredefinidoROI;
 
 public class RepositorioIndicadores {
 
-	public static List<Indicador> indicadores = new LinkedList<>();
+	private static RepositorioIndicadores instance;
+	
+	public static RepositorioIndicadores getInstance() {
+		if(instance == null){
+			instance = new RepositorioIndicadores();
+		}
+		
+		return instance;
+	}
+	
+	private List<Indicador> indicadores = new LinkedList<>();
 
-	public static List<Indicador> all() {
-		RepositorioIndicadores.agregarIndicadoresPredefinidos();
+	public List<Indicador> getIndicadores() {
+		this.agregarIndicadoresPredefinidos();
 		return indicadores;
 	}
+	
+	public void setIndicadores(List<Indicador> nuevosIndicadores){
+		this.indicadores = nuevosIndicadores;
+	}
 
-	public static void agregarIndicadoresPredefinidos() {
-		if (!RepositorioIndicadores.tieneIndicador("Prueba Acida")){
-			RepositorioIndicadores.agregar(PredefinidoPruebaAcida.getInstance());
-			RepositorioIndicadores.agregar(PredefinidoROA.getInstance());
-			RepositorioIndicadores.agregar(PredefinidoROE.getInstance());
-			RepositorioIndicadores.agregar(PredefinidoROI.getInstance());
+	public void agregarIndicadoresPredefinidos() {
+		if (!this.tieneIndicador("Prueba Acida")){
+			this.agregar(PredefinidoPruebaAcida.getInstance());
+			this.agregar(PredefinidoROA.getInstance());
+			this.agregar(PredefinidoROE.getInstance());
+			this.agregar(PredefinidoROI.getInstance());
 		}
 	}
 	
-	public static void agregar(Indicador indicador) {
-		indicadores.add(indicador);
+	public void agregar(Indicador indicador) {
+		this.indicadores.add(indicador);
 	}
 
-	public static boolean tieneIndicador(String nombre) {
-		return RepositorioIndicadores.indicadores.stream().anyMatch(indicador -> indicador.getNombre().toLowerCase().equals(nombre.toLowerCase()));
+	public boolean tieneIndicador(String nombre) {
+		return this.getIndicadores().stream().anyMatch(indicador -> indicador.getNombre().toLowerCase().equals(nombre.toLowerCase()));
 	}
 
-	public static Indicador obtenerIndicadorDesdeNombre(String nombre) {
-		return RepositorioIndicadores.indicadores.stream().filter(indicador -> indicador.getNombre().equals(nombre))
+	public Indicador obtenerIndicadorDesdeNombre(String nombre) {
+		return this.getIndicadores().stream().filter(indicador -> indicador.getNombre().equals(nombre))
 				.findFirst().get();
 	}
 

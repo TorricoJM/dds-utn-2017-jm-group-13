@@ -25,21 +25,21 @@ public class CrearIndicadorViewModel {
 	private String nombreIndicador;
 
 	public CrearIndicadorViewModel() {
-		this.indicadores = RepositorioIndicadores.all();
-		this.cuentas = RepositorioCuentas.all();
+		this.indicadores = RepositorioIndicadores.getInstance().getIndicadores();
+		this.cuentas = RepositorioCuentas.getInstance().getCuentas();
 	}
 
 	public void crearIndicador() {
 		if (nombreIndicador == null || indicador == "") {
 			throw new Exception("Nombre o indicador vacio");
-		} else if (!this.tieneNombreValido(nombreIndicador) || RepositorioIndicadores.tieneIndicador(nombreIndicador)) 
+		} else if (!this.tieneNombreValido(nombreIndicador)
+				|| RepositorioIndicadores.getInstance().tieneIndicador(nombreIndicador))
 			throw new Exception("Nombre repetido o no válido");
-		else
-			{
+		else {
 			Indicador nuevoIndicador = new IndicadorCustom(nombreIndicador, indicador);
-			RepositorioIndicadores.agregar(nuevoIndicador);
+			RepositorioIndicadores.getInstance().agregar(nuevoIndicador);
 			new ExportadorIndicadores().exportar();
-			}
+		}
 	}
 
 	private boolean tieneNombreValido(String nombre) {
