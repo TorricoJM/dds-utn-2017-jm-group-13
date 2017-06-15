@@ -16,33 +16,33 @@ public class RepositorioIndicadores {
 	public static RepositorioIndicadores getInstance() {
 		if(instance == null){
 			instance = new RepositorioIndicadores();
+			instance.agregarIndicadoresPredefinidos();
+			System.out.println(instance.indicadores.get(0).getNombre());
 		}
 		
 		return instance;
 	}
 	
-	private List<DataIndicador> indicadores = new LinkedList<>();
+	private static List<DataIndicador> indicadores = new LinkedList<>();
 
 	public List<DataIndicador> getIndicadores() {
-		this.agregarIndicadoresPredefinidos();
+		indicadores.stream().forEach(indicador -> System.out.println(indicador.getNombre()));
 		return indicadores;
 	}
 	
-	public void setIndicadores(List<DataIndicador> nuevosIndicadores){
-		this.indicadores = nuevosIndicadores;
+	private void agregarIndicadoresPredefinidos(){
+		this.agregar(PredefinidoPruebaAcida.getInstance());
+		this.agregar(PredefinidoROA.getInstance());
+		this.agregar(PredefinidoROE.getInstance());
+		this.agregar(PredefinidoROI.getInstance());
 	}
-
-	public void agregarIndicadoresPredefinidos() {
-		if (!this.tieneIndicador("Prueba Acida")){
-			this.agregar(PredefinidoPruebaAcida.getInstance());
-			this.agregar(PredefinidoROA.getInstance());
-			this.agregar(PredefinidoROE.getInstance());
-			this.agregar(PredefinidoROI.getInstance());
-		}
+	
+	public void setIndicadores(List<DataIndicador> nuevosIndicadores){
+		this.indicadores.addAll(nuevosIndicadores);
 	}
 	
 	public void agregar(DataIndicador indicador) {
-		this.indicadores.add(indicador);
+		instance.indicadores.add(indicador);
 	}
 
 	public boolean tieneIndicador(String nombre) {
