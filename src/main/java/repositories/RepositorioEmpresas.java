@@ -2,8 +2,11 @@ package repositories;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.NoSuchElementException;
+
 import model.Empresa;
 import model.LineaEmpresa;
+import model.parser.ErrorEvaluacionException;
 
 public class RepositorioEmpresas {
 
@@ -49,9 +52,12 @@ public class RepositorioEmpresas {
 
 	public double obtenerValorDeCuentaDeEmpresaEnPeriodo(String cuenta, String empresa,
 			String periodo) {
+		try {
 		return Double.parseDouble(this.obtenerEmpresaDesdeNombre(empresa)
 				.obtenerPeriodoDesdeNombre(periodo).obtenerCuentaDesdeNombre(cuenta)
 				.getValor());
+		} catch (NoSuchElementException e){
+			throw new ErrorEvaluacionException("No se encuentra la cuenta: \""+ cuenta + "\" de la empresa: \"" + empresa + "\" para el periodo: " + periodo);
+		}
 	}
-
 }
