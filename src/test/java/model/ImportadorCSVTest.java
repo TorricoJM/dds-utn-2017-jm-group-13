@@ -8,17 +8,18 @@ import java.util.List;
 import org.junit.Test;
 
 import imports.ImportadorDeEmpresasCSV;
+import repositories.RepositorioEmpresas;
 
 public class ImportadorCSVTest {
 
 	public ImportadorDeEmpresasCSV importadorCSV;
 
 	@Test
-	public void obtenerEmpresasDaCorrecto() {
+	public void seCarganCorrectamenteLasEmpresas() {
 
 		importadorCSV = new ImportadorDeEmpresasCSV("empresas.csv");
 		importadorCSV.importar();
-		
+
 		LineaEmpresa e = new LineaEmpresa();
 		e.setNombre("coca cola");
 		e.setPeriodo("2017");
@@ -70,46 +71,8 @@ public class ImportadorCSVTest {
 		empresasEsperadas.add(e5);
 		empresasEsperadas.add(e6);
 
-		
-
-		// No se porque si hago assertEquals(empresasObtenidas,
-		// empresasEsperadas) no funciona y comparando atributo a atrubuto si.
-		List<LineaEmpresa> empresasObtenidas = new LinkedList<>();
-		assertEquals(empresasObtenidas.get(0).getNombre(), empresasEsperadas.get(0).getNombre());
-		assertEquals(empresasObtenidas.get(0).getPeriodo(), empresasEsperadas.get(0).getPeriodo());
-		assertEquals(empresasObtenidas.get(0).getCuenta(), empresasEsperadas.get(0).getCuenta());
-		assertEquals(empresasObtenidas.get(0).getValor(), empresasEsperadas.get(0).getValor());
-
-		assertEquals(empresasObtenidas.get(1).getNombre(), empresasEsperadas.get(1).getNombre());
-		assertEquals(empresasObtenidas.get(1).getPeriodo(), empresasEsperadas.get(1).getPeriodo());
-		assertEquals(empresasObtenidas.get(1).getCuenta(), empresasEsperadas.get(1).getCuenta());
-		assertEquals(empresasObtenidas.get(1).getValor(), empresasEsperadas.get(1).getValor());
-
-		assertEquals(empresasObtenidas.get(2).getNombre(), empresasEsperadas.get(2).getNombre());
-		assertEquals(empresasObtenidas.get(2).getPeriodo(), empresasEsperadas.get(2).getPeriodo());
-		assertEquals(empresasObtenidas.get(2).getCuenta(), empresasEsperadas.get(2).getCuenta());
-		assertEquals(empresasObtenidas.get(2).getValor(), empresasEsperadas.get(2).getValor());
-
-		assertEquals(empresasObtenidas.get(3).getNombre(), empresasEsperadas.get(3).getNombre());
-		assertEquals(empresasObtenidas.get(3).getPeriodo(), empresasEsperadas.get(3).getPeriodo());
-		assertEquals(empresasObtenidas.get(3).getCuenta(), empresasEsperadas.get(3).getCuenta());
-		assertEquals(empresasObtenidas.get(3).getValor(), empresasEsperadas.get(3).getValor());
-
-		assertEquals(empresasObtenidas.get(4).getNombre(), empresasEsperadas.get(4).getNombre());
-		assertEquals(empresasObtenidas.get(4).getPeriodo(), empresasEsperadas.get(4).getPeriodo());
-		assertEquals(empresasObtenidas.get(4).getCuenta(), empresasEsperadas.get(4).getCuenta());
-		assertEquals(empresasObtenidas.get(4).getValor(), empresasEsperadas.get(4).getValor());
-
-		assertEquals(empresasObtenidas.get(5).getNombre(), empresasEsperadas.get(5).getNombre());
-		assertEquals(empresasObtenidas.get(5).getPeriodo(), empresasEsperadas.get(5).getPeriodo());
-		assertEquals(empresasObtenidas.get(5).getCuenta(), empresasEsperadas.get(5).getCuenta());
-		assertEquals(empresasObtenidas.get(5).getValor(), empresasEsperadas.get(5).getValor());
-
-		assertEquals(empresasObtenidas.get(6).getNombre(), empresasEsperadas.get(6).getNombre());
-		assertEquals(empresasObtenidas.get(6).getPeriodo(), empresasEsperadas.get(6).getPeriodo());
-		assertEquals(empresasObtenidas.get(6).getCuenta(), empresasEsperadas.get(6).getCuenta());
-		assertEquals(empresasObtenidas.get(6).getValor(), empresasEsperadas.get(6).getValor());
-
+		assertTrue(empresasEsperadas.stream()
+				.allMatch((linea) -> RepositorioEmpresas.getInstance().yaEstaCargadaUna(linea)));
 	}
 
 	@Test(expected = Exception.class)

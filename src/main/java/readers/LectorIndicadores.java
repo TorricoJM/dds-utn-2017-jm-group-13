@@ -19,6 +19,6 @@ public class LectorIndicadores extends LectorJSON {
 	protected void parsearContenidoDeArchivo(String contenido) {
 		Gson gson = new Gson();
 		Type tipoListaIndicadores = new TypeToken<List<DataIndicador>>(){}.getType();
-		RepositorioIndicadores.getInstance().setIndicadores(gson.fromJson(contenido, tipoListaIndicadores));
+		RepositorioIndicadores.getInstance().anexarIndicadores(gson.fromJson(contenido, tipoListaIndicadores));
 	}
 }

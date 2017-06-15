@@ -17,7 +17,6 @@ public class RepositorioIndicadores {
 		if(instance == null){
 			instance = new RepositorioIndicadores();
 			instance.agregarIndicadoresPredefinidos();
-			System.out.println(instance.indicadores.get(0).getNombre());
 		}
 		
 		return instance;
@@ -26,7 +25,6 @@ public class RepositorioIndicadores {
 	private static List<DataIndicador> indicadores = new LinkedList<>();
 
 	public List<DataIndicador> getIndicadores() {
-		indicadores.stream().forEach(indicador -> System.out.println(indicador.getNombre()));
 		return indicadores;
 	}
 	
@@ -37,12 +35,12 @@ public class RepositorioIndicadores {
 		this.agregar(PredefinidoROI.getInstance());
 	}
 	
-	public void setIndicadores(List<DataIndicador> nuevosIndicadores){
-		this.indicadores.addAll(nuevosIndicadores);
+	public void anexarIndicadores(List<DataIndicador> nuevosIndicadores){
+		this.getIndicadores().addAll(nuevosIndicadores);
 	}
 	
 	public void agregar(DataIndicador indicador) {
-		instance.indicadores.add(indicador);
+		this.getIndicadores().add(indicador);
 	}
 
 	public boolean tieneIndicador(String nombre) {

@@ -6,7 +6,6 @@ import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.BailErrorStrategy;
 import org.antlr.v4.runtime.CommonTokenStream;
 
-import indicators.DataIndicador;
 import model.parser.antlr4parser.*;
 import repositories.RepositorioCuentas;
 import repositories.RepositorioEmpresas;
