@@ -42,15 +42,25 @@ public class EmpresaTest {
 	}
 
 	@Test
-	public void cargarOModificarCuentaParaUnaDaCorrectoCargaNuevaCuenta() {
-		LineaEmpresa lineaEmpresa = new LineaEmpresa();
-		lineaEmpresa.setPeriodo("1000");
-		lineaEmpresa.setCuenta("nuevaCuenta");
-		lineaEmpresa.setValor("10");
+	public void seActualizanValoresDeCuentaSiHayDosCuentasIgualesParaEmpresa() {
+		
+		LineaEmpresa lineaEmpresa1 = new LineaEmpresa();
+		lineaEmpresa1.setNombre("coca cola");
+		lineaEmpresa1.setPeriodo("2017");
+		lineaEmpresa1.setCuenta("ebitda");
+		lineaEmpresa1.setValor("1025.55");
 
-		empresa.cargarOModificarCuentaParaUna(lineaEmpresa);
-		assertTrue(empresa.getPeriodos().get(1).getCuentas().get(0).getCuenta().equals("nuevaCuenta"));
-		assertTrue(empresa.getPeriodos().get(1).getCuentas().get(0).getValor().equals("10"));
+		LineaEmpresa lineaEmpresa2 = new LineaEmpresa();
+		lineaEmpresa2.setNombre("coca cola");
+		lineaEmpresa2.setPeriodo("2017");
+		lineaEmpresa2.setCuenta("ebitda");
+		lineaEmpresa2.setValor("0");
+		
+		Empresa empresa = new Empresa(lineaEmpresa1.getNombre());
+		empresa.agregarPeriodoPara(lineaEmpresa1);
+		empresa.cargarOModificarCuentaParaUna(lineaEmpresa2);
+		
+		assertEquals("0",empresa.obtenerPeriodoDesdeNombre("2017").obtenerCuentaDesdeNombre("ebitda").getValor());
 	}
 
 	@Test
