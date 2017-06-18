@@ -16,8 +16,7 @@ public class EmpresaTest {
 	@Before
 	public void initialize() {
 		List<PeriodoFiscal> periodos = new LinkedList<>();
-		periodo2016 = new PeriodoFiscal("2016");
-		periodos.add(periodo2016);
+		periodos.add(new PeriodoFiscal("2016"));
 
 		empresa = new Empresa("EmpresaTest");
 		empresa.setPeriodos(periodos);
@@ -29,7 +28,6 @@ public class EmpresaTest {
 		lineaEmpresa.setPeriodo("2016");
 
 		assertTrue(empresa.yaExisteUnPeriodoPara(lineaEmpresa));
-
 	}
 
 	@Test
@@ -38,7 +36,6 @@ public class EmpresaTest {
 		lineaEmpresa.setPeriodo("2017");
 
 		assertFalse(empresa.yaExisteUnPeriodoPara(lineaEmpresa));
-
 	}
 
 	@Test
@@ -57,23 +54,27 @@ public class EmpresaTest {
 		lineaEmpresa2.setValor("0");
 		
 		Empresa empresa = new Empresa(lineaEmpresa1.getNombre());
-		empresa.agregarPeriodoPara(lineaEmpresa1);
+		empresa.cargarOModificarCuentaParaUna(lineaEmpresa1);
 		empresa.cargarOModificarCuentaParaUna(lineaEmpresa2);
 		
 		assertEquals("0",empresa.obtenerPeriodoDesdeNombre("2017").obtenerCuentaDesdeNombre("ebitda").getValor());
 	}
-
+	
 	@Test
-	public void cargarOModificarCuentaParaUnaDaCorrectoPisaValorCuentaVieja() {
+	public void seObtienePeriodoDesdeNombreCorrectamente() {
 		LineaEmpresa lineaEmpresa = new LineaEmpresa();
-		lineaEmpresa.setPeriodo("2016");
-		lineaEmpresa.setCuenta("cuentaVieja");
+		lineaEmpresa.setNombre("coca cola");
+		lineaEmpresa.setPeriodo("2000");
+		lineaEmpresa.setCuenta("cuenta");
 		lineaEmpresa.setValor("100");
-
-		periodo2016.agregarUnaCuentaPara(lineaEmpresa);
-
-		empresa.cargarOModificarCuentaParaUna(lineaEmpresa);
-		assertTrue(empresa.getPeriodos().get(0).getCuentas().get(0).getValor().equals("100"));
+		
+		PeriodoFiscal periodo = new PeriodoFiscal("2000");
+		periodo.agregarUnaCuentaPara(lineaEmpresa);
+		
+		empresa = new Empresa("coca cola");
+		empresa.agregarPeriodoPara(lineaEmpresa);
+		
+		assertEquals(periodo.getPeriodo(), empresa.obtenerPeriodoDesdeNombre(periodo.getPeriodo()).getPeriodo());
 	}
 
 }

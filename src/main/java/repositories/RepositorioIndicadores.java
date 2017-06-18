@@ -22,7 +22,7 @@ public class RepositorioIndicadores {
 		return instance;
 	}
 	
-	private static List<DataIndicador> indicadores = new LinkedList<>();
+	private List<DataIndicador> indicadores = new LinkedList<>();
 
 	public List<DataIndicador> getIndicadores() {
 		return indicadores;
