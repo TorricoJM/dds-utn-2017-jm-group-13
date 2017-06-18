@@ -46,8 +46,7 @@ public class LectorIndicadoresTest {
 		new LectorIndicadores("./indicadores.json").importar();
 		assertTrue(RepositorioIndicadores.getInstance().getIndicadores().stream().allMatch(indicador -> listaIndicadores
 				.stream().anyMatch(hardInd -> hardInd.getNombre().equals(indicador.getNombre()))));
-	}// verifica que todos los indicadores del repo, sean los consignados en el
-		// @Before, matcheados por nombre
+	}// verifica que todos los indicadores del repo, sean los consignados en el @Before, matcheados por nombre
 
 	@Test(expected = Exception.class)
 	public void lanzaExcepcionIOSiNoExisteArchivo() {

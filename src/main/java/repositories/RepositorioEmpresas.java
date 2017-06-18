@@ -20,6 +20,10 @@ public class RepositorioEmpresas {
 		return instance;
 	}
 	
+	public static void deleteInstance() {
+		instance = null;
+	}
+	
 	private List<Empresa> listaEmpresas = new LinkedList<>();
 
 	public List<Empresa> getListaEmpresas() {

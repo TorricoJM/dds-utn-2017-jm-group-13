@@ -1,6 +1,8 @@
 package readers;
 
 import static org.junit.Assert.*;
+
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -31,9 +33,14 @@ public class LectorCuentasTest {
 		assertTrue(RepositorioCuentas.getInstance().getCuentas().stream()
 				.allMatch(cuenta -> listaCuentas.contains(cuenta)));
 	}
-	
+
 	@Test(expected = Exception.class)
-	public void lanzaExcepcionIOSiNoExisteArchivo(){
+	public void lanzaExcepcionIOSiNoExisteArchivo() {
 		new LectorCuentas("pathInvalido").importar();
+	}
+
+	@After
+	public void finalizar() {
+		RepositorioCuentas.deleteInstance();
 	}
 }

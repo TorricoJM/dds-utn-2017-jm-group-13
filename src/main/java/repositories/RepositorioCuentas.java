@@ -17,6 +17,10 @@ public class RepositorioCuentas {
 
 		return instance;
 	}
+	
+	public static void deleteInstance() {
+		instance = null;
+	}
 
 	private List<String> cuentas = new LinkedList<>();
 

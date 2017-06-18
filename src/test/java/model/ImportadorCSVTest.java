@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.junit.After;
 import org.junit.Test;
 
 import imports.ImportadorDeEmpresasCSV;
@@ -81,5 +82,10 @@ public class ImportadorCSVTest {
 		importadorCSV = new ImportadorDeEmpresasCSV("pathInvalido");
 		importadorCSV.importar();
 
+	}
+	
+	@After
+	public void finalizar() {
+		RepositorioEmpresas.deleteInstance();
 	}
 }
