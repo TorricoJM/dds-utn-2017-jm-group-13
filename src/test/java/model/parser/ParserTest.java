@@ -5,6 +5,8 @@ import static org.junit.Assert.*;
 import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.List;
+
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -109,5 +111,10 @@ public class ParserTest{
 		DecimalFormat formato = new DecimalFormat("###############.############");
 		resultadoString = String.valueOf(formato.format(resultado));
 		assertEquals(resultadoString, "1000600");
+	}
+	
+	@After
+	public void finalizar() {
+		RepositorioIndicadores.deleteInstance();
 	}
 }
