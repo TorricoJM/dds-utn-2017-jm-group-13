@@ -11,8 +11,8 @@ import repositories.RepositorioIndicadores;
 
 public class LectorIndicadores extends LectorJSON {
 
-	public LectorIndicadores(){
-		this.PATH = "./indicadores.json";
+	public LectorIndicadores(String path){
+		this.PATH = path;
 	}
 	
 	@Override

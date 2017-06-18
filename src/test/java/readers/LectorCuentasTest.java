@@ -6,8 +6,6 @@ import org.junit.Test;
 
 import model.Exception;
 
-import static org.mockito.Mockito.*;
-
 import java.util.LinkedList;
 import java.util.List;
 
@@ -15,7 +13,6 @@ import repositories.RepositorioCuentas;
 
 public class LectorCuentasTest {
 
-	RepositorioCuentas mockedRepo = mock(RepositorioCuentas.class);
 	List<String> listaCuentas;
 
 	@Before

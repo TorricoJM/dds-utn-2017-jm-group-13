@@ -13,7 +13,7 @@ public class PredefinidoPruebaAcida extends DataIndicador{
 	
 	public static PredefinidoPruebaAcida getInstance() {
 		if (instance == null) {
-			instance = new PredefinidoPruebaAcida("Prueba Acida", "(Activo corriente–Inventarios)/Pasivo corriente");
+			instance = new PredefinidoPruebaAcida("Prueba Acida", "(Activo corriente + Inventarios)/Pasivo corriente");
 		}
 		return instance;
 	}
