@@ -10,6 +10,6 @@ public class MenuPrincipalViewModel {
 
 	public MenuPrincipalViewModel() {
 		new LectorCuentas("./cuentas.json").importar();
-		new LectorIndicadores().importar();
+		new LectorIndicadores("./indicadores.json").importar();
 	}
 }
