@@ -10,8 +10,8 @@ import repositories.RepositorioCuentas;
 
 public class LectorCuentas extends LectorJSON {
 
-	public LectorCuentas(){
-		this.PATH = "./cuentas.json";
+	public LectorCuentas(String path){
+		this.PATH = path;
 	}
 	
 	@Override
