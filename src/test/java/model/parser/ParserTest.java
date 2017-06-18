@@ -36,7 +36,7 @@ public class ParserTest{
 		importadorCSV = new ImportadorDeEmpresasCSV("empresas.csv");
 		importadorCSV.importar();
 		new LectorCuentas("./cuentas.json").importar();
-		new LectorIndicadores().importar();
+		new LectorIndicadores("./indicadores.json").importar();
 		lexer = new ExpresionLexer();
 	}
 
