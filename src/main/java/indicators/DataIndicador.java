@@ -2,6 +2,7 @@ package indicators;
 
 import org.uqbar.commons.utils.Observable;
 
+import model.parser.ErrorEmpresaPeriodoVacioException;
 import model.parser.objetosParser.IndicadorParser;
 
 @Observable
@@ -34,6 +35,10 @@ public class DataIndicador {
 	// ---------------------------------------------------/GETTERS AND SETTERS
 
 	public double evaluateEn(String empresaEvaluada, String periodoEvaluado) {
+		try {
 		return new IndicadorParser(this.nombre, this.operacion).operar(empresaEvaluada, periodoEvaluado);
+		} catch (NullPointerException e) {
+			throw new ErrorEmpresaPeriodoVacioException("Elegir empresa y periodo a evaluar");
+		}
 	}
 }

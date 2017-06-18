@@ -1,6 +1,7 @@
 package model.parser;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -8,9 +9,10 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import imports.ImportadorDeEmpresasCSV;
 import indicators.DataIndicador;
 import model.parser.objetosParser.*;
+import repositories.RepositorioCuentas;
+import repositories.RepositorioEmpresas;
 
 public class ParserTest{
 	DataIndicador indicadorSimple;
@@ -19,10 +21,12 @@ public class ParserTest{
 	DataIndicador indicadorC;
 	List<DataIndicador> indicadores;
 	public double resultado;
-	ImportadorDeEmpresasCSV importador;
+	RepositorioCuentas mockedRepoCuentas = mock(RepositorioCuentas.class);
+	RepositorioEmpresas mockedRepoEmpresas = mock(RepositorioEmpresas.class);
+	List<String> listaCuentas;
 	
 	@Before
-	public void initialize(){
+	public void setUp(){
 		indicadorSimple = new DataIndicador("indicadorSimple", "15+35");
 		indicadorA = new DataIndicador("indicadorA", "ebitda + 100");
 		indicadorB = new DataIndicador("indicadorB", "fds * 10");
@@ -33,7 +37,12 @@ public class ParserTest{
 		indicadores.add(indicadorB);
 		indicadores.add(indicadorC);
 		
-		importador = new ImportadorDeEmpresasCSV("empresas.csv");
+		listaCuentas = new LinkedList<>();
+		listaCuentas.add("ebitda");
+		listaCuentas.add("free cash flow");
+		listaCuentas.add("fds");
+		listaCuentas.add("operaciones continuas");
+		listaCuentas.add("operaciones discontinuas");
 	}
 
 	@Test
@@ -65,5 +74,17 @@ public class ParserTest{
 		lexer.crearOperacion(lexer.expresiones);
 		lexer.crearOperacion(lexer.expresiones);
 		assertEquals(lexer.expresiones.get(0).operar("hola", "mundo"),(double) 10,(double) 0);
+	}
+	
+	@Test
+	public void evaluarOperacion2(){
+		final ExpresionLexer lexer = new ExpresionLexer();
+		final ConstanteParser cons = new ConstanteParser("100");
+		final CuentaParser cuenta = new CuentaParser("ebitda");
+		lexer.expresiones.add(cuenta);
+		lexer.expresiones.add(cons);
+		lexer.operadores.add("+");
+		lexer.crearOperacion(lexer.expresiones);
+		assertEquals(lexer.expresiones.get(0).operar("sprite", "2016"),(double) 600,(double) 0);
 	}
 }

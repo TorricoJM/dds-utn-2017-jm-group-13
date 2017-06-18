@@ -58,7 +58,7 @@ public class ExpresionLexer{
 			return new ConstanteParser(id);
 		}
 		else
-			throw new ErrorEvaluacionException("Error: no se puede identificar a: " + id);
+			throw new ErrorEvaluacionException("No se puede identificar a: " + id);
 	}
 
 	public boolean idMatcheaCon(String nombre, String regex) {

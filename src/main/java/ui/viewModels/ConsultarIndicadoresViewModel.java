@@ -8,6 +8,7 @@ import org.uqbar.commons.utils.Observable;
 import indicators.DataIndicador;
 import model.Empresa;
 import model.PeriodoFiscal;
+import model.parser.ErrorEmpresaPeriodoVacioException;
 import repositories.RepositorioEmpresas;
 import repositories.RepositorioIndicadores;
 
@@ -74,8 +75,12 @@ public class ConsultarIndicadoresViewModel {
 	}
 
 	public void llamarEvaluador() {
+		try {
 		Double resultadoIndicador = indicadorSeleccionado.evaluateEn(empresaSeleccionada.getNombre(), periodoSeleccionado.getPeriodo());
 		DecimalFormat formato = new DecimalFormat("###############.############");
 		resultado = String.valueOf(formato.format(resultadoIndicador));
+		} catch (NullPointerException e){
+			throw new ErrorEmpresaPeriodoVacioException("Elegir empresa y periodo a evaluar");
+		}
 	}
 }
