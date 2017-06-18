@@ -2,10 +2,10 @@ package model.parser;
 
 
 @SuppressWarnings("serial")
-public class ErrorEmpresaPeriodoVacioException extends RuntimeException{
+public class EmpresaPeriodoVacioException extends RuntimeException{
 	private String mensaje;
 	
-	public ErrorEmpresaPeriodoVacioException(String mensaje){
+	public EmpresaPeriodoVacioException(String mensaje){
 		this.mensaje = mensaje;
 	}
 	

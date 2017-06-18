@@ -7,7 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-import model.parser.ErrorEvaluacionException;
+import model.parser.IdentificadorInvalidoException;
 import repositories.RepositorioCuentas;
 import repositories.RepositorioIndicadores;
 
@@ -22,7 +22,7 @@ public class ExpresionLexer{
 		extraerIdentificadores(operacion);
 		extraerOperadores(operacion);
 		if (identificadores.size() != operadores.size()+1){
-			//TODO Lanzar excepcion
+			throw new IdentificadorInvalidoException("Identificador con operacion erronea");
 		}
 		convertirIdentificadoresEnExpresiones(identificadores);
 		return this.crearArbol();
@@ -38,8 +38,12 @@ public class ExpresionLexer{
 	}
 
 	public void extraerIdentificadores(String operacion) {
-		for (String retval: operacion.split("[\\+\\-\\*\\/]")){
-			identificadores.add(retval.trim());
+		try {
+			for (String retval: operacion.split("[\\+\\-\\*\\/]")){
+				identificadores.add(retval.trim());
+			}
+		} catch (NullPointerException e){
+			throw new IdentificadorInvalidoException("Identificador con operacion erronea");
 		}
 	}
 	
@@ -58,7 +62,7 @@ public class ExpresionLexer{
 			return new ConstanteParser(id);
 		}
 		else
-			throw new ErrorEvaluacionException("No se puede identificar a: " + id);
+			throw new IdentificadorInvalidoException("No se puede identificar a: " + id);
 	}
 
 	public boolean idMatcheaCon(String nombre, String regex) {
@@ -95,7 +99,7 @@ public class ExpresionLexer{
 			crearResta(expresiones);
 			return;
 		}
-		else throw new ErrorEvaluacionException("Sin operadores para crear operacion");
+		else throw new IdentificadorInvalidoException("Sin operadores para crear operacion");
 	}
 
 	public void crearMultiplicacion(List<ExpresionParser> expresiones) {

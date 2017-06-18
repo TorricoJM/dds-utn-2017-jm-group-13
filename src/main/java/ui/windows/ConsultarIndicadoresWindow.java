@@ -17,8 +17,9 @@ import org.uqbar.arena.windows.MessageBox.Type;
 import indicators.DataIndicador;
 import model.Empresa;
 import model.PeriodoFiscal;
-import model.parser.ErrorEmpresaPeriodoVacioException;
+import model.parser.EmpresaPeriodoVacioException;
 import model.parser.ErrorEvaluacionException;
+import model.parser.IdentificadorInvalidoException;
 import ui.viewModels.ConsultarIndicadoresViewModel;
 
 @SuppressWarnings("serial")
@@ -69,11 +70,16 @@ public class ConsultarIndicadoresWindow extends Dialog<ConsultarIndicadoresViewM
 			dialogWindow.setMessage(exception.getMensaje());
 			dialogWindow.open();
 		}
-		  catch (ErrorEmpresaPeriodoVacioException exception) {
+		  catch (EmpresaPeriodoVacioException exception) {
 			MessageBox dialogWindow = new MessageBox(this, Type.Error);
 			dialogWindow.setMessage(exception.getMensaje());
 			dialogWindow.open();
 		}
+		  catch (IdentificadorInvalidoException exception) {
+			MessageBox dialogWindow = new MessageBox(this, Type.Error);
+			dialogWindow.setMessage(exception.getMensaje());
+			dialogWindow.open();
+		  }
 	}
 	
 }
