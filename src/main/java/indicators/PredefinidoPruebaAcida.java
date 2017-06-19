@@ -23,7 +23,7 @@ public class PredefinidoPruebaAcida extends DataIndicador{
 		final double val1 = RepositorioEmpresas.getInstance().obtenerValorDeCuentaDeEmpresaEnPeriodo("Activo corriente", empresaEvaluada, periodoEvaluado);
 		final double val2 = RepositorioEmpresas.getInstance().obtenerValorDeCuentaDeEmpresaEnPeriodo("Inventarios", empresaEvaluada, periodoEvaluado);
 		final double val3 = RepositorioEmpresas.getInstance().obtenerValorDeCuentaDeEmpresaEnPeriodo("Pasivo corriente", empresaEvaluada, periodoEvaluado);
-		final double val4 = val1 - val2;
+		final double val4 = val1 + val2;
 		return val4 / val3;
 	}
 

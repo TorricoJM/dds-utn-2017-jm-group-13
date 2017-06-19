@@ -16,7 +16,6 @@ public class RepositorioIndicadores {
 	public static RepositorioIndicadores getInstance() {
 		if (instance == null) {
 			instance = new RepositorioIndicadores();
-			instance.agregarIndicadoresPredefinidos();
 		}
 
 		return instance;
@@ -30,13 +29,6 @@ public class RepositorioIndicadores {
 
 	public List<DataIndicador> getIndicadores() {
 		return indicadores;
-	}
-
-	private void agregarIndicadoresPredefinidos() {
-		this.agregar(PredefinidoPruebaAcida.getInstance());
-		this.agregar(PredefinidoROA.getInstance());
-		this.agregar(PredefinidoROE.getInstance());
-		this.agregar(PredefinidoROI.getInstance());
 	}
 
 	public void anexarIndicadores(List<DataIndicador> nuevosIndicadores) {
