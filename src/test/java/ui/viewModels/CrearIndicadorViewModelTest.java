@@ -5,6 +5,7 @@ import repositories.RepositorioIndicadores;
 
 import static org.junit.Assert.*;
 
+import org.junit.After;
 import org.junit.Test;
 
 import indicators.DataIndicador;
@@ -45,5 +46,10 @@ public class CrearIndicadorViewModelTest {
 		indicadorViewModel.setIndicador("");
 		
 		indicadorViewModel.crearIndicador();
+	}
+	
+	@After
+	public void finalizar() {
+		RepositorioIndicadores.deleteInstance();
 	}
 }

@@ -6,6 +6,7 @@ import java.util.regex.Pattern;
 
 import org.uqbar.commons.utils.Observable;
 
+import adapters.AdaptadorSalienteArchivo;
 import exports.ExportadorIndicadores;
 import indicators.DataIndicador;
 import indicators.IndicadorCustom;
@@ -38,7 +39,7 @@ public class CrearIndicadorViewModel {
 		else {
 			DataIndicador nuevoIndicador = new IndicadorCustom(nombreIndicador, indicador);
 			RepositorioIndicadores.getInstance().agregar(nuevoIndicador);
-			new ExportadorIndicadores().exportar();
+			new ExportadorIndicadores(new AdaptadorSalienteArchivo()).exportar();
 		}
 	}
 

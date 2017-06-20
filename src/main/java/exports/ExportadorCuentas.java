@@ -6,15 +6,17 @@ import java.util.List;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import adapters.AdaptadorSaliente;
 import model.CuentaYValor;
 import repositories.RepositorioCuentas;
 
 public class ExportadorCuentas extends ExportadorJSON {
 
-	public ExportadorCuentas() {
-		this.PATH = "./cuentas.json";
+	public ExportadorCuentas(AdaptadorSaliente adaptador) {
+		super(adaptador);
+		this.adaptador.setPath("./cuentas.json");
 	}
-	
+
 	@Override
 	protected String parsearContenidoDeRepositorio() {
 		Gson gson = new Gson();

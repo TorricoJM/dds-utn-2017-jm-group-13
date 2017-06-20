@@ -6,15 +6,17 @@ import java.util.List;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import adapters.AdaptadorSaliente;
 import indicators.DataIndicador;
 import repositories.RepositorioIndicadores;
 
 public class ExportadorIndicadores extends ExportadorJSON {
 
-	public ExportadorIndicadores() {
-		this.PATH = "./indicadores.json";
+	public ExportadorIndicadores(AdaptadorSaliente adaptador) {
+		super(adaptador);
+		this.adaptador.setPath("./indicadores.json");
 	}
-	
+
 	@Override
 	protected String parsearContenidoDeRepositorio() {
 		Gson gson = new Gson();

@@ -3,6 +3,7 @@ package repositories;
 import java.util.LinkedList;
 import java.util.List;
 
+import adapters.AdaptadorSalienteArchivo;
 import exports.ExportadorCuentas;
 import model.CuentaYValor;
 
@@ -51,6 +52,6 @@ public class RepositorioCuentas {
 	}
 
 	private void actualizarArchivoCuentas() {
-		new ExportadorCuentas().exportar();
+		new ExportadorCuentas(new AdaptadorSalienteArchivo()).exportar();
 	}
 }

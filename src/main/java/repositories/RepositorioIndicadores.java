@@ -4,10 +4,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import indicators.DataIndicador;
-import indicators.PredefinidoPruebaAcida;
-import indicators.PredefinidoROA;
-import indicators.PredefinidoROE;
-import indicators.PredefinidoROI;
 
 public class RepositorioIndicadores {
 

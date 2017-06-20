@@ -1,30 +1,17 @@
 package exports;
 
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
-
-import model.Exception;
+import adapters.AdaptadorSaliente;
 
 public abstract class ExportadorJSON {
 
-	protected String PATH;
+	protected AdaptadorSaliente adaptador;
 
-	public void exportar() {
-		this.guardarEnArchivo();
+	public ExportadorJSON(AdaptadorSaliente adaptador){
+		this.adaptador = adaptador;
 	}
-
-	private void guardarEnArchivo() {
-		try {
-			FileWriter fileWriter = new FileWriter(this.PATH);
-			PrintWriter pw = new PrintWriter(fileWriter);
-
-			pw.print(this.parsearContenidoDeRepositorio());
-
-			pw.close();
-		} catch (IOException exception) {
-			throw new Exception("No se pudo guardar el archivo: " + PATH);
-		}
+	
+	public void exportar() {
+		adaptador.guardarEnArchivo(this.parsearContenidoDeRepositorio());
 	}
 
 	protected abstract String parsearContenidoDeRepositorio();
