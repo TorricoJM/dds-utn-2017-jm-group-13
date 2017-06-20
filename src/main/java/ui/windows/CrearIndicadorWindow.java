@@ -71,10 +71,6 @@ public class CrearIndicadorWindow extends SimpleWindow<CrearIndicadorViewModel> 
 		new Button(operaciones).setCaption("-").onClick(() -> this.agregarResta()).setWidth(55).setHeight(30);
 		new Button(operaciones).setCaption("/").onClick(() -> this.agregarDivision()).setWidth(55).setHeight(30);
 		new Button(operaciones).setCaption("*").onClick(() -> this.agregarMultiplicacion()).setWidth(55).setHeight(30);
-		new Button(operaciones).setCaption("(").onClick(() -> this.agregarParentesisIzquierdo()).setWidth(55)
-				.setHeight(30);
-		new Button(operaciones).setCaption(")").onClick(() -> this.agregarParentesisDerecho()).setWidth(55)
-				.setHeight(30);
 		new Button(operaciones).setCaption("Borrar").onClick(() -> this.borrarIndicador()).setWidth(55).setHeight(30);
 
 		Panel constante = new Panel(mainPanel);
@@ -111,14 +107,6 @@ public class CrearIndicadorWindow extends SimpleWindow<CrearIndicadorViewModel> 
 
 	private void agregarMultiplicacion() {
 		this.getModelObject().agregarMultiplicacion();
-	}
-
-	private void agregarParentesisIzquierdo() {
-		this.getModelObject().agregarParentesisIzquierdo();
-	}
-
-	private void agregarParentesisDerecho() {
-		this.getModelObject().agregarParentesisDerecho();
 	}
 
 	private void agregarConstante() {

@@ -73,14 +73,6 @@ public class CrearIndicadorViewModel {
 		this.setIndicador(indicador + "*");
 	}
 
-	public void agregarParentesisIzquierdo() {
-		this.setIndicador(indicador + "(");
-	}
-
-	public void agregarParentesisDerecho() {
-		this.setIndicador(indicador + ")");
-	}
-
 	public void agregarConstante() {
 		String constanteString = Integer.toString(constante);
 		this.setIndicador(indicador + constanteString);
