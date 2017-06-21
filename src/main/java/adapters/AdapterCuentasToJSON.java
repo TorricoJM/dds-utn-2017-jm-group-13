@@ -4,7 +4,7 @@ import java.util.List;
 
 import repositories.RepositorioCuentas;
 
-public class AdapterCuentasToJSON extends AdaptadorJSON<List<String>> {
+public class AdapterCuentasToJSON extends AdaptadorToJSON<List<String>> {
 
 	@Override
 	protected List<String> getContenido() {

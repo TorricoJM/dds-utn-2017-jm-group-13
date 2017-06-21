@@ -3,8 +3,8 @@ package repositories;
 import java.util.LinkedList;
 import java.util.List;
 
-import adapters.AdaptadorSalienteArchivo;
-import exports.ExportadorCuentas;
+import adapters.AdapterCuentasToJSON;
+import exports.ExportadorArchivos;
 import model.CuentaYValor;
 
 public class RepositorioCuentas {
@@ -51,6 +51,6 @@ public class RepositorioCuentas {
 	}
 
 	private void actualizarArchivoCuentas() {
-		new ExportadorCuentas(new AdaptadorSalienteArchivo()).exportar();
+		new ExportadorArchivos(new AdapterCuentasToJSON(), "./cuentas.json");
 	}
 }
