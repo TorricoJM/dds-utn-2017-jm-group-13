@@ -12,9 +12,11 @@ import repositories.RepositorioCuentas;
 
 public class ExportadorCuentas extends ExportadorJSON {
 
+	private String path = "./cuentas.json";
+	
 	public ExportadorCuentas(AdaptadorSaliente adaptador) {
 		super(adaptador);
-		this.adaptador.setPath("./cuentas.json");
+		this.adaptador.setPath(path);
 	}
 
 	@Override
