@@ -15,7 +15,7 @@ public class ExportadorIndicadoresTest {
 	AdaptadorSalienteArchivo mockedAdapter = mock(AdaptadorSalienteArchivo.class);
 	ExportadorIndicadores exportador = new ExportadorIndicadores(mockedAdapter);
 
-	final String INDICADORES = "[{\"nombre\":\"Indicador Nombre Test\",\"operacion\":\"1000 + 500\"}]";
+	final String indicadores = "[{\"nombre\":\"Indicador Nombre Test\",\"operacion\":\"1000 + 500\"}]";
 
 	@Before
 	public void inicializar() {
@@ -25,7 +25,7 @@ public class ExportadorIndicadoresTest {
 	@Test
 	public void seParseanIndicadoresAJSONCorrectamente() {
 		exportador.exportar();
-		verify(mockedAdapter).guardarEnArchivo(INDICADORES);
+		verify(mockedAdapter).guardarEnArchivo(indicadores);
 	}
 
 	@After

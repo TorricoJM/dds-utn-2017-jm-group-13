@@ -15,7 +15,7 @@ public class ExportadorCuentasTest {
 	AdaptadorSalienteArchivo mockedAdapter = mock(AdaptadorSalienteArchivo.class);
 	ExportadorCuentas exportador = new ExportadorCuentas(mockedAdapter);
 
-	final String CUENTAS = "[\"ebitda\",\"free cash flow\",\"fds\",\"operaciones continuas\",\"operaciones discontinuas\"]";
+	final String cuentas = "[\"ebitda\",\"free cash flow\",\"fds\",\"operaciones continuas\",\"operaciones discontinuas\"]";
 
 	@Before
 	public void inicializar() {
@@ -25,7 +25,7 @@ public class ExportadorCuentasTest {
 	@Test
 	public void seParseanCuentasAJSONCorrectamente() {
 		exportador.exportar();
-		verify(mockedAdapter).guardarEnArchivo(CUENTAS);
+		verify(mockedAdapter).guardarEnArchivo(cuentas);
 	}
 
 	@After

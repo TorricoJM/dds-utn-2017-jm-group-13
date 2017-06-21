@@ -18,7 +18,7 @@ public class RepositorioCuentas {
 
 		return instance;
 	}
-	
+
 	public static void deleteInstance() {
 		instance = null;
 	}
@@ -44,9 +44,8 @@ public class RepositorioCuentas {
 	}
 
 	public void refrescar() {
-		List<CuentaYValor> cuentas = new LinkedList<>();
-		RepositorioEmpresas.getInstance().getListaEmpresas().forEach(empresa -> cuentas.addAll(empresa.getCuentas()));
-		cuentas.forEach(cuenta -> this.agregarCuenta(cuenta));
+		RepositorioEmpresas.getInstance().getListaEmpresas().stream().flatMap(empresa -> empresa.getCuentas().stream())
+				.forEach(cuenta -> this.agregarCuenta(cuenta));
 
 		this.actualizarArchivoCuentas();
 	}
