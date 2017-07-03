@@ -36,13 +36,19 @@ public class MenuPrincipalWindow extends SimpleWindow<MenuPrincipalViewModel> {
 		new Button(panelCuentasEIndicadores).setCaption("Cuentas").onClick(() -> this.consultarCuentas());
 		new Button(panelCuentasEIndicadores).setCaption("Indicadores").onClick(() -> this.consultarIndicadores());
 
+		new Button(formPanel).setCaption("Metodologias").onClick(() -> this.consularMetologias());
 		new Label(formPanel).setText("");
 		new Label(formPanel).setText("Actualizacion de Datos");
 
 		new Button(formPanel).setCaption("Importar cuentas").onClick(() -> this.abrirSelectorArchivos());
-		new Button(formPanel).setCaption("Cargar Indicador").onClick(() -> this.abrirCreadorIndicador());
-		new Button(formPanel).setCaption("Metodologias");
+		new Button(formPanel).setCaption("Cargar indicador").onClick(() -> this.abrirCreadorIndicador());
+		new Button(formPanel).setCaption("Cargar metodologia").onClick(() -> this.abrirCreadorMetodologia());
 
+	}
+
+	private void consularMetologias() {
+		Dialog<?> dialog = new ConsultarMetodologiasWindow(this);
+		dialog.open();
 	}
 
 	public void consultarCuentas() {
@@ -55,6 +61,11 @@ public class MenuPrincipalWindow extends SimpleWindow<MenuPrincipalViewModel> {
 		dialog.open();
 	}
 
+	private void abrirCreadorMetodologia(){
+		SimpleWindow<?> selectorWindow = new CrearMetodologiaWindow(this);
+		selectorWindow.open();
+	}
+	
 	private void abrirSelectorArchivos() {
 		SimpleWindow<?> selectorWindow = new SelectorArchivosWindow(this);
 		selectorWindow.open();

@@ -4,6 +4,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 import indicators.DataIndicador;
+import indicators.PredefinidoPruebaAcida;
+import indicators.PredefinidoROA;
+import indicators.PredefinidoROE;
+import indicators.PredefinidoROI;
 
 public class RepositorioIndicadores {
 
@@ -12,6 +16,10 @@ public class RepositorioIndicadores {
 	public static RepositorioIndicadores getInstance() {
 		if (instance == null) {
 			instance = new RepositorioIndicadores();
+			instance.agregar(PredefinidoPruebaAcida.getInstance());
+			instance.agregar(PredefinidoROA.getInstance());
+			instance.agregar(PredefinidoROE.getInstance());
+			instance.agregar(PredefinidoROI.getInstance());
 		}
 
 		return instance;
