@@ -28,10 +28,10 @@ public class ConsultarMetodologiasWindow extends Dialog<ConsultarMetodologiasVie
 		this.setTitle("Consulta de metodologias");
 
 		new Label(form).setText("Metodologías");
-		Selector<Empresa> selectorMetodologia = new Selector<Empresa>(form).allowNull(true);
+		Selector<DataMetodologia> selectorMetodologia = new Selector<DataMetodologia>(form).allowNull(true);
 		selectorMetodologia.setWidth(200);
 
-		Table<DataMetodologia> table = new Table<DataMetodologia>(mainPanel, DataMetodologia.class);
+		Table<Empresa> table = new Table<Empresa>(mainPanel, Empresa.class);
 		table.setNumberVisibleRows(10);
 
 		this.mostrarColumnas(table);
@@ -40,12 +40,10 @@ public class ConsultarMetodologiasWindow extends Dialog<ConsultarMetodologiasVie
 
 	}
 
-	private void mostrarColumnas(Table<DataMetodologia> table) {
+	private void mostrarColumnas(Table<Empresa> table) {
 
-		Column<DataMetodologia> nombres = new Column<DataMetodologia>(table);
-		nombres.setTitle("Empresa").setFixedSize(200).bindContentsToProperty("empresa");
-
-		Column<DataMetodologia> valores = new Column<DataMetodologia>(table);
-		valores.setTitle("Valor").setFixedSize(110).bindContentsToProperty("valor");
+		Column<Empresa> nombres = new Column<Empresa>(table);
+		nombres.setTitle("Empresa").setFixedSize(200).bindContentsToProperty("nombre");
+		
 	}
 }
