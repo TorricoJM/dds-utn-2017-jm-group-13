@@ -30,6 +30,7 @@ public class ConsultarCuentasWindow extends Dialog<ConsultarCuentasViewModel> {
 
 		new Label(form).setText("Empresas");
 		Selector<Empresa> selectorEmpresa = new Selector<Empresa>(form).allowNull(true);
+		selectorEmpresa.setWidth(70);
 		selectorEmpresa.bindItemsToProperty("empresas").setAdapter(new PropertyAdapter(Empresa.class, "nombre"));
 		selectorEmpresa.bindValueToProperty("empresaSeleccionada");
 

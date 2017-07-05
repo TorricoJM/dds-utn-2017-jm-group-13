@@ -12,13 +12,14 @@ import org.junit.Test;
 
 import imports.ImportadorDeEmpresasCSV;
 import indicators.DataIndicador;
+import indicators.Indicador;
 import model.parser.objetosParser.*;
 import readers.LectorCuentas;
 import readers.LectorIndicadores;
 import repositories.RepositorioIndicadores;
 
 public class ParserTest{
-	DataIndicador indicadorSimple;
+	Indicador indicadorSimple;
 	DataIndicador indicadorA;
 	DataIndicador indicadorB;
 	DataIndicador indicadorC;

@@ -27,7 +27,6 @@ public class ConsultarIndicadoresWindow extends Dialog<ConsultarIndicadoresViewM
 
 	public ConsultarIndicadoresWindow(WindowOwner owner) {
 		super(owner, new ConsultarIndicadoresViewModel());
-		// TODO Auto-generated constructor stub
 	}
 	
 	@Override

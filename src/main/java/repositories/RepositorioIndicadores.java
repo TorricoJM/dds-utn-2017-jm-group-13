@@ -3,7 +3,7 @@ package repositories;
 import java.util.LinkedList;
 import java.util.List;
 
-import indicators.DataIndicador;
+import indicators.Indicador;
 import indicators.PredefinidoPruebaAcida;
 import indicators.PredefinidoROA;
 import indicators.PredefinidoROE;
@@ -29,17 +29,17 @@ public class RepositorioIndicadores {
 		instance = null;
 	}
 
-	private List<DataIndicador> indicadores = new LinkedList<>();
+	private List<Indicador> indicadores = new LinkedList<>();
 
-	public List<DataIndicador> getIndicadores() {
+	public List<Indicador> getIndicadores() {
 		return indicadores;
 	}
 
-	public void anexarIndicadores(List<DataIndicador> nuevosIndicadores) {
+	public void anexarIndicadores(List<Indicador> nuevosIndicadores) {
 		this.getIndicadores().addAll(nuevosIndicadores);
 	}
 
-	public void agregar(DataIndicador indicador) {
+	public void agregar(Indicador indicador) {
 		this.getIndicadores().add(indicador);
 	}
 
@@ -48,7 +48,7 @@ public class RepositorioIndicadores {
 				.anyMatch(indicador -> indicador.getNombre().toLowerCase().equals(nombre.toLowerCase()));
 	}
 
-	public DataIndicador obtenerIndicadorDesdeNombre(String nombre) {
+	public Indicador obtenerIndicadorDesdeNombre(String nombre) {
 		return this.getIndicadores().stream().filter(indicador -> indicador.getNombre().equals(nombre)).findFirst()
 				.get();
 	}

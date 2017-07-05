@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import imports.ImportadorDeEmpresasCSV;
 import indicators.DataIndicador;
+import indicators.Indicador;
 import model.parser.objetosParser.*;
 import readers.LectorCuentas;
 import readers.LectorIndicadores;
@@ -17,8 +18,8 @@ public class ParserTestErrores{
 	DataIndicador indicadorSinNombre;
 	DataIndicador indicadorSinOperacion;
 	DataIndicador indicadorA;
-	DataIndicador indicadorB;
-	DataIndicador indicadorC;
+	Indicador indicadorB;
+	Indicador indicadorC;
 	public double resultado;
 	public String resultadoString;
 	List<String> listaCuentas;

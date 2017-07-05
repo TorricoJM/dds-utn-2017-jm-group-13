@@ -9,7 +9,7 @@ import org.uqbar.commons.utils.Observable;
 import adapters.AdapterIndicadoresToJSON;
 import exports.ExportadorArchivos;
 import indicators.DataIndicador;
-import indicators.IndicadorCustom;
+import indicators.Indicador;
 import model.Exception;
 import repositories.RepositorioCuentas;
 import repositories.RepositorioIndicadores;
@@ -17,7 +17,7 @@ import repositories.RepositorioIndicadores;
 @Observable
 public class CrearMetodologiaViewModel {
 
-	private List<DataIndicador> indicadores;
+	private List<Indicador> indicadores;
 	private List<String> cuentas;
 	private DataIndicador indicadorSeleccionado;
 	private String cuentaSeleccionada;
@@ -37,7 +37,7 @@ public class CrearMetodologiaViewModel {
 				|| RepositorioIndicadores.getInstance().tieneIndicador(nombreIndicador))
 			throw new Exception("Nombre repetido o no válido");
 		else {
-			DataIndicador nuevoIndicador = new IndicadorCustom(nombreIndicador, indicador);
+			DataIndicador nuevoIndicador = new DataIndicador(nombreIndicador, indicador);
 			RepositorioIndicadores.getInstance().agregar(nuevoIndicador);
 			new ExportadorArchivos(new AdapterIndicadoresToJSON(), "./indicadores.json");
 		}
@@ -94,11 +94,11 @@ public class CrearMetodologiaViewModel {
 		}
 	}
 
-	public List<DataIndicador> getIndicadores() {
+	public List<Indicador> getIndicadores() {
 		return indicadores;
 	}
 
-	public void setIndicadores(List<DataIndicador> indicadores) {
+	public void setIndicadores(List<Indicador> indicadores) {
 		this.indicadores = indicadores;
 	}
 
@@ -110,7 +110,7 @@ public class CrearMetodologiaViewModel {
 		this.cuentas = cuentas;
 	}
 
-	public DataIndicador getIndicadorSeleccionado() {
+	public Indicador getIndicadorSeleccionado() {
 		return indicadorSeleccionado;
 	}
 

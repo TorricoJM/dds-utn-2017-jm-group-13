@@ -8,7 +8,7 @@ import static org.junit.Assert.*;
 import org.junit.After;
 import org.junit.Test;
 
-import indicators.DataIndicador;
+import indicators.Indicador;
 
 public class CrearIndicadorViewModelTest {
 
@@ -24,7 +24,7 @@ public class CrearIndicadorViewModelTest {
 		
 		indicadorViewModel.crearIndicador();
 		
-		DataIndicador indicador = RepositorioIndicadores.getInstance().obtenerIndicadorDesdeNombre("Indicador Nombre Test");
+		Indicador indicador = RepositorioIndicadores.getInstance().obtenerIndicadorDesdeNombre("Indicador Nombre Test");
 		assertTrue(indicador.getOperacion().equals(indicadorViewModel.getIndicador()));
 
 	}

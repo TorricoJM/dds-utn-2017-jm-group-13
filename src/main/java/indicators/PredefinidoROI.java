@@ -2,20 +2,25 @@ package indicators;
 
 import repositories.RepositorioEmpresas;
 
-public class PredefinidoROI extends DataIndicador{
+public class PredefinidoROI extends Indicador {
 
 	private static PredefinidoROI instance;
 	
-	private PredefinidoROI(String nombre, String operacion) {
-		super(nombre, operacion);
-		// TODO Auto-generated constructor stub
-	}
-	
 	public static PredefinidoROI getInstance() {
 		if (instance == null) {
-			instance = new PredefinidoROI("ROI", "(Ingresos - Inversión)/Inversión*100");
+			instance = new PredefinidoROI();
 		}
 		return instance;
+	}
+	
+	@Override
+	public String getNombre() {
+		return "ROI";
+	}
+
+	@Override
+	public String getOperacion() {
+		return "(Ingresos - Inversion)/Inversion*100";
 	}
 	
 	@Override
