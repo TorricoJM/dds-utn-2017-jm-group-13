@@ -84,59 +84,33 @@ public class ExpresionLexer{
 
 	public void crearOperacion(List<ExpresionParser> expresiones) {
 		if (operadores.contains("*")){
-			crearMultiplicacion(expresiones);
+			crearOperacionBinaria("*",Operador.MULTIPLICACION,expresiones);
 			return;
 		}
 		else if (operadores.contains("/")){
-			crearDivision(expresiones);
+			crearOperacionBinaria("/",Operador.DIVISION,expresiones);
 			return;
 		}
 		else if (operadores.contains("+")){
-			crearSuma(expresiones);
+			crearOperacionBinaria("+",Operador.SUMA,expresiones);
 			return;
 		}
 		else if (operadores.contains("-")){
-			crearResta(expresiones);
+			crearOperacionBinaria("-",Operador.RESTA,expresiones);
 			return;
 		}
 		else throw new IdentificadorInvalidoException("Sin operadores para crear operacion");
 	}
 
-	public void crearMultiplicacion(List<ExpresionParser> expresiones) {
-		int posicion = operadores.indexOf("*");
+	public void crearOperacionBinaria(String operador,Operador operacion,List<ExpresionParser> expresiones) {
+		int posicion = operadores.indexOf(operador);
 		ExpresionParser unaMultiplicacion = 
-				new MultiplicacionParser(expresiones.get(posicion)
+				new OperacionBinaria(operacion, expresiones.get(posicion)
 						, expresiones.get(posicion+1));
 		
 		agregarExpresion(unaMultiplicacion, posicion);
 	}
 	
-	public void crearDivision(List<ExpresionParser> expresiones) {
-		int posicion = operadores.indexOf("/");
-		ExpresionParser unaDivision = 
-				new DivisionParser(expresiones.get(posicion)
-						, expresiones.get(posicion+1));
-		
-		agregarExpresion(unaDivision, posicion);
-	}
-	
-	public void crearSuma(List<ExpresionParser> expresiones){
-		int posicion = operadores.indexOf("+");
-		ExpresionParser unaSuma = 
-				new SumaParser(expresiones.get(posicion)
-						, expresiones.get(posicion+1));
-		
-		agregarExpresion(unaSuma, posicion);
-	}
-	
-	public void crearResta(List<ExpresionParser> expresiones){
-		int posicion = operadores.indexOf("-");
-		ExpresionParser unaResta = 
-				new RestaParser(expresiones.get(posicion)
-						, expresiones.get(posicion+1));
-		
-		agregarExpresion(unaResta, posicion);
-	}
 	public void agregarExpresion(ExpresionParser expresion, int posicion){
 		expresiones.set(posicion, expresion);
 		expresiones.remove(posicion+1);
