@@ -19,7 +19,7 @@ public class CrearIndicadorViewModel {
 
 	private List<Indicador> indicadores;
 	private List<String> cuentas;
-	private DataIndicador indicadorSeleccionado;
+	private Indicador indicadorSeleccionado;
 	private String cuentaSeleccionada;
 	private String indicador = "";
 	private Integer constante;
@@ -114,7 +114,7 @@ public class CrearIndicadorViewModel {
 		return indicadorSeleccionado;
 	}
 
-	public void setIndicadorSeleccionado(DataIndicador indicadorSeleccionado) {
+	public void setIndicadorSeleccionado(Indicador indicadorSeleccionado) {
 		this.indicadorSeleccionado = indicadorSeleccionado;
 	}
 

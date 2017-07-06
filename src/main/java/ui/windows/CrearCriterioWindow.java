@@ -8,17 +8,20 @@ import org.uqbar.arena.widgets.Label;
 import org.uqbar.arena.widgets.NumericField;
 import org.uqbar.arena.widgets.Panel;
 import org.uqbar.arena.widgets.Selector;
+import org.uqbar.arena.windows.MessageBox;
 import org.uqbar.arena.windows.SimpleWindow;
 import org.uqbar.arena.windows.WindowOwner;
+import org.uqbar.arena.windows.MessageBox.Type;
 
 import indicators.DataIndicador;
-import ui.viewModels.CrearIndicadorViewModel;
+import model.Exception;
+import ui.viewModels.CrearCriterioViewModel;
 
 @SuppressWarnings("serial")
-public class CrearCriterioWindow extends SimpleWindow<CrearIndicadorViewModel> {
+public class CrearCriterioWindow extends SimpleWindow<CrearCriterioViewModel> {
 
 	public CrearCriterioWindow(WindowOwner parent) {
-		super(parent, new CrearIndicadorViewModel());
+		super(parent, new CrearCriterioViewModel());
 		// TODO Auto-generated constructor stub
 	}
 
@@ -47,28 +50,70 @@ public class CrearCriterioWindow extends SimpleWindow<CrearIndicadorViewModel> {
 		selectorCuenta.bindValueToProperty("cuentaSeleccionada");
 		selectorCuenta.setWidth(100);
 
-		new Button(mainPanel).setCaption("Agregar indicador");
-		new Button(mainPanel).setCaption("Agregar cuenta");
+		new Button(mainPanel).setCaption("Agregar indicador").onClick(() -> this.agregarIndicador());
+		new Button(mainPanel).setCaption("Agregar cuenta").onClick(() -> this.agregarCuenta());
 		
 		Panel operaciones = new Panel(mainPanel);
 		operaciones.setLayout(new HorizontalLayout());
 
-		new Button(operaciones).setCaption(">").setWidth(120);
-		new Button(operaciones).setCaption("<").setWidth(120);
-		new Button(operaciones).setCaption("=").setWidth(120);
+		new Button(operaciones).setCaption(">").onClick(() -> this.agregarMayor()).setWidth(100);
+		new Button(operaciones).setCaption("<").onClick(() -> this.agregarMenor()).setWidth(100);
+		new Button(operaciones).setCaption("=").onClick(() -> this.agregarIgual()).setWidth(100);
+		new Button(operaciones).setCaption("Borrar").onClick(() -> this.borrarCriterio()).setWidth(100);
 		
 		Panel constante = new Panel(mainPanel);
 		constante.setLayout(new HorizontalLayout());
 
 		new NumericField(constante).setWidth(256).bindValueToProperty("constante");
-		new Button(constante).setCaption("Agregar constante");
+		new Button(constante).setCaption("Agregar constante").onClick(() -> this.agregarConstante());
 
 		new Label(mainPanel).setText("Criterio");
-		new Label(mainPanel).setBackground(Color.LIGHT_GRAY).setForeground(Color.WHITE).setFontSize(12).setWidth(150);
+		new Label(mainPanel).setBackground(Color.LIGHT_GRAY).setForeground(Color.WHITE).setFontSize(12).setWidth(150).bindValueToProperty("criterio");
 		
 		new Button(mainPanel).setCaption("Guardar");
 
 		
 		
 	}
+	
+	private void borrarCriterio() {
+		this.getModelObject().borrarCriterio();
+	}
+
+	private void agregarConstante() {
+		this.getModelObject().agregarConstante();
+	}
+
+	private void agregarIgual() {
+		this.getModelObject().agregarIgual();
+	}
+
+	private void agregarMenor() {
+		this.getModelObject().agregarMenor();
+	}
+
+	private void agregarMayor() {
+		this.getModelObject().agregarMayor();
+	}
+
+	private void agregarIndicador() {
+		try {
+			this.getModelObject().agregarIndicador();
+		} catch (Exception exception) {
+			MessageBox dialogWindow = new MessageBox(this, Type.Error);
+			dialogWindow.setMessage(exception.getMensaje());
+			dialogWindow.open();
+		}
+	}
+
+	private void agregarCuenta() {
+		try {
+			this.getModelObject().agregarCuenta();
+		} catch (Exception exception) {
+			MessageBox dialogWindow = new MessageBox(this, Type.Error);
+			dialogWindow.setMessage(exception.getMensaje());
+			dialogWindow.open();
+		}
+	}
+	
 }
