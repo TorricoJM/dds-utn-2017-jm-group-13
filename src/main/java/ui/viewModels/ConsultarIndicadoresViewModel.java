@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.uqbar.commons.utils.Observable;
 
-import indicators.DataIndicador;
+import indicators.Indicador;
 import model.Empresa;
 import model.PeriodoFiscal;
 import model.parser.EmpresaPeriodoVacioException;
@@ -17,8 +17,8 @@ public class ConsultarIndicadoresViewModel {
 	private List<Empresa> empresas;
 	private Empresa empresaSeleccionada;
 	private PeriodoFiscal periodoSeleccionado;
-	private List<DataIndicador> indicadores;
-	private DataIndicador indicadorSeleccionado;
+	private List<Indicador> indicadores;
+	private Indicador indicadorSeleccionado;
 	private String resultado;
 
 	public ConsultarIndicadoresViewModel() {
@@ -50,19 +50,19 @@ public class ConsultarIndicadoresViewModel {
 		this.periodoSeleccionado = periodoSeleccionado;
 	}
 
-	public List<DataIndicador> getIndicadores() {
+	public List<Indicador> getIndicadores() {
 		return indicadores;
 	}
 
-	public void setIndicadores(List<DataIndicador> indicadores) {
+	public void setIndicadores(List<Indicador> indicadores) {
 		this.indicadores = indicadores;
 	}
 
-	public DataIndicador getIndicadorSeleccionado() {
+	public Indicador getIndicadorSeleccionado() {
 		return indicadorSeleccionado;
 	}
 
-	public void setIndicadorSeleccionado(DataIndicador indicadorSeleccionado) {
+	public void setIndicadorSeleccionado(Indicador indicadorSeleccionado) {
 		this.indicadorSeleccionado = indicadorSeleccionado;
 	}
 
@@ -72,6 +72,14 @@ public class ConsultarIndicadoresViewModel {
 
 	public void setResultado(String resultado) {
 		this.resultado = resultado;
+	}
+	
+	public void evaluarTodo() {
+		
+	}
+	
+	public void evaluarPeriodos() {
+		
 	}
 
 	public void llamarEvaluador() {

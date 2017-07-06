@@ -6,7 +6,7 @@ import model.parser.IdentificadorInvalidoException;
 import model.parser.objetosParser.IndicadorParser;
 
 @Observable
-public class DataIndicador {
+public class DataIndicador extends Indicador {
 
 	private String nombre;
 	private String operacion;
@@ -17,10 +17,12 @@ public class DataIndicador {
 	}
 
 	// -----------------------------------------------------GETTERS AND SETTERS
+	@Override
 	public String getNombre() {
 		return nombre;
 	}
 
+	@Override
 	public String getOperacion() {
 		return operacion;
 	}
@@ -34,6 +36,7 @@ public class DataIndicador {
 	}
 	// ---------------------------------------------------/GETTERS AND SETTERS
 
+	@Override
 	public double evaluateEn(String empresaEvaluada, String periodoEvaluado) {
 		try {
 		return new IndicadorParser(this.nombre, this.operacion).operar(empresaEvaluada, periodoEvaluado);

@@ -2,20 +2,25 @@ package indicators;
 
 import repositories.RepositorioEmpresas;
 
-public class PredefinidoPruebaAcida extends DataIndicador{
+public class PredefinidoPruebaAcida extends Indicador{
 
 	private static PredefinidoPruebaAcida instance;
 	
-	private PredefinidoPruebaAcida(String nombre, String operacion) {
-		super(nombre, operacion);
-		// TODO Auto-generated constructor stub
-	}
-	
 	public static PredefinidoPruebaAcida getInstance() {
 		if (instance == null) {
-			instance = new PredefinidoPruebaAcida("Prueba Acida", "(Activo corriente + Inventarios)/Pasivo corriente");
+			instance = new PredefinidoPruebaAcida();
 		}
 		return instance;
+	}
+	
+	@Override
+	public String getNombre() {
+		return "Prueba Acida";
+	}
+
+	@Override
+	public String getOperacion() {
+		return "(Activo corriente + Inventarios)/Pasivo corriente";
 	}
 	
 	@Override

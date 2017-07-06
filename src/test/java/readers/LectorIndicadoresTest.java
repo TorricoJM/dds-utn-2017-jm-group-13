@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import indicators.DataIndicador;
+import indicators.Indicador;
 import indicators.PredefinidoPruebaAcida;
 import indicators.PredefinidoROA;
 import indicators.PredefinidoROE;
@@ -19,7 +20,7 @@ import repositories.RepositorioIndicadores;
 
 public class LectorIndicadoresTest {
 
-	List<DataIndicador> listaIndicadores;
+	List<Indicador> listaIndicadores;
 
 	@Before
 	public void inicializar() {
