@@ -1,10 +1,10 @@
 package ui.viewModels;
 
-
 import org.uqbar.commons.utils.Observable;
 
+
 @Observable
-public class CrearMetodologiaViewModel {
+public class CrearCriterioViewModel {
 
 
 }
