@@ -6,11 +6,12 @@ import java.util.regex.Pattern;
 
 import org.uqbar.commons.utils.Observable;
 
-import adapters.AdapterIndicadoresToJSON;
+import adapters.AdapterCriteriosToJSON;
 import exports.ExportadorArchivos;
-import indicators.DataIndicador;
 import indicators.Indicador;
+import model.Criterio;
 import model.Exception;
+import repositories.RepositorioCriterios;
 import repositories.RepositorioCuentas;
 import repositories.RepositorioIndicadores;
 
@@ -21,25 +22,25 @@ public class CrearCriterioViewModel {
 	private List<String> cuentas;
 	private Indicador indicadorSeleccionado;
 	private String cuentaSeleccionada;
-	private String criterio = ""; //ex indicador
+	private String criterio = "";
 	private Integer constante;
-	private String nombreCriterio; //ex nombreIndicador
+	private String nombreCriterio;
 
 	public CrearCriterioViewModel() {
 		this.indicadores = RepositorioIndicadores.getInstance().getIndicadores();
 		this.cuentas = RepositorioCuentas.getInstance().getCuentas();
 	}
 
-	public void crearIndicador() {
+	public void crearCriterio() {
 		if (nombreCriterio == null || criterio == "") {
-			throw new Exception("Nombre o indicador vacio");
+			throw new Exception("Nombre o criterio vacio");
 		} else if (!this.tieneNombreValido(nombreCriterio)
-				|| RepositorioIndicadores.getInstance().tieneIndicador(nombreCriterio))
-			throw new Exception("Nombre repetido o no válido");
+				|| RepositorioCriterios.getInstance().tieneCriterio(nombreCriterio))
+			throw new Exception("El criterio ya existe o es inválido");
 		else {
-			DataIndicador nuevoIndicador = new DataIndicador(nombreCriterio, criterio);
-			RepositorioIndicadores.getInstance().agregar(nuevoIndicador);
-			new ExportadorArchivos(new AdapterIndicadoresToJSON(), "./indicadores.json");
+			Criterio nuevoCriterio = new Criterio(nombreCriterio, criterio);
+			RepositorioCriterios.getInstance().agregar(nuevoCriterio);
+			new ExportadorArchivos(new AdapterCriteriosToJSON(), "./criterios.json");
 		}
 	}
 
@@ -138,11 +139,11 @@ public class CrearCriterioViewModel {
 		this.constante = constante;
 	}
 
-	public String getNombreIndicador() {
+	public String getNombreCriterio() {
 		return nombreCriterio;
 	}
 
-	public void setNombreIndicador(String nombreIndicador) {
-		this.nombreCriterio = nombreIndicador;
+	public void setNombreCriterio(String nombreCriterio) {
+		this.nombreCriterio = nombreCriterio;
 	}
 }

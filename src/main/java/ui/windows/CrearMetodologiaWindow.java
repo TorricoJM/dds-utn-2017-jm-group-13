@@ -2,6 +2,7 @@ package ui.windows;
 
 import java.awt.Color;
 
+//import org.uqbar.arena.bindings.PropertyAdapter;
 import org.uqbar.arena.layout.HorizontalLayout;
 import org.uqbar.arena.widgets.Button;
 import org.uqbar.arena.widgets.Label;
@@ -61,7 +62,7 @@ public class CrearMetodologiaWindow extends SimpleWindow<CrearMetodologiaViewMod
 
 	private void agregarCriterio() {
 		try {
-			// this.getModelObject().agregarCriterio();
+			 this.getModelObject().agregarCriterio();
 		} catch (Exception exception) {
 			MessageBox dialogWindow = new MessageBox(this, Type.Error);
 			dialogWindow.setMessage(exception.getMensaje());

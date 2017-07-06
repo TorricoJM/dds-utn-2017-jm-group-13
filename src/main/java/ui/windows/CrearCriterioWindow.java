@@ -8,6 +8,7 @@ import org.uqbar.arena.widgets.Label;
 import org.uqbar.arena.widgets.NumericField;
 import org.uqbar.arena.widgets.Panel;
 import org.uqbar.arena.widgets.Selector;
+import org.uqbar.arena.widgets.TextBox;
 import org.uqbar.arena.windows.MessageBox;
 import org.uqbar.arena.windows.SimpleWindow;
 import org.uqbar.arena.windows.WindowOwner;
@@ -36,7 +37,10 @@ public class CrearCriterioWindow extends SimpleWindow<CrearCriterioViewModel> {
 		Panel form = new Panel(mainPanel);
 		form.setLayout(new HorizontalLayout());
 		form.setWidth(10);
-		this.setTitle("Crear Criterio");
+		this.setTitle("Crear criterio");
+		
+		new Label(mainPanel).setText("Nombre criterio");
+		new TextBox(mainPanel).setWidth(265).bindValueToProperty("nombreCriterio");
 		
 		new Label(form).setText("Indicadores");
 		Selector<DataIndicador> selectorIndicador = new Selector<DataIndicador>(form).allowNull(true);
@@ -70,10 +74,18 @@ public class CrearCriterioWindow extends SimpleWindow<CrearCriterioViewModel> {
 		new Label(mainPanel).setText("Criterio");
 		new Label(mainPanel).setBackground(Color.LIGHT_GRAY).setForeground(Color.WHITE).setFontSize(12).setWidth(150).bindValueToProperty("criterio");
 		
-		new Button(mainPanel).setCaption("Guardar");
+		new Button(mainPanel).setCaption("Guardar").onClick(() -> this.crearCriterio());
+	}
 
-		
-		
+	private void crearCriterio() {
+		try {
+			this.getModelObject().crearCriterio();
+			this.close();
+		} catch (Exception exception) {
+			MessageBox dialogWindow = new MessageBox(this, Type.Error);
+			dialogWindow.setMessage(exception.getMensaje());
+			dialogWindow.open();
+		}
 	}
 	
 	private void borrarCriterio() {
