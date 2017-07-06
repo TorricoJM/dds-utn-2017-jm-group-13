@@ -5,16 +5,20 @@ import java.awt.Color;
 import org.uqbar.arena.bindings.PropertyAdapter;
 import org.uqbar.arena.layout.HorizontalLayout;
 import org.uqbar.arena.layout.VerticalLayout;
-import org.uqbar.arena.widgets.Button;
+import org.uqbar.arena.widgets.List;
 import org.uqbar.arena.widgets.Label;
 import org.uqbar.arena.widgets.Panel;
 import org.uqbar.arena.widgets.Selector;
+import org.uqbar.arena.widgets.tables.Column;
+import org.uqbar.arena.widgets.tables.Table;
 import org.uqbar.arena.windows.Dialog;
 import org.uqbar.arena.windows.MessageBox;
 import org.uqbar.arena.windows.WindowOwner;
 import org.uqbar.arena.windows.MessageBox.Type;
 
 import indicators.DataIndicador;
+import indicators.Indicador;
+import model.CuentaYValor;
 import model.Empresa;
 import model.PeriodoFiscal;
 import model.parser.EmpresaPeriodoVacioException;
@@ -46,39 +50,18 @@ public class ConsultarIndicadoresWindow extends Dialog<ConsultarIndicadoresViewM
 		selectorPeriodo.bindItemsToProperty("empresaSeleccionada.periodos").setAdapter(new PropertyAdapter(PeriodoFiscal.class, "periodo"));
 		selectorPeriodo.bindValueToProperty("periodoSeleccionado");
 		
-		new Label(form).setText("Indicador");
-		Selector<DataIndicador> selectorIndicador = new Selector<DataIndicador>(form).allowNull(true);
-		selectorIndicador.bindItemsToProperty("indicadores").setAdapter(new PropertyAdapter(DataIndicador.class, "nombre"));
-		selectorIndicador.bindValueToProperty("indicadorSeleccionado");
+		Panel tabPanel = new Panel(mainPanel);
+		tabPanel.setLayout(new HorizontalLayout());
 		
-		new Label(mainPanel).setText("OPERACION:").setWidth(150);
-		new Label(mainPanel).setBackground(Color.DARK_GRAY).setForeground(Color.WHITE).setFontSize(12).bindValueToProperty("indicadorSeleccionado.operacion");
+		List<Indicador> indicadores = new List<Indicador>(tabPanel);
+		indicadores.bindItemsToProperty("indicadores").setAdapter(new PropertyAdapter(Indicador.class, "nombre"));
+		indicadores.setHeight(70);
+		indicadores.bindEnabledToProperty("enabled");
 		
-		new Button(mainPanel).setCaption("Aplicar").onClick(() -> this.llamarEvaluador());
-		Panel form2 = new Panel(mainPanel);
-		form2.setLayout(new VerticalLayout());
-		new Label(form2).setText("RESULTADO:").setWidth(400);
-		new Label(form2).setBackground(Color.DARK_GRAY).setForeground(Color.WHITE).setFontSize(12).setWidth(150).bindValueToProperty("resultado");
-	}
-	
-	private void llamarEvaluador() {
-		try {
-		this.getModelObject().llamarEvaluador();
-		} catch (ErrorEvaluacionException exception) {
-			MessageBox dialogWindow = new MessageBox(this, Type.Error);
-			dialogWindow.setMessage(exception.getMensaje());
-			dialogWindow.open();
-		}
-		  catch (EmpresaPeriodoVacioException exception) {
-			MessageBox dialogWindow = new MessageBox(this, Type.Error);
-			dialogWindow.setMessage(exception.getMensaje());
-			dialogWindow.open();
-		}
-		  catch (IdentificadorInvalidoException exception) {
-			MessageBox dialogWindow = new MessageBox(this, Type.Error);
-			dialogWindow.setMessage(exception.getMensaje());
-			dialogWindow.open();
-		  }
+		List<String> valores = new List<String>(tabPanel);
+		valores.bindItemsToProperty("resultados");
+		valores.setHeight(70);
+		valores.bindEnabledToProperty("enabled");
 	}
 	
 }

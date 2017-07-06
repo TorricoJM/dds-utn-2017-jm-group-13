@@ -2,7 +2,7 @@ package indicators;
 
 import org.uqbar.commons.utils.Observable;
 
-import model.parser.IdentificadorInvalidoException;
+import model.parser.ErrorEvaluacionException;
 import model.parser.objetosParser.IndicadorParser;
 
 @Observable
@@ -41,7 +41,7 @@ public class DataIndicador extends Indicador {
 		try {
 		return new IndicadorParser(this.nombre, this.operacion).operar(empresaEvaluada, periodoEvaluado);
 		} catch (NullPointerException e) {
-			throw new IdentificadorInvalidoException("Elegir empresa y periodo a evaluar");
+			throw new ErrorEvaluacionException("No se pudo resolver");
 		}
 	}
 }
