@@ -41,8 +41,8 @@ public class MenuPrincipalWindow extends SimpleWindow<MenuPrincipalViewModel> {
 		new Label(formPanel).setText("Actualizacion de Datos");
 
 		new Button(formPanel).setCaption("Importar cuentas").onClick(() -> this.abrirSelectorArchivos());
-		new Button(formPanel).setCaption("Cargar indicador").onClick(() -> this.abrirCreadorIndicador());
-		new Button(formPanel).setCaption("Cargar metodologia").onClick(() -> this.abrirCreadorMetodologia());
+		new Button(formPanel).setCaption("Crear indicador").onClick(() -> this.abrirCreadorIndicador());
+		new Button(formPanel).setCaption("Crear metodologia").onClick(() -> this.abrirCreadorMetodologia());
 
 	}
 
