@@ -1,5 +1,6 @@
 package indicators;
 
+import model.parser.ErrorEvaluacionException;
 import repositories.RepositorioEmpresas;
 
 public class PredefinidoROI extends Indicador {
@@ -25,10 +26,15 @@ public class PredefinidoROI extends Indicador {
 	
 	@Override
 	public double evaluateEn(String empresaEvaluada,String periodoEvaluado){
-		final double val1 = RepositorioEmpresas.getInstance().obtenerValorDeCuentaDeEmpresaEnPeriodo("Ingresos", empresaEvaluada, periodoEvaluado);
-		final double val2 = RepositorioEmpresas.getInstance().obtenerValorDeCuentaDeEmpresaEnPeriodo("Inversion", empresaEvaluada, periodoEvaluado);
-		final double val3 = val1 - val2;
-		return val3 / val2 * 100;
+		try {
+			final double val1 = RepositorioEmpresas.getInstance().obtenerValorDeCuentaDeEmpresaEnPeriodo("Ingresos", empresaEvaluada, periodoEvaluado);
+			final double val2 = RepositorioEmpresas.getInstance().obtenerValorDeCuentaDeEmpresaEnPeriodo("Inversion", empresaEvaluada, periodoEvaluado);
+			final double val3 = val1 - val2;
+			return val3 / val2 * 100;
+		}
+		catch (NullPointerException e) {
+			throw new ErrorEvaluacionException("No se pudo resolver");
+		}
 	}
 
 }
