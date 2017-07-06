@@ -1,29 +1,17 @@
 package ui.windows;
 
-import java.awt.Color;
-
 import org.uqbar.arena.bindings.PropertyAdapter;
 import org.uqbar.arena.layout.HorizontalLayout;
-import org.uqbar.arena.layout.VerticalLayout;
 import org.uqbar.arena.widgets.List;
 import org.uqbar.arena.widgets.Label;
 import org.uqbar.arena.widgets.Panel;
 import org.uqbar.arena.widgets.Selector;
-import org.uqbar.arena.widgets.tables.Column;
-import org.uqbar.arena.widgets.tables.Table;
 import org.uqbar.arena.windows.Dialog;
-import org.uqbar.arena.windows.MessageBox;
 import org.uqbar.arena.windows.WindowOwner;
-import org.uqbar.arena.windows.MessageBox.Type;
 
-import indicators.DataIndicador;
 import indicators.Indicador;
-import model.CuentaYValor;
 import model.Empresa;
 import model.PeriodoFiscal;
-import model.parser.EmpresaPeriodoVacioException;
-import model.parser.ErrorEvaluacionException;
-import model.parser.IdentificadorInvalidoException;
 import ui.viewModels.ConsultarIndicadoresViewModel;
 
 @SuppressWarnings("serial")

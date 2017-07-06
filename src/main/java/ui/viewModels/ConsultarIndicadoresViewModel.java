@@ -63,7 +63,6 @@ public class ConsultarIndicadoresViewModel {
 		
 		if(empresaSeleccionada != null && periodoSeleccionado != null) {
 			indicadores.forEach(indicador -> this.agregarResultado(this.evaluar(indicador)));
-			//indicadores.forEach(indicador -> resultados.add(this.evaluar(indicador)));
 			ObservableUtils.firePropertyChanged(this, "resultados");
 		}
 	}
