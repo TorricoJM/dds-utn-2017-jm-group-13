@@ -55,13 +55,12 @@ public class ConsultarIndicadoresWindow extends Dialog<ConsultarIndicadoresViewM
 		
 		List<Indicador> indicadores = new List<Indicador>(tabPanel);
 		indicadores.bindItemsToProperty("indicadores").setAdapter(new PropertyAdapter(Indicador.class, "nombre"));
-		indicadores.setHeight(70);
-		indicadores.bindEnabledToProperty("enabled");
+		indicadores.setHeight(100);
 		
 		List<String> valores = new List<String>(tabPanel);
 		valores.bindItemsToProperty("resultados");
-		valores.setHeight(70);
-		valores.bindEnabledToProperty("enabled");
+		valores.setHeight(100);
+		valores.setWidth(100);
 	}
 	
 }

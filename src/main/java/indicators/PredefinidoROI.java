@@ -32,7 +32,7 @@ public class PredefinidoROI extends Indicador {
 			final double val3 = val1 - val2;
 			return val3 / val2 * 100;
 		}
-		catch (NullPointerException e) {
+		catch (ErrorEvaluacionException e) {
 			throw new ErrorEvaluacionException("No se pudo resolver");
 		}
 	}

@@ -34,7 +34,7 @@ public class PredefinidoROE extends Indicador {
 			final double val2 = RepositorioEmpresas.getInstance().obtenerValorDeCuentaDeEmpresaEnPeriodo("Patrimonio Total", empresaEvaluada, periodoEvaluado);
 			return val1 / val2;
 		}
-		catch (NullPointerException e) {
+		catch (ErrorEvaluacionException e) {
 			throw new ErrorEvaluacionException("No se pudo resolver");
 		}
 	}

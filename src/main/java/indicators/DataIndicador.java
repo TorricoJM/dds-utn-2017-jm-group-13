@@ -39,9 +39,11 @@ public class DataIndicador extends Indicador {
 	@Override
 	public double evaluateEn(String empresaEvaluada, String periodoEvaluado) {
 		try {
-		return new IndicadorParser(this.nombre, this.operacion).operar(empresaEvaluada, periodoEvaluado);
-		} catch (NullPointerException e) {
+			return new IndicadorParser(this.nombre, this.operacion).operar(empresaEvaluada, periodoEvaluado);
+		} catch (ErrorEvaluacionException e) {
 			throw new ErrorEvaluacionException("No se pudo resolver");
+		} catch (NullPointerException e) {
+			throw new ErrorEvaluacionException(e.getMessage());
 		}
 	}
 }

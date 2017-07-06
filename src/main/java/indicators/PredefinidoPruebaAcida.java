@@ -33,7 +33,7 @@ public class PredefinidoPruebaAcida extends Indicador{
 			final double val4 = val1 + val2;
 			return val4 / val3;
 		}
-		catch (NullPointerException e) {
+		catch (ErrorEvaluacionException e) {
 			throw new ErrorEvaluacionException("No se pudo resolver");
 		}
 	}
