@@ -3,6 +3,7 @@ package ui.viewModels;
 import java.text.DecimalFormat;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.uqbar.commons.model.ObservableUtils;
 import org.uqbar.commons.utils.Observable;
@@ -62,13 +63,9 @@ public class ConsultarIndicadoresViewModel {
 		resultados = new LinkedList<>();
 		
 		if(empresaSeleccionada != null && periodoSeleccionado != null) {
-			indicadores.forEach(indicador -> this.agregarResultado(this.evaluar(indicador)));
+			resultados = indicadores.stream().map((i) -> this.evaluar(i)).collect(Collectors.toList());
 			ObservableUtils.firePropertyChanged(this, "resultados");
 		}
-	}
-
-	private void agregarResultado (String res) {
-		this.resultados.add(res);
 	}
 	
 	public List<String> getResultados() {
