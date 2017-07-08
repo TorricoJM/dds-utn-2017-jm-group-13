@@ -2,6 +2,8 @@ package model;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
+
 import org.uqbar.commons.utils.Observable;
 
 @Observable
@@ -24,12 +26,9 @@ public class Empresa {
 	}
 
 	public List<CuentaYValor> getCuentas() {
-		List<CuentaYValor> cuentas = new LinkedList<>();
-		this.getPeriodos().forEach(periodo -> cuentas.addAll(periodo.getCuentas()));
-		
-		return cuentas;
+		return this.getPeriodos().stream().flatMap((peri) -> peri.getCuentas().stream()).collect(Collectors.toList());
 	}
-	
+
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
@@ -66,9 +65,8 @@ public class Empresa {
 	}
 
 	public PeriodoFiscal obtenerPeriodoDesdeNombre(String periodoNombre) {
-		return this.getPeriodos().stream()
-				.filter(periodo -> periodo.getPeriodo().equals(periodoNombre))
-				.findFirst().get();
+		return this.getPeriodos().stream().filter(periodo -> periodo.getPeriodo().equals(periodoNombre)).findFirst()
+				.get();
 	}
 
 }
