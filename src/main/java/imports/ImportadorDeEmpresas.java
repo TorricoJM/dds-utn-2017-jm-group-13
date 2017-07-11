@@ -7,7 +7,7 @@ import model.LineaEmpresa;
 import repositories.RepositorioCuentas;
 import repositories.RepositorioEmpresas;
 
-public abstract class ImportadorDeEmpresas extends ImportadorDeArchivos{
+public abstract class ImportadorDeEmpresas implements Importador{
 
 	@Override
 	public void importar(){

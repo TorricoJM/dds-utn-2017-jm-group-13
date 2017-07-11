@@ -4,10 +4,10 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-import imports.ImportadorDeArchivos;
+import imports.*;
 import model.Exception;
 
-public abstract class LectorJSON extends ImportadorDeArchivos {
+public abstract class LectorJSON implements Importador {
 
 	protected String PATH;
 
