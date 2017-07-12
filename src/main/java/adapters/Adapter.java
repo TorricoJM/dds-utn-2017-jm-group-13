@@ -1,5 +1,6 @@
 package adapters;
 
 public interface Adapter<T> {
-	public T transformar();
+	public T transformarA();
+	public void transformarDesde(String contenido);
 }

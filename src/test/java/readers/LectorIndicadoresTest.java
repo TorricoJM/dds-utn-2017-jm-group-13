@@ -9,6 +9,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import adapters.AdapterIndicadoresToJSON;
+import imports.ImportadorArchivos;
 import indicators.DataIndicador;
 import indicators.Indicador;
 import indicators.PredefinidoPruebaAcida;
@@ -44,14 +46,14 @@ public class LectorIndicadoresTest {
 
 	@Test
 	public void seLeeCorrectamenteElArchivoIndicadoresJSON() {
-		new LectorIndicadores("./indicadores.json").importar();
+		new ImportadorArchivos(new AdapterIndicadoresToJSON(), "./indicadores.json").importar();
 		assertTrue(RepositorioIndicadores.getInstance().getIndicadores().stream().allMatch(indicador -> listaIndicadores
 				.stream().anyMatch(hardInd -> hardInd.getNombre().equals(indicador.getNombre()))));
 	}// verifica que todos los indicadores del repo, sean los consignados en el @Before, matcheados por nombre
 
 	@Test(expected = Exception.class)
 	public void lanzaExcepcionIOSiNoExisteArchivo() {
-		new LectorIndicadores("pathInvalido").importar();
+		new ImportadorArchivos(new AdapterIndicadoresToJSON(), "./pathInvalido.json").importar();
 	}
 
 	@After

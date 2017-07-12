@@ -6,6 +6,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import adapters.AdapterCuentasToJSON;
+import imports.ImportadorArchivos;
 import model.Exception;
 
 import java.util.LinkedList;
@@ -29,14 +31,14 @@ public class LectorCuentasTest {
 
 	@Test
 	public void seLeeCorrectamenteElArchivoCuentasJSON() {
-		new LectorCuentas("./cuentas.json").importar();
+		new ImportadorArchivos(new AdapterCuentasToJSON(), "./cuentas.json").importar();
 		assertTrue(RepositorioCuentas.getInstance().getCuentas().stream()
 				.allMatch(cuenta -> listaCuentas.contains(cuenta)));
 	}
 
 	@Test(expected = Exception.class)
 	public void lanzaExcepcionIOSiNoExisteArchivo() {
-		new LectorCuentas("pathInvalido").importar();
+		new ImportadorArchivos(new AdapterCuentasToJSON(), "./pathInvalido.json").importar();
 	}
 
 	@After

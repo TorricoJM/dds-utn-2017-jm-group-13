@@ -23,7 +23,7 @@ public class ExportadorArchivos implements Exportador {
 			FileWriter fileWriter = new FileWriter(this.path);
 			PrintWriter pw = new PrintWriter(fileWriter);
 
-			pw.print(adaptador.transformar());
+			pw.print(adaptador.transformarA());
 
 			pw.close();
 		} catch (IOException exception) {

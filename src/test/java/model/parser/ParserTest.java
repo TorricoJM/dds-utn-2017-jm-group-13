@@ -10,12 +10,13 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import adapters.AdapterCuentasToJSON;
+import adapters.AdapterIndicadoresToJSON;
+import imports.ImportadorArchivos;
 import imports.ImportadorDeEmpresasCSV;
 import indicators.DataIndicador;
 import indicators.Indicador;
 import model.parser.objetosParser.*;
-import readers.LectorCuentas;
-import readers.LectorIndicadores;
 import repositories.RepositorioIndicadores;
 
 public class ParserTest{
@@ -38,8 +39,8 @@ public class ParserTest{
 		
 		importadorCSV = new ImportadorDeEmpresasCSV("empresas.csv");
 		importadorCSV.importar();
-		new LectorCuentas("./cuentas.json").importar();
-		new LectorIndicadores("./indicadores.json").importar();
+		new ImportadorArchivos(new AdapterCuentasToJSON(), "./cuentas.json").importar();
+		new ImportadorArchivos(new AdapterIndicadoresToJSON(), "./indicadores.json").importar();
 		lexer = new ExpresionLexer();
 	}
 

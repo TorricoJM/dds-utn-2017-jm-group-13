@@ -2,14 +2,15 @@ package ui.viewModels;
 
 import org.uqbar.commons.utils.Observable;
 
-import readers.LectorCuentas;
-import readers.LectorIndicadores;
+import imports.ImportadorArchivos;
+import adapters.AdapterCuentasToJSON;
+import adapters.AdapterIndicadoresToJSON;
 
 @Observable
 public class MenuPrincipalViewModel {
 
 	public MenuPrincipalViewModel() {
-		new LectorCuentas("./cuentas.json").importar();
-		new LectorIndicadores("./indicadores.json").importar();
+		new ImportadorArchivos(new AdapterCuentasToJSON(), "./cuentas.json").importar();;
+		new ImportadorArchivos(new AdapterIndicadoresToJSON(), "./indicadores.json").importar();;
 	}
 }
