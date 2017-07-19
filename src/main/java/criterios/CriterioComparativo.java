@@ -1,7 +1,9 @@
 package criterios;
 
-import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import com.google.common.collect.Lists;
 
 import indicators.Indicador;
 import model.Empresa;
@@ -24,9 +26,9 @@ public class CriterioComparativo implements Criterio{
 	public List<Empresa> evaluar(){
 		Indicador indicador = RepositorioIndicadores.getInstance().obtenerIndicadorDesdeNombre(this.indicador);
 		
-		// operador.aplicar(indicador.evaluateEn(this.empresa1, this.periodo), indicador.evaluateEn(this.empresa2, this.periodo));
-		// Hay que filtrar la lista de empresas con el metodo que esta aca arriba
+		List<Empresa> orden = empresas.stream().sorted( (e1, e2) -> Double.compare(indicador.evaluateEn(e1.getNombre(), this.periodo),(indicador.evaluateEn(e2.getNombre(), this.periodo)))).collect(Collectors.toList());
 		
-		return empresas;
+		return Lists.reverse(orden);
+		
 	}
 }
