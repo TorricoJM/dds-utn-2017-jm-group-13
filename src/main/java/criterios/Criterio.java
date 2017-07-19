@@ -1,5 +1,9 @@
 package criterios;
 
+import java.util.List;
+
+import model.Empresa;
+
 public interface Criterio{
-	public Boolean evaluar();
+	public List<Empresa> evaluar();
 }

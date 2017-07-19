@@ -1,33 +1,34 @@
 package criterios;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import criterios.modificador.Modificador;
 import indicators.Indicador;
 import model.Empresa;
-import repositories.RepositorioEmpresas;
 import repositories.RepositorioIndicadores;
 
 public class CriterioTaxativo implements Criterio{
 	
-	public String empresa;
+	public List<Empresa> empresas;
 	public String indicador;
 	public Modificador modificador;
 	public OperadorComparacion operador;
 	public double valor;
 	
-	public CriterioTaxativo(OperadorComparacion operador, String empresa, String indicador, Modificador modificador, double valor){
+	public CriterioTaxativo(OperadorComparacion operador, List<Empresa> empresas, String indicador, Modificador modificador, double valor){
 		this.operador = operador;
-		this.empresa = empresa;
+		this.empresas = empresas;
 		this.indicador = indicador;
 		this.modificador = modificador;
 		this.valor = valor;
 	}
 
 	@Override
-	public Boolean evaluar() {
-		Empresa empresa = RepositorioEmpresas.getInstance().obtenerEmpresaDesdeNombre(this.empresa);
+	public List<Empresa> evaluar() {
 		Indicador indicador = RepositorioIndicadores.getInstance().obtenerIndicadorDesdeNombre(this.indicador);
 		
-		return operador.aplicar(modificador.modificar(empresa,indicador), this.valor);
+		return empresas.stream().filter(empresa -> operador.aplicar(modificador.modificar(empresa, indicador), this.valor)).collect(Collectors.toList());
 	}
 
 }
