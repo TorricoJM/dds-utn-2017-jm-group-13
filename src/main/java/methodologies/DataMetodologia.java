@@ -1,30 +1,47 @@
 package methodologies;
 
+import java.util.List;
+import criterios.CriterioComparativo;
+import criterios.CriterioTaxativo;
+
 import org.uqbar.commons.utils.Observable;
 
 @Observable
 public class DataMetodologia {
-	private String empresa;
-	private String valor;
-
-	public DataMetodologia(String empresa, String valor) {
-		this.setEmpresa(empresa);
-		this.setValor(valor);
+	private String nombre;
+	private List<CriterioComparativo> listaComparativos;
+	private List<CriterioTaxativo> listaTaxativos;
+	
+	public DataMetodologia(String nombre, List<CriterioComparativo> listaComparativos, List<CriterioTaxativo> listaTaxativos){
+		this.setNombre(nombre);
+		this.setListaComparativos(listaComparativos);
+		this.setListaTaxativos(listaTaxativos);
 	}
 
-	public String getEmpresa() {
-		return empresa;
+	public String getNombre() {
+		return nombre;
 	}
 
-	public void setEmpresa(String empresa) {
-		this.empresa = empresa;
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 
-	public String getValor() {
-		return valor;
+	public List<CriterioComparativo> getListaComparativos() {
+		return listaComparativos;
 	}
 
-	public void setValor(String valor) {
-		this.valor = valor;
+	public void setListaComparativos(List<CriterioComparativo> listaComparativos) {
+		this.listaComparativos = listaComparativos;
 	}
+
+	public List<CriterioTaxativo> getListaTaxativos() {
+		return listaTaxativos;
+	}
+
+	public void setListaTaxativos(List<CriterioTaxativo> listaTaxativos) {
+		this.listaTaxativos = listaTaxativos;
+	}
+
+	
+	
 }
