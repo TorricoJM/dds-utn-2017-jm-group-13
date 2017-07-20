@@ -1,21 +1,19 @@
 package methodologies;
 
 import java.util.List;
-import criterios.CriterioComparativo;
-import criterios.CriterioTaxativo;
+
+import criterios.Criterio;
 
 import org.uqbar.commons.utils.Observable;
 
 @Observable
 public class DataMetodologia {
 	private String nombre;
-	private List<CriterioComparativo> listaComparativos;
-	private List<CriterioTaxativo> listaTaxativos;
+	private List<Criterio> criterios;
 	
-	public DataMetodologia(String nombre, List<CriterioComparativo> listaComparativos, List<CriterioTaxativo> listaTaxativos){
+	public DataMetodologia(String nombre, List<Criterio> criterios){
 		this.setNombre(nombre);
-		this.setListaComparativos(listaComparativos);
-		this.setListaTaxativos(listaTaxativos);
+		this.setCriterios(criterios);
 	}
 
 	public String getNombre() {
@@ -26,22 +24,11 @@ public class DataMetodologia {
 		this.nombre = nombre;
 	}
 
-	public List<CriterioComparativo> getListaComparativos() {
-		return listaComparativos;
+	public List<Criterio> getCriterios() {
+		return criterios;
 	}
 
-	public void setListaComparativos(List<CriterioComparativo> listaComparativos) {
-		this.listaComparativos = listaComparativos;
+	public void setCriterios(List<Criterio> criterios) {
+		this.criterios = criterios;
 	}
-
-	public List<CriterioTaxativo> getListaTaxativos() {
-		return listaTaxativos;
-	}
-
-	public void setListaTaxativos(List<CriterioTaxativo> listaTaxativos) {
-		this.listaTaxativos = listaTaxativos;
-	}
-
-	
-	
 }
