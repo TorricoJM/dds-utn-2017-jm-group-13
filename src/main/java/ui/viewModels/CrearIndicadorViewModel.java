@@ -10,9 +10,7 @@ import adapters.AdapterIndicadoresToJSON;
 import exports.ExportadorArchivos;
 import indicators.DataIndicador;
 import indicators.Indicador;
-import model.Criterio;
 import model.Exception;
-import repositories.RepositorioCriterios;
 import repositories.RepositorioCuentas;
 import repositories.RepositorioIndicadores;
 
@@ -21,7 +19,6 @@ public class CrearIndicadorViewModel {
 
 	private List<Indicador> indicadores;
 	private List<String> cuentas;
-	private List<Criterio> criterios;
 	private Indicador indicadorSeleccionado;
 	private String cuentaSeleccionada;
 	private String indicador = "";
@@ -31,7 +28,6 @@ public class CrearIndicadorViewModel {
 	public CrearIndicadorViewModel() {
 		this.indicadores = RepositorioIndicadores.getInstance().getIndicadores();
 		this.cuentas = RepositorioCuentas.getInstance().getCuentas();
-		this.criterios = RepositorioCriterios.getInstance().getCriterios();
 	}
 
 	public void crearIndicador() {
@@ -152,13 +148,5 @@ public class CrearIndicadorViewModel {
 
 	public void setNombreIndicador(String nombreIndicador) {
 		this.nombreIndicador = nombreIndicador;
-	}
-
-	public List<Criterio> getCriterios() {
-		return criterios;
-	}
-
-	public void setCriterios(List<Criterio> criterios) {
-		this.criterios = criterios;
 	}
 }

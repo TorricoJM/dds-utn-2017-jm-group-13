@@ -3,7 +3,8 @@ package repositories;
 import java.util.LinkedList;
 import java.util.List;
 
-import model.Criterio;
+import criterios.Criterio;
+
 
 public class RepositorioCriterios {
 
@@ -36,7 +37,7 @@ public class RepositorioCriterios {
 
 	public boolean tieneCriterio(String nombre) {
 		return this.getCriterios().stream()
-				.anyMatch(criterio -> criterio.getNombreCriterio().toLowerCase().equals(nombre.toLowerCase()));
+				.anyMatch(criterio -> criterio.getNombre().toLowerCase().equals(nombre.toLowerCase()));
 	}
 
 	public void setCriterios(List<Criterio> contenido) {

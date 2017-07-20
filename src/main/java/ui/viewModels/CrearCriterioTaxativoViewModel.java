@@ -6,10 +6,7 @@ import java.util.regex.Pattern;
 
 import org.uqbar.commons.utils.Observable;
 
-import adapters.AdapterCriteriosToJSON;
-import exports.ExportadorArchivos;
 import indicators.Indicador;
-import model.Criterio;
 import model.Exception;
 import repositories.RepositorioCriterios;
 import repositories.RepositorioCuentas;
@@ -38,9 +35,9 @@ public class CrearCriterioTaxativoViewModel {
 				|| RepositorioCriterios.getInstance().tieneCriterio(nombreCriterio))
 			throw new Exception("El criterio ya existe o es inválido");
 		else {
-			Criterio nuevoCriterio = new Criterio(nombreCriterio, criterio);
-			RepositorioCriterios.getInstance().agregar(nuevoCriterio);
-			new ExportadorArchivos(new AdapterCriteriosToJSON(), "./criterios.json");
+			//Criterio nuevoCriterio = new Criterio(nombreCriterio, criterio);
+			//RepositorioCriterios.getInstance().agregar(nuevoCriterio);
+			//new ExportadorArchivos(new AdapterCriteriosToJSON(), "./criterios.json");
 		}
 	}
 

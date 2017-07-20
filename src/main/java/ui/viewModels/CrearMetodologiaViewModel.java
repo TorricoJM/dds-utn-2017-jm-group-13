@@ -4,7 +4,7 @@ package ui.viewModels;
 //import org.uqbar.arena.widgets.List;
 import org.uqbar.commons.utils.Observable;
 
-import model.Criterio;
+import criterios.Criterio;
 import model.Exception;
 
 @Observable
@@ -19,7 +19,7 @@ public class CrearMetodologiaViewModel {
 		if (criterioSeleccionado == null) {
 			throw new Exception("Seleccione un criterio.");
 		} else {
-			this.setMetodologia(metodologia + criterioSeleccionado.getNombreCriterio());
+			this.setMetodologia(metodologia + criterioSeleccionado.getNombre());
 		}
 	}
 

@@ -12,9 +12,11 @@ import org.uqbar.arena.widgets.TextBox;
 import org.uqbar.arena.windows.MessageBox;
 import org.uqbar.arena.windows.SimpleWindow;
 import org.uqbar.arena.windows.WindowOwner;
+
+import criterios.Criterio;
+
 import org.uqbar.arena.windows.MessageBox.Type;
 
-import model.Criterio;
 import model.Exception;
 import ui.viewModels.CrearMetodologiaViewModel;
 
@@ -49,7 +51,7 @@ public class CrearMetodologiaWindow extends SimpleWindow<CrearMetodologiaViewMod
 		operaciones.setLayout(new HorizontalLayout());
 
 		new Button(operaciones).setCaption("Agregar Criterio").onClick(() -> this.agregarCriterio()).setWidth(150);
-		new Button(operaciones).setCaption("Crear Criterio").onClick(() -> this.abrirCreadorCriterios()).setWidth(150);
+		new Button(operaciones).setCaption("Crear Criterio Taxativo").onClick(() -> this.abrirCreadorCriteriosTaxativos()).setWidth(150);
 
 		new Label(mainPanel).setText("Metodologia");
 		new Label(mainPanel).setBackground(Color.LIGHT_GRAY).setForeground(Color.WHITE).setFontSize(12).setWidth(150);
@@ -70,9 +72,9 @@ public class CrearMetodologiaWindow extends SimpleWindow<CrearMetodologiaViewMod
 		}
 	}
 
-	private void abrirCreadorCriterios() {
-		SimpleWindow<?> creadorCriteriosWindow = new CrearCriterioTaxativoWindow(this);
-		creadorCriteriosWindow.open();
+	private void abrirCreadorCriteriosTaxativos() {
+		SimpleWindow<?> creadorCriteriosTaxativosWindow = new CrearCriterioTaxativoWindow(this);
+		creadorCriteriosTaxativosWindow.open();
 	}
 
 }
