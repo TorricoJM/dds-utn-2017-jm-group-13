@@ -16,7 +16,7 @@ import repositories.RepositorioCuentas;
 import repositories.RepositorioIndicadores;
 
 @Observable
-public class CrearCriterioViewModel {
+public class CrearCriterioTaxativoViewModel {
 
 	private List<Indicador> indicadores;
 	private List<String> cuentas;
@@ -26,7 +26,7 @@ public class CrearCriterioViewModel {
 	private Integer constante;
 	private String nombreCriterio;
 
-	public CrearCriterioViewModel() {
+	public CrearCriterioTaxativoViewModel() {
 		this.indicadores = RepositorioIndicadores.getInstance().getIndicadores();
 		this.cuentas = RepositorioCuentas.getInstance().getCuentas();
 	}
@@ -66,10 +66,14 @@ public class CrearCriterioViewModel {
 		this.setCriterio(criterio + "<");
 	}
 
-	public void agregarIgual() {
-		this.setCriterio(criterio + "=");
+	public void agregarPromedio() {
+		this.setCriterio(criterio + "Promedio ");
 	}
 
+	public void agregarSumatoria() {
+		this.setCriterio(criterio + "Sumatoria ");
+	}
+	
 	public void agregarConstante() {
 		String constanteString = Integer.toString(constante);
 		this.setCriterio(criterio + constanteString);

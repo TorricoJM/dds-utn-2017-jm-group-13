@@ -16,13 +16,13 @@ import org.uqbar.arena.windows.MessageBox.Type;
 
 import indicators.DataIndicador;
 import model.Exception;
-import ui.viewModels.CrearCriterioViewModel;
+import ui.viewModels.CrearCriterioTaxativoViewModel;
 
 @SuppressWarnings("serial")
-public class CrearCriterioWindow extends SimpleWindow<CrearCriterioViewModel> {
+public class CrearCriterioTaxativoWindow extends SimpleWindow<CrearCriterioTaxativoViewModel> {
 
-	public CrearCriterioWindow(WindowOwner parent) {
-		super(parent, new CrearCriterioViewModel());
+	public CrearCriterioTaxativoWindow(WindowOwner parent) {
+		super(parent, new CrearCriterioTaxativoViewModel());
 		// TODO Auto-generated constructor stub
 	}
 
@@ -37,38 +37,39 @@ public class CrearCriterioWindow extends SimpleWindow<CrearCriterioViewModel> {
 		Panel form = new Panel(mainPanel);
 		form.setLayout(new HorizontalLayout());
 		form.setWidth(10);
-		this.setTitle("Crear criterio");
-		
-		new Label(mainPanel).setText("Nombre criterio");
-		new TextBox(mainPanel).setWidth(265).bindValueToProperty("nombreCriterio");
-		
+		this.setTitle("Crear criterio taxativo");
+				
 		new Label(form).setText("Indicadores");
 		Selector<DataIndicador> selectorIndicador = new Selector<DataIndicador>(form).allowNull(true);
 		selectorIndicador.bindItemsToProperty("indicadores").setAdapter(new PropertyAdapter(DataIndicador.class, "nombre"));
 		selectorIndicador.bindValueToProperty("indicadorSeleccionado");
-		selectorIndicador.setWidth(100);
+		selectorIndicador.setWidth(175);
 
 		new Label(form).setText("Cuentas");
 		Selector<String> selectorCuenta = new Selector<String>(form).allowNull(true);
 		selectorCuenta.bindItemsToProperty("cuentas");
 		selectorCuenta.bindValueToProperty("cuentaSeleccionada");
-		selectorCuenta.setWidth(100);
+		selectorCuenta.setWidth(175);
 
 		new Button(mainPanel).setCaption("Agregar indicador").onClick(() -> this.agregarIndicador());
 		new Button(mainPanel).setCaption("Agregar cuenta").onClick(() -> this.agregarCuenta());
+		
+		new Label(mainPanel).setText("Nombre criterio");
+		new TextBox(mainPanel).setWidth(265).bindValueToProperty("nombreCriterio");
 		
 		Panel operaciones = new Panel(mainPanel);
 		operaciones.setLayout(new HorizontalLayout());
 
 		new Button(operaciones).setCaption(">").onClick(() -> this.agregarMayor()).setWidth(100);
 		new Button(operaciones).setCaption("<").onClick(() -> this.agregarMenor()).setWidth(100);
-		new Button(operaciones).setCaption("=").onClick(() -> this.agregarIgual()).setWidth(100);
+		new Button(operaciones).setCaption("Promedio").onClick(() -> this.agregarPromedio()).setWidth(100);
+		new Button(operaciones).setCaption("Sumatoria").onClick(() -> this.agregarSumatoria()).setWidth(100);
 		new Button(operaciones).setCaption("Borrar").onClick(() -> this.borrarCriterio()).setWidth(100);
 		
 		Panel constante = new Panel(mainPanel);
 		constante.setLayout(new HorizontalLayout());
 
-		new NumericField(constante).setWidth(256).bindValueToProperty("constante");
+		new NumericField(constante).setWidth(350).bindValueToProperty("constante");
 		new Button(constante).setCaption("Agregar constante").onClick(() -> this.agregarConstante());
 
 		new Label(mainPanel).setText("Criterio");
@@ -96,8 +97,12 @@ public class CrearCriterioWindow extends SimpleWindow<CrearCriterioViewModel> {
 		this.getModelObject().agregarConstante();
 	}
 
-	private void agregarIgual() {
-		this.getModelObject().agregarIgual();
+	private void agregarPromedio() {
+		this.getModelObject().agregarPromedio();
+	}
+	
+	private void agregarSumatoria() {
+		this.getModelObject().agregarSumatoria();
 	}
 
 	private void agregarMenor() {
