@@ -10,6 +10,8 @@ import adapters.AdapterCriteriosToJSON;
 import criterios.CriterioTaxativo;
 import criterios.OperadorComparacion;
 import criterios.modificador.Modificador;
+import criterios.modificador.Promedio;
+import criterios.modificador.Sumatoria;
 import exports.ExportadorArchivos;
 import indicators.Indicador;
 import model.Exception;
@@ -59,22 +61,31 @@ public class CrearCriterioTaxativoViewModel {
 	}
 
 	public void borrarCriterio() {
+		this.setModificador(null);
+		this.setOperador(null);
 		this.setCriterio("");
 	}
 
 	public void agregarMayor() {
+		this.setOperador(OperadorComparacion.MAYOR);
 		this.setCriterio(criterio + ">");
 	}
 
 	public void agregarMenor() {
+		this.setOperador(OperadorComparacion.MENOR);
 		this.setCriterio(criterio + "<");
 	}
 
 	public void agregarPromedio() {
+		Modificador modificadorPromedio = new Promedio();
+		this.setModificador(modificadorPromedio);
+		this.setOperador(OperadorComparacion.MAYOR);
 		this.setCriterio(criterio + "Promedio ");
 	}
 
 	public void agregarSumatoria() {
+		Modificador modificadorSumatoria = new Sumatoria();
+		this.setModificador(modificadorSumatoria);
 		this.setCriterio(criterio + "Sumatoria ");
 	}
 	
@@ -154,4 +165,22 @@ public class CrearCriterioTaxativoViewModel {
 	public void setNombreCriterio(String nombreCriterio) {
 		this.nombreCriterio = nombreCriterio;
 	}
+
+	public OperadorComparacion getOperador() {
+		return operador;
+	}
+
+	public void setOperador(OperadorComparacion operador) {
+		this.operador = operador;
+	}
+
+	public Modificador getModificador() {
+		return modificador;
+	}
+
+	public void setModificador(Modificador modificador) {
+		this.modificador = modificador;
+	}
+	
+	
 }
