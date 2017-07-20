@@ -2,6 +2,7 @@ package ui.windows;
 
 import java.awt.Color;
 
+import org.uqbar.arena.bindings.PropertyAdapter;
 //import org.uqbar.arena.bindings.PropertyAdapter;
 import org.uqbar.arena.layout.HorizontalLayout;
 import org.uqbar.arena.widgets.Button;
@@ -43,8 +44,8 @@ public class CrearMetodologiaWindow extends SimpleWindow<CrearMetodologiaViewMod
 
 		new Label(form).setText("Criterios");
 		Selector<Criterio> selectorCriterio = new Selector<Criterio>(form).allowNull(true);
-		//selectorCriterio.bindItemsToProperty("criterios").setAdapter(new PropertyAdapter(Criterio.class, "nombreCriterio"));
-		//selectorCriterio.bindValueToProperty("criterioSeleccionado");
+		selectorCriterio.bindItemsToProperty("criterios").setAdapter(new PropertyAdapter(Criterio.class, "nombre"));
+		selectorCriterio.bindValueToProperty("criterioSeleccionado");
 		selectorCriterio.setWidth(200);
 
 		Panel operaciones = new Panel(mainPanel);

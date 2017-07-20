@@ -6,6 +6,11 @@ import java.util.regex.Pattern;
 
 import org.uqbar.commons.utils.Observable;
 
+import adapters.AdapterCriteriosToJSON;
+import criterios.CriterioTaxativo;
+import criterios.OperadorComparacion;
+import criterios.modificador.Modificador;
+import exports.ExportadorArchivos;
 import indicators.Indicador;
 import model.Exception;
 import repositories.RepositorioCriterios;
@@ -20,8 +25,10 @@ public class CrearCriterioTaxativoViewModel {
 	private Indicador indicadorSeleccionado;
 	private String cuentaSeleccionada;
 	private String criterio = "";
-	private Integer constante;
+	private Double constante;
 	private String nombreCriterio;
+	private OperadorComparacion operador;
+	private Modificador modificador;
 
 	public CrearCriterioTaxativoViewModel() {
 		this.indicadores = RepositorioIndicadores.getInstance().getIndicadores();
@@ -33,11 +40,11 @@ public class CrearCriterioTaxativoViewModel {
 			throw new Exception("Nombre o criterio vacio");
 		} else if (!this.tieneNombreValido(nombreCriterio)
 				|| RepositorioCriterios.getInstance().tieneCriterio(nombreCriterio))
-			throw new Exception("El criterio ya existe o es inválido");
+			throw new Exception("El criterio ya existe o es invalido");
 		else {
-			//Criterio nuevoCriterio = new Criterio(nombreCriterio, criterio);
-			//RepositorioCriterios.getInstance().agregar(nuevoCriterio);
-			//new ExportadorArchivos(new AdapterCriteriosToJSON(), "./criterios.json");
+			CriterioTaxativo nuevoCriterio = new CriterioTaxativo(nombreCriterio, operador, indicadorSeleccionado, modificador, constante);
+			RepositorioCriterios.getInstance().agregar(nuevoCriterio);
+			new ExportadorArchivos(new AdapterCriteriosToJSON(), "./criterios.json");
 		}
 	}
 
@@ -72,7 +79,7 @@ public class CrearCriterioTaxativoViewModel {
 	}
 	
 	public void agregarConstante() {
-		String constanteString = Integer.toString(constante);
+		String constanteString = Double.toString(constante);
 		this.setCriterio(criterio + constanteString);
 	}
 
@@ -132,11 +139,11 @@ public class CrearCriterioTaxativoViewModel {
 		this.criterio = criterio;
 	}
 
-	public Integer getConstante() {
+	public Double getConstante() {
 		return constante;
 	}
 
-	public void setConstante(Integer constante) {
+	public void setConstante(Double constante) {
 		this.constante = constante;
 	}
 
