@@ -49,9 +49,11 @@ public class CrearMetodologiaWindow extends SimpleWindow<CrearMetodologiaViewMod
 		Panel operaciones = new Panel(mainPanel);
 		operaciones.setLayout(new HorizontalLayout());
 
-		new Button(operaciones).setCaption("Agregar Criterio").onClick(() -> this.agregarCriterio()).setWidth(150);
-		new Button(operaciones).setCaption("Crear Criterio Taxativo")
-				.onClick(() -> this.abrirCreadorCriteriosTaxativos()).setWidth(150);
+		new Button(form).setCaption("Agregar Criterio").onClick(() -> this.agregarCriterio()).setWidth(150);
+		new Button(operaciones).setCaption("Crear criterio taxativo")
+				.onClick(() -> this.abrirCreadorCriteriosTaxativos());
+		new Button(operaciones).setCaption("Crear criterio comparativo")
+				.onClick(() -> this.abrirCreadorCriteriosComparativos());
 
 		Panel tabPanel = new Panel(mainPanel);
 		tabPanel.setLayout(new HorizontalLayout());
@@ -77,6 +79,11 @@ public class CrearMetodologiaWindow extends SimpleWindow<CrearMetodologiaViewMod
 		}
 	}
 
+	private void abrirCreadorCriteriosComparativos() {
+		SimpleWindow<?> creadorCriteriosComparativosWindow = new CrearCriterioComparativoWindow(this);
+		creadorCriteriosComparativosWindow.open();
+	}
+	
 	private void abrirCreadorCriteriosTaxativos() {
 		SimpleWindow<?> creadorCriteriosTaxativosWindow = new CrearCriterioTaxativoWindow(this);
 		creadorCriteriosTaxativosWindow.open();

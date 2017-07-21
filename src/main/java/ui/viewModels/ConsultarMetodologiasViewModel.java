@@ -1,5 +1,6 @@
 package ui.viewModels;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,9 +30,17 @@ public class ConsultarMetodologiasViewModel {
 		//TODO Sacar periodos repetidos y ordenar de menor a mayor
 	}
 	
+	public void construirRangoDePeriodos(){
+		if(this.periodoInicioSeleccionado.equals(this.periodoFinSeleccionado)){
+			this.periodosSeleccionados = new LinkedList<>();
+			periodosSeleccionados.add(periodoInicioSeleccionado);
+		}else{
+			periodosSeleccionados = periodos.subList(periodos.indexOf(periodoInicioSeleccionado), periodos.indexOf(periodoFinSeleccionado));
+		}
+	}
+	
 	public void evaluarMetodologia() {
-		
-		periodosSeleccionados = periodos.subList(periodos.indexOf(periodoInicioSeleccionado), periodos.indexOf(periodoFinSeleccionado));
+		this.construirRangoDePeriodos();
 		empresasResultantes = metodologiaSeleccionada.aplicarMetodologia(empresas, periodosSeleccionados);
 		ObservableUtils.firePropertyChanged(this,"empresasResultantes");
 	}
