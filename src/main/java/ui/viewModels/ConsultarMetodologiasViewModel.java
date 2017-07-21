@@ -3,6 +3,7 @@ package ui.viewModels;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.uqbar.commons.model.ObservableUtils;
 import org.uqbar.commons.utils.Observable;
 
 import methodologies.DataMetodologia;
@@ -17,14 +18,21 @@ public class ConsultarMetodologiasViewModel {
 	private DataMetodologia metodologiaSeleccionada;
 	private PeriodoFiscal periodoInicioSeleccionado;
 	private PeriodoFiscal periodoFinSeleccionado;
-	private List<PeriodoFiscal> periodos;
+	private List<String> periodos;
 	private List<Empresa> empresas;
+	private List<Empresa> empresasResultantes;
+	private List<String> periodosSeleccionados;
 
 	public ConsultarMetodologiasViewModel() {
-		this.metodologias = RepositorioMetodologias.getInstance().getListaMetodologias();getClass();
+		this.metodologias = RepositorioMetodologias.getInstance().getListaMetodologias();
 		this.empresas = RepositorioEmpresas.getInstance().getListaEmpresas();
-		this.periodos = empresas.stream().flatMap(empresa -> empresa.getPeriodos().stream()).collect(Collectors.toList());
+		this.periodos = empresas.stream().flatMap(empresa -> empresa.getPeriodos().stream()).map(periodo -> periodo.getPeriodo()).distinct().collect(Collectors.toList());
 		//TODO Sacar periodos repetidos y ordenar de menor a mayor
+	}
+	
+	public void evaluarMetodologia() {
+		empresasResultantes = metodologiaSeleccionada.aplicarMetodologia(empresas, periodosSeleccionados);
+		ObservableUtils.firePropertyChanged(this,"empresasResultantes");
 	}
 
 	public List<DataMetodologia> getMetodologias() {
@@ -59,11 +67,11 @@ public class ConsultarMetodologiasViewModel {
 		this.periodoFinSeleccionado = periodoFinSeleccionado;
 	}
 
-	public List<PeriodoFiscal> getPeriodos() {
+	public List<String> getPeriodos() {
 		return periodos;
 	}
 
-	public void setPeriodos(List<PeriodoFiscal> periodos) {
+	public void setPeriodos(List<String> periodos) {
 		this.periodos = periodos;
 	}
 
@@ -75,10 +83,11 @@ public class ConsultarMetodologiasViewModel {
 		this.empresas = empresas;
 	}
 
-	
-	
-	
-	
-	
-	
+	public List<Empresa> getEmpresasResultantes() {
+		return empresasResultantes;
+	}
+
+	public void setEmpresasResultantes(List<Empresa> empresasResultantes) {
+		this.empresasResultantes = empresasResultantes;
+	}	
 }

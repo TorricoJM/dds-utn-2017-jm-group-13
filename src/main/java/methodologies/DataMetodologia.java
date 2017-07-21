@@ -3,6 +3,7 @@ package methodologies;
 import java.util.List;
 
 import criterios.Criterio;
+import model.Empresa;
 
 import org.uqbar.commons.utils.Observable;
 
@@ -14,6 +15,11 @@ public class DataMetodologia {
 	public DataMetodologia(String nombre, List<Criterio> criterios){
 		this.setNombre(nombre);
 		this.setCriterios(criterios);
+	}
+	
+	public List<Empresa> aplicarMetodologia(List<Empresa> listaEmpresas, List<String> listaPeriodos) {
+		
+		return criterios.get(0).evaluar(listaPeriodos, listaEmpresas);
 	}
 
 	public String getNombre() {

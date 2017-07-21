@@ -9,11 +9,14 @@ import org.uqbar.arena.widgets.Selector;
 import org.uqbar.arena.widgets.tables.Column;
 import org.uqbar.arena.widgets.tables.Table;
 import org.uqbar.arena.windows.Dialog;
+import org.uqbar.arena.windows.MessageBox;
 import org.uqbar.arena.windows.WindowOwner;
+import org.uqbar.arena.windows.MessageBox.Type;
 
 import methodologies.DataMetodologia;
 import ui.viewModels.ConsultarMetodologiasViewModel;
 import model.Empresa;
+import model.Exception;
 import model.PeriodoFiscal;
 
 @SuppressWarnings("serial")
@@ -32,6 +35,8 @@ public class ConsultarMetodologiasWindow extends Dialog<ConsultarMetodologiasVie
 		new Label(form).setText("Metodologias");
 		Selector<DataMetodologia> selectorMetodologia = new Selector<DataMetodologia>(form).allowNull(true);
 		selectorMetodologia.setWidth(200);
+		selectorMetodologia.bindItemsToProperty("metodologias").setAdapter(new PropertyAdapter(DataMetodologia.class, "nombre"));
+		selectorMetodologia.bindValueToProperty("metodologiaSeleccionada");
 
 		new Label(form).setText("Periodo Inicio");
 		Selector<PeriodoFiscal> selectorPeriodoInicio = new Selector<PeriodoFiscal>(form);
@@ -46,11 +51,11 @@ public class ConsultarMetodologiasWindow extends Dialog<ConsultarMetodologiasVie
 		selectorPeriodoFin.bindValueToProperty("periodoFinSeleccionado");
 		
 		Table<Empresa> table = new Table<Empresa>(mainPanel, Empresa.class);
-		table.setNumberVisibleRows(10);
+		table.setNumberVisibleRows(10).bindValueToProperty("empresasResultantes");
 
 		this.mostrarColumnas(table);
 		
-		new Button(mainPanel).setCaption("Comparar empresas");
+		new Button(mainPanel).setCaption("Comparar empresas").onClick(() -> this.evaluarMetodologia());
 
 	}
 
@@ -59,5 +64,15 @@ public class ConsultarMetodologiasWindow extends Dialog<ConsultarMetodologiasVie
 		Column<Empresa> nombres = new Column<Empresa>(table);
 		nombres.setTitle("Empresa").setFixedSize(200).bindContentsToProperty("nombre");
 		
+	}
+	
+	private void evaluarMetodologia() {
+		try {
+			this.getModelObject().evaluarMetodologia();
+		} catch (Exception exception) {
+			MessageBox dialogWindow = new MessageBox(this, Type.Error);
+			dialogWindow.setMessage(exception.getMensaje());
+			dialogWindow.open();
+		}
 	}
 }

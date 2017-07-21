@@ -3,10 +3,9 @@ package criterios;
 import java.util.List;
 
 import model.Empresa;
-import model.PeriodoFiscal;
 
 public interface Criterio{
-	public List<Empresa> evaluar(List<PeriodoFiscal> lista);
+	public List<Empresa> evaluar(List<String> listaPeriodos, List<Empresa> listaEmpresas);
 	
 	public String getNombre();
 }

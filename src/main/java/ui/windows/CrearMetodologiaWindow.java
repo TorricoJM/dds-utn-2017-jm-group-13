@@ -1,12 +1,10 @@
 package ui.windows;
 
-import java.awt.Color;
-
 import org.uqbar.arena.bindings.PropertyAdapter;
-//import org.uqbar.arena.bindings.PropertyAdapter;
 import org.uqbar.arena.layout.HorizontalLayout;
 import org.uqbar.arena.widgets.Button;
 import org.uqbar.arena.widgets.Label;
+import org.uqbar.arena.widgets.List;
 import org.uqbar.arena.widgets.Panel;
 import org.uqbar.arena.widgets.Selector;
 import org.uqbar.arena.widgets.TextBox;
@@ -52,20 +50,26 @@ public class CrearMetodologiaWindow extends SimpleWindow<CrearMetodologiaViewMod
 		operaciones.setLayout(new HorizontalLayout());
 
 		new Button(operaciones).setCaption("Agregar Criterio").onClick(() -> this.agregarCriterio()).setWidth(150);
-		new Button(operaciones).setCaption("Crear Criterio Taxativo").onClick(() -> this.abrirCreadorCriteriosTaxativos()).setWidth(150);
+		new Button(operaciones).setCaption("Crear Criterio Taxativo")
+				.onClick(() -> this.abrirCreadorCriteriosTaxativos()).setWidth(150);
 
-		new Label(mainPanel).setText("Metodologia");
-		new Label(mainPanel).setBackground(Color.LIGHT_GRAY).setForeground(Color.WHITE).setFontSize(12).setWidth(150);
+		Panel tabPanel = new Panel(mainPanel);
+		tabPanel.setLayout(new HorizontalLayout());
+
+		List<String> valores = new List<String>(tabPanel);
+		valores.bindItemsToProperty("criteriosElegidos").setAdapter(new PropertyAdapter(Criterio.class, "nombre"));
+		valores.setHeight(100);
+		valores.setWidth(100);
 
 		new Label(mainPanel).setText("Nombre metodologia");
-		new TextBox(mainPanel).setWidth(265);
+		new TextBox(mainPanel).setWidth(265).bindValueToProperty("nombre");
 
-		new Button(mainPanel).setCaption("Guardar");
+		new Button(mainPanel).setCaption("Guardar").onClick(() -> this.crearMetodologia()).setWidth(150);
 	}
 
 	private void agregarCriterio() {
 		try {
-			 this.getModelObject().agregarCriterio();
+			this.getModelObject().agregarCriterio();
 		} catch (Exception exception) {
 			MessageBox dialogWindow = new MessageBox(this, Type.Error);
 			dialogWindow.setMessage(exception.getMensaje());
@@ -76,6 +80,16 @@ public class CrearMetodologiaWindow extends SimpleWindow<CrearMetodologiaViewMod
 	private void abrirCreadorCriteriosTaxativos() {
 		SimpleWindow<?> creadorCriteriosTaxativosWindow = new CrearCriterioTaxativoWindow(this);
 		creadorCriteriosTaxativosWindow.open();
+	}
+
+	private void crearMetodologia() {
+		try {
+			this.getModelObject().crearMetodologia();
+		} catch (Exception exception) {
+			MessageBox dialogWindow = new MessageBox(this, Type.Error);
+			dialogWindow.setMessage(exception.getMensaje());
+			dialogWindow.open();
+		}
 	}
 
 }

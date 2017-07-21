@@ -1,42 +1,46 @@
 package ui.viewModels;
 
-
-
+import java.util.LinkedList;
 import java.util.List;
 
+import org.uqbar.commons.model.ObservableUtils;
 //import org.uqbar.arena.widgets.List;
 import org.uqbar.commons.utils.Observable;
 
 import criterios.Criterio;
+import methodologies.DataMetodologia;
 import model.Exception;
 import repositories.RepositorioCriterios;
+import repositories.RepositorioMetodologias;
 
 @Observable
 public class CrearMetodologiaViewModel {
-	
+
 	private List<Criterio> criterios;
 	private Criterio criterioSeleccionado;
 	private String cuentaSeleccionada;
-	private String metodologia = "";
+	private List<Criterio> criteriosElegidos = new LinkedList<>();
+	private String nombre;
 
 	public CrearMetodologiaViewModel() {
 		this.criterios = RepositorioCriterios.getInstance().getCriterios();
 	}
-	
+
 	public void agregarCriterio() {
 		if (criterioSeleccionado == null) {
 			throw new Exception("Seleccione un criterio.");
 		} else {
-			this.setMetodologia(metodologia + criterioSeleccionado.getNombre());
+			criteriosElegidos.add(criterioSeleccionado);
+			ObservableUtils.firePropertyChanged(this, "criteriosElegidos");
 		}
 	}
 
-	public String getMetodologia() {
-		return metodologia;
-	}
-
-	public void setMetodologia(String metodologia) {
-		this.metodologia = metodologia;
+	public void crearMetodologia() {
+		if (criteriosElegidos.size() == 0) {
+			throw new Exception("Agregue criterios");
+		} else {
+			RepositorioMetodologias.getInstance().agregar(new DataMetodologia(nombre, criteriosElegidos));
+		}
 	}
 
 	public String getCuentaSeleccionada() {
@@ -61,6 +65,22 @@ public class CrearMetodologiaViewModel {
 
 	public void setCriterioSeleccionado(Criterio criterioSeleccionado) {
 		this.criterioSeleccionado = criterioSeleccionado;
+	}
+
+	public List<Criterio> getCriteriosElegidos() {
+		return criteriosElegidos;
+	}
+
+	public void setCriteriosElegidos(List<Criterio> criteriosElegidos) {
+		this.criteriosElegidos = criteriosElegidos;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 	
 	
