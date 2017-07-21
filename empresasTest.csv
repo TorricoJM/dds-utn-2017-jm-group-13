@@ -1,0 +1,10 @@
+nombre,periodo,cuenta,valor
+"empresa1","2017","ebitda","100"
+"empresa1","2016","ebitda","49"
+"empresa1","2015","ebitda","75"
+"empresa2","2017","ebitda","90"
+"empresa2","2016","ebitda","80"
+"empresa2","2015","ebitda","60"
+"empresa3","2017","ebitda","95"
+"empresa3","2016","ebitda","94"
+"empresa3","2015","ebitda","92"
