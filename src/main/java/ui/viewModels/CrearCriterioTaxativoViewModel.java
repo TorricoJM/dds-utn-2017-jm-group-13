@@ -10,6 +10,7 @@ import adapters.AdapterCriteriosToJSON;
 import criterios.CriterioTaxativo;
 import criterios.OperadorComparacion;
 import criterios.modificador.Modificador;
+import criterios.modificador.Normal;
 import criterios.modificador.Promedio;
 import criterios.modificador.Sumatoria;
 import exports.ExportadorArchivos;
@@ -67,11 +68,15 @@ public class CrearCriterioTaxativoViewModel {
 	}
 
 	public void agregarMayor() {
+		Modificador modificadorNormal = new Normal();
+		this.setModificador(modificadorNormal);
 		this.setOperador(OperadorComparacion.MAYOR);
 		this.setCriterio(criterio + ">");
 	}
 
 	public void agregarMenor() {
+		Modificador modificadorNormal = new Normal();
+		this.setModificador(modificadorNormal);
 		this.setOperador(OperadorComparacion.MENOR);
 		this.setCriterio(criterio + "<");
 	}
