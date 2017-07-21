@@ -41,17 +41,17 @@ public class ConsultarMetodologiasWindow extends Dialog<ConsultarMetodologiasVie
 		new Label(form).setText("Periodo Inicio");
 		Selector<PeriodoFiscal> selectorPeriodoInicio = new Selector<PeriodoFiscal>(form);
 		selectorPeriodoInicio.setWidth(30);
-		selectorPeriodoInicio.bindItemsToProperty("periodos").setAdapter(new PropertyAdapter(PeriodoFiscal.class, "periodo"));
+		selectorPeriodoInicio.bindItemsToProperty("periodos");
 		selectorPeriodoInicio.bindValueToProperty("periodoInicioSeleccionado");
 		
 		new Label(form).setText("Periodo Fin");
 		Selector<PeriodoFiscal> selectorPeriodoFin = new Selector<PeriodoFiscal>(form);
 		selectorPeriodoFin.setWidth(30);
-		selectorPeriodoFin.bindItemsToProperty("periodos").setAdapter(new PropertyAdapter(PeriodoFiscal.class, "periodo"));
+		selectorPeriodoFin.bindItemsToProperty("periodos");
 		selectorPeriodoFin.bindValueToProperty("periodoFinSeleccionado");
 		
 		Table<Empresa> table = new Table<Empresa>(mainPanel, Empresa.class);
-		table.setNumberVisibleRows(10).bindValueToProperty("empresasResultantes");
+		table.setNumberVisibleRows(10).bindItemsToProperty("empresasResultantes");
 
 		this.mostrarColumnas(table);
 		

@@ -8,7 +8,6 @@ import org.uqbar.commons.utils.Observable;
 
 import methodologies.DataMetodologia;
 import model.Empresa;
-import model.PeriodoFiscal;
 import repositories.RepositorioEmpresas;
 import repositories.RepositorioMetodologias;
 
@@ -16,8 +15,8 @@ import repositories.RepositorioMetodologias;
 public class ConsultarMetodologiasViewModel {
 	private List<DataMetodologia> metodologias;
 	private DataMetodologia metodologiaSeleccionada;
-	private PeriodoFiscal periodoInicioSeleccionado;
-	private PeriodoFiscal periodoFinSeleccionado;
+	private String periodoInicioSeleccionado;
+	private String periodoFinSeleccionado;
 	private List<String> periodos;
 	private List<Empresa> empresas;
 	private List<Empresa> empresasResultantes;
@@ -26,11 +25,13 @@ public class ConsultarMetodologiasViewModel {
 	public ConsultarMetodologiasViewModel() {
 		this.metodologias = RepositorioMetodologias.getInstance().getListaMetodologias();
 		this.empresas = RepositorioEmpresas.getInstance().getListaEmpresas();
-		this.periodos = empresas.stream().flatMap(empresa -> empresa.getPeriodos().stream()).map(periodo -> periodo.getPeriodo()).distinct().collect(Collectors.toList());
+		this.periodos = empresas.stream().flatMap(empresa -> empresa.getPeriodos().stream()).map(periodo -> periodo.getPeriodo()).distinct().sorted().collect(Collectors.toList());
 		//TODO Sacar periodos repetidos y ordenar de menor a mayor
 	}
 	
 	public void evaluarMetodologia() {
+		
+		periodosSeleccionados = periodos.subList(periodos.indexOf(periodoInicioSeleccionado), periodos.indexOf(periodoFinSeleccionado));
 		empresasResultantes = metodologiaSeleccionada.aplicarMetodologia(empresas, periodosSeleccionados);
 		ObservableUtils.firePropertyChanged(this,"empresasResultantes");
 	}
@@ -51,19 +52,19 @@ public class ConsultarMetodologiasViewModel {
 		this.metodologiaSeleccionada = metodologiaSeleccionada;
 	}
 
-	public PeriodoFiscal getPeriodoInicioSeleccionado() {
+	public String getPeriodoInicioSeleccionado() {
 		return periodoInicioSeleccionado;
 	}
 
-	public void setPeriodoInicioSeleccionado(PeriodoFiscal periodoInicioSeleccionado) {
+	public void setPeriodoInicioSeleccionado(String periodoInicioSeleccionado) {
 		this.periodoInicioSeleccionado = periodoInicioSeleccionado;
 	}
 
-	public PeriodoFiscal getPeriodoFinSeleccionado() {
+	public String getPeriodoFinSeleccionado() {
 		return periodoFinSeleccionado;
 	}
 
-	public void setPeriodoFinSeleccionado(PeriodoFiscal periodoFinSeleccionado) {
+	public void setPeriodoFinSeleccionado(String periodoFinSeleccionado) {
 		this.periodoFinSeleccionado = periodoFinSeleccionado;
 	}
 
