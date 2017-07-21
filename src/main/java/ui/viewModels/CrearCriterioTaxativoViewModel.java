@@ -79,7 +79,6 @@ public class CrearCriterioTaxativoViewModel {
 	public void agregarPromedio() {
 		Modificador modificadorPromedio = new Promedio();
 		this.setModificador(modificadorPromedio);
-		this.setOperador(OperadorComparacion.MAYOR);
 		this.setCriterio(criterio + "Promedio ");
 	}
 

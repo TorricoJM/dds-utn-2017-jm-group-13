@@ -1,5 +1,6 @@
 package ui.windows;
 
+import org.uqbar.arena.bindings.PropertyAdapter;
 import org.uqbar.arena.layout.HorizontalLayout;
 import org.uqbar.arena.widgets.Button;
 import org.uqbar.arena.widgets.Label;
@@ -13,6 +14,7 @@ import org.uqbar.arena.windows.WindowOwner;
 import methodologies.DataMetodologia;
 import ui.viewModels.ConsultarMetodologiasViewModel;
 import model.Empresa;
+import model.PeriodoFiscal;
 
 @SuppressWarnings("serial")
 public class ConsultarMetodologiasWindow extends Dialog<ConsultarMetodologiasViewModel> {
@@ -27,10 +29,22 @@ public class ConsultarMetodologiasWindow extends Dialog<ConsultarMetodologiasVie
 		form.setLayout(new HorizontalLayout());
 		this.setTitle("Consulta de metodologias");
 
-		new Label(form).setText("Metodologías");
+		new Label(form).setText("Metodologias");
 		Selector<DataMetodologia> selectorMetodologia = new Selector<DataMetodologia>(form).allowNull(true);
 		selectorMetodologia.setWidth(200);
 
+		new Label(form).setText("Periodo Inicio");
+		Selector<PeriodoFiscal> selectorPeriodoInicio = new Selector<PeriodoFiscal>(form);
+		selectorPeriodoInicio.setWidth(30);
+		selectorPeriodoInicio.bindItemsToProperty("periodos").setAdapter(new PropertyAdapter(PeriodoFiscal.class, "periodo"));
+		selectorPeriodoInicio.bindValueToProperty("periodoInicioSeleccionado");
+		
+		new Label(form).setText("Periodo Fin");
+		Selector<PeriodoFiscal> selectorPeriodoFin = new Selector<PeriodoFiscal>(form);
+		selectorPeriodoFin.setWidth(30);
+		selectorPeriodoFin.bindItemsToProperty("periodos").setAdapter(new PropertyAdapter(PeriodoFiscal.class, "periodo"));
+		selectorPeriodoFin.bindValueToProperty("periodoFinSeleccionado");
+		
 		Table<Empresa> table = new Table<Empresa>(mainPanel, Empresa.class);
 		table.setNumberVisibleRows(10);
 
