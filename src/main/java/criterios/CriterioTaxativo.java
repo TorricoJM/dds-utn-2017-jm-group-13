@@ -8,6 +8,7 @@ import org.uqbar.commons.utils.Observable;
 import criterios.modificador.Modificador;
 import indicators.Indicador;
 import model.Empresa;
+import model.PeriodoFiscal;
 import repositories.RepositorioEmpresas;
 
 @Observable
@@ -30,9 +31,9 @@ public class CriterioTaxativo implements Criterio{
 	}
 
 	@Override
-	public List<Empresa> evaluar() {
-				
-		return empresas.stream().filter(empresa -> operador.aplicar(modificador.modificar(empresa, indicador), this.valor)).collect(Collectors.toList());
+	public List<Empresa> evaluar(List<PeriodoFiscal> listaPeriodos) {
+			
+		return empresas.stream().filter(empresa -> modificador.modificar(empresa, indicador, listaPeriodos, operador, valor)).collect(Collectors.toList());
 	}
 	
 	public String getNombre() {

@@ -7,6 +7,7 @@ import com.google.common.collect.Lists;
 
 import indicators.Indicador;
 import model.Empresa;
+import model.PeriodoFiscal;
 import repositories.RepositorioIndicadores;
 
 public class CriterioComparativo implements Criterio{
@@ -25,7 +26,7 @@ public class CriterioComparativo implements Criterio{
 		this.periodo = periodo;
 	}
 	
-	public List<Empresa> evaluar(){
+	public List<Empresa> evaluar(List<PeriodoFiscal> listaPeriodos){
 		Indicador indicador = RepositorioIndicadores.getInstance().obtenerIndicadorDesdeNombre(this.indicador);
 		
 		List<Empresa> orden = empresas.stream().sorted( (e1, e2) -> Double.compare(indicador.evaluateEn(e1.getNombre(), this.periodo),(indicador.evaluateEn(e2.getNombre(), this.periodo)))).collect(Collectors.toList());

@@ -1,18 +1,18 @@
 package criterios.modificador;
 
+import java.util.List;
+
+import criterios.OperadorComparacion;
 import indicators.Indicador;
 import model.Empresa;
+import model.PeriodoFiscal;
 
 public class Normal extends Modificador{
-	
-	public String periodo;
-	
-	public Normal(String periodo){
-		this.periodo = periodo;
-	}
-	
+		
 	@Override
-	public double modificar(Empresa empresa,Indicador indicador){
-		return indicador.evaluateEn(empresa.getNombre(), this.periodo);
+	public Boolean modificar(Empresa empresa, Indicador indicador, List<PeriodoFiscal> lista, OperadorComparacion operador, Double valor){
+
+		return lista.stream().allMatch(periodo -> operador.aplicar(indicador.evaluateEn(empresa.getNombre(), periodo.getPeriodo()), valor));
+	
 	}
 }
