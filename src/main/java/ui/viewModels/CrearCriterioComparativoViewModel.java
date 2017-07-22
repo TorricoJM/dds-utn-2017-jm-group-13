@@ -15,14 +15,12 @@ import exports.ExportadorArchivos;
 import indicators.Indicador;
 import model.Exception;
 import repositories.RepositorioCriterios;
-import repositories.RepositorioCuentas;
 import repositories.RepositorioIndicadores;
 
 @Observable
 public class CrearCriterioComparativoViewModel {
-	
+
 	private List<Indicador> indicadores;
-	private List<String> cuentas;
 	private Indicador indicadorSeleccionado;
 	private String cuentaSeleccionada;
 	private String criterio = "";
@@ -33,7 +31,6 @@ public class CrearCriterioComparativoViewModel {
 
 	public CrearCriterioComparativoViewModel() {
 		this.indicadores = RepositorioIndicadores.getInstance().getIndicadores();
-		this.cuentas = RepositorioCuentas.getInstance().getCuentas();
 	}
 
 	public void crearCriterio() {
@@ -43,7 +40,8 @@ public class CrearCriterioComparativoViewModel {
 				|| RepositorioCriterios.getInstance().tieneCriterio(nombreCriterio))
 			throw new Exception("El criterio ya existe o es invalido");
 		else {
-			CriterioComparativo nuevoCriterio = new CriterioComparativo(nombreCriterio, operador, indicadorSeleccionado);
+			CriterioComparativo nuevoCriterio = new CriterioComparativo(nombreCriterio, operador,
+					indicadorSeleccionado);
 			RepositorioCriterios.getInstance().agregar(nuevoCriterio);
 			new ExportadorArchivos(new AdapterCriteriosToJSON(), "./criterios.json");
 		}
@@ -79,20 +77,6 @@ public class CrearCriterioComparativoViewModel {
 		this.setCriterio(criterio + "Menor ");
 	}
 
-	/* public void agregarSignoMayor() {
-		Modificador modificadorNormal = new Normal();
-		this.setModificador(modificadorNormal);
-		this.setOperador(OperadorComparacion.MAYOR);
-		this.setCriterio(criterio + ">");
-	}
-
-	public void agregarSignoMenor() {
-		Modificador modificadorNormal = new Normal();
-		this.setModificador(modificadorNormal);
-		this.setOperador(OperadorComparacion.MENOR);
-		this.setCriterio(criterio + "<");
-	} */
-	
 	public void agregarConstante() {
 		String constanteString = Double.toString(constante);
 		this.setCriterio(criterio + constanteString);
@@ -120,14 +104,6 @@ public class CrearCriterioComparativoViewModel {
 
 	public void setIndicadores(List<Indicador> indicadores) {
 		this.indicadores = indicadores;
-	}
-
-	public List<String> getCuentas() {
-		return cuentas;
-	}
-
-	public void setCuentas(List<String> cuentas) {
-		this.cuentas = cuentas;
 	}
 
 	public Indicador getIndicadorSeleccionado() {

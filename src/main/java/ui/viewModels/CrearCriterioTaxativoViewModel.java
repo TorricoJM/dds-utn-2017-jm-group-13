@@ -17,14 +17,12 @@ import exports.ExportadorArchivos;
 import indicators.Indicador;
 import model.Exception;
 import repositories.RepositorioCriterios;
-import repositories.RepositorioCuentas;
 import repositories.RepositorioIndicadores;
 
 @Observable
 public class CrearCriterioTaxativoViewModel {
 
 	private List<Indicador> indicadores;
-	private List<String> cuentas;
 	private Indicador indicadorSeleccionado;
 	private String cuentaSeleccionada;
 	private String criterio = "";
@@ -35,7 +33,6 @@ public class CrearCriterioTaxativoViewModel {
 
 	public CrearCriterioTaxativoViewModel() {
 		this.indicadores = RepositorioIndicadores.getInstance().getIndicadores();
-		this.cuentas = RepositorioCuentas.getInstance().getCuentas();
 	}
 
 	public void crearCriterio() {
@@ -45,7 +42,8 @@ public class CrearCriterioTaxativoViewModel {
 				|| RepositorioCriterios.getInstance().tieneCriterio(nombreCriterio))
 			throw new Exception("El criterio ya existe o es invalido");
 		else {
-			CriterioTaxativo nuevoCriterio = new CriterioTaxativo(nombreCriterio, operador, indicadorSeleccionado, modificador, constante);
+			CriterioTaxativo nuevoCriterio = new CriterioTaxativo(nombreCriterio, operador, indicadorSeleccionado,
+					modificador, constante);
 			RepositorioCriterios.getInstance().agregar(nuevoCriterio);
 			new ExportadorArchivos(new AdapterCriteriosToJSON(), "./criterios.json");
 		}
@@ -92,7 +90,7 @@ public class CrearCriterioTaxativoViewModel {
 		this.setModificador(modificadorSumatoria);
 		this.setCriterio(criterio + "Sumatoria ");
 	}
-	
+
 	public void agregarConstante() {
 		String constanteString = Double.toString(constante);
 		this.setCriterio(criterio + constanteString);
@@ -120,14 +118,6 @@ public class CrearCriterioTaxativoViewModel {
 
 	public void setIndicadores(List<Indicador> indicadores) {
 		this.indicadores = indicadores;
-	}
-
-	public List<String> getCuentas() {
-		return cuentas;
-	}
-
-	public void setCuentas(List<String> cuentas) {
-		this.cuentas = cuentas;
 	}
 
 	public Indicador getIndicadorSeleccionado() {
@@ -185,6 +175,5 @@ public class CrearCriterioTaxativoViewModel {
 	public void setModificador(Modificador modificador) {
 		this.modificador = modificador;
 	}
-	
-	
+
 }
