@@ -4,6 +4,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 import criterios.Criterio;
+import criterios.PredefinidoMargenesCrecientes;
+import criterios.PredefinidoMaximizarROE;
+import criterios.PredefinidoMinimizarNivelDeuda;
 
 
 public class RepositorioCriterios {
@@ -13,6 +16,9 @@ public class RepositorioCriterios {
 	public static RepositorioCriterios getInstance() {
 		if (instance == null) {
 			instance = new RepositorioCriterios();
+			instance.agregar(PredefinidoMinimizarNivelDeuda.getInstance());
+			instance.agregar(PredefinidoMaximizarROE.getInstance());
+			instance.agregar(PredefinidoMargenesCrecientes.getInstance());
 		}
 		return instance;
 	}
