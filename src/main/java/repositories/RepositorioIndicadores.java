@@ -4,7 +4,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import indicators.Indicador;
-import indicators.PredefinidoEbitda;
 import indicators.PredefinidoPruebaAcida;
 import indicators.PredefinidoROA;
 import indicators.PredefinidoROE;
@@ -21,7 +20,6 @@ public class RepositorioIndicadores {
 			instance.agregar(PredefinidoROA.getInstance());
 			instance.agregar(PredefinidoROE.getInstance());
 			instance.agregar(PredefinidoROI.getInstance());
-			instance.agregar(PredefinidoEbitda.getInstance());
 		}
 
 		return instance;
