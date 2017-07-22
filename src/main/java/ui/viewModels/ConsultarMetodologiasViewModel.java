@@ -9,6 +9,7 @@ import org.uqbar.commons.utils.Observable;
 
 import methodologies.DataMetodologia;
 import model.Empresa;
+import model.Exception;
 import repositories.RepositorioEmpresas;
 import repositories.RepositorioMetodologias;
 
@@ -27,7 +28,6 @@ public class ConsultarMetodologiasViewModel {
 		this.metodologias = RepositorioMetodologias.getInstance().getListaMetodologias();
 		this.empresas = RepositorioEmpresas.getInstance().getListaEmpresas();
 		this.periodos = empresas.stream().flatMap(empresa -> empresa.getPeriodos().stream()).map(periodo -> periodo.getPeriodo()).distinct().sorted().collect(Collectors.toList());
-		//TODO Sacar periodos repetidos y ordenar de menor a mayor
 	}
 	
 	public void construirRangoDePeriodos(){
@@ -40,9 +40,17 @@ public class ConsultarMetodologiasViewModel {
 	}
 	
 	public void evaluarMetodologia() {
+		if (this.metodologiaSeleccionada == null) {
+			throw new Exception("Debe seleccionar una metodología.");
+		} else if (this.periodoInicioSeleccionado == null || this.periodoFinSeleccionado == null) {
+			throw new Exception("Debe seleccionar un período de inicio y de fin.");
+		} else if (Integer.parseInt(periodoInicioSeleccionado) > Integer.parseInt(periodoFinSeleccionado))
+			throw new Exception("El período de inicio debe ser menor o igual que el de fin.");
+		else {
 		this.construirRangoDePeriodos();
 		empresasResultantes = metodologiaSeleccionada.aplicarMetodologia(empresas, periodosSeleccionados);
 		ObservableUtils.firePropertyChanged(this,"empresasResultantes");
+		}
 	}
 
 	public List<DataMetodologia> getMetodologias() {
