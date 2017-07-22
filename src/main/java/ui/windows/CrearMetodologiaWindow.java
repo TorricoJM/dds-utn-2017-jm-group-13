@@ -51,9 +51,9 @@ public class CrearMetodologiaWindow extends SimpleWindow<CrearMetodologiaViewMod
 
 		new Button(form).setCaption("Agregar Criterio").onClick(() -> this.agregarCriterio()).setWidth(150);
 		new Button(operaciones).setCaption("Crear criterio taxativo")
-				.onClick(() -> this.abrirCreadorCriteriosTaxativos());
+				.onClick(() -> this.abrirCreadorCriteriosTaxativos()).setWidth(215);
 		new Button(operaciones).setCaption("Crear criterio comparativo")
-				.onClick(() -> this.abrirCreadorCriteriosComparativos());
+				.onClick(() -> this.abrirCreadorCriteriosComparativos()).setWidth(215);
 
 		Panel tabPanel = new Panel(mainPanel);
 		tabPanel.setLayout(new HorizontalLayout());
@@ -61,7 +61,7 @@ public class CrearMetodologiaWindow extends SimpleWindow<CrearMetodologiaViewMod
 		List<String> valores = new List<String>(tabPanel);
 		valores.bindItemsToProperty("criteriosElegidos").setAdapter(new PropertyAdapter(Criterio.class, "nombre"));
 		valores.setHeight(100);
-		valores.setWidth(100);
+		valores.setWidth(400);
 
 		new Label(mainPanel).setText("Nombre metodologia");
 		new TextBox(mainPanel).setWidth(265).bindValueToProperty("nombre");
@@ -92,6 +92,7 @@ public class CrearMetodologiaWindow extends SimpleWindow<CrearMetodologiaViewMod
 	private void crearMetodologia() {
 		try {
 			this.getModelObject().crearMetodologia();
+			this.close();
 		} catch (Exception exception) {
 			MessageBox dialogWindow = new MessageBox(this, Type.Error);
 			dialogWindow.setMessage(exception.getMensaje());
