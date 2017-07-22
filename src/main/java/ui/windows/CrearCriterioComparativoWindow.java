@@ -19,6 +19,7 @@ import indicators.DataIndicador;
 import model.Exception;
 import ui.viewModels.CrearCriterioComparativoViewModel;
 
+@SuppressWarnings("serial")
 public class CrearCriterioComparativoWindow extends SimpleWindow<CrearCriterioComparativoViewModel> {
 
 	public CrearCriterioComparativoWindow(WindowOwner parent) {
