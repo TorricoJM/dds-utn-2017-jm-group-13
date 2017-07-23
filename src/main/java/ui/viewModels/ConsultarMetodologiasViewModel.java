@@ -26,7 +26,7 @@ public class ConsultarMetodologiasViewModel {
 
 	public ConsultarMetodologiasViewModel() {
 		this.metodologias = RepositorioMetodologias.getInstance().getListaMetodologias();
-		this.empresas = RepositorioEmpresas.getInstance().getListaEmpresas();
+		this.empresas = new LinkedList<>(RepositorioEmpresas.getInstance().getListaEmpresas());
 		this.periodos = empresas.stream().flatMap(empresa -> empresa.getPeriodos().stream()).map(periodo -> periodo.getPeriodo()).distinct().sorted().collect(Collectors.toList());
 	}
 	
@@ -35,17 +35,17 @@ public class ConsultarMetodologiasViewModel {
 			this.periodosSeleccionados = new LinkedList<>();
 			periodosSeleccionados.add(periodoInicioSeleccionado);
 		}else{
-			periodosSeleccionados = periodos.subList(periodos.indexOf(periodoInicioSeleccionado), periodos.indexOf(periodoFinSeleccionado));
+			periodosSeleccionados = periodos.subList(periodos.indexOf(periodoInicioSeleccionado), periodos.indexOf(periodoFinSeleccionado)+1);
 		}
 	}
 	
 	public void evaluarMetodologia() {
 		if (this.metodologiaSeleccionada == null) {
-			throw new Exception("Debe seleccionar una metodología.");
+			throw new Exception("Debe seleccionar una metodolog�a.");
 		} else if (this.periodoInicioSeleccionado == null || this.periodoFinSeleccionado == null) {
-			throw new Exception("Debe seleccionar un período de inicio y de fin.");
+			throw new Exception("Debe seleccionar un periodo de inicio y de fin.");
 		} else if (Integer.parseInt(periodoInicioSeleccionado) > Integer.parseInt(periodoFinSeleccionado))
-			throw new Exception("El período de inicio debe ser menor o igual que el de fin.");
+			throw new Exception("El periodo de inicio debe ser menor o igual que el de fin.");
 		else {
 		this.construirRangoDePeriodos();
 		empresasResultantes = metodologiaSeleccionada.aplicarMetodologia(empresas, periodosSeleccionados);
