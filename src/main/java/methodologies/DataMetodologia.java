@@ -21,13 +21,22 @@ public class DataMetodologia {
 	}
 	
 	public List<Empresa> aplicarMetodologia(List<Empresa> listaEmpresas, List<String> listaPeriodos) {		
-		List<Empresa> empresasResultantes = new LinkedList<>();
+		List<Empresa> empresasResultantes = listaEmpresas;
 		
+		/*
 		for (int i = 0; i < this.criterios.size(); i++){
 		empresasResultantes.addAll(this.criterios.get(i).evaluar(listaPeriodos, listaEmpresas));
 		}
 		
 		return empresasResultantes.stream().filter(e -> this.cuantasVecesSeRepiteLaEmpresa(empresasResultantes, e) == this.criterios.size()).distinct().collect(Collectors.toList());
+	*/
+		criterios.stream().forEach(criterio -> this.evaluarCriterioEn(criterio,empresasResultantes,listaPeriodos));
+	
+		return empresasResultantes;
+	}
+	
+	private void evaluarCriterioEn(Criterio criterio,List<Empresa> empresasResultantes,List<String> listaPeriodos) {
+		empresasResultantes = criterio.evaluar(listaPeriodos, empresasResultantes);
 	}
 	
 	public int cuantasVecesSeRepiteLaEmpresa(List<Empresa> listaEmpresas, Empresa empresa){
