@@ -29,8 +29,8 @@ public class CriterioTaxativoTest {
 	
 	@Before
 	public void setUp(){
+		RepositorioEmpresas.deleteInstance();
 		importador.importar();
-		
 		RepositorioIndicadores.getInstance().agregar(indicador1);
 		empresasRepo.addAll(RepositorioEmpresas.getInstance().getListaEmpresas());
 	}
@@ -47,6 +47,7 @@ public class CriterioTaxativoTest {
 	@After
 	public void tearDown(){
 		RepositorioIndicadores.deleteInstance();
+		RepositorioEmpresas.deleteInstance();
 		empresasEsperadas.clear();
 		empresasRepo.clear();
 	}

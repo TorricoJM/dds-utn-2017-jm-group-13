@@ -75,7 +75,7 @@ public class ParserTestErrores{
 		RepositorioIndicadores.getInstance().agregar(indicadorA);
 		indicadorA.evaluateEn("coca cola", "2015");
 	}
-	@Test(expected=IdentificadorInvalidoException.class)
+	@Test(expected=ErrorEvaluacionException.class)
 	public void identificadorSinNombreLanzaException(){
 		RepositorioIndicadores.getInstance().agregar(indicadorSinNombre);
 		indicadorSinNombre.evaluateEn("coca cola", "2017");
