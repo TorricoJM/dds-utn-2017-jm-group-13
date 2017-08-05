@@ -17,7 +17,5 @@ public class Promedio extends Modificador {
 
 		return valoresResultantes;
 
-		// return operador.aplicar(new Sumatoria().sumarValores(empresa,
-		// indicador, lista, operador, valor)/lista.size(), valor);
 	}
 }

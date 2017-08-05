@@ -15,9 +15,6 @@ public class Sumatoria extends Modificador {
 
 		return valoresResultantes;
 
-		// return operador.aplicar(this.sumarValores(empresa, indicador, lista,
-		// operador, valor), valor);
-
 	}
 
 	public Double sumarValores(Empresa empresa, Indicador indicador, List<String> listaPeriodos) {

@@ -30,9 +30,7 @@ public class CriterioTaxativo implements Criterio{
 	@Override
 	public List<Empresa> evaluar(List<String> listaPeriodos, List<Empresa> empresas) {
 			
-		List<List<Double>> listaValoresPorEmpresa =  empresas.stream().map(empresa -> modificador.modificar(empresa, indicador, listaPeriodos)).collect(Collectors.toList());
-		
-		return empresas;
+		return empresas.stream().filter(empresa -> modificador.modificar(empresa,indicador,listaPeriodos).stream().allMatch(otroValor -> operador.aplicar(otroValor, valor))).collect(Collectors.toList());
 		
 	}
 	

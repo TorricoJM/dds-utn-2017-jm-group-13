@@ -13,7 +13,5 @@ public class Normal extends Modificador{
 
 		return listaPeriodos.stream().map(periodo -> indicador.evaluateEn(empresa.getNombre(), periodo)).collect(Collectors.toList());
 		
-		//return lista.stream().allMatch(periodo -> operador.aplicar(indicador.evaluateEn(empresa.getNombre(), periodo), valor));
-	
 	}
 }
