@@ -1,5 +1,6 @@
 package methodologies;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import criterios.Criterio;
@@ -12,6 +13,7 @@ import org.uqbar.commons.utils.Observable;
 public class DataMetodologia {
 	private String nombre;
 	private List<Criterio> criterios;
+	private List<Empresa> empresasResultantes;
 
 	public DataMetodologia(String nombre, List<Criterio> criterios) {
 		this.setNombre(nombre);
@@ -19,19 +21,11 @@ public class DataMetodologia {
 	}
 
 	public List<Empresa> aplicarMetodologia(List<Empresa> listaEmpresas, List<String> listaPeriodos) {
-		List<Empresa> empresasResultantes = listaEmpresas;
 
-		/*
-		 * for (int i = 0; i < this.criterios.size(); i++){
-		 * empresasResultantes.addAll(this.criterios.get(i).evaluar(
-		 * listaPeriodos, listaEmpresas)); }
-		 * 
-		 * return empresasResultantes.stream().filter(e ->
-		 * this.cuantasVecesSeRepiteLaEmpresa(empresasResultantes, e) ==
-		 * this.criterios.size()).distinct().collect(Collectors.toList());
-		 */
-		criterios.stream().forEach(criterio -> this.evaluarCriterioEn(criterio, empresasResultantes, listaPeriodos));
-
+		empresasResultantes = new LinkedList<>();
+		
+		empresasResultantes = criterios.get(0).evaluar(listaPeriodos, listaEmpresas);
+		
 		return empresasResultantes;
 	}
 
