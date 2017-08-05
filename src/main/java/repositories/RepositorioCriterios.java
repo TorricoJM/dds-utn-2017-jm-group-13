@@ -45,9 +45,4 @@ public class RepositorioCriterios {
 		return this.getCriterios().stream()
 				.anyMatch(criterio -> criterio.getNombre().toLowerCase().equals(nombre.toLowerCase()));
 	}
-
-	public void setCriterios(List<Criterio> contenido) {
-		this.criterios = contenido;
-	}
-
 }

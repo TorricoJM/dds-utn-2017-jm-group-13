@@ -1,14 +1,16 @@
 package criterios.modificador;
 
 
+import java.util.LinkedList;
 import java.util.List;
 
-import criterios.OperadorComparacion;
 import indicators.Indicador;
 import model.Empresa;
 
 public abstract class Modificador{
+	
+	List<Double> valoresResultantes = new LinkedList<>();
 
-	public abstract Boolean modificar(Empresa empresa, Indicador indicador, List<String> lista, OperadorComparacion operador, Double valor);
+	public abstract List<Double> modificar(Empresa empresa, Indicador indicador, List<String> listaPeriodos);
 
 }

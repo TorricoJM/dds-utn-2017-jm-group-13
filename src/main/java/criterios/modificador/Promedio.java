@@ -1,16 +1,23 @@
 package criterios.modificador;
 
+import java.util.LinkedList;
 import java.util.List;
 
-import criterios.OperadorComparacion;
 import indicators.Indicador;
 import model.Empresa;
 
-public class Promedio extends Modificador{
-	
+public class Promedio extends Modificador {
+
 	@Override
-	public Boolean modificar(Empresa empresa, Indicador indicador, List<String> lista, OperadorComparacion operador, Double valor){
-		
-		return operador.aplicar(new Sumatoria().sumarValores(empresa, indicador, lista, operador, valor)/lista.size(), valor);
+	public List<Double> modificar(Empresa empresa, Indicador indicador, List<String> listaPeriodos) {
+
+		List<Double> valoresResultantes = new LinkedList<>();
+
+		valoresResultantes.add(new Sumatoria().sumarValores(empresa, indicador, listaPeriodos) / listaPeriodos.size());
+
+		return valoresResultantes;
+
+		// return operador.aplicar(new Sumatoria().sumarValores(empresa,
+		// indicador, lista, operador, valor)/lista.size(), valor);
 	}
 }
