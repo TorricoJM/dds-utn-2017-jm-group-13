@@ -9,8 +9,6 @@ import org.uqbar.commons.utils.Observable;
 import adapters.AdapterCriteriosToJSON;
 import criterios.CriterioComparativo;
 import criterios.OperadorComparacion;
-import criterios.modificador.Modificador;
-import criterios.modificador.Normal;
 import exports.ExportadorArchivos;
 import indicators.Indicador;
 import model.Exception;
@@ -22,12 +20,9 @@ public class CrearCriterioComparativoViewModel {
 
 	private List<Indicador> indicadores;
 	private Indicador indicadorSeleccionado;
-	private String cuentaSeleccionada;
 	private String criterio = "";
-	private Double constante;
 	private String nombreCriterio;
 	private OperadorComparacion operador;
-	private Modificador modificador;
 
 	public CrearCriterioComparativoViewModel() {
 		this.indicadores = RepositorioIndicadores.getInstance().getIndicadores();
@@ -58,28 +53,18 @@ public class CrearCriterioComparativoViewModel {
 	}
 
 	public void borrarCriterio() {
-		this.setModificador(null);
 		this.setOperador(null);
 		this.setCriterio("");
 	}
 
 	public void agregarMayor() {
-		Modificador modificadorNormal = new Normal();
-		this.setModificador(modificadorNormal);
 		this.setOperador(OperadorComparacion.MAYOR);
 		this.setCriterio(criterio + "Mayor ");
 	}
 
 	public void agregarMenor() {
-		Modificador modificadorNormal = new Normal();
-		this.setModificador(modificadorNormal);
 		this.setOperador(OperadorComparacion.MENOR);
 		this.setCriterio(criterio + "Menor ");
-	}
-
-	public void agregarConstante() {
-		String constanteString = Double.toString(constante);
-		this.setCriterio(criterio + constanteString);
 	}
 
 	public void agregarIndicador() {
@@ -87,14 +72,6 @@ public class CrearCriterioComparativoViewModel {
 			throw new Exception("Seleccione algun indicador");
 		} else {
 			this.setCriterio(criterio + indicadorSeleccionado.getNombre());
-		}
-	}
-
-	public void agregarCuenta() {
-		if (cuentaSeleccionada == null) {
-			throw new Exception("Seleccione alguna cuenta");
-		} else {
-			this.setCriterio(criterio + cuentaSeleccionada);
 		}
 	}
 
@@ -114,28 +91,12 @@ public class CrearCriterioComparativoViewModel {
 		this.indicadorSeleccionado = indicadorSeleccionado;
 	}
 
-	public String getCuentaSeleccionada() {
-		return cuentaSeleccionada;
-	}
-
-	public void setCuentaSeleccionada(String cuentaSeleccionada) {
-		this.cuentaSeleccionada = cuentaSeleccionada;
-	}
-
 	public String getCriterio() {
 		return criterio;
 	}
 
 	public void setCriterio(String criterio) {
 		this.criterio = criterio;
-	}
-
-	public Double getConstante() {
-		return constante;
-	}
-
-	public void setConstante(Double constante) {
-		this.constante = constante;
 	}
 
 	public String getNombreCriterio() {
@@ -154,11 +115,4 @@ public class CrearCriterioComparativoViewModel {
 		this.operador = operador;
 	}
 
-	public Modificador getModificador() {
-		return modificador;
-	}
-
-	public void setModificador(Modificador modificador) {
-		this.modificador = modificador;
-	}
 }

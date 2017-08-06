@@ -6,7 +6,6 @@ import org.uqbar.arena.bindings.PropertyAdapter;
 import org.uqbar.arena.layout.HorizontalLayout;
 import org.uqbar.arena.widgets.Button;
 import org.uqbar.arena.widgets.Label;
-import org.uqbar.arena.widgets.NumericField;
 import org.uqbar.arena.widgets.Panel;
 import org.uqbar.arena.widgets.Selector;
 import org.uqbar.arena.widgets.TextBox;
@@ -55,21 +54,12 @@ public class CrearCriterioComparativoWindow extends SimpleWindow<CrearCriterioCo
 		Panel operaciones = new Panel(mainPanel);
 		operaciones.setLayout(new HorizontalLayout());
 
-		new Button(operaciones).setCaption("Mayor").onClick(() -> this.agregarMayor()).setWidth(100);
-		new Button(operaciones).setCaption("Menor").onClick(() -> this.agregarMenor()).setWidth(100);
-		/*
-		 * new Button(operaciones).setCaption(">").onClick(() ->
-		 * this.agregarSignoMayor()).setWidth(100); new
-		 * Button(operaciones).setCaption("<").onClick(() ->
-		 * this.agregarSignoMenor()).setWidth(100);
-		 */
-		new Button(operaciones).setCaption("Borrar").onClick(() -> this.borrarCriterio()).setWidth(100);
+		new Button(operaciones).setCaption("Mayor").onClick(() -> this.agregarMayor()).setWidth(150);
+		new Button(operaciones).setCaption("Menor").onClick(() -> this.agregarMenor()).setWidth(150);
+		new Button(operaciones).setCaption("Borrar").onClick(() -> this.borrarCriterio()).setWidth(150);
 
 		Panel constante = new Panel(mainPanel);
 		constante.setLayout(new HorizontalLayout());
-
-		new NumericField(constante).setWidth(350).bindValueToProperty("constante");
-		new Button(constante).setCaption("Agregar constante").onClick(() -> this.agregarConstante());
 
 		new Label(mainPanel).setText("Criterio");
 		new Label(mainPanel).setBackground(Color.LIGHT_GRAY).setForeground(Color.WHITE).setFontSize(12).setWidth(150)
@@ -92,18 +82,6 @@ public class CrearCriterioComparativoWindow extends SimpleWindow<CrearCriterioCo
 	private void borrarCriterio() {
 		this.getModelObject().borrarCriterio();
 	}
-
-	private void agregarConstante() {
-		this.getModelObject().agregarConstante();
-	}
-
-	/*
-	 * private void agregarSignoMayor() {
-	 * this.getModelObject().agregarSignoMayor(); }
-	 * 
-	 * private void agregarSignoMenor() {
-	 * this.getModelObject().agregarSignoMenor(); }
-	 */
 
 	private void agregarMenor() {
 		this.getModelObject().agregarMenor();
