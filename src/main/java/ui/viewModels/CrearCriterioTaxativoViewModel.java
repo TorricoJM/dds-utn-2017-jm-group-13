@@ -36,17 +36,21 @@ public class CrearCriterioTaxativoViewModel {
 	}
 
 	public void crearCriterio() {
-		if (nombreCriterio == null || criterio == "") {
+		this.validarCreacionDeCriterio();
+		
+		CriterioTaxativo nuevoCriterio = new CriterioTaxativo(nombreCriterio, operador, indicadorSeleccionado,
+				modificador, constante);
+		RepositorioCriterios.getInstance().agregar(nuevoCriterio);
+		
+		new ExportadorArchivos(new AdapterCriteriosToJSON(), "./criterios.json");
+
+	}
+
+	private void validarCreacionDeCriterio() {
+		if (nombreCriterio == null || criterio == "")
 			throw new Exception("Nombre o criterio vacio");
-		} else if (!this.tieneNombreValido(nombreCriterio)
-				|| RepositorioCriterios.getInstance().tieneCriterio(nombreCriterio))
+		if (!this.tieneNombreValido(nombreCriterio) || RepositorioCriterios.getInstance().tieneCriterio(nombreCriterio))
 			throw new Exception("El criterio ya existe o es invalido");
-		else {
-			CriterioTaxativo nuevoCriterio = new CriterioTaxativo(nombreCriterio, operador, indicadorSeleccionado,
-					modificador, constante);
-			RepositorioCriterios.getInstance().agregar(nuevoCriterio);
-			new ExportadorArchivos(new AdapterCriteriosToJSON(), "./criterios.json");
-		}
 	}
 
 	private boolean tieneNombreValido(String nombre) {
