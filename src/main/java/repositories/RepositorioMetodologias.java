@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import methodologies.Metodologia;
-import methodologies.PredefinidaWarrenBuffet;
+import methodologies.MetodologiesBuilder;
 
 public class RepositorioMetodologias {
 
@@ -13,7 +13,7 @@ public class RepositorioMetodologias {
 	public static RepositorioMetodologias getInstance() {
 		if(instance == null){
 			instance = new RepositorioMetodologias();
-			instance.agregar(PredefinidaWarrenBuffet.getInstance());
+			instance.agregar(new MetodologiesBuilder().buildPredefWarrenBuffet().build());
 		}
 		
 		return instance;
