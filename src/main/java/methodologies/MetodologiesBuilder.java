@@ -18,6 +18,13 @@ public class MetodologiesBuilder {
 	
 	public MetodologiesBuilder setNombre(String nombre) {
 		this.metodologia.setNombre(nombre);
+		
+		return this;
+	}
+	
+	public MetodologiesBuilder setCriterios(List<Criterio> criterios) {
+		this.metodologia.setCriterios(criterios);
+		
 		return this;
 	}
 	
