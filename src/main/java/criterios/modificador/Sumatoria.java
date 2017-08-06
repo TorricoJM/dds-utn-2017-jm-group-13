@@ -1,5 +1,6 @@
 package criterios.modificador;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.DoubleStream;
 
@@ -11,6 +12,8 @@ public class Sumatoria extends Modificador {
 	@Override
 	public List<Double> modificar(Empresa empresa, Indicador indicador, List<String> listaPeriodos) {
 
+		valoresResultantes = new LinkedList<>();
+		
 		valoresResultantes.add(this.sumarValores(empresa, indicador, listaPeriodos));
 
 		return valoresResultantes;
