@@ -41,7 +41,7 @@ public class ConsultarMetodologiasViewModel {
 	
 	public void evaluarMetodologia() {
 		if (this.metodologiaSeleccionada == null) {
-			throw new Exception("Debe seleccionar una metodolog�a.");
+			throw new Exception("Debe seleccionar una metodologia.");
 		} else if (this.periodoInicioSeleccionado == null || this.periodoFinSeleccionado == null) {
 			throw new Exception("Debe seleccionar un periodo de inicio y de fin.");
 		} else if (Integer.parseInt(periodoInicioSeleccionado) > Integer.parseInt(periodoFinSeleccionado))

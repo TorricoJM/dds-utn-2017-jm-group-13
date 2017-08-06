@@ -29,7 +29,7 @@ public class CrearCriterioTaxativoViewModel {
 	private Double constante;
 	private String nombreCriterio;
 	private OperadorComparacion operador;
-	private Modificador modificador;
+	private Modificador modificador = new Normal();
 
 	public CrearCriterioTaxativoViewModel() {
 		this.indicadores = RepositorioIndicadores.getInstance().getIndicadores();
@@ -60,21 +60,17 @@ public class CrearCriterioTaxativoViewModel {
 	}
 
 	public void borrarCriterio() {
-		this.setModificador(null);
+		this.setModificador(new Normal());
 		this.setOperador(null);
 		this.setCriterio("");
 	}
 
 	public void agregarMayor() {
-		Modificador modificadorNormal = new Normal();
-		this.setModificador(modificadorNormal);
 		this.setOperador(OperadorComparacion.MAYOR);
 		this.setCriterio(criterio + ">");
 	}
 
 	public void agregarMenor() {
-		Modificador modificadorNormal = new Normal();
-		this.setModificador(modificadorNormal);
 		this.setOperador(OperadorComparacion.MENOR);
 		this.setCriterio(criterio + "<");
 	}

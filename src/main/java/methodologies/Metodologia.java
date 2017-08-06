@@ -1,7 +1,6 @@
 package methodologies;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import criterios.Criterio;
 import model.Empresa;
@@ -27,7 +26,7 @@ public class Metodologia {
 	private List<Empresa> reduccionFea(List<Criterio> criterios, List<Empresa> listaEmpresas,
 			List<String> listaPeriodos) {
 		
-		List<Empresa> empresasResultantes = listaEmpresas.stream().collect(Collectors.toList());
+		List<Empresa> empresasResultantes = listaEmpresas;
 		
 		for(int i = 0; i < criterios.size(); i++) {
 			empresasResultantes = criterios.get(i).evaluar(listaPeriodos, empresasResultantes);
