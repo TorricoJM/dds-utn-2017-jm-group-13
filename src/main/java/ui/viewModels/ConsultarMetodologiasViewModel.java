@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 import org.uqbar.commons.model.ObservableUtils;
 import org.uqbar.commons.utils.Observable;
 
-import methodologies.DataMetodologia;
+import methodologies.Metodologia;
 import model.Empresa;
 import model.Exception;
 import repositories.RepositorioEmpresas;
@@ -15,8 +15,8 @@ import repositories.RepositorioMetodologias;
 
 @Observable
 public class ConsultarMetodologiasViewModel {
-	private List<DataMetodologia> metodologias;
-	private DataMetodologia metodologiaSeleccionada;
+	private List<Metodologia> metodologias;
+	private Metodologia metodologiaSeleccionada;
 	private String periodoInicioSeleccionado;
 	private String periodoFinSeleccionado;
 	private List<String> periodos;
@@ -41,7 +41,7 @@ public class ConsultarMetodologiasViewModel {
 	
 	public void evaluarMetodologia() {
 		if (this.metodologiaSeleccionada == null) {
-			throw new Exception("Debe seleccionar una metodología.");
+			throw new Exception("Debe seleccionar una metodologï¿½a.");
 		} else if (this.periodoInicioSeleccionado == null || this.periodoFinSeleccionado == null) {
 			throw new Exception("Debe seleccionar un periodo de inicio y de fin.");
 		} else if (Integer.parseInt(periodoInicioSeleccionado) > Integer.parseInt(periodoFinSeleccionado))
@@ -53,19 +53,19 @@ public class ConsultarMetodologiasViewModel {
 		}
 	}
 
-	public List<DataMetodologia> getMetodologias() {
+	public List<Metodologia> getMetodologias() {
 		return metodologias;
 	}
 
-	public void setMetodologias(List<DataMetodologia> metodologias) {
+	public void setMetodologias(List<Metodologia> metodologias) {
 		this.metodologias = metodologias;
 	}
 
-	public DataMetodologia getMetodologiaSeleccionada() {
+	public Metodologia getMetodologiaSeleccionada() {
 		return metodologiaSeleccionada;
 	}
 
-	public void setMetodologiaSeleccionada(DataMetodologia metodologiaSeleccionada) {
+	public void setMetodologiaSeleccionada(Metodologia metodologiaSeleccionada) {
 		this.metodologiaSeleccionada = metodologiaSeleccionada;
 	}
 

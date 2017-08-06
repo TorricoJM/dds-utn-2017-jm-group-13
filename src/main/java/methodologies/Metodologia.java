@@ -1,7 +1,7 @@
 package methodologies;
 
-import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import criterios.Criterio;
 import model.Empresa;
@@ -10,27 +10,29 @@ import org.apache.commons.lang.StringUtils;
 import org.uqbar.commons.utils.Observable;
 
 @Observable
-public class DataMetodologia {
+public class Metodologia {
 	private String nombre;
 	private List<Criterio> criterios;
-	private List<Empresa> empresasResultantes;
 
-	public DataMetodologia(String nombre, List<Criterio> criterios) {
+	public Metodologia(String nombre, List<Criterio> criterios) {
 		this.setNombre(nombre);
 		this.setCriterios(criterios);
 	}
 
 	public List<Empresa> aplicarMetodologia(List<Empresa> listaEmpresas, List<String> listaPeriodos) {
 
-		empresasResultantes = new LinkedList<>();
-		
-		empresasResultantes = criterios.get(0).evaluar(listaPeriodos, listaEmpresas);
-		
-		return empresasResultantes;
+		return this.reduccionFea(criterios,listaEmpresas,listaPeriodos);
 	}
 
-	private void evaluarCriterioEn(Criterio criterio, List<Empresa> empresasResultantes, List<String> listaPeriodos) {
-		empresasResultantes = criterio.evaluar(listaPeriodos, empresasResultantes);
+	private List<Empresa> reduccionFea(List<Criterio> criterios, List<Empresa> listaEmpresas,
+			List<String> listaPeriodos) {
+		
+		List<Empresa> empresasResultantes = listaEmpresas.stream().collect(Collectors.toList());
+		
+		for(int i = 0; i < criterios.size(); i++) {
+			empresasResultantes = criterios.get(i).evaluar(listaPeriodos, empresasResultantes);
+		}
+		return empresasResultantes;
 	}
 
 	public int cuantasVecesSeRepiteLaEmpresa(List<Empresa> listaEmpresas, Empresa empresa) {

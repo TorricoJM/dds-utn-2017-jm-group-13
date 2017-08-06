@@ -3,7 +3,7 @@ package repositories;
 import java.util.LinkedList;
 import java.util.List;
 
-import methodologies.DataMetodologia;
+import methodologies.Metodologia;
 import methodologies.PredefinidaWarrenBuffet;
 
 public class RepositorioMetodologias {
@@ -23,13 +23,13 @@ public class RepositorioMetodologias {
 		instance = null;
 	}
 	
-	private List<DataMetodologia> listaMetodologias = new LinkedList<>();
+	private List<Metodologia> listaMetodologias = new LinkedList<>();
 
-	public List<DataMetodologia> getListaMetodologias() {
+	public List<Metodologia> getListaMetodologias() {
 		return listaMetodologias;
 	}
 
-	public void agregar(DataMetodologia metodologia) {
+	public void agregar(Metodologia metodologia) {
 		listaMetodologias.add(metodologia);
 	}
 }

@@ -8,7 +8,7 @@ import criterios.PredefinidoMargenesCrecientes;
 import criterios.PredefinidoMaximizarROE;
 import criterios.PredefinidoMinimizarNivelDeuda;
 
-public class PredefinidaWarrenBuffet extends DataMetodologia {
+public class PredefinidaWarrenBuffet extends Metodologia {
 	
 	private PredefinidaWarrenBuffet(String nombre, List<Criterio> criterios) {
 		super(nombre, criterios);

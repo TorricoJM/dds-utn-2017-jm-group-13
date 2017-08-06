@@ -13,7 +13,7 @@ import org.uqbar.arena.windows.MessageBox;
 import org.uqbar.arena.windows.WindowOwner;
 import org.uqbar.arena.windows.MessageBox.Type;
 
-import methodologies.DataMetodologia;
+import methodologies.Metodologia;
 import ui.viewModels.ConsultarMetodologiasViewModel;
 import model.Empresa;
 import model.Exception;
@@ -33,9 +33,9 @@ public class ConsultarMetodologiasWindow extends Dialog<ConsultarMetodologiasVie
 		this.setTitle("Consulta de metodologias");
 
 		new Label(form).setText("Metodologias");
-		Selector<DataMetodologia> selectorMetodologia = new Selector<DataMetodologia>(form).allowNull(true);
+		Selector<Metodologia> selectorMetodologia = new Selector<Metodologia>(form).allowNull(true);
 		selectorMetodologia.setWidth(200);
-		selectorMetodologia.bindItemsToProperty("metodologias").setAdapter(new PropertyAdapter(DataMetodologia.class, "nombre"));
+		selectorMetodologia.bindItemsToProperty("metodologias").setAdapter(new PropertyAdapter(Metodologia.class, "nombre"));
 		selectorMetodologia.bindValueToProperty("metodologiaSeleccionada");
 
 		new Label(form).setText("Periodo Inicio");
