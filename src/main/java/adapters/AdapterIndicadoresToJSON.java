@@ -13,7 +13,7 @@ public class AdapterIndicadoresToJSON extends AdaptadorToJSON<List<Indicador>> {
 
 	@Override
 	protected List<Indicador> getContenido() {
-		return RepositorioIndicadores.getInstance().getIndicadores();
+		return RepositorioIndicadores.getInstance().getIndicatorsForExport();
 	}
 
 	@Override

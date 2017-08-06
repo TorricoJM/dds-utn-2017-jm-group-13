@@ -34,6 +34,17 @@ public class RepositorioIndicadores {
 	public List<Indicador> getIndicadores() {
 		return indicadores;
 	}
+	
+	public List<Indicador> getIndicatorsForExport() {
+		List<Indicador> indicatorsForExport = new LinkedList<>(this.indicadores);
+		
+		indicatorsForExport.remove(indicatorsForExport.indexOf(PredefinidoPruebaAcida.getInstance()));
+		indicatorsForExport.remove(indicatorsForExport.indexOf(PredefinidoROE.getInstance()));
+		indicatorsForExport.remove(indicatorsForExport.indexOf(PredefinidoROA.getInstance()));
+		indicatorsForExport.remove(indicatorsForExport.indexOf(PredefinidoROI.getInstance()));
+		
+		return indicatorsForExport;
+	}
 
 	public void anexarIndicadores(List<Indicador> nuevosIndicadores) {
 		this.getIndicadores().addAll(nuevosIndicadores);

@@ -23,6 +23,8 @@ public class ExportadorArchivos implements Exportador {
 			FileWriter fileWriter = new FileWriter(this.path);
 			PrintWriter pw = new PrintWriter(fileWriter);
 
+			System.out.println(adaptador.transformarA());
+			
 			pw.print(adaptador.transformarA());
 
 			pw.close();

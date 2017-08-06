@@ -42,7 +42,7 @@ public class CrearCriterioTaxativoViewModel {
 				modificador, constante);
 		RepositorioCriterios.getInstance().agregar(nuevoCriterio);
 		
-		new ExportadorArchivos(new AdapterCriteriosToJSON(), "./criterios.json");
+		new ExportadorArchivos(new AdapterCriteriosToJSON(), "./criterios.json").exportar();
 
 	}
 

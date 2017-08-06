@@ -39,7 +39,7 @@ public class CrearIndicadorViewModel {
 		else {
 			DataIndicador nuevoIndicador = new DataIndicador(nombreIndicador, indicador);
 			RepositorioIndicadores.getInstance().agregar(nuevoIndicador);
-			new ExportadorArchivos(new AdapterIndicadoresToJSON(), "./indicadores.json");
+			new ExportadorArchivos(new AdapterIndicadoresToJSON(), "./indicadores.json").exportar();
 		}
 	}
 
