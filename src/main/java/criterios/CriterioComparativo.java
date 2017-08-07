@@ -5,27 +5,33 @@ import java.util.stream.Collectors;
 
 import org.uqbar.commons.utils.Observable;
 
-import com.google.common.collect.Lists;
-
+import criterios.modificador.Modificador;
+import criterios.modificador.Sumatoria;
 import indicators.Indicador;
 import model.Empresa;
 
 @Observable
-public class CriterioComparativo implements Criterio{
-	
+public class CriterioComparativo implements Criterio {
+
 	public String nombre;
 	public Indicador indicador;
 	public OperadorComparacion operador;
-	
-	public CriterioComparativo(String nombre, OperadorComparacion operador, Indicador indicador){
+	public Modificador modificador = new Sumatoria();
+
+	public CriterioComparativo(String nombre, OperadorComparacion operador, Indicador indicador) {
 		this.nombre = nombre;
 		this.operador = operador;
 		this.indicador = indicador;
 	}
-	
-	public List<Empresa> evaluar(List<String> listaPeriodos, List<Empresa> empresas){	
-		List<Empresa> orden = empresas.stream().sorted( (e1, e2) -> Double.compare(indicador.evaluateEn(e1.getNombre(), listaPeriodos.get(0)),(indicador.evaluateEn(e2.getNombre(), listaPeriodos.get(0))))).collect(Collectors.toList());
-		return Lists.reverse(orden);
+
+	public List<Empresa> evaluar(List<String> listaPeriodos, List<Empresa> empresas) {
+
+		List<Empresa> orden = empresas.stream()
+				.sorted((e1, e2) -> Double.compare(modificador.modificar(e1, indicador, listaPeriodos).get(0),
+						modificador.modificar(e2, indicador, listaPeriodos).get(0)))
+				.collect(Collectors.toList());
+
+		return orden;
 	}
 
 	public Indicador getIndicador() {
@@ -51,6 +57,5 @@ public class CriterioComparativo implements Criterio{
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	
-	
+
 }
