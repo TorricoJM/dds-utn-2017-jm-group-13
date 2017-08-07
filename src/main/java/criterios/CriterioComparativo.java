@@ -27,8 +27,8 @@ public class CriterioComparativo implements Criterio {
 	public List<Empresa> evaluar(List<String> listaPeriodos, List<Empresa> empresas) {
 
 		List<Empresa> orden = empresas.stream()
-				.sorted((e1, e2) -> Double.compare(modificador.modificar(e1, indicador, listaPeriodos).get(0),
-						modificador.modificar(e2, indicador, listaPeriodos).get(0)))
+				.sorted((e1, e2) -> Double.compare(modificador.modificar(e2, indicador, listaPeriodos).get(0),
+						modificador.modificar(e1, indicador, listaPeriodos).get(0)))
 				.collect(Collectors.toList());
 
 		return orden;
