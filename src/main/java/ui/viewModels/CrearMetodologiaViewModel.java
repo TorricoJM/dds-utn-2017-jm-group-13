@@ -85,4 +85,9 @@ public class CrearMetodologiaViewModel {
 		this.nombre = nombre;
 	}
 
+	public void actualizarListaCriterios() {
+		this.criterios = new LinkedList<>(RepositorioCriterios.getInstance().getCriterios());
+		ObservableUtils.firePropertyChanged(this, "criterios");
+	}
+
 }

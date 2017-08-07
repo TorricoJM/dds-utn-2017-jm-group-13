@@ -82,11 +82,13 @@ public class CrearMetodologiaWindow extends SimpleWindow<CrearMetodologiaViewMod
 	private void abrirCreadorCriteriosComparativos() {
 		SimpleWindow<?> creadorCriteriosComparativosWindow = new CrearCriterioComparativoWindow(this);
 		creadorCriteriosComparativosWindow.open();
+		this.getModelObject().actualizarListaCriterios();
 	}
 	
 	private void abrirCreadorCriteriosTaxativos() {
 		SimpleWindow<?> creadorCriteriosTaxativosWindow = new CrearCriterioTaxativoWindow(this);
 		creadorCriteriosTaxativosWindow.open();
+		this.getModelObject().actualizarListaCriterios();
 	}
 
 	private void crearMetodologia() {
