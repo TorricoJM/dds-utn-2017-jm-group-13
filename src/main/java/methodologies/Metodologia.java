@@ -54,13 +54,13 @@ public class Metodologia {
 
 			empresasResultantes.forEach(empresa -> this.obtenerTuplaDesdeEmpresa(empresaPuntaje, empresa)
 					.setAt1(this.obtenerTuplaDesdeEmpresa(empresaPuntaje, empresa).getValue1()
-							+ empresasCopia.indexOf(empresa) * ponderacion));
+							+ (empresasCopia.indexOf(empresa) + 1) * ponderacion));
 		}
-		
+
 		System.out.println(empresaPuntaje.stream()
 				.sorted((tupla1, tupla2) -> Double.compare(tupla1.getValue1(), tupla2.getValue1()))
 				.map(tupla -> tupla.getValue1()).collect(Collectors.toList()));
-		
+
 		return empresaPuntaje.stream()
 				.sorted((tupla1, tupla2) -> Double.compare(tupla1.getValue1(), tupla2.getValue1()))
 				.map(tupla -> tupla.getValue0()).collect(Collectors.toList());
@@ -72,13 +72,13 @@ public class Metodologia {
 
 	}
 
-	private List<Empresa> aplicarCriteriosTaxativosFeo(List<Criterio> criterios, List<Empresa> listaEmpresas,
+	private List<Empresa> aplicarCriteriosTaxativosFeo(List<Criterio> criteriosTaxativos, List<Empresa> listaEmpresas,
 			List<String> listaPeriodos) {
 
 		List<Empresa> empresasResultantes = listaEmpresas;
 
-		for (int i = 0; i < criterios.size(); i++) {
-			empresasResultantes = criterios.get(i).evaluar(listaPeriodos, empresasResultantes);
+		for (int i = 0; i < criteriosTaxativos.size(); i++) {
+			empresasResultantes = criteriosTaxativos.get(i).evaluar(listaPeriodos, empresasResultantes);
 		}
 
 		return empresasResultantes;

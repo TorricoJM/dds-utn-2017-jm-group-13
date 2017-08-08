@@ -44,12 +44,18 @@ public class CrearMetodologiaWindow extends SimpleWindow<CrearMetodologiaViewMod
 		Selector<Criterio> selectorCriterio = new Selector<Criterio>(form).allowNull(true);
 		selectorCriterio.bindItemsToProperty("criterios").setAdapter(new PropertyAdapter(Criterio.class, "nombre"));
 		selectorCriterio.bindValueToProperty("criterioSeleccionado");
-		selectorCriterio.setWidth(200);
+		selectorCriterio.setWidth(125);
+		
+		new Label(form).setText("Ponderacion");
+		Selector<Double> selectorPonderacion = new Selector<Double>(form).allowNull(true);
+		selectorPonderacion.bindItemsToProperty("ponderaciones");
+		selectorPonderacion.bindValueToProperty("ponderacionSeleccionada");
+		selectorPonderacion.setWidth(125);
 
 		Panel operaciones = new Panel(mainPanel);
 		operaciones.setLayout(new HorizontalLayout());
 
-		new Button(form).setCaption("Agregar Criterio").onClick(() -> this.agregarCriterio()).setWidth(150);
+		new Button(mainPanel).setCaption("Agregar Criterio").onClick(() -> this.agregarCriterio()).setWidth(150);
 		new Button(operaciones).setCaption("Crear criterio taxativo")
 				.onClick(() -> this.abrirCreadorCriteriosTaxativos()).setWidth(215);
 		new Button(operaciones).setCaption("Crear criterio comparativo")
@@ -58,10 +64,10 @@ public class CrearMetodologiaWindow extends SimpleWindow<CrearMetodologiaViewMod
 		Panel tabPanel = new Panel(mainPanel);
 		tabPanel.setLayout(new HorizontalLayout());
 
-		List<String> valores = new List<String>(tabPanel);
-		valores.bindItemsToProperty("criteriosPonderacionElegidos").setAdapter(new PropertyAdapter(Criterio.class, "nombre"));
-		valores.setHeight(100);
-		valores.setWidth(400);
+		List<String> criterios = new List<String>(tabPanel);
+		criterios.bindItemsToProperty("criteriosPonderacionElegidos").setAdapter(new PropertyAdapter(Criterio.class, "nombre"));
+		criterios.setHeight(100);
+		criterios.setWidth(400);
 
 		new Label(mainPanel).setText("Nombre metodologia");
 		new TextBox(mainPanel).setWidth(265).bindValueToProperty("nombre");

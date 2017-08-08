@@ -18,20 +18,28 @@ import repositories.RepositorioMetodologias;
 public class CrearMetodologiaViewModel {
 
 	private List<Criterio> criterios;
+	private List<Double> ponderaciones = new LinkedList<>();
 	private Criterio criterioSeleccionado;
 	private String cuentaSeleccionada;
 	private String nombre;
 	private List<Pair<Criterio,Double>> criteriosPonderacionElegidos = new LinkedList<>();
+	private Double ponderacionSeleccionada;
 
 	public CrearMetodologiaViewModel() {
 		this.criterios = RepositorioCriterios.getInstance().getCriterios();
+		this.ponderaciones.add(1.0);
+		this.ponderaciones.add(0.75);
+		this.ponderaciones.add(0.5);
+		this.ponderaciones.add(0.25);
+		this.ponderaciones.add(0.10);
+		this.ponderaciones.add(-1.0);
 	}
 
 	public void agregarCriterio() {
 		if (criterioSeleccionado == null) {
 			throw new Exception("Seleccione un criterio.");
 		} else {
-			criteriosPonderacionElegidos.add(Pair.with(criterioSeleccionado, 1.0)); //Harcodeado puntaje por ahora
+			criteriosPonderacionElegidos.add(Pair.with(criterioSeleccionado, ponderacionSeleccionada));
 			ObservableUtils.firePropertyChanged(this, "criteriosPonderacionElegidos");
 		}
 	}
@@ -83,6 +91,22 @@ public class CrearMetodologiaViewModel {
 
 	public void setCriteriosPonderacionElegidos(List<Pair<Criterio, Double>> criteriosPuntajes) {
 		this.criteriosPonderacionElegidos = criteriosPuntajes;
+	}
+	
+	public List<Double> getPonderaciones() {
+		return ponderaciones;
+	}
+
+	public void setPonderaciones(List<Double> ponderaciones) {
+		this.ponderaciones = ponderaciones;
+	}
+
+	public Double getPonderacionSeleccionada() {
+		return ponderacionSeleccionada;
+	}
+
+	public void setPonderacionSeleccionada(Double ponderacionSeleccionada) {
+		this.ponderacionSeleccionada = ponderacionSeleccionada;
 	}
 
 	public void actualizarListaCriterios() {
