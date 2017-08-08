@@ -21,7 +21,7 @@ public class CrearMetodologiaViewModel {
 	private Criterio criterioSeleccionado;
 	private String cuentaSeleccionada;
 	private String nombre;
-	private List<Pair<Criterio,Double>> criteriosPuntajesElegidos = new LinkedList<>();
+	private List<Pair<Criterio,Double>> criteriosPonderacionElegidos = new LinkedList<>();
 
 	public CrearMetodologiaViewModel() {
 		this.criterios = RepositorioCriterios.getInstance().getCriterios();
@@ -31,17 +31,17 @@ public class CrearMetodologiaViewModel {
 		if (criterioSeleccionado == null) {
 			throw new Exception("Seleccione un criterio.");
 		} else {
-			criteriosPuntajesElegidos.add(Pair.with(criterioSeleccionado, 1.0)); //Harcodeado puntaje por ahora
-			ObservableUtils.firePropertyChanged(this, "criteriosPuntajesElegidos");
+			criteriosPonderacionElegidos.add(Pair.with(criterioSeleccionado, 1.0)); //Harcodeado puntaje por ahora
+			ObservableUtils.firePropertyChanged(this, "criteriosPonderacionElegidos");
 		}
 	}
 
 	public void crearMetodologia() {
-		if (criteriosPuntajesElegidos.size() == 0) {
+		if (criteriosPonderacionElegidos.size() == 0) {
 			throw new Exception("Agregue criterios");
 		} else {
 			RepositorioMetodologias.getInstance()
-					.agregar(new MetodologiesBuilder().setNombre(nombre).setCriteriosPuntajes(criteriosPuntajesElegidos).build());
+					.agregar(new MetodologiesBuilder().setNombre(nombre).setCriteriosPonderacion(criteriosPonderacionElegidos).build());
 		}
 	}
 
@@ -77,12 +77,12 @@ public class CrearMetodologiaViewModel {
 		this.nombre = nombre;
 	}
 	
-	public List<Criterio> getCriteriosPuntajesElegidos() {
-		return criteriosPuntajesElegidos.stream().map(pair -> pair.getValue0()).collect(Collectors.toList());
+	public List<Criterio> getCriteriosPonderacionElegidos() {
+		return criteriosPonderacionElegidos.stream().map(pair -> pair.getValue0()).collect(Collectors.toList());
 	}
 
-	public void setCriteriosPuntajesElegidos(List<Pair<Criterio, Double>> criteriosPuntajes) {
-		this.criteriosPuntajesElegidos = criteriosPuntajes;
+	public void setCriteriosPonderacionElegidos(List<Pair<Criterio, Double>> criteriosPuntajes) {
+		this.criteriosPonderacionElegidos = criteriosPuntajes;
 	}
 
 	public void actualizarListaCriterios() {

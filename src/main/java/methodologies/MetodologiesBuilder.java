@@ -24,7 +24,7 @@ public class MetodologiesBuilder {
 		return this;
 	}
 	
-	public MetodologiesBuilder setCriteriosPuntajes(List<Pair<Criterio,Double>> criteriosPuntajes) {
+	public MetodologiesBuilder setCriteriosPonderacion(List<Pair<Criterio,Double>> criteriosPuntajes) {
 		this.metodologia.setCriteriosPuntajes(criteriosPuntajes);
 		
 		return this;
