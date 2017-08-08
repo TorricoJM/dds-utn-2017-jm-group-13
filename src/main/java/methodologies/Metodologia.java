@@ -1,25 +1,29 @@
 package methodologies;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import criterios.Criterio;
 import model.Empresa;
 
+import org.javatuples.*;
 import org.apache.commons.lang.StringUtils;
 import org.uqbar.commons.utils.Observable;
 
 @Observable
 public class Metodologia {
 	private String nombre;
-	private List<Criterio> criterios;
-
-	public Metodologia(String nombre, List<Criterio> criterios) {
+	private List<Pair<Criterio,Double>> criteriosPuntajes;
+	
+	public Metodologia(String nombre, List<Pair<Criterio,Double>> criteriosPuntajes) {
 		this.setNombre(nombre);
-		this.setCriterios(criterios);
+		this.setCriteriosPuntajes(criteriosPuntajes);
 	}
 
 	public List<Empresa> aplicarMetodologia(List<Empresa> listaEmpresas, List<String> listaPeriodos) {
 
+		List<Criterio> criterios = criteriosPuntajes.stream().map(pair -> pair.getValue0()).collect(Collectors.toList());
+		
 		return this.reduccionFea(criterios,listaEmpresas,listaPeriodos);
 	}
 
@@ -46,11 +50,13 @@ public class Metodologia {
 		this.nombre = nombre;
 	}
 
-	public List<Criterio> getCriterios() {
-		return criterios;
+	public List<Pair<Criterio, Double>> getCriteriosPuntajes() {
+		return criteriosPuntajes;
 	}
 
-	public void setCriterios(List<Criterio> criterios) {
-		this.criterios = criterios;
+	public void setCriteriosPuntajes(List<Pair<Criterio, Double>> criteriosPuntajes) {
+		this.criteriosPuntajes = criteriosPuntajes;
 	}
+
+
 }

@@ -3,6 +3,8 @@ package methodologies;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.javatuples.Pair;
+
 import criterios.*;
 import criterios.OperadorComparacion;
 import criterios.modificador.Normal;
@@ -22,8 +24,8 @@ public class MetodologiesBuilder {
 		return this;
 	}
 	
-	public MetodologiesBuilder setCriterios(List<Criterio> criterios) {
-		this.metodologia.setCriterios(criterios);
+	public MetodologiesBuilder setCriteriosPuntajes(List<Pair<Criterio,Double>> criteriosPuntajes) {
+		this.metodologia.setCriteriosPuntajes(criteriosPuntajes);
 		
 		return this;
 	}
@@ -31,13 +33,13 @@ public class MetodologiesBuilder {
 	public MetodologiesBuilder buildPredefWarrenBuffet() {
 		this.metodologia.setNombre("Warren Buffet");
 		
-		List<Criterio> criterios = new LinkedList<>();
+		List<Pair<Criterio,Double>> criteriosPuntajes = new LinkedList<>();
 		
-		criterios.add(new CriterioTaxativo("Margenes consistentemente crecientes", OperadorComparacion.MAYOR, PredefinidoROA.getInstance(), new Normal(), 1));
-		criterios.add(new CriterioComparativo("Maximizar ROE", OperadorComparacion.MAYOR, PredefinidoROA.getInstance()));
-		criterios.add(new CriterioComparativo("Minimizar el nivel de deuda", OperadorComparacion.MENOR, PredefinidoROA.getInstance()));
+		criteriosPuntajes.add(Pair.with(new CriterioTaxativo("Margenes consistentemente crecientes", OperadorComparacion.MAYOR, PredefinidoROA.getInstance(), new Normal(), 1), 1.0));
+		criteriosPuntajes.add(Pair.with(new CriterioComparativo("Maximizar ROE", OperadorComparacion.MAYOR, PredefinidoROA.getInstance()), 1.0));
+		criteriosPuntajes.add(Pair.with(new CriterioComparativo("Minimizar el nivel de deuda", OperadorComparacion.MENOR, PredefinidoROA.getInstance()), 1.0));
 		
-		this.metodologia.setCriterios(criterios);
+		this.metodologia.setCriteriosPuntajes(criteriosPuntajes);
 		
 		return this;
 	}

@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.javatuples.Pair;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,15 +23,15 @@ import repositories.RepositorioEmpresas;
 import repositories.RepositorioIndicadores;
 
 public class MetodologiaTest {
-	
+	/*
 	public ImportadorDeEmpresasCSV importador = new ImportadorDeEmpresasCSV("empresasTest.csv");
 	public Indicador indicador1 = new DataIndicador("i1","ebitda*10");
 	public Indicador indicador2 = new DataIndicador("i2","Activo Total - 1");
-	public CriterioTaxativo taxativo = new CriterioTaxativo("tax1",OperadorComparacion.MAYOR,indicador1,new Normal(),500);
-	public CriterioTaxativo taxativo2 = new CriterioTaxativo("tax2",OperadorComparacion.MENOR,indicador2,new Normal(),10);
+	public Pair<Criterio,Double> taxativo = Pair.with(new CriterioTaxativo("tax1",OperadorComparacion.MAYOR,indicador1,new Normal(),500), -1.0);
+	public Pair<Criterio,Double> taxativo2 = Pair.with(new CriterioTaxativo("tax2",OperadorComparacion.MENOR,indicador2,new Normal(),10), -1.0);
 	public List<Empresa> empresasEsperadas = new LinkedList<>();
 	public List<Empresa> empresasRepo = new LinkedList<>();
-	public List<Criterio> taxativos = new LinkedList<>();
+	public List<Pair<Criterio,Double>> taxativos;
 	public Metodologia metodologia1;
 	
 	@Before
@@ -62,5 +63,5 @@ public class MetodologiaTest {
 		empresasRepo.clear();
 		taxativos.clear();
 	}
-	
+	*/
 }

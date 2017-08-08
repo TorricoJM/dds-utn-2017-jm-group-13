@@ -59,7 +59,7 @@ public class CrearMetodologiaWindow extends SimpleWindow<CrearMetodologiaViewMod
 		tabPanel.setLayout(new HorizontalLayout());
 
 		List<String> valores = new List<String>(tabPanel);
-		valores.bindItemsToProperty("criteriosElegidos").setAdapter(new PropertyAdapter(Criterio.class, "nombre"));
+		valores.bindItemsToProperty("criteriosPuntajesElegidos").setAdapter(new PropertyAdapter(Criterio.class, "nombre"));
 		valores.setHeight(100);
 		valores.setWidth(400);
 

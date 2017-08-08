@@ -2,9 +2,10 @@ package ui.viewModels;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import org.javatuples.Pair;
 import org.uqbar.commons.model.ObservableUtils;
-//import org.uqbar.arena.widgets.List;
 import org.uqbar.commons.utils.Observable;
 
 import criterios.Criterio;
@@ -19,8 +20,8 @@ public class CrearMetodologiaViewModel {
 	private List<Criterio> criterios;
 	private Criterio criterioSeleccionado;
 	private String cuentaSeleccionada;
-	private List<Criterio> criteriosElegidos = new LinkedList<>();
 	private String nombre;
+	private List<Pair<Criterio,Double>> criteriosPuntajesElegidos = new LinkedList<>();
 
 	public CrearMetodologiaViewModel() {
 		this.criterios = RepositorioCriterios.getInstance().getCriterios();
@@ -30,18 +31,17 @@ public class CrearMetodologiaViewModel {
 		if (criterioSeleccionado == null) {
 			throw new Exception("Seleccione un criterio.");
 		} else {
-			criteriosElegidos.add(criterioSeleccionado);
-			ObservableUtils.firePropertyChanged(this, "criteriosElegidos");
+			criteriosPuntajesElegidos.add(Pair.with(criterioSeleccionado, 1.0)); //Harcodeado puntaje por ahora
+			ObservableUtils.firePropertyChanged(this, "criteriosPuntajesElegidos");
 		}
 	}
 
 	public void crearMetodologia() {
-		if (criteriosElegidos.size() == 0) {
+		if (criteriosPuntajesElegidos.size() == 0) {
 			throw new Exception("Agregue criterios");
 		} else {
 			RepositorioMetodologias.getInstance()
-					.agregar(new MetodologiesBuilder().setNombre(nombre).setCriterios(criterios).build());
-			
+					.agregar(new MetodologiesBuilder().setNombre(nombre).setCriteriosPuntajes(criteriosPuntajesElegidos).build());
 		}
 	}
 
@@ -69,20 +69,20 @@ public class CrearMetodologiaViewModel {
 		this.criterioSeleccionado = criterioSeleccionado;
 	}
 
-	public List<Criterio> getCriteriosElegidos() {
-		return criteriosElegidos;
-	}
-
-	public void setCriteriosElegidos(List<Criterio> criteriosElegidos) {
-		this.criteriosElegidos = criteriosElegidos;
-	}
-
 	public String getNombre() {
 		return nombre;
 	}
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+	
+	public List<Criterio> getCriteriosPuntajesElegidos() {
+		return criteriosPuntajesElegidos.stream().map(pair -> pair.getValue0()).collect(Collectors.toList());
+	}
+
+	public void setCriteriosPuntajesElegidos(List<Pair<Criterio, Double>> criteriosPuntajes) {
+		this.criteriosPuntajesElegidos = criteriosPuntajes;
 	}
 
 	public void actualizarListaCriterios() {
