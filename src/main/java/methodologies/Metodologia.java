@@ -8,7 +8,6 @@ import criterios.Criterio;
 import model.Empresa;
 
 import org.javatuples.*;
-import org.apache.commons.lang.StringUtils;
 import org.uqbar.commons.utils.Observable;
 
 @Observable
@@ -76,10 +75,6 @@ public class Metodologia {
 			Pair<Criterio, Double> criterio) {
 
 		return criterio.getValue0().posicionLuegoDeAplicarDe(empresa, empresas, periodos) * criterio.getValue1();
-	}
-
-	public int cuantasVecesSeRepiteLaEmpresa(List<Empresa> listaEmpresas, Empresa empresa) {
-		return StringUtils.countMatches(listaEmpresas.toString(), empresa.toString());
 	}
 
 	public String getNombre() {
