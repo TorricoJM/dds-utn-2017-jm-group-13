@@ -21,58 +21,24 @@ public class Metodologia {
 		this.setCriteriosPuntajes(criteriosPuntajes);
 	}
 
-	public List<Empresa> aplicarMetodologia(List<Empresa> listaEmpresas, List<String> listaPeriodos) {
+	public List<Empresa> aplicarMetodologiaA(List<Empresa> listaEmpresas, List<String> listaPeriodos) {
 
-		List<Pair<Criterio, Double>> criteriosComparativosPonderacion = criteriosPonderacion.stream()
-				.filter((tupla) -> tupla.getValue1() > 0.0).collect(Collectors.toList());
+		List<Empresa> empresasResultantes = this.aplicarCriteriosTaxativos(listaEmpresas, listaPeriodos);
 
-		List<Empresa> empresasResultantes = aplicarCriteriosTaxativos(listaEmpresas,
-				listaPeriodos);
-
-		empresasResultantes = aplicarCriteriosComparativos(criteriosComparativosPonderacion, empresasResultantes,
-				listaPeriodos);
-
-		return empresasResultantes;
-
+		return this.aplicarCriteriosComparativos(empresasResultantes, listaPeriodos);
 	}
 
-	private List<Empresa> aplicarCriteriosComparativos(List<Pair<Criterio, Double>> criteriosComparativos,
-			List<Empresa> empresasResultantes, List<String> listaPeriodos) {
+	private List<Empresa> aplicarCriteriosComparativos(List<Empresa> empresas, List<String> periodos) {
 
-		List<Pair<Empresa, Double>> empresaPuntaje = empresasResultantes.stream()
-				.map(empresa -> Pair.with(empresa, 0.0)).collect(Collectors.toList());
-
-		for (int i = 0; i < criteriosComparativos.size(); i++) {
-			empresasResultantes = criteriosComparativos.get(i).getValue0().evaluar(listaPeriodos, empresasResultantes);
-
-			Double ponderacion = criteriosComparativos.get(i).getValue1();
-
-			List<Empresa> empresasCopia = new LinkedList<>(empresasResultantes);
-
-			empresasResultantes.forEach(empresa -> this.obtenerTuplaDesdeEmpresa(empresaPuntaje, empresa)
-					.setAt1(this.obtenerTuplaDesdeEmpresa(empresaPuntaje, empresa).getValue1()
-							+ (empresasCopia.indexOf(empresa) + 1) * ponderacion));
-		}
-
-		System.out.println(empresaPuntaje.stream()
-				.sorted((tupla1, tupla2) -> Double.compare(tupla1.getValue1(), tupla2.getValue1()))
-				.map(tupla -> tupla.getValue1()).collect(Collectors.toList()));
-
-		return empresaPuntaje.stream()
-				.sorted((tupla1, tupla2) -> Double.compare(tupla1.getValue1(), tupla2.getValue1()))
-				.map(tupla -> tupla.getValue0()).collect(Collectors.toList());
-	}
-
-	private Pair<Empresa, Double> obtenerTuplaDesdeEmpresa(List<Pair<Empresa, Double>> listaTuplas, Empresa empresa) {
-
-		return listaTuplas.stream().filter(tupla -> tupla.contains(empresa)).findFirst().get();
-
+		return this.establecerPuntajesTotales(empresas, periodos).stream()
+				.sorted((e1, e2) -> Double.compare(e1.getValue1(), e2.getValue1())).map(tupla -> tupla.getValue0())
+				.collect(Collectors.toList());
 	}
 
 	private List<Empresa> aplicarCriteriosTaxativos(List<Empresa> listaEmpresas, List<String> periodos) {
 
 		List<Empresa> empresasResultantes = new LinkedList<>(listaEmpresas);
-
+		
 		return empresasResultantes.stream().filter(empresa -> this.cumpleTodosLosTaxativosUna(empresa, periodos))
 				.collect(Collectors.toList());
 	}
@@ -80,6 +46,36 @@ public class Metodologia {
 	private boolean cumpleTodosLosTaxativosUna(Empresa empresa, List<String> periodos) {
 		return this.obtenerCriteriosTaxativos().stream()
 				.allMatch(unTaxativo -> unTaxativo.verificarParaUna(empresa, periodos));
+	}
+
+	private List<Criterio> obtenerCriteriosTaxativos() {
+		return this.criteriosPonderacion.stream().filter((tupla) -> tupla.getValue1() < 0.0)
+				.map((tupla) -> tupla.getValue0()).collect(Collectors.toList());
+	}
+
+	private List<Pair<Criterio, Double>> obtenerCriteriosComparativosConPonderacion() {
+		return this.criteriosPonderacion.stream().filter((tupla) -> tupla.getValue1() > 0.0)
+				.collect(Collectors.toList());
+	}
+
+	private List<Pair<Empresa, Double>> establecerPuntajesTotales(List<Empresa> empresas, List<String> periodos) {
+
+		return empresas.stream().map(empresa -> this.puntajeTotalDe(empresa, empresas, periodos))
+				.collect(Collectors.toList());
+	}
+
+	private Pair<Empresa, Double> puntajeTotalDe(Empresa empresa, List<Empresa> empresas, List<String> periodos) {
+
+		return Pair.with(empresa,
+				this.obtenerCriteriosComparativosConPonderacion().stream()
+						.map(criterio -> puntajeParcialDe(empresa, empresas, periodos, criterio))
+						.mapToDouble(valor -> new Double(valor)).sum());
+	}
+
+	private double puntajeParcialDe(Empresa empresa, List<Empresa> empresas, List<String> periodos,
+			Pair<Criterio, Double> criterio) {
+
+		return criterio.getValue0().posicionLuegoDeAplicarDe(empresa, empresas, periodos) * criterio.getValue1();
 	}
 
 	public int cuantasVecesSeRepiteLaEmpresa(List<Empresa> listaEmpresas, Empresa empresa) {
@@ -100,10 +96,5 @@ public class Metodologia {
 
 	public void setCriteriosPuntajes(List<Pair<Criterio, Double>> criteriosPuntajes) {
 		this.criteriosPonderacion = criteriosPuntajes;
-	}
-
-	private List<Criterio> obtenerCriteriosTaxativos() {
-		return this.criteriosPonderacion.stream().filter((tupla) -> tupla.getValue1() < 0.0)
-				.map((tupla) -> tupla.getValue0()).collect(Collectors.toList());
 	}
 }

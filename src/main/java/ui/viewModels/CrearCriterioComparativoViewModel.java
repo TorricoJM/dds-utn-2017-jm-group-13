@@ -7,6 +7,7 @@ import java.util.regex.Pattern;
 import org.uqbar.commons.utils.Observable;
 
 import adapters.AdapterCriteriosToJSON;
+import criterios.Criterio;
 import criterios.CriterioComparativo;
 import criterios.OperadorComparacion;
 import exports.ExportadorArchivos;
@@ -35,7 +36,7 @@ public class CrearCriterioComparativoViewModel {
 				|| RepositorioCriterios.getInstance().tieneCriterio(nombreCriterio))
 			throw new Exception("El criterio ya existe o es invalido");
 		else {
-			CriterioComparativo nuevoCriterio = new CriterioComparativo(nombreCriterio, operador,
+			Criterio nuevoCriterio = new CriterioComparativo(nombreCriterio, operador,
 					indicadorSeleccionado);
 			RepositorioCriterios.getInstance().agregar(nuevoCriterio);
 			new ExportadorArchivos(new AdapterCriteriosToJSON(), "./criterios.json");

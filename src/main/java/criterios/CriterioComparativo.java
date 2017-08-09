@@ -34,6 +34,14 @@ public class CriterioComparativo implements Criterio {
 		return orden;
 	}
 
+	@Override
+	public Double posicionLuegoDeAplicarDe(Empresa empresa, List<Empresa> empresas, List<String> periodos) {
+		return new Double(empresas.stream()
+				.sorted((e1, e2) -> Double.compare(modificador.modificar(e2, indicador, periodos).get(0),
+						modificador.modificar(e1, indicador, periodos).get(0)))
+				.collect(Collectors.toList()).indexOf(empresa) + 1);
+	}
+
 	public Indicador getIndicador() {
 		return indicador;
 	}

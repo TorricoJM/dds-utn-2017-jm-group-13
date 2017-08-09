@@ -48,7 +48,7 @@ public class ConsultarMetodologiasViewModel {
 			throw new Exception("El periodo de inicio debe ser menor o igual que el de fin.");
 		else {
 		this.construirRangoDePeriodos();
-		empresasResultantes = metodologiaSeleccionada.aplicarMetodologia(empresas, periodosSeleccionados);
+		empresasResultantes = metodologiaSeleccionada.aplicarMetodologiaA(empresas, periodosSeleccionados);
 		ObservableUtils.firePropertyChanged(this,"empresasResultantes");
 		}
 	}

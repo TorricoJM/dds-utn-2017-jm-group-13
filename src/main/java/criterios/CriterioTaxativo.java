@@ -50,4 +50,8 @@ public class CriterioTaxativo implements Criterio {
 		this.nombre = nombre;
 	}
 
+	public Double posicionLuegoDeAplicarDe(Empresa empresa, List<Empresa> empresas, List<String> periodos) {
+		return null;
+	}
+
 }
