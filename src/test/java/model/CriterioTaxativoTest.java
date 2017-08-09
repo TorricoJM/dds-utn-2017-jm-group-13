@@ -10,6 +10,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import criterios.Criterio;
 import criterios.CriterioTaxativo;
 import criterios.OperadorComparacion;
 import criterios.modificador.Normal;
@@ -25,9 +26,9 @@ public class CriterioTaxativoTest {
 	
 	public ImportadorDeEmpresasCSV importador = new ImportadorDeEmpresasCSV("empresasTest.csv");
 	public Indicador indicador1 = new DataIndicador("i1","ebitda*10");
-	public CriterioTaxativo taxativo = new CriterioTaxativo("tax1",OperadorComparacion.MAYOR,indicador1,new Normal(),500);
-	public CriterioTaxativo taxativo2 = new CriterioTaxativo("tax2",OperadorComparacion.MAYOR,indicador1,new Sumatoria(),2500);
-	public CriterioTaxativo taxativo3 = new CriterioTaxativo("tax3",OperadorComparacion.MENOR,indicador1,new Promedio(),750);
+	public Criterio taxativo = new CriterioTaxativo("tax1",OperadorComparacion.MAYOR,indicador1,new Normal(),500);
+	public Criterio taxativo2 = new CriterioTaxativo("tax2",OperadorComparacion.MAYOR,indicador1,new Sumatoria(),2500);
+	public Criterio taxativo3 = new CriterioTaxativo("tax3",OperadorComparacion.MENOR,indicador1,new Promedio(),750);
 	public List<Empresa> empresasEsperadas = new LinkedList<>();
 	public List<Empresa> empresasRepo = new LinkedList<>();
 	public List<String> periodos = new LinkedList<>();

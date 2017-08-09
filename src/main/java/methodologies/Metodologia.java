@@ -23,13 +23,10 @@ public class Metodologia {
 
 	public List<Empresa> aplicarMetodologia(List<Empresa> listaEmpresas, List<String> listaPeriodos) {
 
-		List<Criterio> criteriosTaxativos = criteriosPonderacion.stream().filter((tupla) -> tupla.getValue1() < 0.0)
-				.map((tupla) -> tupla.getValue0()).collect(Collectors.toList());
-
 		List<Pair<Criterio, Double>> criteriosComparativosPonderacion = criteriosPonderacion.stream()
 				.filter((tupla) -> tupla.getValue1() > 0.0).collect(Collectors.toList());
 
-		List<Empresa> empresasResultantes = aplicarCriteriosTaxativosFeo(criteriosTaxativos, listaEmpresas,
+		List<Empresa> empresasResultantes = aplicarCriteriosTaxativos(listaEmpresas,
 				listaPeriodos);
 
 		empresasResultantes = aplicarCriteriosComparativos(criteriosComparativosPonderacion, empresasResultantes,
@@ -72,16 +69,17 @@ public class Metodologia {
 
 	}
 
-	private List<Empresa> aplicarCriteriosTaxativosFeo(List<Criterio> criteriosTaxativos, List<Empresa> listaEmpresas,
-			List<String> listaPeriodos) {
+	private List<Empresa> aplicarCriteriosTaxativos(List<Empresa> listaEmpresas, List<String> periodos) {
 
-		List<Empresa> empresasResultantes = listaEmpresas;
+		List<Empresa> empresasResultantes = new LinkedList<>(listaEmpresas);
 
-		for (int i = 0; i < criteriosTaxativos.size(); i++) {
-			empresasResultantes = criteriosTaxativos.get(i).evaluar(listaPeriodos, empresasResultantes);
-		}
+		return empresasResultantes.stream().filter(empresa -> this.cumpleTodosLosTaxativosUna(empresa, periodos))
+				.collect(Collectors.toList());
+	}
 
-		return empresasResultantes;
+	private boolean cumpleTodosLosTaxativosUna(Empresa empresa, List<String> periodos) {
+		return this.obtenerCriteriosTaxativos().stream()
+				.allMatch(unTaxativo -> unTaxativo.verificarParaUna(empresa, periodos));
 	}
 
 	public int cuantasVecesSeRepiteLaEmpresa(List<Empresa> listaEmpresas, Empresa empresa) {
@@ -104,4 +102,8 @@ public class Metodologia {
 		this.criteriosPonderacion = criteriosPuntajes;
 	}
 
+	private List<Criterio> obtenerCriteriosTaxativos() {
+		return this.criteriosPonderacion.stream().filter((tupla) -> tupla.getValue1() < 0.0)
+				.map((tupla) -> tupla.getValue0()).collect(Collectors.toList());
+	}
 }

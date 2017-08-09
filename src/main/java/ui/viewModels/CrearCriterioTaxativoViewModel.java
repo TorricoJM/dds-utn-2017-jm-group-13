@@ -7,6 +7,7 @@ import java.util.regex.Pattern;
 import org.uqbar.commons.utils.Observable;
 
 import adapters.AdapterCriteriosToJSON;
+import criterios.Criterio;
 import criterios.CriterioTaxativo;
 import criterios.OperadorComparacion;
 import criterios.modificador.Modificador;
@@ -38,7 +39,7 @@ public class CrearCriterioTaxativoViewModel {
 	public void crearCriterio() {
 		this.validarCreacionDeCriterio();
 		
-		CriterioTaxativo nuevoCriterio = new CriterioTaxativo(nombreCriterio, operador, indicadorSeleccionado,
+		Criterio nuevoCriterio = new CriterioTaxativo(nombreCriterio, operador, indicadorSeleccionado,
 				modificador, constante);
 		RepositorioCriterios.getInstance().agregar(nuevoCriterio);
 		
