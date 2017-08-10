@@ -23,49 +23,74 @@ import repositories.RepositorioEmpresas;
 import repositories.RepositorioIndicadores;
 
 public class CriterioTaxativoTest {
-	
+
 	public ImportadorDeEmpresasCSV importador = new ImportadorDeEmpresasCSV("empresasTest.csv");
-	public Indicador indicador1 = new DataIndicador("i1","ebitda*10");
-	public Criterio taxativo = new CriterioTaxativo("tax1",OperadorComparacion.MAYOR,indicador1,new Normal(),500);
-	public Criterio taxativo2 = new CriterioTaxativo("tax2",OperadorComparacion.MAYOR,indicador1,new Sumatoria(),2500);
-	public Criterio taxativo3 = new CriterioTaxativo("tax3",OperadorComparacion.MENOR,indicador1,new Promedio(),750);
-	public List<Empresa> empresasEsperadas = new LinkedList<>();
-	public List<Empresa> empresasRepo = new LinkedList<>();
+	public Indicador indicador1 = new DataIndicador("i1", "ebitda*10");
+	public Criterio taxativo = new CriterioTaxativo("tax1", OperadorComparacion.MAYOR, indicador1, new Normal(), 500);
+	public Criterio taxativo2 = new CriterioTaxativo("tax2", OperadorComparacion.MAYOR, indicador1, new Sumatoria(),
+			2500);
+	public Criterio taxativo3 = new CriterioTaxativo("tax3", OperadorComparacion.MENOR, indicador1, new Promedio(),
+			750);
 	public List<String> periodos = new LinkedList<>();
-	
+
 	@Before
-	public void setUp(){
+	public void setUp() {
 		RepositorioEmpresas.deleteInstance();
 		importador.importar();
 		RepositorioIndicadores.getInstance().agregar(indicador1);
-		empresasRepo.addAll(RepositorioEmpresas.getInstance().getListaEmpresas());
-		periodos = RepositorioEmpresas.getInstance().obtenerEmpresaDesdeNombre("empresa1").getPeriodos().stream().map(p->p.getPeriodo()).collect(Collectors.toList());
+		//periodos = RepositorioEmpresas.getInstance().obtenerEmpresaDesdeNombre("empresa1").getPeriodos().stream()
+			//	.map(p -> p.getPeriodo()).collect(Collectors.toList());
+		periodos.add("2015");
+		periodos.add("2016");
+		periodos.add("2017");
+	}
+
+	@Test
+	public void seVerificaQueUnaEmpresaCumplaNormalMayorA500() {
+		assertTrue(taxativo.verificarParaUna(RepositorioEmpresas.getInstance()
+				.obtenerEmpresaDesdeNombre("empresa2"),periodos));
 	}
 	
 	@Test
-	public void taxativoIndicador1MayorA500() {
-		empresasEsperadas.add(RepositorioEmpresas.getInstance().obtenerEmpresaDesdeNombre("empresa2"));
-		empresasEsperadas.add(RepositorioEmpresas.getInstance().obtenerEmpresaDesdeNombre("empresa3"));
-		assertEquals(taxativo.evaluar(periodos,empresasRepo),empresasEsperadas);
+	public void seVerificaQueUnaEmpresaNoCumplaNormalMayorA500() {
+		assertTrue(!taxativo.verificarParaUna(RepositorioEmpresas.getInstance()
+				.obtenerEmpresaDesdeNombre("empresa1"),periodos));
 	}
 	
 	@Test
-	public void taxativoSumatoriaMayorA2500() {
-		empresasEsperadas.add(RepositorioEmpresas.getInstance().obtenerEmpresaDesdeNombre("empresa3"));
-		assertEquals(taxativo2.evaluar(periodos, empresasRepo),empresasEsperadas);
+	public void seVerificaQueUnaEmpresaCumplaSumatoriaMayorA2500() {
+		assertTrue(taxativo2.verificarParaUna(RepositorioEmpresas.getInstance()
+				.obtenerEmpresaDesdeNombre("empresa3"), periodos));
 	}
 	
 	@Test
-	public void taxativoPromedioMenorA7500() {
-		empresasEsperadas.add(RepositorioEmpresas.getInstance().obtenerEmpresaDesdeNombre("empresa1"));
-		assertEquals(taxativo3.evaluar(periodos, empresasRepo),empresasEsperadas);
+	public void seVerificaQueUnaEmpresaNoCumplaSumatoriaMayorA2500() {
+		assertTrue(!taxativo2.verificarParaUna(RepositorioEmpresas.getInstance()
+				.obtenerEmpresaDesdeNombre("empresa1"), periodos));
+	}
+	
+	@Test
+	public void metodoInherenteAOtroCriterioRetornaNull() {
+		assertNull(taxativo.posicionLuegoDeAplicarDe(RepositorioEmpresas.getInstance()
+				.obtenerEmpresaDesdeNombre("empresa1"), RepositorioEmpresas.getInstance()
+				.getListaEmpresas(), periodos));
+	}
+
+	@Test
+	public void seVerificaQueUnaEmpresaCumplaPromedioMenorA750() {
+		assertTrue(taxativo3.verificarParaUna(RepositorioEmpresas.getInstance()
+				.obtenerEmpresaDesdeNombre("empresa1"), periodos));
+	}
+	
+	@Test
+	public void seVerificaQueUnaEmpresaNoCumplaPromedioMenorA750() {
+		assertTrue(!taxativo3.verificarParaUna(RepositorioEmpresas.getInstance()
+				.obtenerEmpresaDesdeNombre("empresa2"), periodos));
 	}
 
 	@After
-	public void tearDown(){
+	public void tearDown() {
 		RepositorioIndicadores.deleteInstance();
 		RepositorioEmpresas.deleteInstance();
-		empresasEsperadas.clear();
-		empresasRepo.clear();
 	}
 }
