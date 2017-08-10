@@ -1,7 +1,6 @@
 package criterios;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.uqbar.commons.utils.Observable;
 
@@ -26,14 +25,6 @@ public class CriterioTaxativo implements Criterio {
 		this.indicador = indicador;
 		this.modificador = modificador;
 		this.valor = valor;
-	}
-
-	@Override
-	public List<Empresa> evaluar(List<String> listaPeriodos, List<Empresa> empresas) {
-
-		return empresas.stream().filter(empresa -> modificador.modificar(empresa, indicador, listaPeriodos).stream()
-				.allMatch(otroValor -> operador.aplicar(otroValor, valor))).collect(Collectors.toList());
-
 	}
 
 	@Override
