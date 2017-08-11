@@ -17,6 +17,7 @@ import imports.ImportadorDeEmpresasCSV;
 import indicators.DataIndicador;
 import indicators.Indicador;
 import model.parser.objetosParser.*;
+import repositories.RepositorioEmpresas;
 import repositories.RepositorioIndicadores;
 
 public class ParserTest{
@@ -118,5 +119,6 @@ public class ParserTest{
 	@After
 	public void finalizar() {
 		RepositorioIndicadores.deleteInstance();
+		RepositorioEmpresas.deleteInstance();
 	}
 }

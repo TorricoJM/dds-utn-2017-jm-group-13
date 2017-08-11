@@ -4,7 +4,6 @@ import static org.junit.Assert.*;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.junit.After;
 import org.junit.Before;
@@ -24,7 +23,6 @@ import repositories.RepositorioIndicadores;
 
 public class CriterioTaxativoTest {
 
-	public ImportadorDeEmpresasCSV importador = new ImportadorDeEmpresasCSV("empresasTest.csv");
 	public Indicador indicador1 = new DataIndicador("i1", "ebitda*10");
 	public Criterio taxativo = new CriterioTaxativo("tax1", OperadorComparacion.MAYOR, indicador1, new Normal(), 500);
 	public Criterio taxativo2 = new CriterioTaxativo("tax2", OperadorComparacion.MAYOR, indicador1, new Sumatoria(),
@@ -35,11 +33,7 @@ public class CriterioTaxativoTest {
 
 	@Before
 	public void setUp() {
-		RepositorioEmpresas.deleteInstance();
-		importador.importar();
-		RepositorioIndicadores.getInstance().agregar(indicador1);
-		//periodos = RepositorioEmpresas.getInstance().obtenerEmpresaDesdeNombre("empresa1").getPeriodos().stream()
-			//	.map(p -> p.getPeriodo()).collect(Collectors.toList());
+		new ImportadorDeEmpresasCSV("empresasTest.csv").importar();
 		periodos.add("2015");
 		periodos.add("2016");
 		periodos.add("2017");
