@@ -9,6 +9,7 @@ import org.uqbar.commons.model.ObservableUtils;
 import org.uqbar.commons.utils.Observable;
 
 import criterios.Criterio;
+import criterios.CriterioTaxativo;
 import methodologies.MetodologiesBuilder;
 import model.Exception;
 import repositories.RepositorioCriterios;
@@ -27,20 +28,15 @@ public class CrearMetodologiaViewModel {
 
 	public CrearMetodologiaViewModel() {
 		this.criterios = RepositorioCriterios.getInstance().getCriterios();
-		this.ponderaciones.add(1.0);
-		this.ponderaciones.add(0.75);
-		this.ponderaciones.add(0.5);
-		this.ponderaciones.add(0.25);
-		this.ponderaciones.add(0.10);
-		this.ponderaciones.add(-1.0);
 	}
 
 	public void agregarCriterio() {
 		if (criterioSeleccionado == null) {
-			throw new Exception("Seleccione un criterio.");
+			throw new Exception("Seleccione un criterio");
 		} else {
-			criteriosPonderacionElegidos.add(Pair.with(criterioSeleccionado, ponderacionSeleccionada));
+			this.discriminarCriterio();
 			ObservableUtils.firePropertyChanged(this, "criteriosPonderacionElegidos");
+			this.setCriterioSeleccionado(null);
 		}
 	}
 
@@ -113,5 +109,29 @@ public class CrearMetodologiaViewModel {
 		this.criterios = new LinkedList<>(RepositorioCriterios.getInstance().getCriterios());
 		ObservableUtils.firePropertyChanged(this, "criterios");
 	}
-
+	
+	public void borrarUltimoCriterio() {
+		try{
+			this.criteriosPonderacionElegidos.remove(criteriosPonderacionElegidos.size() - 1);
+			ObservableUtils.firePropertyChanged(this, "criteriosPonderacionElegidos");
+		}catch(IndexOutOfBoundsException exception){
+			
+		}
+	}
+	
+	private void discriminarCriterio() {
+		if(this.criterioSeleccionadoEsTaxativo())
+			criteriosPonderacionElegidos.add(Pair.with(criterioSeleccionado, -1.0));
+		else
+			this.controlarValidezCriterioComparativo();
+	}
+	
+	public Boolean criterioSeleccionadoEsTaxativo() {
+		return this.criterioSeleccionado.getClass().equals(CriterioTaxativo.class);
+	}
+	
+	private void controlarValidezCriterioComparativo() {
+		if(ponderacionSeleccionada != null)
+			criteriosPonderacionElegidos.add(Pair.with(criterioSeleccionado, ponderacionSeleccionada));
+	}
 }

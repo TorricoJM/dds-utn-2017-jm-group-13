@@ -8,6 +8,7 @@ import org.uqbar.arena.widgets.List;
 import org.uqbar.arena.widgets.Panel;
 import org.uqbar.arena.widgets.Selector;
 import org.uqbar.arena.widgets.TextBox;
+import org.uqbar.arena.windows.Dialog;
 import org.uqbar.arena.windows.MessageBox;
 import org.uqbar.arena.windows.SimpleWindow;
 import org.uqbar.arena.windows.WindowOwner;
@@ -24,38 +25,37 @@ public class CrearMetodologiaWindow extends SimpleWindow<CrearMetodologiaViewMod
 
 	public CrearMetodologiaWindow(WindowOwner parent) {
 		super(parent, new CrearMetodologiaViewModel());
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	protected void addActions(Panel arg0) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	protected void createFormPanel(Panel mainPanel) {
-		Panel form = new Panel(mainPanel);
-		form.setLayout(new HorizontalLayout());
-		form.setWidth(10);
 		this.setTitle("Crear metodologia");
 
-		new Label(form).setText("Criterios");
+		Panel cabecera = new Panel(mainPanel).setLayout(new HorizontalLayout()).setWidth(10);
+
+		new Label(cabecera).setText("Nombre: ");
+		new TextBox(cabecera).setWidth(350).bindValueToProperty("nombre");
+
+		Panel form = new Panel(mainPanel);
+		form.setLayout(new HorizontalLayout()).setWidth(10);
+
+		new Label(form).setText("Seleccionar un criterio");
+
 		Selector<Criterio> selectorCriterio = new Selector<Criterio>(form).allowNull(true);
 		selectorCriterio.bindItemsToProperty("criterios").setAdapter(new PropertyAdapter(Criterio.class, "nombre"));
 		selectorCriterio.bindValueToProperty("criterioSeleccionado");
 		selectorCriterio.setWidth(125);
-		
-		new Label(form).setText("Ponderacion");
-		Selector<Double> selectorPonderacion = new Selector<Double>(form).allowNull(true);
-		selectorPonderacion.bindItemsToProperty("ponderaciones");
-		selectorPonderacion.bindValueToProperty("ponderacionSeleccionada");
-		selectorPonderacion.setWidth(125);
+
+		new Button(form).setCaption("Agregar Criterio").onClick(() -> this.agregarCriterio()).setWidth(150);
 
 		Panel operaciones = new Panel(mainPanel);
 		operaciones.setLayout(new HorizontalLayout());
 
-		new Button(mainPanel).setCaption("Agregar Criterio").onClick(() -> this.agregarCriterio()).setWidth(150);
 		new Button(operaciones).setCaption("Crear criterio taxativo")
 				.onClick(() -> this.abrirCreadorCriteriosTaxativos()).setWidth(215);
 		new Button(operaciones).setCaption("Crear criterio comparativo")
@@ -65,18 +65,22 @@ public class CrearMetodologiaWindow extends SimpleWindow<CrearMetodologiaViewMod
 		tabPanel.setLayout(new HorizontalLayout());
 
 		List<String> criterios = new List<String>(tabPanel);
-		criterios.bindItemsToProperty("criteriosPonderacionElegidos").setAdapter(new PropertyAdapter(Criterio.class, "nombre"));
+		criterios.bindItemsToProperty("criteriosPonderacionElegidos")
+				.setAdapter(new PropertyAdapter(Criterio.class, "nombre"));
 		criterios.setHeight(100);
 		criterios.setWidth(400);
 
-		new Label(mainPanel).setText("Nombre metodologia");
-		new TextBox(mainPanel).setWidth(265).bindValueToProperty("nombre");
+		new Label(mainPanel).setText("");
+		new Button(mainPanel).setCaption("Borrar ultimo criterio")
+				.onClick(() -> this.getModelObject().borrarUltimoCriterio());
+		new Label(mainPanel).setText("");
 
 		new Button(mainPanel).setCaption("Guardar").onClick(() -> this.crearMetodologia()).setWidth(150);
 	}
 
 	private void agregarCriterio() {
 		try {
+			this.mostrarPonderaciones();
 			this.getModelObject().agregarCriterio();
 		} catch (Exception exception) {
 			MessageBox dialogWindow = new MessageBox(this, Type.Error);
@@ -85,12 +89,19 @@ public class CrearMetodologiaWindow extends SimpleWindow<CrearMetodologiaViewMod
 		}
 	}
 
+	private void mostrarPonderaciones() {
+		if (!this.getModelObject().criterioSeleccionadoEsTaxativo()) {
+			Dialog<?> jerarquias = new PuntuarCriterioComparativoWindow(this, this.getModelObject());
+			jerarquias.open();
+		}
+	}
+
 	private void abrirCreadorCriteriosComparativos() {
 		SimpleWindow<?> creadorCriteriosComparativosWindow = new CrearCriterioComparativoWindow(this);
 		creadorCriteriosComparativosWindow.open();
 		this.getModelObject().actualizarListaCriterios();
 	}
-	
+
 	private void abrirCreadorCriteriosTaxativos() {
 		SimpleWindow<?> creadorCriteriosTaxativosWindow = new CrearCriterioTaxativoWindow(this);
 		creadorCriteriosTaxativosWindow.open();
