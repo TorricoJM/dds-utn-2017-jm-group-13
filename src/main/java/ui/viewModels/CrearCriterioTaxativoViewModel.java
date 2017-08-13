@@ -1,5 +1,6 @@
 package ui.viewModels;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -25,24 +26,27 @@ public class CrearCriterioTaxativoViewModel {
 
 	private List<Indicador> indicadores;
 	private Indicador indicadorSeleccionado;
-	private String cuentaSeleccionada;
 	private String criterio = "";
 	private Double constante;
 	private String nombreCriterio;
 	private OperadorComparacion operador;
 	private Modificador modificador = new Normal();
+	private Boolean timeForOperations = false;
+	private Boolean timeForIndicators = true;
+	private Boolean timeForModificators = true;
+	private Boolean timeForConstant = false;
 
 	public CrearCriterioTaxativoViewModel() {
-		this.indicadores = RepositorioIndicadores.getInstance().getIndicadores();
+		this.indicadores = new LinkedList<>(RepositorioIndicadores.getInstance().getIndicadores());
 	}
 
 	public void crearCriterio() {
 		this.validarCreacionDeCriterio();
-		
-		Criterio nuevoCriterio = new CriterioTaxativo(nombreCriterio, operador, indicadorSeleccionado,
-				modificador, constante);
+
+		Criterio nuevoCriterio = new CriterioTaxativo(nombreCriterio, operador, indicadorSeleccionado, modificador,
+				constante);
 		RepositorioCriterios.getInstance().agregar(nuevoCriterio);
-		
+
 		new ExportadorArchivos(new AdapterCriteriosToJSON(), "./criterios.json").exportar();
 
 	}
@@ -55,7 +59,7 @@ public class CrearCriterioTaxativoViewModel {
 	}
 
 	private boolean tieneNombreValido(String nombre) {
-		final String Regex = "[a-zA-Z]+[a-zA-Z ]*[a-zA-Z]+";
+		final String Regex = "[a-zA-Z][a-zA-Z]+";
 		final String input = nombre;
 		Pattern patron;
 		Matcher matcheador;
@@ -68,49 +72,94 @@ public class CrearCriterioTaxativoViewModel {
 		this.setModificador(new Normal());
 		this.setOperador(null);
 		this.setCriterio("");
+		this.setConstante(null);
+		
+		this.itsTimeForIndicators();
 	}
 
 	public void agregarMayor() {
 		this.setOperador(OperadorComparacion.MAYOR);
 		this.setCriterio(criterio + ">");
+		
+		this.itsTimeForIndicators();
+		this.timeForConstant = true;
 	}
 
 	public void agregarMenor() {
 		this.setOperador(OperadorComparacion.MENOR);
 		this.setCriterio(criterio + "<");
+		
+		this.itsTimeForIndicators();
+		this.timeForConstant = true;
 	}
 
 	public void agregarPromedio() {
 		Modificador modificadorPromedio = new Promedio();
 		this.setModificador(modificadorPromedio);
 		this.setCriterio(criterio + "Promedio ");
+		
+		this.timeForModificators = false;
+		this.timeForConstant = false;
 	}
 
 	public void agregarSumatoria() {
 		Modificador modificadorSumatoria = new Sumatoria();
 		this.setModificador(modificadorSumatoria);
 		this.setCriterio(criterio + "Sumatoria ");
+		
+		this.timeForModificators = false;
+		this.timeForConstant = false;
 	}
 
 	public void agregarConstante() {
-		String constanteString = Double.toString(constante);
-		this.setCriterio(criterio + constanteString);
+		this.setCriterio(criterio + Double.toString(constante));
+		this.constante = null;
+		this.itsTimeForSave();
 	}
 
-	public void agregarIndicador() {
-		if (indicadorSeleccionado == null) {
-			throw new Exception("Seleccione algun indicador");
-		} else {
-			this.setCriterio(criterio + indicadorSeleccionado.getNombre());
-		}
+	private void itsTimeForOperations() {
+		this.timeForOperations = true;
+		this.timeForIndicators = false;
+		this.timeForModificators = false;
+		this.timeForConstant = false;
+	}
+	
+	private void itsTimeForIndicators() {
+		this.timeForOperations = false;
+		this.timeForIndicators = true;
+		this.timeForModificators = true;
+		this.timeForConstant = false;
+	}
+	
+	private void itsTimeForSave() {
+		this.timeForOperations = false;
+		this.timeForIndicators = false;
+		this.timeForModificators = false;
+		this.timeForConstant = false;
 	}
 
-	public void agregarCuenta() {
-		if (cuentaSeleccionada == null) {
-			throw new Exception("Seleccione alguna cuenta");
-		} else {
-			this.setCriterio(criterio + cuentaSeleccionada);
-		}
+	public Boolean getTimeForOperations() {
+		return timeForOperations;
+	}
+
+	public Boolean getTimeForIndicators() {
+		return timeForIndicators;
+	}
+
+	public Boolean getTimeForModificators() {
+		return timeForModificators;
+	}
+
+	public void setTimeForOperations(Boolean timeForOperations) {
+		this.timeForOperations = timeForOperations;
+	}
+
+	public void setTimeForIndicators(Boolean timeForIndicators) {
+		this.timeForIndicators = timeForIndicators;
+	}
+
+	public void setTimeForModificators(Boolean timeForModificators) {
+		this.timeForModificators = timeForModificators;
 	}
 
 	public List<Indicador> getIndicadores() {
@@ -127,14 +176,14 @@ public class CrearCriterioTaxativoViewModel {
 
 	public void setIndicadorSeleccionado(Indicador indicadorSeleccionado) {
 		this.indicadorSeleccionado = indicadorSeleccionado;
-	}
+		
+		this.setCriterio(criterio + indicadorSeleccionado.getNombre());
+		
 
-	public String getCuentaSeleccionada() {
-		return cuentaSeleccionada;
-	}
-
-	public void setCuentaSeleccionada(String cuentaSeleccionada) {
-		this.cuentaSeleccionada = cuentaSeleccionada;
+		if(this.getOperador() == null)
+			this.itsTimeForOperations();
+		else
+			this.itsTimeForSave();
 	}
 
 	public String getCriterio() {
@@ -175,6 +224,14 @@ public class CrearCriterioTaxativoViewModel {
 
 	public void setModificador(Modificador modificador) {
 		this.modificador = modificador;
+	}
+
+	public Boolean getTimeForConstant() {
+		return timeForConstant;
+	}
+
+	public void setTimeForConstant(Boolean timeForConstant) {
+		this.timeForConstant = timeForConstant;
 	}
 
 }

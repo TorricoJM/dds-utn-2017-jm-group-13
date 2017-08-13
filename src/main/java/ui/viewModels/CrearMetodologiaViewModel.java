@@ -115,7 +115,6 @@ public class CrearMetodologiaViewModel {
 			this.criteriosPonderacionElegidos.remove(criteriosPonderacionElegidos.size() - 1);
 			ObservableUtils.firePropertyChanged(this, "criteriosPonderacionElegidos");
 		}catch(IndexOutOfBoundsException exception){
-			
 		}
 	}
 	

@@ -24,52 +24,66 @@ public class CrearCriterioTaxativoWindow extends SimpleWindow<CrearCriterioTaxat
 
 	public CrearCriterioTaxativoWindow(WindowOwner parent) {
 		super(parent, new CrearCriterioTaxativoViewModel());
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	protected void addActions(Panel arg0) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	protected void createFormPanel(Panel mainPanel) {
-		Panel form = new Panel(mainPanel);
-		form.setLayout(new HorizontalLayout());
-		form.setWidth(10);
 		this.setTitle("Crear criterio taxativo");
 
-		new Label(form).setText("Indicadores");
-		Selector<DataIndicador> selectorIndicador = new Selector<DataIndicador>(form).allowNull(true);
+		Panel cabecera = new Panel(mainPanel);
+		cabecera.setLayout(new HorizontalLayout());
+
+		new Label(cabecera).setText("Nombre criterio");
+		new TextBox(cabecera).setWidth(265).bindValueToProperty("nombreCriterio");
+
+		Panel panelDeIndicadores = new Panel(mainPanel);
+		panelDeIndicadores.setLayout(new HorizontalLayout());
+
+		new Label(panelDeIndicadores).setText("Seleccionar un indicador");
+
+		Selector<DataIndicador> selectorIndicador = new Selector<DataIndicador>(panelDeIndicadores).allowNull(true);
 		selectorIndicador.bindItemsToProperty("indicadores")
 				.setAdapter(new PropertyAdapter(DataIndicador.class, "nombre"));
 		selectorIndicador.bindValueToProperty("indicadorSeleccionado");
 		selectorIndicador.setWidth(350);
-
-		new Button(mainPanel).setCaption("Agregar indicador").onClick(() -> this.agregarIndicador());
-
-		new Label(mainPanel).setText("Nombre criterio");
-		new TextBox(mainPanel).setWidth(265).bindValueToProperty("nombreCriterio");
+		selectorIndicador.bindEnabledToProperty("timeForIndicators");
 
 		Panel operaciones = new Panel(mainPanel);
 		operaciones.setLayout(new HorizontalLayout());
 
-		new Button(operaciones).setCaption(">").onClick(() -> this.agregarMayor()).setWidth(100);
-		new Button(operaciones).setCaption("<").onClick(() -> this.agregarMenor()).setWidth(100);
-		new Button(operaciones).setCaption("Promedio").onClick(() -> this.agregarPromedio()).setWidth(100);
-		new Button(operaciones).setCaption("Sumatoria").onClick(() -> this.agregarSumatoria()).setWidth(100);
-		new Button(operaciones).setCaption("Borrar").onClick(() -> this.borrarCriterio()).setWidth(100);
+		new Button(operaciones).setCaption("Promedio").onClick(() -> this.agregarPromedio()).setWidth(100)
+				.bindEnabledToProperty("timeForModificators");
+		new Button(operaciones).setCaption("Sumatoria").onClick(() -> this.agregarSumatoria()).setWidth(100)
+				.bindEnabledToProperty("timeForModificators");
+
+		new Label(operaciones).setText("").setWidth(75);
+
+		new Button(operaciones).setCaption(">").onClick(() -> this.agregarMayor()).setWidth(111)
+				.bindEnabledToProperty("timeForOperations");
+		new Button(operaciones).setCaption("<").onClick(() -> this.agregarMenor()).setWidth(111)
+				.bindEnabledToProperty("timeForOperations");
 
 		Panel constante = new Panel(mainPanel);
 		constante.setLayout(new HorizontalLayout());
 
-		new NumericField(constante).setWidth(350).bindValueToProperty("constante");
-		new Button(constante).setCaption("Agregar constante").onClick(() -> this.agregarConstante());
+		NumericField campoDeConstante = new NumericField(constante);
+		campoDeConstante.setWidth(350).bindValueToProperty("constante");
+		campoDeConstante.bindEnabledToProperty("timeForConstant");
+		new Button(constante).setCaption("Agregar constante").onClick(() -> this.agregarConstante()).setWidth(145)
+				.bindEnabledToProperty("timeForConstant");
 
-		new Label(mainPanel).setText("Criterio");
-		new Label(mainPanel).setBackground(Color.LIGHT_GRAY).setForeground(Color.WHITE).setFontSize(12).setWidth(150)
+		new Label(mainPanel).setText("");
+
+		new Label(mainPanel).setText("Vista previa del criterio");
+		new Label(mainPanel).setBackground(Color.LIGHT_GRAY).setForeground(Color.WHITE).setFontSize(12).setWidth(15)
 				.bindValueToProperty("criterio");
+		new Button(mainPanel).setCaption("Borrar todo").onClick(() -> this.borrarCriterio()).setWidth(10);
+
+		new Label(mainPanel).setText("");
 
 		new Button(mainPanel).setCaption("Guardar").onClick(() -> this.crearCriterio());
 	}
@@ -107,15 +121,5 @@ public class CrearCriterioTaxativoWindow extends SimpleWindow<CrearCriterioTaxat
 
 	private void agregarMayor() {
 		this.getModelObject().agregarMayor();
-	}
-
-	private void agregarIndicador() {
-		try {
-			this.getModelObject().agregarIndicador();
-		} catch (Exception exception) {
-			MessageBox dialogWindow = new MessageBox(this, Type.Error);
-			dialogWindow.setMessage(exception.getMensaje());
-			dialogWindow.open();
-		}
 	}
 }
