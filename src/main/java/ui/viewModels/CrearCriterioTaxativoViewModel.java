@@ -42,7 +42,7 @@ public class CrearCriterioTaxativoViewModel {
 
 	public void crearCriterio() {
 		this.validarCreacionDeCriterio();
-
+		
 		Criterio nuevoCriterio = new CriterioTaxativo(nombreCriterio, operador, indicadorSeleccionado, modificador,
 				constante);
 		RepositorioCriterios.getInstance().agregar(nuevoCriterio);
@@ -59,7 +59,7 @@ public class CrearCriterioTaxativoViewModel {
 	}
 
 	private boolean tieneNombreValido(String nombre) {
-		final String Regex = "[a-zA-Z][a-zA-Z]+";
+		final String Regex = "[a-zA-Z]+[a-zA-Z]*[a-zA-Z]+";
 		final String input = nombre;
 		Pattern patron;
 		Matcher matcheador;
@@ -81,7 +81,6 @@ public class CrearCriterioTaxativoViewModel {
 		this.setOperador(OperadorComparacion.MAYOR);
 		this.setCriterio(criterio + ">");
 		
-		this.itsTimeForIndicators();
 		this.timeForConstant = true;
 	}
 
@@ -89,7 +88,6 @@ public class CrearCriterioTaxativoViewModel {
 		this.setOperador(OperadorComparacion.MENOR);
 		this.setCriterio(criterio + "<");
 		
-		this.itsTimeForIndicators();
 		this.timeForConstant = true;
 	}
 
@@ -113,7 +111,6 @@ public class CrearCriterioTaxativoViewModel {
 
 	public void agregarConstante() {
 		this.setCriterio(criterio + Double.toString(constante));
-		this.constante = null;
 		this.itsTimeForSave();
 	}
 
