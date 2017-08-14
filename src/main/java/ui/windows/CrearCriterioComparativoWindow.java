@@ -23,77 +23,71 @@ public class CrearCriterioComparativoWindow extends SimpleWindow<CrearCriterioCo
 
 	public CrearCriterioComparativoWindow(WindowOwner parent) {
 		super(parent, new CrearCriterioComparativoViewModel());
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	protected void addActions(Panel actionsPanel) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	protected void createFormPanel(Panel mainPanel) {
-		Panel form = new Panel(mainPanel);
-		form.setLayout(new HorizontalLayout());
-		form.setWidth(10);
 		this.setTitle("Crear criterio comparativo");
 
-		new Label(form).setText("Indicadores");
-		Selector<DataIndicador> selectorIndicador = new Selector<DataIndicador>(form).allowNull(true);
-		selectorIndicador.bindItemsToProperty("indicadores")
-				.setAdapter(new PropertyAdapter(DataIndicador.class, "nombre"));
-		selectorIndicador.bindValueToProperty("indicadorSeleccionado");
-		selectorIndicador.setWidth(350);
+		Panel cabecera = new Panel(mainPanel);
+		cabecera.setLayout(new HorizontalLayout());
 
-		new Button(mainPanel).setCaption("Agregar indicador").onClick(() -> this.agregarIndicador());
+		new Label(cabecera).setText("Nombre criterio");
+		new TextBox(cabecera).setWidth(365).bindValueToProperty("nombreCriterio");
 
-		new Label(mainPanel).setText("Nombre criterio");
-		new TextBox(mainPanel).setWidth(265).bindValueToProperty("nombreCriterio");
+		Panel tituloOperaciones = new Panel(mainPanel);
+		tituloOperaciones.setLayout(new HorizontalLayout());
+
+		new Label(tituloOperaciones).setText("").setWidth(150);
+		new Label(tituloOperaciones).setText("Comparar empresas segun").setWidth(150);
+		new Label(tituloOperaciones).setText("").setWidth(150);
 
 		Panel operaciones = new Panel(mainPanel);
 		operaciones.setLayout(new HorizontalLayout());
 
-		new Button(operaciones).setCaption("Mayor").onClick(() -> this.agregarMayor()).setWidth(150);
-		new Button(operaciones).setCaption("Menor").onClick(() -> this.agregarMenor()).setWidth(150);
-		new Button(operaciones).setCaption("Borrar").onClick(() -> this.borrarCriterio()).setWidth(150);
+		new Label(operaciones).setText("").setWidth(75);
+		new Button(operaciones).setCaption("Mayor").onClick(() -> this.getModelObject().agregarMayor()).setWidth(150)
+				.bindEnabledToProperty("timeForOperations");
+		new Label(operaciones).setText("").setWidth(5);
+		new Button(operaciones).setCaption("Menor").onClick(() -> this.getModelObject().agregarMenor()).setWidth(150)
+				.bindEnabledToProperty("timeForOperations");
+
+		Panel panelIndicadores = new Panel(mainPanel);
+		panelIndicadores.setLayout(new HorizontalLayout());
+		panelIndicadores.setWidth(10);
+
+		new Label(panelIndicadores).setText("Seleccionar un indicador");
+		Selector<DataIndicador> selectorIndicador = new Selector<DataIndicador>(panelIndicadores).allowNull(true);
+		selectorIndicador.bindItemsToProperty("indicadores")
+				.setAdapter(new PropertyAdapter(DataIndicador.class, "nombre"));
+		selectorIndicador.bindValueToProperty("indicadorSeleccionado");
+		selectorIndicador.setWidth(310);
+		selectorIndicador.bindEnabledToProperty("timeForIndicators");
 
 		Panel constante = new Panel(mainPanel);
 		constante.setLayout(new HorizontalLayout());
 
-		new Label(mainPanel).setText("Criterio");
+		new Label(mainPanel).setText("");
+
+		new Label(mainPanel).setText("Vista previa del criterio");
 		new Label(mainPanel).setBackground(Color.LIGHT_GRAY).setForeground(Color.WHITE).setFontSize(12).setWidth(150)
 				.bindValueToProperty("criterio");
+		new Button(mainPanel).setCaption("Borrar todo").onClick(() -> this.getModelObject().borrarTodo()).setWidth(150);
 
-		new Button(mainPanel).setCaption("Guardar").onClick(() -> this.crearCriterio());
+		new Label(mainPanel).setText("");
+
+		new Button(mainPanel).setCaption("Guardar").onClick(() -> this.crearCriterio())
+				.bindEnabledToProperty("timeForSave");
 	}
 
 	private void crearCriterio() {
 		try {
 			this.getModelObject().crearCriterio();
 			this.close();
-		} catch (Exception exception) {
-			MessageBox dialogWindow = new MessageBox(this, Type.Error);
-			dialogWindow.setMessage(exception.getMensaje());
-			dialogWindow.open();
-		}
-	}
-
-	private void borrarCriterio() {
-		this.getModelObject().borrarCriterio();
-	}
-
-	private void agregarMenor() {
-		this.getModelObject().agregarMenor();
-	}
-
-	private void agregarMayor() {
-		this.getModelObject().agregarMayor();
-	}
-
-	private void agregarIndicador() {
-		try {
-			this.getModelObject().agregarIndicador();
 		} catch (Exception exception) {
 			MessageBox dialogWindow = new MessageBox(this, Type.Error);
 			dialogWindow.setMessage(exception.getMensaje());

@@ -59,7 +59,7 @@ public class CrearCriterioTaxativoViewModel {
 	}
 
 	private boolean tieneNombreValido(String nombre) {
-		final String Regex = "[a-zA-Z]+[a-zA-Z]*[a-zA-Z]+";
+		final String Regex = "[a-zA-Z]+[a-zA-Z ]*[a-zA-Z]+";
 		final String input = nombre;
 		Pattern patron;
 		Matcher matcheador;

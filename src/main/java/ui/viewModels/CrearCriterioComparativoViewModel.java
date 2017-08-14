@@ -1,5 +1,6 @@
 package ui.viewModels;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -24,20 +25,19 @@ public class CrearCriterioComparativoViewModel {
 	private String criterio = "";
 	private String nombreCriterio;
 	private OperadorComparacion operador;
+	private Boolean timeForOperations = true;
+	private Boolean timeForIndicators = false;
+	private Boolean timeForSave = false;
 
 	public CrearCriterioComparativoViewModel() {
-		this.indicadores = RepositorioIndicadores.getInstance().getIndicadores();
+		this.indicadores = new LinkedList<>(RepositorioIndicadores.getInstance().getIndicadores());
 	}
 
 	public void crearCriterio() {
-		if (nombreCriterio == null || criterio == "") {
-			throw new Exception("Nombre o criterio vacio");
-		} else if (!this.tieneNombreValido(nombreCriterio)
-				|| RepositorioCriterios.getInstance().tieneCriterio(nombreCriterio))
-			throw new Exception("El criterio ya existe o es invalido");
+		if (!this.tieneNombreValido(nombreCriterio) || RepositorioCriterios.getInstance().tieneCriterio(nombreCriterio))
+			throw new Exception("El nombre del criterio es invalido, o ya existe");
 		else {
-			Criterio nuevoCriterio = new CriterioComparativo(nombreCriterio, operador,
-					indicadorSeleccionado);
+			Criterio nuevoCriterio = new CriterioComparativo(nombreCriterio, operador, indicadorSeleccionado);
 			RepositorioCriterios.getInstance().agregar(nuevoCriterio);
 			new ExportadorArchivos(new AdapterCriteriosToJSON(), "./criterios.json");
 		}
@@ -46,34 +46,35 @@ public class CrearCriterioComparativoViewModel {
 	private boolean tieneNombreValido(String nombre) {
 		final String Regex = "[a-zA-Z]+[a-zA-Z ]*[a-zA-Z]+";
 		final String input = nombre;
+
 		Pattern patron;
 		Matcher matcheador;
 		patron = Pattern.compile(Regex);
 		matcheador = patron.matcher(input);
+
 		return matcheador.matches();
 	}
 
-	public void borrarCriterio() {
+	public void borrarTodo() {
 		this.setOperador(null);
+		this.indicadorSeleccionado = null;
 		this.setCriterio("");
+
+		this.itsTimeForOperations();
 	}
 
 	public void agregarMayor() {
 		this.setOperador(OperadorComparacion.MAYOR);
 		this.setCriterio(criterio + "Mayor ");
+
+		this.itsTimeForIndicators();
 	}
 
 	public void agregarMenor() {
 		this.setOperador(OperadorComparacion.MENOR);
 		this.setCriterio(criterio + "Menor ");
-	}
 
-	public void agregarIndicador() {
-		if (indicadorSeleccionado == null) {
-			throw new Exception("Seleccione algun indicador");
-		} else {
-			this.setCriterio(criterio + indicadorSeleccionado.getNombre());
-		}
+		this.itsTimeForIndicators();
 	}
 
 	public List<Indicador> getIndicadores() {
@@ -90,6 +91,26 @@ public class CrearCriterioComparativoViewModel {
 
 	public void setIndicadorSeleccionado(Indicador indicadorSeleccionado) {
 		this.indicadorSeleccionado = indicadorSeleccionado;
+		this.setCriterio(criterio + indicadorSeleccionado.getNombre());
+
+		this.itsTimeForSave();
+	}
+
+	private void itsTimeForIndicators() {
+		this.setTimeForOperations(false);
+		this.setTimeForIndicators(true);
+	}
+
+	private void itsTimeForSave() {
+		this.setTimeForOperations(false);
+		this.setTimeForIndicators(false);
+		this.setTimeForSave(true);
+	}
+
+	private void itsTimeForOperations() {
+		this.setTimeForOperations(true);
+		this.setTimeForIndicators(false);
+		this.setTimeForSave(false);
 	}
 
 	public String getCriterio() {
@@ -116,4 +137,27 @@ public class CrearCriterioComparativoViewModel {
 		this.operador = operador;
 	}
 
+	public Boolean getTimeForOperations() {
+		return timeForOperations;
+	}
+
+	public Boolean getTimeForIndicators() {
+		return timeForIndicators;
+	}
+
+	public void setTimeForOperations(Boolean timeForOperations) {
+		this.timeForOperations = timeForOperations;
+	}
+
+	public void setTimeForIndicators(Boolean timeForIndicators) {
+		this.timeForIndicators = timeForIndicators;
+	}
+
+	public Boolean getTimeForSave() {
+		return timeForSave;
+	}
+
+	public void setTimeForSave(Boolean timeForSave) {
+		this.timeForSave = timeForSave;
+	}
 }
