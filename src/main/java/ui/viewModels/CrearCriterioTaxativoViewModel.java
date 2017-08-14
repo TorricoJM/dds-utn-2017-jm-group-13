@@ -35,6 +35,7 @@ public class CrearCriterioTaxativoViewModel {
 	private Boolean timeForIndicators = true;
 	private Boolean timeForModificators = true;
 	private Boolean timeForConstant = false;
+	private Boolean timeForSave = false;
 
 	public CrearCriterioTaxativoViewModel() {
 		this.indicadores = new LinkedList<>(RepositorioIndicadores.getInstance().getIndicadores());
@@ -42,7 +43,7 @@ public class CrearCriterioTaxativoViewModel {
 
 	public void crearCriterio() {
 		this.validarCreacionDeCriterio();
-		
+
 		Criterio nuevoCriterio = new CriterioTaxativo(nombreCriterio, operador, indicadorSeleccionado, modificador,
 				Double.valueOf(constante));
 		RepositorioCriterios.getInstance().agregar(nuevoCriterio);
@@ -52,10 +53,8 @@ public class CrearCriterioTaxativoViewModel {
 	}
 
 	private void validarCreacionDeCriterio() {
-		if (nombreCriterio == null || criterio == "")
-			throw new Exception("Nombre o criterio vacio");
 		if (!this.tieneNombreValido(nombreCriterio) || RepositorioCriterios.getInstance().tieneCriterio(nombreCriterio))
-			throw new Exception("El criterio ya existe o es invalido");
+			throw new Exception("El nombre del criterio ya existe, o es invalido");
 	}
 
 	private boolean tieneNombreValido(String nombre) {
@@ -74,21 +73,21 @@ public class CrearCriterioTaxativoViewModel {
 		this.setCriterio("");
 		this.setConstante("");
 		this.indicadorSeleccionado = null;
-		
+
 		this.itsTimeForIndicators();
 	}
 
 	public void agregarMayor() {
 		this.setOperador(OperadorComparacion.MAYOR);
 		this.setCriterio(criterio + ">");
-		
+
 		this.timeForConstant = true;
 	}
 
 	public void agregarMenor() {
 		this.setOperador(OperadorComparacion.MENOR);
 		this.setCriterio(criterio + "<");
-		
+
 		this.timeForConstant = true;
 	}
 
@@ -96,18 +95,16 @@ public class CrearCriterioTaxativoViewModel {
 		Modificador modificadorPromedio = new Promedio();
 		this.setModificador(modificadorPromedio);
 		this.setCriterio(criterio + "Promedio ");
-		
+
 		this.timeForModificators = false;
-		this.timeForConstant = false;
 	}
 
 	public void agregarSumatoria() {
 		Modificador modificadorSumatoria = new Sumatoria();
 		this.setModificador(modificadorSumatoria);
 		this.setCriterio(criterio + "Sumatoria ");
-		
+
 		this.timeForModificators = false;
-		this.timeForConstant = false;
 	}
 
 	public void agregarConstante() {
@@ -119,21 +116,26 @@ public class CrearCriterioTaxativoViewModel {
 		this.timeForOperations = true;
 		this.timeForIndicators = false;
 		this.timeForModificators = false;
-		this.timeForConstant = false;
 	}
-	
+
 	private void itsTimeForIndicators() {
 		this.timeForOperations = false;
 		this.timeForIndicators = true;
 		this.timeForModificators = true;
 		this.timeForConstant = false;
+		this.timeForSave = false;
 	}
-	
+
 	private void itsTimeForSave() {
 		this.timeForOperations = false;
 		this.timeForIndicators = false;
 		this.timeForModificators = false;
 		this.timeForConstant = false;
+		this.timeForSave = true;
+	}
+
+	public Boolean getTimeForSave() {
+		return this.timeForSave;
 	}
 
 	public Boolean getTimeForOperations() {
@@ -147,17 +149,9 @@ public class CrearCriterioTaxativoViewModel {
 	public Boolean getTimeForModificators() {
 		return timeForModificators;
 	}
-
-	public void setTimeForOperations(Boolean timeForOperations) {
-		this.timeForOperations = timeForOperations;
-	}
-
-	public void setTimeForIndicators(Boolean timeForIndicators) {
-		this.timeForIndicators = timeForIndicators;
-	}
-
-	public void setTimeForModificators(Boolean timeForModificators) {
-		this.timeForModificators = timeForModificators;
+	
+	public Boolean getTimeForConstant() {
+		return timeForConstant;
 	}
 
 	public List<Indicador> getIndicadores() {
@@ -174,11 +168,10 @@ public class CrearCriterioTaxativoViewModel {
 
 	public void setIndicadorSeleccionado(Indicador indicadorSeleccionado) {
 		this.indicadorSeleccionado = indicadorSeleccionado;
-		
-		this.setCriterio(criterio + indicadorSeleccionado.getNombre());
-		
 
-		if(this.getOperador() == null)
+		this.setCriterio(criterio + indicadorSeleccionado.getNombre());
+
+		if (this.getOperador() == null)
 			this.itsTimeForOperations();
 		else
 			this.itsTimeForSave();
@@ -223,13 +216,4 @@ public class CrearCriterioTaxativoViewModel {
 	public void setModificador(Modificador modificador) {
 		this.modificador = modificador;
 	}
-
-	public Boolean getTimeForConstant() {
-		return timeForConstant;
-	}
-
-	public void setTimeForConstant(Boolean timeForConstant) {
-		this.timeForConstant = timeForConstant;
-	}
-
 }

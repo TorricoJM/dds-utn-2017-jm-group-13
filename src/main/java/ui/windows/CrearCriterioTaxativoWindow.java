@@ -85,7 +85,7 @@ public class CrearCriterioTaxativoWindow extends SimpleWindow<CrearCriterioTaxat
 
 		new Label(mainPanel).setText("");
 
-		new Button(mainPanel).setCaption("Guardar").onClick(() -> this.crearCriterio());
+		new Button(mainPanel).setCaption("Guardar").onClick(() -> this.crearCriterio()).bindEnabledToProperty("timeForSave");
 	}
 
 	private void crearCriterio() {
