@@ -27,7 +27,7 @@ public class CrearCriterioTaxativoViewModel {
 	private List<Indicador> indicadores;
 	private Indicador indicadorSeleccionado;
 	private String criterio = "";
-	private Double constante;
+	private String constante;
 	private String nombreCriterio;
 	private OperadorComparacion operador;
 	private Modificador modificador = new Normal();
@@ -44,7 +44,7 @@ public class CrearCriterioTaxativoViewModel {
 		this.validarCreacionDeCriterio();
 		
 		Criterio nuevoCriterio = new CriterioTaxativo(nombreCriterio, operador, indicadorSeleccionado, modificador,
-				constante);
+				Double.valueOf(constante));
 		RepositorioCriterios.getInstance().agregar(nuevoCriterio);
 
 		new ExportadorArchivos(new AdapterCriteriosToJSON(), "./criterios.json").exportar();
@@ -72,7 +72,8 @@ public class CrearCriterioTaxativoViewModel {
 		this.setModificador(new Normal());
 		this.setOperador(null);
 		this.setCriterio("");
-		this.setConstante(null);
+		this.setConstante("");
+		this.indicadorSeleccionado = null;
 		
 		this.itsTimeForIndicators();
 	}
@@ -110,7 +111,7 @@ public class CrearCriterioTaxativoViewModel {
 	}
 
 	public void agregarConstante() {
-		this.setCriterio(criterio + Double.toString(constante));
+		this.setCriterio(criterio + constante);
 		this.itsTimeForSave();
 	}
 
@@ -191,11 +192,11 @@ public class CrearCriterioTaxativoViewModel {
 		this.criterio = criterio;
 	}
 
-	public Double getConstante() {
+	public String getConstante() {
 		return constante;
 	}
 
-	public void setConstante(Double constante) {
+	public void setConstante(String constante) {
 		this.constante = constante;
 	}
 
