@@ -28,7 +28,7 @@ public class CriterioTaxativo implements Criterio {
 	}
 
 	@Override
-	public boolean verificarParaUna(Empresa empresa, List<String> periodos) {
+	public Boolean verificarParaUna(Empresa empresa, List<String> periodos) {
 		return modificador.modificar(empresa, indicador, periodos).stream()
 				.allMatch((valorObtenido) -> operador.aplicar(valorObtenido, valor));
 	}

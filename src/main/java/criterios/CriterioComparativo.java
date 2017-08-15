@@ -59,7 +59,7 @@ public class CriterioComparativo implements Criterio {
 		this.nombre = nombre;
 	}
 
-	public boolean verificarParaUna(Empresa empresa, List<String> periodos) {
+	public Boolean verificarParaUna(Empresa empresa, List<String> periodos) {
 		return false;
 	}
 
