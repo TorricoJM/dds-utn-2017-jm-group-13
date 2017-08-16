@@ -21,10 +21,11 @@ public class CrearMetodologiaViewModel {
 	private List<Criterio> criterios;
 	private List<Double> ponderaciones = new LinkedList<>();
 	private Criterio criterioSeleccionado;
-	private String cuentaSeleccionada;
 	private String nombre;
 	private List<Pair<Criterio,Double>> criteriosPonderacionElegidos = new LinkedList<>();
 	private Double ponderacionSeleccionada;
+	private Boolean enableAgregate = false;
+	private Boolean enableSave = false;
 
 	public CrearMetodologiaViewModel() {
 		this.criterios = RepositorioCriterios.getInstance().getCriterios();
@@ -35,9 +36,15 @@ public class CrearMetodologiaViewModel {
 			throw new Exception("Seleccione un criterio");
 		} else {
 			this.discriminarCriterio();
+			this.finalizarAgregadoDeCriterio();
 			ObservableUtils.firePropertyChanged(this, "criteriosPonderacionElegidos");
-			this.setCriterioSeleccionado(null);
 		}
+	}
+	
+	private void finalizarAgregadoDeCriterio() {
+		this.setCriterioSeleccionado(null);
+		this.setEnableAgregate(false);
+		this.setEnableSave(true);
 	}
 
 	public void crearMetodologia() {
@@ -47,14 +54,6 @@ public class CrearMetodologiaViewModel {
 			RepositorioMetodologias.getInstance()
 					.agregar(new MetodologiesBuilder().setNombre(nombre).setCriteriosPonderacion(criteriosPonderacionElegidos).build());
 		}
-	}
-
-	public String getCuentaSeleccionada() {
-		return cuentaSeleccionada;
-	}
-
-	public void setCuentaSeleccionada(String cuentaSeleccionada) {
-		this.cuentaSeleccionada = cuentaSeleccionada;
 	}
 
 	public List<Criterio> getCriterios() {
@@ -71,6 +70,7 @@ public class CrearMetodologiaViewModel {
 
 	public void setCriterioSeleccionado(Criterio criterioSeleccionado) {
 		this.criterioSeleccionado = criterioSeleccionado;
+		this.setEnableAgregate(true);
 	}
 
 	public String getNombre() {
@@ -113,6 +113,10 @@ public class CrearMetodologiaViewModel {
 	public void borrarUltimoCriterio() {
 		try{
 			this.criteriosPonderacionElegidos.remove(criteriosPonderacionElegidos.size() - 1);
+			
+			if(criteriosPonderacionElegidos.isEmpty())
+				this.setEnableSave(false);
+			
 			ObservableUtils.firePropertyChanged(this, "criteriosPonderacionElegidos");
 		}catch(IndexOutOfBoundsException exception){
 		}
@@ -132,5 +136,21 @@ public class CrearMetodologiaViewModel {
 	private void controlarValidezCriterioComparativo() {
 		if(ponderacionSeleccionada != null)
 			criteriosPonderacionElegidos.add(Pair.with(criterioSeleccionado, ponderacionSeleccionada));
+	}
+
+	public Boolean getEnableAgregate() {
+		return enableAgregate;
+	}
+
+	public Boolean getEnableSave() {
+		return enableSave;
+	}
+
+	public void setEnableAgregate(Boolean enableAgregate) {
+		this.enableAgregate = enableAgregate;
+	}
+
+	public void setEnableSave(Boolean enableSave) {
+		this.enableSave = enableSave;
 	}
 }

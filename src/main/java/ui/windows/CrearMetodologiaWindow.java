@@ -51,7 +51,8 @@ public class CrearMetodologiaWindow extends SimpleWindow<CrearMetodologiaViewMod
 		selectorCriterio.bindValueToProperty("criterioSeleccionado");
 		selectorCriterio.setWidth(125);
 
-		new Button(form).setCaption("Agregar Criterio").onClick(() -> this.agregarCriterio()).setWidth(150);
+		new Button(form).setCaption("Agregar Criterio").onClick(() -> this.agregarCriterio()).setWidth(150)
+				.bindEnabledToProperty("enableAgregate");
 
 		Panel operaciones = new Panel(mainPanel);
 		operaciones.setLayout(new HorizontalLayout());
@@ -75,7 +76,8 @@ public class CrearMetodologiaWindow extends SimpleWindow<CrearMetodologiaViewMod
 				.onClick(() -> this.getModelObject().borrarUltimoCriterio());
 		new Label(mainPanel).setText("");
 
-		new Button(mainPanel).setCaption("Guardar").onClick(() -> this.crearMetodologia()).setWidth(150);
+		new Button(mainPanel).setCaption("Guardar").onClick(() -> this.crearMetodologia()).setWidth(150)
+				.bindEnabledToProperty("enableSave");
 	}
 
 	private void agregarCriterio() {
