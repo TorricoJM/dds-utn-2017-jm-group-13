@@ -50,31 +50,31 @@ public class CrearCriterioTaxativoWindow extends SimpleWindow<CrearCriterioTaxat
 				.setAdapter(new PropertyAdapter(DataIndicador.class, "nombre"));
 		selectorIndicador.bindValueToProperty("indicadorSeleccionado");
 		selectorIndicador.setWidth(350);
-		selectorIndicador.bindEnabledToProperty("timeForIndicators");
+		selectorIndicador.bindEnabledToProperty("estado.timeForIndicators");
 
 		Panel operaciones = new Panel(mainPanel);
 		operaciones.setLayout(new HorizontalLayout());
 
 		new Button(operaciones).setCaption("Promedio").onClick(() -> this.agregarPromedio()).setWidth(100)
-				.bindEnabledToProperty("timeForModificators");
+				.bindEnabledToProperty("estado.timeForModificators");
 		new Button(operaciones).setCaption("Sumatoria").onClick(() -> this.agregarSumatoria()).setWidth(100)
-				.bindEnabledToProperty("timeForModificators");
+				.bindEnabledToProperty("estado.timeForModificators");
 
 		new Label(operaciones).setText("").setWidth(75);
 
 		new Button(operaciones).setCaption(">").onClick(() -> this.agregarMayor()).setWidth(111)
-				.bindEnabledToProperty("timeForOperations");
+				.bindEnabledToProperty("estado.timeForOperations");
 		new Button(operaciones).setCaption("<").onClick(() -> this.agregarMenor()).setWidth(111)
-				.bindEnabledToProperty("timeForOperations");
+				.bindEnabledToProperty("estado.timeForOperations");
 
 		Panel constante = new Panel(mainPanel);
 		constante.setLayout(new HorizontalLayout());
 
 		NumericField campoDeConstante = new NumericField(constante);
 		campoDeConstante.setWidth(350).bindValueToProperty("constante");
-		campoDeConstante.bindEnabledToProperty("timeForConstant");
+		campoDeConstante.bindEnabledToProperty("estado.timeForConstant");
 		new Button(constante).setCaption("Agregar constante").onClick(() -> this.agregarConstante()).setWidth(145)
-				.bindEnabledToProperty("timeForConstant");
+				.bindEnabledToProperty("estado.timeForConstant");
 
 		new Label(mainPanel).setText("");
 
@@ -85,7 +85,7 @@ public class CrearCriterioTaxativoWindow extends SimpleWindow<CrearCriterioTaxat
 
 		new Label(mainPanel).setText("");
 
-		new Button(mainPanel).setCaption("Guardar").onClick(() -> this.crearCriterio()).bindEnabledToProperty("timeForSave");
+		new Button(mainPanel).setCaption("Guardar").onClick(() -> this.crearCriterio()).bindEnabledToProperty("estado.timeForSave");
 	}
 
 	private void crearCriterio() {

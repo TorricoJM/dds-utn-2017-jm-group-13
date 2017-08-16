@@ -51,10 +51,10 @@ public class CrearCriterioComparativoWindow extends SimpleWindow<CrearCriterioCo
 
 		new Label(operaciones).setText("").setWidth(75);
 		new Button(operaciones).setCaption("Mayor").onClick(() -> this.getModelObject().agregarMayor()).setWidth(150)
-				.bindEnabledToProperty("timeForOperations");
+				.bindEnabledToProperty("estado.timeForOperations");
 		new Label(operaciones).setText("").setWidth(5);
 		new Button(operaciones).setCaption("Menor").onClick(() -> this.getModelObject().agregarMenor()).setWidth(150)
-				.bindEnabledToProperty("timeForOperations");
+				.bindEnabledToProperty("estado.timeForOperations");
 
 		Panel panelIndicadores = new Panel(mainPanel);
 		panelIndicadores.setLayout(new HorizontalLayout());
@@ -66,7 +66,7 @@ public class CrearCriterioComparativoWindow extends SimpleWindow<CrearCriterioCo
 				.setAdapter(new PropertyAdapter(DataIndicador.class, "nombre"));
 		selectorIndicador.bindValueToProperty("indicadorSeleccionado");
 		selectorIndicador.setWidth(310);
-		selectorIndicador.bindEnabledToProperty("timeForIndicators");
+		selectorIndicador.bindEnabledToProperty("estado.timeForIndicators");
 
 		Panel constante = new Panel(mainPanel);
 		constante.setLayout(new HorizontalLayout());
@@ -81,7 +81,7 @@ public class CrearCriterioComparativoWindow extends SimpleWindow<CrearCriterioCo
 		new Label(mainPanel).setText("");
 
 		new Button(mainPanel).setCaption("Guardar").onClick(() -> this.crearCriterio())
-				.bindEnabledToProperty("timeForSave");
+				.bindEnabledToProperty("estado.timeForSave");
 	}
 
 	private void crearCriterio() {

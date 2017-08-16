@@ -16,6 +16,7 @@ import indicators.Indicador;
 import model.Exception;
 import repositories.RepositorioCriterios;
 import repositories.RepositorioIndicadores;
+import states.EstadoCrearComparativos;
 
 @Observable
 public class CrearCriterioComparativoViewModel {
@@ -25,12 +26,11 @@ public class CrearCriterioComparativoViewModel {
 	private String criterio = "";
 	private String nombreCriterio;
 	private OperadorComparacion operador;
-	private Boolean timeForOperations = true;
-	private Boolean timeForIndicators = false;
-	private Boolean timeForSave = false;
+	private EstadoCrearComparativos estado;
 
 	public CrearCriterioComparativoViewModel() {
 		this.indicadores = new LinkedList<>(RepositorioIndicadores.getInstance().getIndicadores());
+		this.estado = new EstadoCrearComparativos();
 	}
 
 	public void crearCriterio() {
@@ -60,21 +60,21 @@ public class CrearCriterioComparativoViewModel {
 		this.indicadorSeleccionado = null;
 		this.setCriterio("");
 
-		this.itsTimeForOperations();
+		this.getEstado().itsTimeForOperations();
 	}
 
 	public void agregarMayor() {
 		this.setOperador(OperadorComparacion.MAYOR);
 		this.setCriterio(criterio + "Mayor ");
 
-		this.itsTimeForIndicators();
+		this.getEstado().itsTimeForIndicators();
 	}
 
 	public void agregarMenor() {
 		this.setOperador(OperadorComparacion.MENOR);
 		this.setCriterio(criterio + "Menor ");
 
-		this.itsTimeForIndicators();
+		this.getEstado().itsTimeForIndicators();
 	}
 
 	public List<Indicador> getIndicadores() {
@@ -93,24 +93,7 @@ public class CrearCriterioComparativoViewModel {
 		this.indicadorSeleccionado = indicadorSeleccionado;
 		this.setCriterio(criterio + indicadorSeleccionado.getNombre());
 
-		this.itsTimeForSave();
-	}
-
-	private void itsTimeForIndicators() {
-		this.setTimeForOperations(false);
-		this.setTimeForIndicators(true);
-	}
-
-	private void itsTimeForSave() {
-		this.setTimeForOperations(false);
-		this.setTimeForIndicators(false);
-		this.setTimeForSave(true);
-	}
-
-	private void itsTimeForOperations() {
-		this.setTimeForOperations(true);
-		this.setTimeForIndicators(false);
-		this.setTimeForSave(false);
+		this.getEstado().itsTimeForSave();
 	}
 
 	public String getCriterio() {
@@ -137,27 +120,7 @@ public class CrearCriterioComparativoViewModel {
 		this.operador = operador;
 	}
 
-	public Boolean getTimeForOperations() {
-		return timeForOperations;
-	}
-
-	public Boolean getTimeForIndicators() {
-		return timeForIndicators;
-	}
-
-	public void setTimeForOperations(Boolean timeForOperations) {
-		this.timeForOperations = timeForOperations;
-	}
-
-	public void setTimeForIndicators(Boolean timeForIndicators) {
-		this.timeForIndicators = timeForIndicators;
-	}
-
-	public Boolean getTimeForSave() {
-		return timeForSave;
-	}
-
-	public void setTimeForSave(Boolean timeForSave) {
-		this.timeForSave = timeForSave;
+	public EstadoCrearComparativos getEstado() {
+		return this.estado;
 	}
 }

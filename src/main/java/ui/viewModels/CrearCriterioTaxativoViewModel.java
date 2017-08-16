@@ -20,6 +20,7 @@ import indicators.Indicador;
 import model.Exception;
 import repositories.RepositorioCriterios;
 import repositories.RepositorioIndicadores;
+import states.EstadoCrearTaxativos;
 
 @Observable
 public class CrearCriterioTaxativoViewModel {
@@ -31,14 +32,11 @@ public class CrearCriterioTaxativoViewModel {
 	private String nombreCriterio;
 	private OperadorComparacion operador;
 	private Modificador modificador = new Normal();
-	private Boolean timeForOperations = false;
-	private Boolean timeForIndicators = true;
-	private Boolean timeForModificators = true;
-	private Boolean timeForConstant = false;
-	private Boolean timeForSave = false;
+	private EstadoCrearTaxativos estado;
 
 	public CrearCriterioTaxativoViewModel() {
 		this.indicadores = new LinkedList<>(RepositorioIndicadores.getInstance().getIndicadores());
+		this.estado = new EstadoCrearTaxativos();
 	}
 
 	public void crearCriterio() {
@@ -74,21 +72,21 @@ public class CrearCriterioTaxativoViewModel {
 		this.setConstante("");
 		this.indicadorSeleccionado = null;
 
-		this.itsTimeForIndicators();
+		this.estado.itsTimeForIndicators();
 	}
 
 	public void agregarMayor() {
 		this.setOperador(OperadorComparacion.MAYOR);
 		this.setCriterio(criterio + ">");
 
-		this.timeForConstant = true;
+		this.estado.itsTimeForSomeConstant();
 	}
 
 	public void agregarMenor() {
 		this.setOperador(OperadorComparacion.MENOR);
 		this.setCriterio(criterio + "<");
 
-		this.timeForConstant = true;
+		this.estado.itsTimeForSomeConstant();
 	}
 
 	public void agregarPromedio() {
@@ -96,7 +94,7 @@ public class CrearCriterioTaxativoViewModel {
 		this.setModificador(modificadorPromedio);
 		this.setCriterio(criterio + "Promedio ");
 
-		this.timeForModificators = false;
+		this.estado.disableModifiers();
 	}
 
 	public void agregarSumatoria() {
@@ -104,54 +102,12 @@ public class CrearCriterioTaxativoViewModel {
 		this.setModificador(modificadorSumatoria);
 		this.setCriterio(criterio + "Sumatoria ");
 
-		this.timeForModificators = false;
+		this.estado.disableModifiers();
 	}
 
 	public void agregarConstante() {
 		this.setCriterio(criterio + constante);
-		this.itsTimeForSave();
-	}
-
-	private void itsTimeForOperations() {
-		this.timeForOperations = true;
-		this.timeForIndicators = false;
-		this.timeForModificators = false;
-	}
-
-	private void itsTimeForIndicators() {
-		this.timeForOperations = false;
-		this.timeForIndicators = true;
-		this.timeForModificators = true;
-		this.timeForConstant = false;
-		this.timeForSave = false;
-	}
-
-	private void itsTimeForSave() {
-		this.timeForOperations = false;
-		this.timeForIndicators = false;
-		this.timeForModificators = false;
-		this.timeForConstant = false;
-		this.timeForSave = true;
-	}
-
-	public Boolean getTimeForSave() {
-		return this.timeForSave;
-	}
-
-	public Boolean getTimeForOperations() {
-		return timeForOperations;
-	}
-
-	public Boolean getTimeForIndicators() {
-		return timeForIndicators;
-	}
-
-	public Boolean getTimeForModificators() {
-		return timeForModificators;
-	}
-	
-	public Boolean getTimeForConstant() {
-		return timeForConstant;
+		this.estado.itsTimeForSave();
 	}
 
 	public List<Indicador> getIndicadores() {
@@ -172,9 +128,9 @@ public class CrearCriterioTaxativoViewModel {
 		this.setCriterio(criterio + indicadorSeleccionado.getNombre());
 
 		if (this.getOperador() == null)
-			this.itsTimeForOperations();
+			this.estado.itsTimeForOperations();
 		else
-			this.itsTimeForSave();
+			this.estado.itsTimeForSave();
 	}
 
 	public String getCriterio() {
@@ -215,5 +171,9 @@ public class CrearCriterioTaxativoViewModel {
 
 	public void setModificador(Modificador modificador) {
 		this.modificador = modificador;
+	}
+	
+	public EstadoCrearTaxativos getEstado() {
+		return this.estado;
 	}
 }
