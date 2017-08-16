@@ -8,8 +8,10 @@ import org.javatuples.Pair;
 import org.uqbar.commons.model.ObservableUtils;
 import org.uqbar.commons.utils.Observable;
 
+import adapters.AdapterMetodologiasToJSON;
 import criterios.Criterio;
 import criterios.CriterioTaxativo;
+import exports.ExportadorArchivos;
 import methodologies.MetodologiesBuilder;
 import model.Exception;
 import repositories.RepositorioCriterios;
@@ -22,7 +24,7 @@ public class CrearMetodologiaViewModel {
 	private List<Double> ponderaciones = new LinkedList<>();
 	private Criterio criterioSeleccionado;
 	private String nombre;
-	private List<Pair<Criterio,Double>> criteriosPonderacionElegidos = new LinkedList<>();
+	private List<Pair<Criterio, Double>> criteriosPonderacionElegidos = new LinkedList<>();
 	private Double ponderacionSeleccionada;
 	private Boolean enableAgregate = false;
 	private Boolean enableSave = false;
@@ -40,7 +42,7 @@ public class CrearMetodologiaViewModel {
 			ObservableUtils.firePropertyChanged(this, "criteriosPonderacionElegidos");
 		}
 	}
-	
+
 	private void finalizarAgregadoDeCriterio() {
 		this.setCriterioSeleccionado(null);
 		this.setEnableAgregate(false);
@@ -48,12 +50,9 @@ public class CrearMetodologiaViewModel {
 	}
 
 	public void crearMetodologia() {
-		if (criteriosPonderacionElegidos.size() == 0) {
-			throw new Exception("Agregue criterios");
-		} else {
-			RepositorioMetodologias.getInstance()
-					.agregar(new MetodologiesBuilder().setNombre(nombre).setCriteriosPonderacion(criteriosPonderacionElegidos).build());
-		}
+		RepositorioMetodologias.getInstance().agregar(new MetodologiesBuilder().setNombre(nombre)
+				.setCriteriosPonderacion(criteriosPonderacionElegidos).build());
+		new ExportadorArchivos(new AdapterMetodologiasToJSON(), "./metodologias.json").exportar();
 	}
 
 	public List<Criterio> getCriterios() {
@@ -80,7 +79,7 @@ public class CrearMetodologiaViewModel {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	
+
 	public List<Criterio> getCriteriosPonderacionElegidos() {
 		return criteriosPonderacionElegidos.stream().map(pair -> pair.getValue0()).collect(Collectors.toList());
 	}
@@ -88,7 +87,7 @@ public class CrearMetodologiaViewModel {
 	public void setCriteriosPonderacionElegidos(List<Pair<Criterio, Double>> criteriosPuntajes) {
 		this.criteriosPonderacionElegidos = criteriosPuntajes;
 	}
-	
+
 	public List<Double> getPonderaciones() {
 		return ponderaciones;
 	}
@@ -109,32 +108,32 @@ public class CrearMetodologiaViewModel {
 		this.criterios = new LinkedList<>(RepositorioCriterios.getInstance().getCriterios());
 		ObservableUtils.firePropertyChanged(this, "criterios");
 	}
-	
+
 	public void borrarUltimoCriterio() {
-		try{
+		try {
 			this.criteriosPonderacionElegidos.remove(criteriosPonderacionElegidos.size() - 1);
-			
-			if(criteriosPonderacionElegidos.isEmpty())
+
+			if (criteriosPonderacionElegidos.isEmpty())
 				this.setEnableSave(false);
-			
+
 			ObservableUtils.firePropertyChanged(this, "criteriosPonderacionElegidos");
-		}catch(IndexOutOfBoundsException exception){
+		} catch (IndexOutOfBoundsException exception) {
 		}
 	}
-	
+
 	private void discriminarCriterio() {
-		if(this.criterioSeleccionadoEsTaxativo())
+		if (this.criterioSeleccionadoEsTaxativo())
 			criteriosPonderacionElegidos.add(Pair.with(criterioSeleccionado, -1.0));
 		else
 			this.controlarValidezCriterioComparativo();
 	}
-	
+
 	public Boolean criterioSeleccionadoEsTaxativo() {
 		return this.criterioSeleccionado.getClass().equals(CriterioTaxativo.class);
 	}
-	
+
 	private void controlarValidezCriterioComparativo() {
-		if(ponderacionSeleccionada != null)
+		if (ponderacionSeleccionada != null)
 			criteriosPonderacionElegidos.add(Pair.with(criterioSeleccionado, ponderacionSeleccionada));
 	}
 

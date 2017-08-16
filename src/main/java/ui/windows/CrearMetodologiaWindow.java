@@ -76,8 +76,8 @@ public class CrearMetodologiaWindow extends SimpleWindow<CrearMetodologiaViewMod
 				.onClick(() -> this.getModelObject().borrarUltimoCriterio());
 		new Label(mainPanel).setText("");
 
-		new Button(mainPanel).setCaption("Guardar").onClick(() -> this.crearMetodologia()).setWidth(150)
-				.bindEnabledToProperty("enableSave");
+		new Button(mainPanel).setCaption("Guardar").onClick(() -> this.getModelObject().crearMetodologia())
+				.setWidth(150).bindEnabledToProperty("enableSave");
 	}
 
 	private void agregarCriterio() {
@@ -109,16 +109,4 @@ public class CrearMetodologiaWindow extends SimpleWindow<CrearMetodologiaViewMod
 		creadorCriteriosTaxativosWindow.open();
 		this.getModelObject().actualizarListaCriterios();
 	}
-
-	private void crearMetodologia() {
-		try {
-			this.getModelObject().crearMetodologia();
-			this.close();
-		} catch (Exception exception) {
-			MessageBox dialogWindow = new MessageBox(this, Type.Error);
-			dialogWindow.setMessage(exception.getMensaje());
-			dialogWindow.open();
-		}
-	}
-
 }
