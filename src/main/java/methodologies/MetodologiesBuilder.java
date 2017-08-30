@@ -25,7 +25,7 @@ public class MetodologiesBuilder {
 
 	public MetodologiesBuilder setCriterios(
 			List<Pair<CriterioComparativo, Double>> criteriosComparativosPonderacion,
-			List<Pair<CriterioTaxativo,Double>> criteriosTaxativos) {
+			List<CriterioTaxativo> criteriosTaxativos) {
 
 		this.metodologia.setCriteriosComparativosPonderacion(criteriosComparativosPonderacion);
 		this.metodologia.setCriteriosTaxativos(criteriosTaxativos);
@@ -37,10 +37,10 @@ public class MetodologiesBuilder {
 		this.metodologia.setNombre("Warren Buffet");
 
 		List<Pair<CriterioComparativo, Double>> criteriosComparativos = new LinkedList<>();
-		List<Pair<CriterioTaxativo,Double>> criteriosTaxativos = new LinkedList<>();
+		List<CriterioTaxativo> criteriosTaxativos = new LinkedList<>();
 
-		criteriosTaxativos.add(Pair.with(new CriterioTaxativo("Margenes consistentemente crecientes", OperadorComparacion.MAYOR,
-				PredefinidoROA.getInstance(), new Normal(), 1), -1.0));
+		criteriosTaxativos.add(new CriterioTaxativo("Margenes consistentemente crecientes", OperadorComparacion.MAYOR,
+				PredefinidoROA.getInstance(), new Normal(), 1));
 		criteriosComparativos.add(Pair.with(
 				new CriterioComparativo("Maximizar ROE", OperadorComparacion.MAYOR, PredefinidoROA.getInstance()),
 				1.0));

@@ -14,10 +14,10 @@ import org.uqbar.commons.utils.Observable;
 @Observable
 public class Metodologia {
 	private String nombre;
-	private List<Pair<CriterioTaxativo,Double>> criteriosTaxativos;
+	private List<CriterioTaxativo> criteriosTaxativos;
 	private List<Pair<CriterioComparativo, Double>> criteriosComparativosPonderacion;
 
-	public Metodologia(String nombre, List<Pair<CriterioTaxativo,Double>> criteriosTaxativos,
+	public Metodologia(String nombre, List<CriterioTaxativo> criteriosTaxativos,
 			List<Pair<CriterioComparativo, Double>> criteriosComparativos) {
 		this.setNombre(nombre);
 		this.setCriteriosTaxativos(criteriosTaxativos);
@@ -47,7 +47,7 @@ public class Metodologia {
 	}
 
 	private boolean cumpleTodosLosTaxativosUna(Empresa empresa, List<String> periodos) {
-		return this.criteriosTaxativos.stream().allMatch(unTaxativo -> unTaxativo.getValue0().verificarParaUna(empresa, periodos));
+		return this.criteriosTaxativos.stream().allMatch(unTaxativo -> unTaxativo.verificarParaUna(empresa, periodos));
 	}
 
 	private List<Pair<Empresa, Double>> establecerPuntajesTotales(List<Empresa> empresas, List<String> periodos) {
@@ -87,11 +87,11 @@ public class Metodologia {
 		this.criteriosComparativosPonderacion = criteriosComparativosPonderacion;
 	}
 
-	public List<Pair<CriterioTaxativo, Double>> getCriteriosTaxativos() {
+	public List<CriterioTaxativo> getCriteriosTaxativos() {
 		return criteriosTaxativos;
 	}
 
-	public void setCriteriosTaxativos(List<Pair<CriterioTaxativo, Double>> criteriosTaxativos) {
+	public void setCriteriosTaxativos(List<CriterioTaxativo> criteriosTaxativos) {
 		this.criteriosTaxativos = criteriosTaxativos;
 	}
 

@@ -27,12 +27,12 @@ public class MetodologiaTest {
 	public ImportadorDeEmpresasCSV importador = new ImportadorDeEmpresasCSV("empresasTest.csv");
 	public Indicador indicador1 = new DataIndicador("i1","ebitda*10");
 	public Indicador indicador2 = new DataIndicador("i2","Activo Total - 1");
-	public Pair<CriterioTaxativo,Double> taxativo = Pair.with(new CriterioTaxativo("tax1",OperadorComparacion.MAYOR,indicador1,new Normal(),500), -1.0);
+	public CriterioTaxativo taxativo = new CriterioTaxativo("tax1",OperadorComparacion.MAYOR,indicador1,new Normal(),500);
 	public Pair<CriterioComparativo,Double> comparativo = Pair.with(new CriterioComparativo("comp1", OperadorComparacion.MAYOR, indicador1), 1.0);
 	public Pair<CriterioComparativo,Double> comparativo2 = Pair.with(new CriterioComparativo("comp1", OperadorComparacion.MENOR, indicador2), 0.5);
 	public List<Empresa> empresasEsperadas = new LinkedList<>();
 	public List<Empresa> empresasRepo = new LinkedList<>();
-	public List<Pair<CriterioTaxativo,Double>> taxativos = new LinkedList<>();
+	public List<CriterioTaxativo> taxativos = new LinkedList<>();
 	public List<Pair<CriterioComparativo,Double>> comparativos = new LinkedList<>();
 	public Metodologia metodologia1;
 	public Metodologia metodologia2;

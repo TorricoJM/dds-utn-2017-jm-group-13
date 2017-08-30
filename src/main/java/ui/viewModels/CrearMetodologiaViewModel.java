@@ -26,7 +26,7 @@ public class CrearMetodologiaViewModel {
 	private Criterio criterioSeleccionado;
 	private String nombre;
 	private List<Pair<CriterioComparativo, Double>> criteriosComparativosElegidos = new LinkedList<>();
-	private List<Pair<CriterioTaxativo,Double>> criteriosTaxativosElegidos = new LinkedList<>();
+	private List<CriterioTaxativo> criteriosTaxativosElegidos = new LinkedList<>();
 	private Double ponderacionSeleccionada;
 	private Boolean enableAgregate = false;
 	private Boolean enableSave = false;
@@ -113,7 +113,7 @@ public class CrearMetodologiaViewModel {
 
 	private void discriminarCriterio() {
 		if (this.criterioSeleccionadoEsTaxativo())
-			criteriosTaxativosElegidos.add(Pair.with((CriterioTaxativo) criterioSeleccionado, -1.0));
+			criteriosTaxativosElegidos.add((CriterioTaxativo) criterioSeleccionado);
 		else
 			this.controlarValidezCriterioComparativo();
 	}
@@ -152,10 +152,10 @@ public class CrearMetodologiaViewModel {
 	}
 
 	public List<CriterioTaxativo> getCriteriosTaxativosElegidos() {
-		return criteriosTaxativosElegidos.stream().map(tupla -> tupla.getValue0()).collect(Collectors.toList());
+		return criteriosTaxativosElegidos;
 	}
 
-	public void setCriteriosTaxativosElegidos(List<Pair<CriterioTaxativo, Double>> criteriosTaxativosElegidos) {
+	public void setCriteriosTaxativosElegidos(List<CriterioTaxativo> criteriosTaxativosElegidos) {
 		this.criteriosTaxativosElegidos = criteriosTaxativosElegidos;
 	}
 	
