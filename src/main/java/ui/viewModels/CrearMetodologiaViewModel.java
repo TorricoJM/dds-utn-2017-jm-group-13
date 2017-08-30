@@ -10,6 +10,7 @@ import org.uqbar.commons.utils.Observable;
 
 import adapters.AdapterMetodologiasToJSON;
 import criterios.Criterio;
+import criterios.CriterioComparativo;
 import criterios.CriterioTaxativo;
 import exports.ExportadorArchivos;
 import methodologies.MetodologiesBuilder;
@@ -24,7 +25,8 @@ public class CrearMetodologiaViewModel {
 	private List<Double> ponderaciones = new LinkedList<>();
 	private Criterio criterioSeleccionado;
 	private String nombre;
-	private List<Pair<Criterio, Double>> criteriosPonderacionElegidos = new LinkedList<>();
+	private List<Pair<CriterioComparativo, Double>> criteriosComparativosElegidos = new LinkedList<>();
+	private List<Pair<CriterioTaxativo,Double>> criteriosTaxativosElegidos = new LinkedList<>();
 	private Double ponderacionSeleccionada;
 	private Boolean enableAgregate = false;
 	private Boolean enableSave = false;
@@ -39,7 +41,6 @@ public class CrearMetodologiaViewModel {
 		} else {
 			this.discriminarCriterio();
 			this.finalizarAgregadoDeCriterio();
-			ObservableUtils.firePropertyChanged(this, "criteriosPonderacionElegidos");
 		}
 	}
 
@@ -51,7 +52,7 @@ public class CrearMetodologiaViewModel {
 
 	public void crearMetodologia() {
 		RepositorioMetodologias.getInstance().agregar(new MetodologiesBuilder().setNombre(nombre)
-				.setCriteriosPonderacion(criteriosPonderacionElegidos).build());
+				.setCriterios(criteriosComparativosElegidos, criteriosTaxativosElegidos).build());
 		new ExportadorArchivos(new AdapterMetodologiasToJSON(), "./metodologias.json").exportar();
 	}
 
@@ -80,14 +81,6 @@ public class CrearMetodologiaViewModel {
 		this.nombre = nombre;
 	}
 
-	public List<Criterio> getCriteriosPonderacionElegidos() {
-		return criteriosPonderacionElegidos.stream().map(pair -> pair.getValue0()).collect(Collectors.toList());
-	}
-
-	public void setCriteriosPonderacionElegidos(List<Pair<Criterio, Double>> criteriosPuntajes) {
-		this.criteriosPonderacionElegidos = criteriosPuntajes;
-	}
-
 	public List<Double> getPonderaciones() {
 		return ponderaciones;
 	}
@@ -109,21 +102,18 @@ public class CrearMetodologiaViewModel {
 		ObservableUtils.firePropertyChanged(this, "criterios");
 	}
 
-	public void borrarUltimoCriterio() {
-		try {
-			this.criteriosPonderacionElegidos.remove(criteriosPonderacionElegidos.size() - 1);
+	
+	public void borrarCriterios() {
 
-			if (criteriosPonderacionElegidos.isEmpty())
-				this.setEnableSave(false);
+		this.criteriosComparativosElegidos.clear();
+		this.criteriosTaxativosElegidos.clear();
 
-			ObservableUtils.firePropertyChanged(this, "criteriosPonderacionElegidos");
-		} catch (IndexOutOfBoundsException exception) {
-		}
 	}
+	
 
 	private void discriminarCriterio() {
 		if (this.criterioSeleccionadoEsTaxativo())
-			criteriosPonderacionElegidos.add(Pair.with(criterioSeleccionado, -1.0));
+			criteriosTaxativosElegidos.add(Pair.with((CriterioTaxativo) criterioSeleccionado, -1.0));
 		else
 			this.controlarValidezCriterioComparativo();
 	}
@@ -134,7 +124,7 @@ public class CrearMetodologiaViewModel {
 
 	private void controlarValidezCriterioComparativo() {
 		if (ponderacionSeleccionada != null)
-			criteriosPonderacionElegidos.add(Pair.with(criterioSeleccionado, ponderacionSeleccionada));
+			criteriosComparativosElegidos.add(Pair.with((CriterioComparativo)criterioSeleccionado, ponderacionSeleccionada));
 	}
 
 	public Boolean getEnableAgregate() {
@@ -152,4 +142,21 @@ public class CrearMetodologiaViewModel {
 	public void setEnableSave(Boolean enableSave) {
 		this.enableSave = enableSave;
 	}
+
+	public List<CriterioComparativo> getCriteriosComparativosElegidos() {
+		return criteriosComparativosElegidos.stream().map(tupla -> tupla.getValue0()).collect(Collectors.toList());
+	}
+
+	public void setCriteriosComparativosElegidos(List<Pair<CriterioComparativo, Double>> criteriosComparativosElegidos) {
+		this.criteriosComparativosElegidos = criteriosComparativosElegidos;
+	}
+
+	public List<CriterioTaxativo> getCriteriosTaxativosElegidos() {
+		return criteriosTaxativosElegidos.stream().map(tupla -> tupla.getValue0()).collect(Collectors.toList());
+	}
+
+	public void setCriteriosTaxativosElegidos(List<Pair<CriterioTaxativo, Double>> criteriosTaxativosElegidos) {
+		this.criteriosTaxativosElegidos = criteriosTaxativosElegidos;
+	}
+	
 }

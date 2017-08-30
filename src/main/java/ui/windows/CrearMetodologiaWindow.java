@@ -65,15 +65,21 @@ public class CrearMetodologiaWindow extends SimpleWindow<CrearMetodologiaViewMod
 		Panel tabPanel = new Panel(mainPanel);
 		tabPanel.setLayout(new HorizontalLayout());
 
-		List<String> criterios = new List<String>(tabPanel);
-		criterios.bindItemsToProperty("criteriosPonderacionElegidos")
+		List<String> criteriosTax = new List<String>(tabPanel);
+		criteriosTax.bindItemsToProperty("criteriosTaxativosElegidos")
 				.setAdapter(new PropertyAdapter(Criterio.class, "nombre"));
-		criterios.setHeight(100);
-		criterios.setWidth(400);
+		criteriosTax.setHeight(100);
+		criteriosTax.setWidth(200);
+		
+		List<String> criteriosComp = new List<String>(tabPanel);
+		criteriosComp.bindItemsToProperty("criteriosComparativosElegidos")
+				.setAdapter(new PropertyAdapter(Criterio.class, "nombre"));
+		criteriosComp.setHeight(100);
+		criteriosComp.setWidth(200);
 
 		new Label(mainPanel).setText("");
-		new Button(mainPanel).setCaption("Borrar ultimo criterio")
-				.onClick(() -> this.getModelObject().borrarUltimoCriterio());
+		new Button(mainPanel).setCaption("Borrar")
+				.onClick(() -> this.getModelObject().borrarCriterios());
 		new Label(mainPanel).setText("");
 
 		new Button(mainPanel).setCaption("Guardar").onClick(() -> this.getModelObject().crearMetodologia())

@@ -4,7 +4,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import criterios.Criterio;
+import criterios.CriterioComparativo;
+import criterios.CriterioTaxativo;
 import model.Empresa;
 
 import org.javatuples.*;
@@ -13,11 +14,14 @@ import org.uqbar.commons.utils.Observable;
 @Observable
 public class Metodologia {
 	private String nombre;
-	private List<Pair<Criterio, Double>> criteriosPonderacion;
+	private List<Pair<CriterioTaxativo,Double>> criteriosTaxativos;
+	private List<Pair<CriterioComparativo, Double>> criteriosComparativosPonderacion;
 
-	public Metodologia(String nombre, List<Pair<Criterio, Double>> criteriosPuntajes) {
+	public Metodologia(String nombre, List<Pair<CriterioTaxativo,Double>> criteriosTaxativos,
+			List<Pair<CriterioComparativo, Double>> criteriosComparativos) {
 		this.setNombre(nombre);
-		this.setCriteriosPuntajes(criteriosPuntajes);
+		this.setCriteriosTaxativos(criteriosTaxativos);
+		this.setCriteriosComparativosPonderacion(criteriosComparativos);
 	}
 
 	public List<Empresa> aplicarMetodologiaA(List<Empresa> listaEmpresas, List<String> listaPeriodos) {
@@ -37,24 +41,13 @@ public class Metodologia {
 	private List<Empresa> aplicarCriteriosTaxativos(List<Empresa> listaEmpresas, List<String> periodos) {
 
 		List<Empresa> empresasResultantes = new LinkedList<>(listaEmpresas);
-		
+
 		return empresasResultantes.stream().filter(empresa -> this.cumpleTodosLosTaxativosUna(empresa, periodos))
 				.collect(Collectors.toList());
 	}
 
 	private boolean cumpleTodosLosTaxativosUna(Empresa empresa, List<String> periodos) {
-		return this.obtenerCriteriosTaxativos().stream()
-				.allMatch(unTaxativo -> unTaxativo.verificarParaUna(empresa, periodos));
-	}
-
-	private List<Criterio> obtenerCriteriosTaxativos() {
-		return this.criteriosPonderacion.stream().filter((tupla) -> tupla.getValue1() < 0.0)
-				.map((tupla) -> tupla.getValue0()).collect(Collectors.toList());
-	}
-
-	private List<Pair<Criterio, Double>> obtenerCriteriosComparativosConPonderacion() {
-		return this.criteriosPonderacion.stream().filter((tupla) -> tupla.getValue1() > 0.0)
-				.collect(Collectors.toList());
+		return this.criteriosTaxativos.stream().allMatch(unTaxativo -> unTaxativo.getValue0().verificarParaUna(empresa, periodos));
 	}
 
 	private List<Pair<Empresa, Double>> establecerPuntajesTotales(List<Empresa> empresas, List<String> periodos) {
@@ -66,13 +59,13 @@ public class Metodologia {
 	private Pair<Empresa, Double> puntajeTotalDe(Empresa empresa, List<Empresa> empresas, List<String> periodos) {
 
 		return Pair.with(empresa,
-				this.obtenerCriteriosComparativosConPonderacion().stream()
+				this.criteriosComparativosPonderacion.stream()
 						.map(criterio -> puntajeParcialDe(empresa, empresas, periodos, criterio))
 						.mapToDouble(valor -> new Double(valor)).sum());
 	}
 
 	private double puntajeParcialDe(Empresa empresa, List<Empresa> empresas, List<String> periodos,
-			Pair<Criterio, Double> criterio) {
+			Pair<CriterioComparativo, Double> criterio) {
 
 		return criterio.getValue0().posicionLuegoDeAplicarDe(empresa, empresas, periodos) * criterio.getValue1();
 	}
@@ -85,11 +78,21 @@ public class Metodologia {
 		this.nombre = nombre;
 	}
 
-	public List<Pair<Criterio, Double>> getCriteriosPuntajes() {
-		return criteriosPonderacion;
+	public List<Pair<CriterioComparativo, Double>> getCriteriosComparativosPonderacion() {
+		return criteriosComparativosPonderacion;
 	}
 
-	public void setCriteriosPuntajes(List<Pair<Criterio, Double>> criteriosPuntajes) {
-		this.criteriosPonderacion = criteriosPuntajes;
+	public void setCriteriosComparativosPonderacion(
+			List<Pair<CriterioComparativo, Double>> criteriosComparativosPonderacion) {
+		this.criteriosComparativosPonderacion = criteriosComparativosPonderacion;
 	}
+
+	public List<Pair<CriterioTaxativo, Double>> getCriteriosTaxativos() {
+		return criteriosTaxativos;
+	}
+
+	public void setCriteriosTaxativos(List<Pair<CriterioTaxativo, Double>> criteriosTaxativos) {
+		this.criteriosTaxativos = criteriosTaxativos;
+	}
+
 }
