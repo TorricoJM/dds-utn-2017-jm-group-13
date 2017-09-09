@@ -10,7 +10,7 @@ import adapters.AdapterIndicadoresToJSON;
 public class MenuPrincipalViewModel {
 
 	public MenuPrincipalViewModel() {
-		new ImportadorArchivos(new AdapterCuentasToJSON(), "./cuentas.json").importar();;
-		new ImportadorArchivos(new AdapterIndicadoresToJSON(), "./indicadores.json").importar();;
+		new ImportadorArchivos(new AdapterCuentasToJSON(), "./cuentas.json").importar();
+		new ImportadorArchivos(new AdapterIndicadoresToJSON(), "./indicadores.json").importar();
 	}
 }

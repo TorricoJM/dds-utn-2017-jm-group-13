@@ -3,15 +3,24 @@ package model;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.persistence.*;
+
 import org.uqbar.commons.utils.Observable;
 
 
 @Observable
+@Entity
 public class PeriodoFiscal {
 
+	@Id @GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
 	private String periodo;
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
 	private List<CuentaYValor> cuentas = new LinkedList<>();
-
+	
+	public PeriodoFiscal() {
+	}
+	
 	public PeriodoFiscal(String periodo) {
 		this.periodo = periodo;
 	}
