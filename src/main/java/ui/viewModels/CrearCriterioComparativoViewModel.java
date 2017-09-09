@@ -29,7 +29,7 @@ public class CrearCriterioComparativoViewModel {
 	private EstadoCrearComparativos estado;
 
 	public CrearCriterioComparativoViewModel() {
-		this.indicadores = new LinkedList<>(RepositorioIndicadores.getInstance().getIndicadores());
+		this.indicadores = new LinkedList<>(RepositorioIndicadores.getInstance().getElementos());
 		this.estado = new EstadoCrearComparativos();
 	}
 

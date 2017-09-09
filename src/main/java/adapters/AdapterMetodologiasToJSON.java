@@ -17,7 +17,7 @@ public class AdapterMetodologiasToJSON extends AdaptadorToJSON<List<Metodologia>
 
 	@Override
 	protected void setContenido(List<Metodologia> contenido) {
-		RepositorioMetodologias.getInstance().agregarTodo(contenido);
+		RepositorioMetodologias.getInstance().setElementos(contenido);
 	}
 
 	@Override

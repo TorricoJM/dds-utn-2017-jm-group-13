@@ -15,11 +15,11 @@ public abstract class RepoArchivos<T> implements Repositorio{
 	}
 	
 	public List<T> getElementos(){
-		return this.elementos;
+		return elementos;
 	}
 	
 	public void setElementos(List<T> elementos) {
-		this.elementos.addAll(elementos);
+		this.getElementos().addAll(elementos);
 	}
 
 }

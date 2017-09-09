@@ -24,8 +24,8 @@ public class ConsultarIndicadoresViewModel {
 	private List<String> resultados;
 
 	public ConsultarIndicadoresViewModel() {
-		this.empresas = RepositorioEmpresas.getInstance().getListaEmpresas();
-		this.indicadores = RepositorioIndicadores.getInstance().getIndicadores();
+		this.empresas = RepositorioEmpresas.getInstance().getElementos();
+		this.indicadores = RepositorioIndicadores.getInstance().getElementos();
 	}
 
 	public List<Empresa> getEmpresas() {

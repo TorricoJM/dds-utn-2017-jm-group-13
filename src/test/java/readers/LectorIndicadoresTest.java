@@ -35,7 +35,7 @@ public class LectorIndicadoresTest {
 
 	@Test
 	public void seCarganIndicadoresPredefinidosExitosamente() {
-		assertTrue(RepositorioIndicadores.getInstance().getIndicadores().stream()
+		assertTrue(RepositorioIndicadores.getInstance().getElementos().stream()
 				.allMatch(indicador -> listaIndicadores.contains(indicador)));
 	}
 
@@ -47,7 +47,7 @@ public class LectorIndicadoresTest {
 	@Test
 	public void seLeeCorrectamenteElArchivoIndicadoresJSON() {
 		new ImportadorArchivos(new AdapterIndicadoresToJSON(), "./indicadores.json").importar();
-		assertTrue(RepositorioIndicadores.getInstance().getIndicadores().stream().allMatch(indicador -> listaIndicadores
+		assertTrue(RepositorioIndicadores.getInstance().getElementos().stream().allMatch(indicador -> listaIndicadores
 				.stream().anyMatch(hardInd -> hardInd.getNombre().equals(indicador.getNombre()))));
 	}// verifica que todos los indicadores del repo, sean los consignados en el @Before, matcheados por nombre
 

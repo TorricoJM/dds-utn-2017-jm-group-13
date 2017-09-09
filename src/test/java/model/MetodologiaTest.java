@@ -50,7 +50,7 @@ public class MetodologiaTest {
 		metodologia1 = new Metodologia("m1", taxativos, new LinkedList<>());
 		metodologia2 = new Metodologia("m2", new LinkedList<>(), comparativos);
 		metodologia3 = new Metodologia("m2", taxativos, comparativos);
-		empresasRepo.addAll(RepositorioEmpresas.getInstance().getListaEmpresas());
+		empresasRepo.addAll(RepositorioEmpresas.getInstance().getElementos());
 	}
 	
 	@Test

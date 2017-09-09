@@ -1,14 +1,12 @@
 package repositories.repoArchivos;
 
-import java.util.LinkedList;
-import java.util.List;
 import java.util.NoSuchElementException;
 
 import model.Empresa;
 import model.LineaEmpresa;
 import model.parser.ErrorEvaluacionException;
 
-public class RepositorioEmpresas {
+public class RepositorioEmpresas extends RepoArchivos<Empresa> {
 
 	private static RepositorioEmpresas instance;
 	
@@ -23,25 +21,15 @@ public class RepositorioEmpresas {
 	public static void deleteInstance() {
 		instance = null;
 	}
-	
-	private List<Empresa> listaEmpresas = new LinkedList<>();
-
-	public List<Empresa> getListaEmpresas() {
-		return listaEmpresas;
-	}
-
-	public void agregar(Empresa empresa) {
-		listaEmpresas.add(empresa);
-	}
 
 	public Empresa obtenerEmpresaAActualizarPor(LineaEmpresa unaEmpresa) {
-		return this.getListaEmpresas().stream()
+		return this.getElementos().stream()
 				.filter((empresaExistente) -> this.mismoNombreQue(unaEmpresa, empresaExistente))
 				.findFirst().get();
 	}
 
 	public boolean yaEstaCargadaUna(LineaEmpresa lineaEmpresa) {
-		return this.getListaEmpresas().stream()
+		return this.getElementos().stream()
 				.anyMatch((empresaDeLaLista) -> this.mismoNombreQue(lineaEmpresa, empresaDeLaLista));
 	}
 
@@ -50,7 +38,7 @@ public class RepositorioEmpresas {
 	}
 
 	public Empresa obtenerEmpresaDesdeNombre(String nombre) {
-		return this.getListaEmpresas().stream().filter(empresa -> empresa.getNombre().equals(nombre))
+		return this.getElementos().stream().filter(empresa -> empresa.getNombre().equals(nombre))
 				.findFirst().get();
 	}
 

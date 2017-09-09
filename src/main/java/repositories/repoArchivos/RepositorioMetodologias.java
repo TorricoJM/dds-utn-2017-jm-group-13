@@ -1,13 +1,12 @@
 package repositories.repoArchivos;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import methodologies.Metodologia;
 import methodologies.MetodologiesBuilder;
 
-public class RepositorioMetodologias {
+public class RepositorioMetodologias extends RepoArchivos<Metodologia>{
 
 	private static RepositorioMetodologias instance;
 
@@ -24,22 +23,9 @@ public class RepositorioMetodologias {
 		instance = null;
 	}
 
-	private List<Metodologia> listaMetodologias = new LinkedList<>();
-
-	public List<Metodologia> getListaMetodologias() {
-		return listaMetodologias;
-	}
-
 	public List<Metodologia> getListaMetodologiasForExport() {
-		return listaMetodologias.stream().filter(met -> !met.getNombre().equals("Warren Buffet"))
+		return this.getElementos().stream().filter(met -> !met.getNombre().equals("Warren Buffet"))
 				.collect(Collectors.toList());
 	}
 
-	public void agregar(Metodologia metodologia) {
-		listaMetodologias.add(metodologia);
-	}
-
-	public void agregarTodo(List<Metodologia> unasMetodologias) {
-		listaMetodologias.addAll(unasMetodologias);
-	}
 }

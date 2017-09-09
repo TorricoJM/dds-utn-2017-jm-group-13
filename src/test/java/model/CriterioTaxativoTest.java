@@ -67,7 +67,7 @@ public class CriterioTaxativoTest {
 	public void metodoInherenteAOtroCriterioRetornaNull() {
 		assertNull(taxativo.posicionLuegoDeAplicarDe(RepositorioEmpresas.getInstance()
 				.obtenerEmpresaDesdeNombre("empresa1"), RepositorioEmpresas.getInstance()
-				.getListaEmpresas(), periodos));
+				.getElementos(), periodos));
 	}
 
 	@Test

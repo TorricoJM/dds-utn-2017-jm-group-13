@@ -12,12 +12,12 @@ public class AdapterCriteriosToJSON extends AdaptadorToJSON<List<Criterio>> {
 
 	@Override
 	protected List<Criterio> getContenido() {
-		return RepositorioCriterios.getInstance().getCriterios();
+		return RepositorioCriterios.getInstance().getElementos();
 	}
 
 	@Override
 	protected void setContenido(List<Criterio> contenido) {
-		RepositorioCriterios.getInstance().agregarCriterios(contenido);
+		RepositorioCriterios.getInstance().setElementos(contenido);
 	}
 
 	@Override

@@ -25,7 +25,7 @@ public class RepositorioCuentas extends RepoArchivos<Cuenta> {
 	}
 
 	public void refrescar() {
-		RepositorioEmpresas.getInstance().getListaEmpresas().stream().flatMap(empresa -> empresa.getCuentas().stream())
+		RepositorioEmpresas.getInstance().getElementos().stream().flatMap(empresa -> empresa.getCuentas().stream())
 				.forEach(cuenta -> this.agregar(cuenta));
 
 		this.actualizarArchivoCuentas();

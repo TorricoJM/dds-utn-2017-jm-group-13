@@ -26,7 +26,7 @@ public class CrearIndicadorViewModel {
 	private String nombreIndicador;
 
 	public CrearIndicadorViewModel() {
-		this.indicadores = RepositorioIndicadores.getInstance().getIndicadores();
+		this.indicadores = RepositorioIndicadores.getInstance().getElementos();
 		this.cuentas = RepositorioCuentas.getInstance().getElementos();
 	}
 

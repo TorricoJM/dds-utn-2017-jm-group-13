@@ -32,7 +32,7 @@ public class CrearMetodologiaViewModel {
 	private Boolean enableSave = false;
 
 	public CrearMetodologiaViewModel() {
-		this.criterios = RepositorioCriterios.getInstance().getCriterios();
+		this.criterios = RepositorioCriterios.getInstance().getElementos();
 	}
 
 	public void agregarCriterio() {
@@ -98,7 +98,7 @@ public class CrearMetodologiaViewModel {
 	}
 
 	public void actualizarListaCriterios() {
-		this.criterios = new LinkedList<>(RepositorioCriterios.getInstance().getCriterios());
+		this.criterios = new LinkedList<>(RepositorioCriterios.getInstance().getElementos());
 		ObservableUtils.firePropertyChanged(this, "criterios");
 	}
 

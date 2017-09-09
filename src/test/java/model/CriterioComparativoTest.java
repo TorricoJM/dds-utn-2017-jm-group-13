@@ -44,7 +44,7 @@ public class CriterioComparativoTest {
 	public void posicionCorrectaAlEvaluarMayorTodosLosPeriodos() {
 		assertEquals(comparativo.posicionLuegoDeAplicarDe(
 				RepositorioEmpresas.getInstance().obtenerEmpresaDesdeNombre("empresa2"),
-				RepositorioEmpresas.getInstance().getListaEmpresas(), periodos),new Double(2));
+				RepositorioEmpresas.getInstance().getElementos(), periodos),new Double(2));
 	}
 	
 	@Test
@@ -55,14 +55,14 @@ public class CriterioComparativoTest {
 		
 		assertEquals(comparativo.posicionLuegoDeAplicarDe(
 				RepositorioEmpresas.getInstance().obtenerEmpresaDesdeNombre("empresa1"),
-				RepositorioEmpresas.getInstance().getListaEmpresas(), uniPeriodo),new Double(1));
+				RepositorioEmpresas.getInstance().getElementos(), uniPeriodo),new Double(1));
 	}
 	
 	@Test
 	public void posicionCorrectaAlEvaluarMenorTodosLosPeriodos() {
 		assertEquals(comparativo2.posicionLuegoDeAplicarDe(
 				RepositorioEmpresas.getInstance().obtenerEmpresaDesdeNombre("empresa1"),
-				RepositorioEmpresas.getInstance().getListaEmpresas(), periodos),new Double(1));
+				RepositorioEmpresas.getInstance().getElementos(), periodos),new Double(1));
 	}
 	
 	@Test
@@ -73,7 +73,7 @@ public class CriterioComparativoTest {
 		
 		assertEquals(comparativo.posicionLuegoDeAplicarDe(
 				RepositorioEmpresas.getInstance().obtenerEmpresaDesdeNombre("empresa1"),
-				RepositorioEmpresas.getInstance().getListaEmpresas(), uniPeriodo),new Double(1));
+				RepositorioEmpresas.getInstance().getElementos(), uniPeriodo),new Double(1));
 	}
 
 	@After

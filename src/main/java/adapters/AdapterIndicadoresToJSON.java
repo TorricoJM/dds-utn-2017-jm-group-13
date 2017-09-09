@@ -18,7 +18,7 @@ public class AdapterIndicadoresToJSON extends AdaptadorToJSON<List<Indicador>> {
 
 	@Override
 	protected void setContenido(List<Indicador> contenido) {
-		RepositorioIndicadores.getInstance().anexarIndicadores(contenido);
+		RepositorioIndicadores.getInstance().setElementos(contenido);
 	}
 
 	@Override

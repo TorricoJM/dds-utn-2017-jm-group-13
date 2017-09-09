@@ -25,8 +25,8 @@ public class ConsultarMetodologiasViewModel {
 	private List<String> periodosSeleccionados;
 
 	public ConsultarMetodologiasViewModel() {
-		this.metodologias = RepositorioMetodologias.getInstance().getListaMetodologias();
-		this.empresas = new LinkedList<>(RepositorioEmpresas.getInstance().getListaEmpresas());
+		this.metodologias = RepositorioMetodologias.getInstance().getElementos();
+		this.empresas = new LinkedList<>(RepositorioEmpresas.getInstance().getElementos());
 		this.periodos = empresas.stream().flatMap(empresa -> empresa.getPeriodos().stream()).map(periodo -> periodo.getPeriodo()).distinct().sorted().collect(Collectors.toList());
 	}
 	

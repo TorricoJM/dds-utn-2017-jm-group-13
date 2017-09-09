@@ -35,7 +35,7 @@ public class CrearCriterioTaxativoViewModel {
 	private EstadoCrearTaxativos estado;
 
 	public CrearCriterioTaxativoViewModel() {
-		this.indicadores = new LinkedList<>(RepositorioIndicadores.getInstance().getIndicadores());
+		this.indicadores = new LinkedList<>(RepositorioIndicadores.getInstance().getElementos());
 		this.estado = new EstadoCrearTaxativos();
 	}
 
