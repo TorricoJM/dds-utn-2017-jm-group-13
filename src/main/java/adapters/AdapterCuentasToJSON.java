@@ -5,23 +5,24 @@ import java.util.List;
 
 import com.google.gson.reflect.TypeToken;
 
+import model.Cuenta;
 import repositories.repoArchivos.RepositorioCuentas;
 
-public class AdapterCuentasToJSON extends AdaptadorToJSON<List<String>> {
+public class AdapterCuentasToJSON extends AdaptadorToJSON<List<Cuenta>> {
 
 	@Override
-	protected List<String> getContenido() {
-		return RepositorioCuentas.getInstance().getCuentas();
+	protected List<Cuenta> getContenido() {
+		return RepositorioCuentas.getInstance().getElementos();
 	}
 
 	@Override
-	protected void setContenido(List<String> contenido) {
-		RepositorioCuentas.getInstance().setCuentas(contenido);
+	protected void setContenido(List<Cuenta> contenido) {
+		RepositorioCuentas.getInstance().setElementos(contenido);
 	}
 
 	@Override
 	protected Type obtenerTypeToken() {
-		return new TypeToken<List<String>>(){}.getType();
+		return new TypeToken<List<Cuenta>>(){}.getType();
 	}
 
 }

@@ -10,7 +10,7 @@ import org.uqbar.commons.utils.Observable;
 public class PeriodoFiscal {
 
 	private String periodo;
-	private List<CuentaYValor> cuentas = new LinkedList<>();
+	private List<Cuenta> cuentas = new LinkedList<>();
 
 	public PeriodoFiscal(String periodo) {
 		this.periodo = periodo;
@@ -21,7 +21,7 @@ public class PeriodoFiscal {
 		return periodo;
 	}
 
-	public List<CuentaYValor> getCuentas() {
+	public List<Cuenta> getCuentas() {
 		return cuentas;
 	}
 
@@ -29,22 +29,22 @@ public class PeriodoFiscal {
 		this.periodo = periodo;
 	}
 
-	public void setCuentas(List<CuentaYValor> cuentas) {
+	public void setCuentas(List<Cuenta> cuentas) {
 		this.cuentas = cuentas;
 	}
 	// -------------------/GETTERS AND SETTERS
 
 	public void agregarUnaCuentaPara(LineaEmpresa empresa) {
-		cuentas.add(new CuentaYValor(empresa.getCuenta(), empresa.getValor()));
+		cuentas.add(new Cuenta(empresa.getCuenta(), empresa.getValor()));
 	}
 
 	public boolean yaExisteUnaCuentaPara(LineaEmpresa empresa) {
-		return this.getCuentas().stream().anyMatch((unaCuenta) -> unaCuenta.getCuenta().equals(empresa.getCuenta()));
+		return this.getCuentas().stream().anyMatch((unaCuenta) -> unaCuenta.getNombre().equals(empresa.getCuenta()));
 	}
 
-	private CuentaYValor obtenerCuentaAModificarDadaPor(LineaEmpresa lineaEmpresa) {
+	private Cuenta obtenerCuentaAModificarDadaPor(LineaEmpresa lineaEmpresa) {
 		return this.getCuentas().stream()
-				.filter((cuentaDeLista) -> cuentaDeLista.getCuenta().equals(lineaEmpresa.getCuenta())).findFirst()
+				.filter((cuentaDeLista) -> cuentaDeLista.getNombre().equals(lineaEmpresa.getCuenta())).findFirst()
 				.get();
 	}
 
@@ -57,12 +57,12 @@ public class PeriodoFiscal {
 
 	public boolean tieneCuenta(String cuentaOIndicador) {
 		return this.getCuentas().stream()
-				.anyMatch(cuenta -> cuenta.getCuenta().equals(cuentaOIndicador));
+				.anyMatch(cuenta -> cuenta.getNombre().equals(cuentaOIndicador));
 	}
 
-	public CuentaYValor obtenerCuentaDesdeNombre(String cuentaOIndicador) {
+	public Cuenta obtenerCuentaDesdeNombre(String cuentaOIndicador) {
 		return this.getCuentas().stream()
-				.filter(cuenta -> cuenta.getCuenta().equals(cuentaOIndicador))
+				.filter(cuenta -> cuenta.getNombre().equals(cuentaOIndicador))
 				.findFirst().get();
 	}
 }

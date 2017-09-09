@@ -18,4 +18,8 @@ public abstract class RepoArchivos<T> implements Repositorio{
 		return this.elementos;
 	}
 	
+	public void setElementos(List<T> elementos) {
+		this.elementos.addAll(elementos);
+	}
+
 }

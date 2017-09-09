@@ -31,7 +31,7 @@ public class LectorCuentasTest {
 	@Test
 	public void seLeeCorrectamenteElArchivoCuentasJSON() {
 		new ImportadorArchivos(new AdapterCuentasToJSON(), "./cuentas.json").importar();
-		assertTrue(RepositorioCuentas.getInstance().getCuentas().stream()
+		assertTrue(RepositorioCuentas.getInstance().getElementos().stream()
 				.allMatch(cuenta -> listaCuentas.contains(cuenta)));
 	}
 

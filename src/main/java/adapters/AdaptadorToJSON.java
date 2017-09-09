@@ -15,6 +15,6 @@ public abstract class AdaptadorToJSON<T> implements Adapter<String> {
 	}
 	
 	public void transformarDesde(String algunString) {
-		this.setContenido(new Gson().fromJson(algunString, this.obtenerTypeToken()));
+		this.setContenido(new Gson().fromJson((String) algunString, this.obtenerTypeToken()));
 	}
 }

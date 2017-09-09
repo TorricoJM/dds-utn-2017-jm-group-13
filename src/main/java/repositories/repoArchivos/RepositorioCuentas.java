@@ -1,13 +1,10 @@
 package repositories.repoArchivos;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import adapters.AdapterCuentasToJSON;
 import exports.ExportadorArchivos;
-import model.CuentaYValor;
+import model.Cuenta;
 
-public class RepositorioCuentas extends RepoArchivos<CuentaYValor> {
+public class RepositorioCuentas extends RepoArchivos<Cuenta> {
 
 	private static RepositorioCuentas instance;
 
@@ -23,24 +20,8 @@ public class RepositorioCuentas extends RepoArchivos<CuentaYValor> {
 		instance = null;
 	}
 
-	private List<String> cuentas = new LinkedList<>();
-
-	public List<String> getCuentas() {
-		return cuentas;
-	}
-
-	public void setCuentas(List<String> cuentasNuevas) {
-		this.cuentas = cuentasNuevas;
-	}
-
-	public boolean tieneCuenta(String cuentaOIndicador) {
-		return this.getCuentas().stream().anyMatch(cuenta -> cuenta.equals(cuentaOIndicador));
-	}
-
-	public void agregar(CuentaYValor cuenta) {
-		if (!this.tieneCuenta(cuenta.getCuenta())) {
-			this.getCuentas().add(cuenta.getCuenta());
-		}
+	public boolean tieneCuentaSegunNombre(Cuenta unaCuenta) {
+		return this.getElementos().stream().anyMatch(cuenta -> cuenta.getNombre().equals(unaCuenta.getNombre()));
 	}
 
 	public void refrescar() {

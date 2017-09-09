@@ -3,25 +3,25 @@ package model;
 import org.uqbar.commons.utils.Observable;
 
 @Observable
-public class CuentaYValor {
-	private String cuenta;
+public class Cuenta {
+	private String nombre;
 	private String valor;
 
-	public CuentaYValor(String cuenta, String valor) {
-		this.cuenta = cuenta;
+	public Cuenta(String cuenta, String valor) {
+		this.nombre = cuenta;
 		this.valor = valor;
 	}
 
-	public String getCuenta() {
-		return cuenta;
+	public String getNombre() {
+		return nombre;
 	}
 
 	public String getValor() {
 		return valor;
 	}
 
-	public void setCuenta(String cuenta) {
-		this.cuenta = cuenta;
+	public void setNombre(String cuenta) {
+		this.nombre = cuenta;
 	}
 
 	public void setValor(String valor) {
