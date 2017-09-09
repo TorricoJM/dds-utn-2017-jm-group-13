@@ -1,7 +1,7 @@
 package indicators;
 
 import model.parser.ErrorEvaluacionException;
-import repositories.RepositorioEmpresas;
+import repositories.repoArchivos.RepositorioEmpresas;
 
 public class PredefinidoPruebaAcida extends Indicador{
 

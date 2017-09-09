@@ -12,8 +12,8 @@ import indicators.Indicador;
 import model.Empresa;
 import model.PeriodoFiscal;
 import model.parser.ErrorEvaluacionException;
-import repositories.RepositorioEmpresas;
-import repositories.RepositorioIndicadores;
+import repositories.repoArchivos.RepositorioEmpresas;
+import repositories.repoArchivos.RepositorioIndicadores;
 
 @Observable
 public class ConsultarIndicadoresViewModel {

@@ -9,7 +9,7 @@ import org.junit.After;
 import org.junit.Test;
 
 import imports.ImportadorDeEmpresasCSV;
-import repositories.RepositorioEmpresas;
+import repositories.repoArchivos.RepositorioEmpresas;
 
 public class ImportadorCSVTest {
 

@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.google.gson.reflect.TypeToken;
 
-import repositories.RepositorioCuentas;
+import repositories.repoArchivos.RepositorioCuentas;
 
 public class AdapterCuentasToJSON extends AdaptadorToJSON<List<String>> {
 

@@ -1,7 +1,7 @@
 package ui.viewModels;
 
 import model.Exception;
-import repositories.RepositorioIndicadores;
+import repositories.repoArchivos.RepositorioIndicadores;
 
 import static org.junit.Assert.*;
 

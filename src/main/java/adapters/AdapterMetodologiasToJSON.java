@@ -6,7 +6,7 @@ import java.util.List;
 import com.google.gson.reflect.TypeToken;
 
 import methodologies.Metodologia;
-import repositories.RepositorioMetodologias;
+import repositories.repoArchivos.RepositorioMetodologias;
 
 public class AdapterMetodologiasToJSON extends AdaptadorToJSON<List<Metodologia>> {
 

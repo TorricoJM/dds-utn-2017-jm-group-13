@@ -7,7 +7,7 @@ import com.google.gson.reflect.TypeToken;
 
 import indicators.DataIndicador;
 import indicators.Indicador;
-import repositories.RepositorioIndicadores;
+import repositories.repoArchivos.RepositorioIndicadores;
 
 public class AdapterIndicadoresToJSON extends AdaptadorToJSON<List<Indicador>> {
 

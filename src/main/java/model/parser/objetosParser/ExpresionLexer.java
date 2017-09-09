@@ -8,8 +8,8 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import model.parser.IdentificadorInvalidoException;
-import repositories.RepositorioCuentas;
-import repositories.RepositorioIndicadores;
+import repositories.repoArchivos.RepositorioCuentas;
+import repositories.repoArchivos.RepositorioIndicadores;
 
 public class ExpresionLexer{
 	

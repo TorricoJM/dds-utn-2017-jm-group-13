@@ -11,8 +11,8 @@ import exports.ExportadorArchivos;
 import indicators.DataIndicador;
 import indicators.Indicador;
 import model.Exception;
-import repositories.RepositorioCuentas;
-import repositories.RepositorioIndicadores;
+import repositories.repoArchivos.RepositorioCuentas;
+import repositories.repoArchivos.RepositorioIndicadores;
 
 @Observable
 public class CrearIndicadorViewModel {

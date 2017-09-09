@@ -17,8 +17,8 @@ import imports.ImportadorDeEmpresasCSV;
 import indicators.DataIndicador;
 import indicators.Indicador;
 import model.parser.objetosParser.*;
-import repositories.RepositorioEmpresas;
-import repositories.RepositorioIndicadores;
+import repositories.repoArchivos.RepositorioEmpresas;
+import repositories.repoArchivos.RepositorioIndicadores;
 
 public class ParserTest{
 	Indicador indicadorSimple;

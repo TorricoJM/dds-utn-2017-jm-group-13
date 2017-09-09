@@ -15,8 +15,8 @@ import criterios.CriterioTaxativo;
 import exports.ExportadorArchivos;
 import methodologies.MetodologiesBuilder;
 import model.Exception;
-import repositories.RepositorioCriterios;
-import repositories.RepositorioMetodologias;
+import repositories.repoArchivos.RepositorioCriterios;
+import repositories.repoArchivos.RepositorioMetodologias;
 
 @Observable
 public class CrearMetodologiaViewModel {

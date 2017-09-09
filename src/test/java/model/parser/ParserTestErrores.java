@@ -13,7 +13,7 @@ import imports.ImportadorDeEmpresasCSV;
 import indicators.DataIndicador;
 import indicators.Indicador;
 import model.parser.objetosParser.*;
-import repositories.RepositorioIndicadores;
+import repositories.repoArchivos.RepositorioIndicadores;
 
 public class ParserTestErrores{
 	DataIndicador indicadorSinNombre;

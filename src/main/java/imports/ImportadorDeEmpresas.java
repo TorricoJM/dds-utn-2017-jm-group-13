@@ -4,8 +4,8 @@ import java.util.List;
 
 import model.Empresa;
 import model.LineaEmpresa;
-import repositories.RepositorioCuentas;
-import repositories.RepositorioEmpresas;
+import repositories.repoArchivos.RepositorioCuentas;
+import repositories.repoArchivos.RepositorioEmpresas;
 
 public abstract class ImportadorDeEmpresas implements Importador{
 

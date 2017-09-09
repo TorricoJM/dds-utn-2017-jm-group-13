@@ -18,8 +18,8 @@ import criterios.modificador.Sumatoria;
 import exports.ExportadorArchivos;
 import indicators.Indicador;
 import model.Exception;
-import repositories.RepositorioCriterios;
-import repositories.RepositorioIndicadores;
+import repositories.repoArchivos.RepositorioCriterios;
+import repositories.repoArchivos.RepositorioIndicadores;
 import states.EstadoCrearTaxativos;
 
 @Observable

@@ -18,7 +18,7 @@ import indicators.PredefinidoROA;
 import indicators.PredefinidoROE;
 import indicators.PredefinidoROI;
 import model.Exception;
-import repositories.RepositorioIndicadores;
+import repositories.repoArchivos.RepositorioIndicadores;
 
 public class LectorIndicadoresTest {
 

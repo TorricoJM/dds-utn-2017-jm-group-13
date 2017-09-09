@@ -3,7 +3,7 @@ package indicators;
 import org.uqbar.commons.utils.Observable;
 
 import model.parser.ErrorEvaluacionException;
-import repositories.RepositorioEmpresas;
+import repositories.repoArchivos.RepositorioEmpresas;
 
 @Observable
 public class PredefinidoROE extends Indicador {

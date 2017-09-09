@@ -9,11 +9,10 @@ import org.junit.Test;
 import adapters.AdapterCuentasToJSON;
 import imports.ImportadorArchivos;
 import model.Exception;
+import repositories.repoArchivos.RepositorioCuentas;
 
 import java.util.LinkedList;
 import java.util.List;
-
-import repositories.RepositorioCuentas;
 
 public class LectorCuentasTest {
 

@@ -6,7 +6,7 @@ import java.util.List;
 import com.google.gson.reflect.TypeToken;
 
 import criterios.Criterio;
-import repositories.RepositorioCriterios;
+import repositories.repoArchivos.RepositorioCriterios;
 
 public class AdapterCriteriosToJSON extends AdaptadorToJSON<List<Criterio>> {
 
