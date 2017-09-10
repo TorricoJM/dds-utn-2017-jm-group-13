@@ -12,7 +12,8 @@ import org.uqbar.commons.utils.Observable;
 @Entity
 public class Empresa {
 
-	@Id @GeneratedValue(strategy=GenerationType.AUTO)
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	private String nombre;
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
@@ -21,11 +22,10 @@ public class Empresa {
 	public Empresa(String nombre) {
 		this.nombre = nombre;
 	}
-	
+
 	public Empresa() {
 	}
 
-	// -----------------------------------------------------GETTERS AND SETTERS
 	public String getNombre() {
 		return nombre;
 	}
@@ -45,7 +45,6 @@ public class Empresa {
 	public void setPeriodos(List<PeriodoFiscal> periodos) {
 		this.periodos = periodos;
 	}
-	// ---------------------------------------------------/GETTERS AND SETTERS
 
 	public void agregarPeriodoPara(LineaEmpresa lineaEmpresa) {
 		PeriodoFiscal nuevoPeriodo = new PeriodoFiscal(lineaEmpresa.getPeriodo());
