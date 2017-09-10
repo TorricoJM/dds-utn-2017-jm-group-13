@@ -4,12 +4,17 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.persistence.EntityManager;
+
 import org.uqbar.commons.model.ObservableUtils;
 import org.uqbar.commons.utils.Observable;
+import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import methodologies.Metodologia;
+import model.CuentaYValor;
 import model.Empresa;
 import model.Exception;
+import model.PeriodoFiscal;
 import repositories.repoArchivos.RepositorioEmpresas;
 import repositories.repoArchivos.RepositorioMetodologias;
 
@@ -28,6 +33,18 @@ public class ConsultarMetodologiasViewModel {
 		this.metodologias = RepositorioMetodologias.getInstance().getElementos();
 		this.empresas = new LinkedList<>(RepositorioEmpresas.getInstance().getElementos());
 		this.periodos = empresas.stream().flatMap(empresa -> empresa.getPeriodos().stream()).map(periodo -> periodo.getPeriodo()).distinct().sorted().collect(Collectors.toList());
+	
+		EntityManager em = PerThreadEntityManagers.getEntityManager();
+		
+		Empresa em1 = new Empresa("hola");
+		PeriodoFiscal p1 = new PeriodoFiscal("2017");
+		CuentaYValor c1 = new CuentaYValor("ebitda","1");
+		em1.getPeriodos().add(p1);
+		p1.getCuentas().add(c1);
+		
+		em.getTransaction().begin();
+		em.persist(em1);
+		em.getTransaction().commit();
 	}
 	
 	public void construirRangoDePeriodos(){

@@ -1,15 +1,25 @@
+
 package model;
+
+import javax.persistence.*;
 
 import org.uqbar.commons.utils.Observable;
 
 @Observable
-public class Cuenta {
+@Entity
+public class CuentaYValor {
+	
+	@Id @GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
 	private String nombre;
 	private String valor;
 
-	public Cuenta(String cuenta, String valor) {
+	public CuentaYValor(String cuenta, String valor) {
 		this.nombre = cuenta;
 		this.valor = valor;
+	}
+	
+	public CuentaYValor() {
 	}
 
 	public String getNombre() {

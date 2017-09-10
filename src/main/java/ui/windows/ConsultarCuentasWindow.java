@@ -11,7 +11,7 @@ import org.uqbar.arena.windows.Dialog;
 import org.uqbar.arena.windows.WindowOwner;
 
 import ui.viewModels.ConsultarCuentasViewModel;
-import model.Cuenta;
+import model.CuentaYValor;
 import model.Empresa;
 import model.PeriodoFiscal;
 
@@ -41,7 +41,7 @@ public class ConsultarCuentasWindow extends Dialog<ConsultarCuentasViewModel> {
 				.setAdapter(new PropertyAdapter(PeriodoFiscal.class, "periodo"));
 		selectorPeriodo.bindValueToProperty("periodoSeleccionado");
 
-		Table<Cuenta> table = new Table<Cuenta>(mainPanel, Cuenta.class);
+		Table<CuentaYValor> table = new Table<CuentaYValor>(mainPanel, CuentaYValor.class);
 		table.bindItemsToProperty("periodoSeleccionado.cuentas");
 		table.setNumberVisibleRows(10);
 
@@ -49,12 +49,12 @@ public class ConsultarCuentasWindow extends Dialog<ConsultarCuentasViewModel> {
 
 	}
 
-	private void mostrarColumnas(Table<Cuenta> table) {
+	private void mostrarColumnas(Table<CuentaYValor> table) {
 
-		Column<Cuenta> nombres = new Column<Cuenta>(table);
+		Column<CuentaYValor> nombres = new Column<CuentaYValor>(table);
 		nombres.setTitle("Cuenta").setFixedSize(200).bindContentsToProperty("nombre");
 
-		Column<Cuenta> valores = new Column<Cuenta>(table);
+		Column<CuentaYValor> valores = new Column<CuentaYValor>(table);
 		valores.setTitle("Valor").setFixedSize(110).bindContentsToProperty("valor");
 	}
 }

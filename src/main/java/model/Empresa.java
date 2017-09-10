@@ -4,16 +4,25 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.persistence.*;
+
 import org.uqbar.commons.utils.Observable;
 
 @Observable
+@Entity
 public class Empresa {
 
+	@Id @GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
 	private String nombre;
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
 	private List<PeriodoFiscal> periodos = new LinkedList<>();
 
 	public Empresa(String nombre) {
 		this.nombre = nombre;
+	}
+	
+	public Empresa() {
 	}
 
 	// -----------------------------------------------------GETTERS AND SETTERS
@@ -25,7 +34,7 @@ public class Empresa {
 		return periodos;
 	}
 
-	public List<Cuenta> getCuentas() {
+	public List<CuentaYValor> getCuentas() {
 		return this.getPeriodos().stream().flatMap((peri) -> peri.getCuentas().stream()).collect(Collectors.toList());
 	}
 
