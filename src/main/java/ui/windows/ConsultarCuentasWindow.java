@@ -52,7 +52,7 @@ public class ConsultarCuentasWindow extends Dialog<ConsultarCuentasViewModel> {
 	private void mostrarColumnas(Table<Cuenta> table) {
 
 		Column<Cuenta> nombres = new Column<Cuenta>(table);
-		nombres.setTitle("Cuenta").setFixedSize(200).bindContentsToProperty("cuenta");
+		nombres.setTitle("Cuenta").setFixedSize(200).bindContentsToProperty("nombre");
 
 		Column<Cuenta> valores = new Column<Cuenta>(table);
 		valores.setTitle("Valor").setFixedSize(110).bindContentsToProperty("valor");

@@ -26,13 +26,10 @@ public class CrearIndicadorWindow extends SimpleWindow<CrearIndicadorViewModel> 
 
 	public CrearIndicadorWindow(WindowOwner parent) {
 		super(parent, new CrearIndicadorViewModel());
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	protected void addActions(Panel arg0) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override

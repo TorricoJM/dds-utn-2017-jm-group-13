@@ -2,9 +2,8 @@ package repositories.repoArchivos;
 
 import adapters.AdapterCuentasToJSON;
 import exports.ExportadorArchivos;
-import model.Cuenta;
 
-public class RepositorioCuentas extends RepoArchivos<Cuenta> {
+public class RepositorioCuentas extends RepoArchivos<String> {
 
 	private static RepositorioCuentas instance;
 
@@ -20,13 +19,14 @@ public class RepositorioCuentas extends RepoArchivos<Cuenta> {
 		instance = null;
 	}
 
-	public boolean tieneCuentaSegunNombre(Cuenta unaCuenta) {
-		return this.getElementos().stream().anyMatch(cuenta -> cuenta.getNombre().equals(unaCuenta.getNombre()));
+	public boolean tieneCuentaSegunNombre(String unaCuenta) {
+		return this.getElementos().stream().anyMatch(cuenta -> cuenta.equals(unaCuenta));
 	}
 
 	public void refrescar() {
-		RepositorioEmpresas.getInstance().getElementos().stream().flatMap(empresa -> empresa.getCuentas().stream())
-				.forEach(cuenta -> this.agregar(cuenta));
+		RepositorioEmpresas.getInstance().getElementos().stream()
+		.flatMap(empresa -> empresa.getCuentas().stream().map(cuenta->cuenta.getNombre()))
+		.forEach(cuenta -> this.agregar(cuenta));
 
 		this.actualizarArchivoCuentas();
 	}

@@ -7,7 +7,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-import model.Cuenta;
 import model.parser.IdentificadorInvalidoException;
 import repositories.repoArchivos.RepositorioCuentas;
 import repositories.repoArchivos.RepositorioIndicadores;
@@ -53,7 +52,7 @@ public class ExpresionLexer{
 	}
 
 	public ExpresionParser identificar(String id) {
-		if (RepositorioCuentas.getInstance().tieneCuentaSegunNombre(new Cuenta(id,""))){
+		if (RepositorioCuentas.getInstance().tieneCuentaSegunNombre(id)){
 			return new CuentaParser(id);
 		}
 		else if (RepositorioIndicadores.getInstance().tieneIndicador(id)){
