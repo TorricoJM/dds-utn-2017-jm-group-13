@@ -20,12 +20,12 @@ public class CrearIndicadorViewModelTest {
 		indicadorViewModel = new CrearIndicadorViewModel();
 
 		indicadorViewModel.setNombreIndicador("Indicador Nombre Test");
-		indicadorViewModel.setIndicador("1000 + 500");
+		indicadorViewModel.setOperacion("1000 + 500");
 		
 		indicadorViewModel.crearIndicador();
 		
 		Indicador indicador = RepositorioIndicadores.getInstance().obtenerIndicadorDesdeNombre("Indicador Nombre Test");
-		assertTrue(indicador.getOperacion().equals(indicadorViewModel.getIndicador()));
+		assertTrue(indicador.getOperacion().equals(indicadorViewModel.getOperacion()));
 
 	}
 	
@@ -33,7 +33,7 @@ public class CrearIndicadorViewModelTest {
 	public void crearIndicadorSinNombreDaIncorrectoTest() {
 		indicadorViewModel = new CrearIndicadorViewModel();
 
-		indicadorViewModel.setIndicador("1000 + 500");
+		indicadorViewModel.setOperacion("1000 + 500");
 		
 		indicadorViewModel.crearIndicador();
 	}
@@ -43,7 +43,7 @@ public class CrearIndicadorViewModelTest {
 		indicadorViewModel = new CrearIndicadorViewModel();
 
 		indicadorViewModel.setNombreIndicador("Indicador Nombre Test");
-		indicadorViewModel.setIndicador("");
+		indicadorViewModel.setOperacion("");
 		
 		indicadorViewModel.crearIndicador();
 	}

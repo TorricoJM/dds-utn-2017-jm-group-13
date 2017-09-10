@@ -59,7 +59,7 @@ public class CrearIndicadorWindow extends SimpleWindow<CrearIndicadorViewModel> 
 
 		new Label(mainPanel).setText("Indicador");
 		new Label(mainPanel).setBackground(Color.LIGHT_GRAY).setForeground(Color.WHITE).setFontSize(12).setWidth(150)
-				.bindValueToProperty("indicador");
+				.bindValueToProperty("operacion");
 
 		Panel operaciones = new Panel(mainPanel);
 		operaciones.setLayout(new HorizontalLayout());

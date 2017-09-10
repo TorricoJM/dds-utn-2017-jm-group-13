@@ -21,7 +21,7 @@ public class CrearIndicadorViewModel {
 	private List<String> cuentas;
 	private Indicador indicadorSeleccionado;
 	private String cuentaSeleccionada;
-	private String indicador = "";
+	private String operacion = "";
 	private Integer constante;
 	private String nombreIndicador;
 
@@ -31,13 +31,13 @@ public class CrearIndicadorViewModel {
 	}
 
 	public void crearIndicador() {
-		if (nombreIndicador == null || indicador == "") {
+		if (nombreIndicador == null || operacion == "") {
 			throw new Exception("Nombre o indicador vacio");
 		} else if (!this.tieneNombreValido(nombreIndicador)
 				|| RepositorioIndicadores.getInstance().tieneIndicador(nombreIndicador))
 			throw new Exception("Nombre repetido o no válido");
 		else {
-			DataIndicador nuevoIndicador = new DataIndicador(nombreIndicador, indicador);
+			DataIndicador nuevoIndicador = new DataIndicador(nombreIndicador, operacion);
 			RepositorioIndicadores.getInstance().agregar(nuevoIndicador);
 			new ExportadorArchivos(new AdapterIndicadoresToJSON(), "./indicadores.json").exportar();
 		}
@@ -54,35 +54,35 @@ public class CrearIndicadorViewModel {
 	}
 
 	public void borrarIndicador() {
-		this.setIndicador("");
+		this.setOperacion("");
 	}
 
 	public void agregarSuma() {
-		this.setIndicador(indicador + "+");
+		this.setOperacion(operacion + "+");
 	}
 
 	public void agregarResta() {
-		this.setIndicador(indicador + "-");
+		this.setOperacion(operacion + "-");
 	}
 
 	public void agregarDivision() {
-		this.setIndicador(indicador + "/");
+		this.setOperacion(operacion + "/");
 	}
 
 	public void agregarMultiplicacion() {
-		this.setIndicador(indicador + "*");
+		this.setOperacion(operacion + "*");
 	}
 
 	public void agregarConstante() {
 		String constanteString = Integer.toString(constante);
-		this.setIndicador(indicador + constanteString);
+		this.setOperacion(operacion + constanteString);
 	}
 
 	public void agregarIndicador() {
 		if (indicadorSeleccionado == null) {
 			throw new Exception("Seleccione algun indicador");
 		} else {
-			this.setIndicador(indicador + indicadorSeleccionado.getNombre());
+			this.setOperacion(operacion + indicadorSeleccionado.getNombre());
 		}
 	}
 
@@ -90,7 +90,7 @@ public class CrearIndicadorViewModel {
 		if (cuentaSeleccionada == null) {
 			throw new Exception("Seleccione alguna cuenta");
 		} else {
-			this.setIndicador(indicador + cuentaSeleccionada);
+			this.setOperacion(operacion + cuentaSeleccionada);
 		}
 	}
 
@@ -126,12 +126,12 @@ public class CrearIndicadorViewModel {
 		this.cuentaSeleccionada = cuentaSeleccionada;
 	}
 
-	public String getIndicador() {
-		return indicador;
+	public String getOperacion() {
+		return operacion;
 	}
 
-	public void setIndicador(String indicador) {
-		this.indicador = indicador;
+	public void setOperacion(String operacion) {
+		this.operacion = operacion;
 	}
 
 	public Integer getConstante() {
