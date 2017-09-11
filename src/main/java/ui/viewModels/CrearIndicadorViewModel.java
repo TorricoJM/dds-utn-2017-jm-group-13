@@ -4,10 +4,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.persistence.EntityManager;
-
 import org.uqbar.commons.utils.Observable;
-import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import adapters.AdapterIndicadoresToJSON;
 import exports.ExportadorArchivos;
@@ -43,13 +40,6 @@ public class CrearIndicadorViewModel {
 			DataIndicador nuevoIndicador = new DataIndicador(nombreIndicador, operacion);
 			RepositorioIndicadores.getInstance().agregar(nuevoIndicador);
 			new ExportadorArchivos(new AdapterIndicadoresToJSON(), "./indicadores.json").exportar();
-
-			EntityManager em = PerThreadEntityManagers.getEntityManager();
-
-			em.getTransaction().begin();
-			em.persist(nuevoIndicador);
-			em.getTransaction().commit();
-
 		}
 	}
 
