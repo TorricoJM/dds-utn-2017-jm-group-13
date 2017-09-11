@@ -2,6 +2,7 @@ package repositories.repoArchivos;
 
 import java.util.NoSuchElementException;
 
+import imports.ImportadorDB;
 import model.Empresa;
 import model.LineaEmpresa;
 import model.parser.ErrorEvaluacionException;
@@ -16,6 +17,11 @@ public class RepositorioEmpresas extends RepoArchivos<Empresa> {
 		}
 		
 		return instance;
+	}
+	
+	private RepositorioEmpresas(){
+		this.setElementos(new ImportadorDB<Empresa>()
+				.importar("from Empresa"));
 	}
 	
 	public static void deleteInstance() {

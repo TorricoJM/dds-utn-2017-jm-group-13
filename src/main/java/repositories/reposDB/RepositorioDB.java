@@ -26,5 +26,4 @@ public abstract class RepositorioDB<T> implements Repositorio<T>{
 		elementos.forEach(elemento->entityManager.persist(elemento));
 		tx.commit();
 	}
-	
 }
