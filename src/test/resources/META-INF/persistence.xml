@@ -14,7 +14,9 @@
 		<class> indicators.DataIndicador </class>
 		<class> criterios.CriterioTaxativo </class>
 		<class> indicators.Indicador </class>
+		<class> criterios.CriterioComparativo </class>
 		<class> criterios.modificador.Modificador </class>
+		
 		
         <properties> 
 	    <property name="hibernate.archive.autodetection" value="class"/>        
