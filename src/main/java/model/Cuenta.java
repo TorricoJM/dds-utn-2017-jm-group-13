@@ -7,19 +7,19 @@ import org.uqbar.commons.utils.Observable;
 
 @Observable
 @Entity
-public class CuentaYValor {
+public class Cuenta {
 	
 	@Id @GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 	private String nombre;
 	private String valor;
 
-	public CuentaYValor(String cuenta, String valor) {
+	public Cuenta(String cuenta, String valor) {
 		this.nombre = cuenta;
 		this.valor = valor;
 	}
 	
-	public CuentaYValor() {
+	public Cuenta() {
 	}
 
 	public String getNombre() {

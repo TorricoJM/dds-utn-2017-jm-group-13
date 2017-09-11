@@ -5,7 +5,7 @@ import java.util.List;
 
 import repositories.Repositorio;
 
-public abstract class RepoArchivos<T> implements Repositorio{
+public abstract class RepoArchivos<T> implements Repositorio<T>{
 	
 	private List<T> elementos = new LinkedList<T>();
 	

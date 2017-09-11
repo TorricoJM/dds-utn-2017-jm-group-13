@@ -34,7 +34,7 @@ public class Empresa {
 		return periodos;
 	}
 
-	public List<CuentaYValor> getCuentas() {
+	public List<Cuenta> getCuentas() {
 		return this.getPeriodos().stream().flatMap((peri) -> peri.getCuentas().stream()).collect(Collectors.toList());
 	}
 

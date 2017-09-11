@@ -16,7 +16,7 @@ public class PeriodoFiscal {
 	private Long id;
 	private String periodo;
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-	private List<CuentaYValor> cuentas = new LinkedList<>();
+	private List<Cuenta> cuentas = new LinkedList<>();
 	
 	public PeriodoFiscal() {
 	}
@@ -30,7 +30,7 @@ public class PeriodoFiscal {
 		return periodo;
 	}
 
-	public List<CuentaYValor> getCuentas() {
+	public List<Cuenta> getCuentas() {
 		return cuentas;
 	}
 
@@ -38,20 +38,20 @@ public class PeriodoFiscal {
 		this.periodo = periodo;
 	}
 
-	public void setCuentas(List<CuentaYValor> cuentas) {
+	public void setCuentas(List<Cuenta> cuentas) {
 		this.cuentas = cuentas;
 	}
 	// -------------------/GETTERS AND SETTERS
 
 	public void agregarUnaCuentaPara(LineaEmpresa empresa) {
-		cuentas.add(new CuentaYValor(empresa.getCuenta(), empresa.getValor()));
+		cuentas.add(new Cuenta(empresa.getCuenta(), empresa.getValor()));
 	}
 
 	public boolean yaExisteUnaCuentaPara(LineaEmpresa empresa) {
 		return this.getCuentas().stream().anyMatch((unaCuenta) -> unaCuenta.getNombre().equals(empresa.getCuenta()));
 	}
 
-	private CuentaYValor obtenerCuentaAModificarDadaPor(LineaEmpresa lineaEmpresa) {
+	private Cuenta obtenerCuentaAModificarDadaPor(LineaEmpresa lineaEmpresa) {
 		return this.getCuentas().stream()
 				.filter((cuentaDeLista) -> cuentaDeLista.getNombre().equals(lineaEmpresa.getCuenta())).findFirst()
 				.get();
@@ -69,7 +69,7 @@ public class PeriodoFiscal {
 				.anyMatch(cuenta -> cuenta.getNombre().equals(cuentaOIndicador));
 	}
 
-	public CuentaYValor obtenerCuentaDesdeNombre(String cuentaOIndicador) {
+	public Cuenta obtenerCuentaDesdeNombre(String cuentaOIndicador) {
 		return this.getCuentas().stream()
 				.filter(cuenta -> cuenta.getNombre().equals(cuentaOIndicador))
 				.findFirst().get();
