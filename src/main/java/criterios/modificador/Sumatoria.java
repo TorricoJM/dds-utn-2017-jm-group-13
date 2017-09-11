@@ -12,7 +12,7 @@ public class Sumatoria extends Modificador {
 	@Override
 	public List<Double> modificar(Empresa empresa, Indicador indicador, List<String> listaPeriodos) {
 
-		valoresResultantes = new LinkedList<>();
+		List<Double> valoresResultantes = new LinkedList<>();
 		
 		valoresResultantes.add(this.sumarValores(empresa, indicador, listaPeriodos));
 
