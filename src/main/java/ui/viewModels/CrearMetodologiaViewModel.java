@@ -14,6 +14,7 @@ import criterios.CriterioComparativo;
 import criterios.CriterioTaxativo;
 import exports.ExportadorArchivos;
 import exports.ExportadorDB;
+import methodologies.Metodologia;
 import methodologies.MetodologiesBuilder;
 import model.Exception;
 import repositories.repoArchivos.RepositorioCriterios;
@@ -33,8 +34,6 @@ public class CrearMetodologiaViewModel {
 	private Boolean enableSave = false;
 
 	public CrearMetodologiaViewModel() {
-		this.criterios = RepositorioCriterios.getInstance().getElementos();
-		new ExportadorDB<>(RepositorioMetodologias.getInstance()).exportar();
 	}
 
 	public void agregarCriterio() {
@@ -53,9 +52,14 @@ public class CrearMetodologiaViewModel {
 	}
 
 	public void crearMetodologia() {
-		RepositorioMetodologias.getInstance().agregar(new MetodologiesBuilder().setNombre(nombre)
-				.setCriterios(criteriosComparativosElegidos, criteriosTaxativosElegidos).build());
-		new ExportadorArchivos(new AdapterMetodologiasToJSON(), "./metodologias.json").exportar();
+		
+		Metodologia nuevaMetodologia = new MetodologiesBuilder().setNombre(nombre)
+				.setCriterios(criteriosComparativosElegidos, criteriosTaxativosElegidos).build();
+		
+		RepositorioMetodologias.getInstance().agregar(nuevaMetodologia);
+		//new ExportadorArchivos(new AdapterMetodologiasToJSON(), "./metodologias.json").exportar();
+
+		new ExportadorDB<>(RepositorioMetodologias.getInstance()).exportar();
 	}
 
 	public List<Criterio> getCriterios() {
@@ -104,14 +108,12 @@ public class CrearMetodologiaViewModel {
 		ObservableUtils.firePropertyChanged(this, "criterios");
 	}
 
-	
 	public void borrarCriterios() {
 
 		this.criteriosComparativosElegidos.clear();
 		this.criteriosTaxativosElegidos.clear();
 
 	}
-	
 
 	private void discriminarCriterio() {
 		if (this.criterioSeleccionadoEsTaxativo())
@@ -126,7 +128,8 @@ public class CrearMetodologiaViewModel {
 
 	private void controlarValidezCriterioComparativo() {
 		if (ponderacionSeleccionada != null)
-			criteriosComparativosElegidos.add(Pair.with((CriterioComparativo)criterioSeleccionado, ponderacionSeleccionada));
+			criteriosComparativosElegidos
+					.add(Pair.with((CriterioComparativo) criterioSeleccionado, ponderacionSeleccionada));
 	}
 
 	public Boolean getEnableAgregate() {
@@ -149,7 +152,8 @@ public class CrearMetodologiaViewModel {
 		return criteriosComparativosElegidos.stream().map(tupla -> tupla.getValue0()).collect(Collectors.toList());
 	}
 
-	public void setCriteriosComparativosElegidos(List<Pair<CriterioComparativo, Double>> criteriosComparativosElegidos) {
+	public void setCriteriosComparativosElegidos(
+			List<Pair<CriterioComparativo, Double>> criteriosComparativosElegidos) {
 		this.criteriosComparativosElegidos = criteriosComparativosElegidos;
 	}
 
@@ -160,5 +164,5 @@ public class CrearMetodologiaViewModel {
 	public void setCriteriosTaxativosElegidos(List<CriterioTaxativo> criteriosTaxativosElegidos) {
 		this.criteriosTaxativosElegidos = criteriosTaxativosElegidos;
 	}
-	
+
 }

@@ -12,6 +12,7 @@ import criterios.Criterio;
 import criterios.CriterioComparativo;
 import criterios.OperadorComparacion;
 import exports.ExportadorArchivos;
+import exports.ExportadorDB;
 import indicators.Indicador;
 import model.Exception;
 import repositories.repoArchivos.RepositorioCriterios;
@@ -39,7 +40,9 @@ public class CrearCriterioComparativoViewModel {
 		else {
 			Criterio nuevoCriterio = new CriterioComparativo(nombreCriterio, operador, indicadorSeleccionado);
 			RepositorioCriterios.getInstance().agregar(nuevoCriterio);
-			new ExportadorArchivos(new AdapterCriteriosToJSON(), "./criterios.json");
+			//new ExportadorArchivos(new AdapterCriteriosToJSON(), "./criterios.json");
+
+			new ExportadorDB<>(RepositorioCriterios.getInstance()).exportar();
 		}
 	}
 

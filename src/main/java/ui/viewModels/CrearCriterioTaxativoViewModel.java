@@ -16,6 +16,7 @@ import criterios.modificador.Normal;
 import criterios.modificador.Promedio;
 import criterios.modificador.Sumatoria;
 import exports.ExportadorArchivos;
+import exports.ExportadorDB;
 import indicators.Indicador;
 import model.Exception;
 import repositories.repoArchivos.RepositorioCriterios;
@@ -46,7 +47,9 @@ public class CrearCriterioTaxativoViewModel {
 				Double.valueOf(constante));
 		RepositorioCriterios.getInstance().agregar(nuevoCriterio);
 
-		new ExportadorArchivos(new AdapterCriteriosToJSON(), "./criterios.json").exportar();
+		//new ExportadorArchivos(new AdapterCriteriosToJSON(), "./criterios.json").exportar();
+		
+		new ExportadorDB<>(RepositorioCriterios.getInstance()).exportar();
 
 	}
 

@@ -3,8 +3,6 @@ package indicators;
 import model.parser.ErrorEvaluacionException;
 import repositories.repoArchivos.RepositorioEmpresas;
 
-import javax.persistence.*;
-
 public class PredefinidoROA extends Indicador {
 
 	private static PredefinidoROA instance;

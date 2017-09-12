@@ -8,9 +8,11 @@ import org.uqbar.commons.utils.Observable;
 
 import adapters.AdapterIndicadoresToJSON;
 import exports.ExportadorArchivos;
+import exports.ExportadorDB;
 import indicators.DataIndicador;
 import indicators.Indicador;
 import model.Exception;
+import repositories.repoArchivos.RepositorioCriterios;
 import repositories.repoArchivos.RepositorioCuentas;
 import repositories.repoArchivos.RepositorioIndicadores;
 
@@ -39,7 +41,9 @@ public class CrearIndicadorViewModel {
 		else {
 			DataIndicador nuevoIndicador = new DataIndicador(nombreIndicador, operacion);
 			RepositorioIndicadores.getInstance().agregar(nuevoIndicador);
-			new ExportadorArchivos(new AdapterIndicadoresToJSON(), "./indicadores.json").exportar();
+			//new ExportadorArchivos(new AdapterIndicadoresToJSON(), "./indicadores.json").exportar();
+			
+			new ExportadorDB<>(RepositorioIndicadores.getInstance()).exportar();
 		}
 	}
 
