@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import criterios.CriterioComparativo;
+import criterios.CriterioComparativoConPeso;
 import criterios.CriterioTaxativo;
 import model.Empresa;
 
@@ -15,7 +16,7 @@ import org.uqbar.commons.utils.Observable;
 public class Metodologia {
 	private String nombre;
 	private List<CriterioTaxativo> criteriosTaxativos;
-	private List<Pair<CriterioComparativo, Double>> criteriosComparativosPonderacion;
+	private List<CriterioComparativoConPeso> criteriosComparativosPonderacion;
 
 	public Metodologia(String nombre, List<CriterioTaxativo> criteriosTaxativos,
 			List<Pair<CriterioComparativo, Double>> criteriosComparativos) {
@@ -59,7 +60,7 @@ public class Metodologia {
 	private Pair<Empresa, Double> puntajeTotalDe(Empresa empresa, List<Empresa> empresas, List<String> periodos) {
 
 		return Pair.with(empresa,
-				this.criteriosComparativosPonderacion.stream()
+				this.getCriteriosComparativosPonderacion().stream()
 						.map(criterio -> puntajeParcialDe(empresa, empresas, periodos, criterio))
 						.mapToDouble(valor -> new Double(valor)).sum());
 	}
@@ -79,12 +80,9 @@ public class Metodologia {
 	}
 
 	public List<Pair<CriterioComparativo, Double>> getCriteriosComparativosPonderacion() {
-		return criteriosComparativosPonderacion;
-	}
-
-	public void setCriteriosComparativosPonderacion(
-			List<Pair<CriterioComparativo, Double>> criteriosComparativosPonderacion) {
-		this.criteriosComparativosPonderacion = criteriosComparativosPonderacion;
+		return criteriosComparativosPonderacion.stream()
+				.map(criterioConPeso -> Pair.with(criterioConPeso.getCriterio(), criterioConPeso.getPeso()))
+				.collect(Collectors.toList());
 	}
 
 	public List<CriterioTaxativo> getCriteriosTaxativos() {
@@ -93,6 +91,13 @@ public class Metodologia {
 
 	public void setCriteriosTaxativos(List<CriterioTaxativo> criteriosTaxativos) {
 		this.criteriosTaxativos = criteriosTaxativos;
+	}
+
+	public void setCriteriosComparativosPonderacion(List<Pair<CriterioComparativo, Double>> tuplas) {
+		if(tuplas != null)
+			this.criteriosComparativosPonderacion = new LinkedList<>(
+					tuplas.stream().map(tupla -> new CriterioComparativoConPeso(tupla.getValue0(), tupla.getValue1()))
+							.collect(Collectors.toList()));
 	}
 
 }
