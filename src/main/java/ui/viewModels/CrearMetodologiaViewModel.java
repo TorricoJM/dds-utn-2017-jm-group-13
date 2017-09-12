@@ -13,6 +13,7 @@ import criterios.Criterio;
 import criterios.CriterioComparativo;
 import criterios.CriterioTaxativo;
 import exports.ExportadorArchivos;
+import exports.ExportadorDB;
 import methodologies.MetodologiesBuilder;
 import model.Exception;
 import repositories.repoArchivos.RepositorioCriterios;
@@ -33,6 +34,7 @@ public class CrearMetodologiaViewModel {
 
 	public CrearMetodologiaViewModel() {
 		this.criterios = RepositorioCriterios.getInstance().getElementos();
+		new ExportadorDB<>(RepositorioMetodologias.getInstance()).exportar();
 	}
 
 	public void agregarCriterio() {

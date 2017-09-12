@@ -15,14 +15,14 @@ public class RepositorioMetodologias extends RepoArchivos<Metodologia>{
 			instance = new RepositorioMetodologias();
 			instance.agregar(new MetodologiesBuilder().buildPredefWarrenBuffet().build());
 		}
-
+		
 		return instance;
 	}
 
 	public static void deleteInstance() {
 		instance = null;
 	}
-
+	
 	public List<Metodologia> getListaMetodologiasForExport() {
 		return this.getElementos().stream().filter(met -> !met.getNombre().equals("Warren Buffet"))
 				.collect(Collectors.toList());

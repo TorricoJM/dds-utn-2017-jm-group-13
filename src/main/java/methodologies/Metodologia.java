@@ -4,6 +4,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.persistence.*;
+
 import criterios.CriterioComparativo;
 import criterios.CriterioComparativoConPeso;
 import criterios.CriterioTaxativo;
@@ -13,11 +15,21 @@ import org.javatuples.*;
 import org.uqbar.commons.utils.Observable;
 
 @Observable
+@Entity
 public class Metodologia {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	public Long id;
 	private String nombre;
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
 	private List<CriterioTaxativo> criteriosTaxativos;
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
 	private List<CriterioComparativoConPeso> criteriosComparativosPonderacion;
 
+	public Metodologia() {
+	}
+	
 	public Metodologia(String nombre, List<CriterioTaxativo> criteriosTaxativos,
 			List<Pair<CriterioComparativo, Double>> criteriosComparativos) {
 		this.setNombre(nombre);
@@ -81,8 +93,12 @@ public class Metodologia {
 
 	public List<Pair<CriterioComparativo, Double>> getCriteriosComparativosPonderacion() {
 		return criteriosComparativosPonderacion.stream()
-				.map(criterioConPeso -> Pair.with(criterioConPeso.getCriterio(), criterioConPeso.getPeso()))
+				.map(criterioConPeso -> this.crearTuplaEnBaseA(criterioConPeso))
 				.collect(Collectors.toList());
+	}
+	
+	private Pair<CriterioComparativo, Double> crearTuplaEnBaseA(CriterioComparativoConPeso criterio) {
+		return  Pair.with(criterio.getCriterio(), criterio.getPeso());
 	}
 
 	public List<CriterioTaxativo> getCriteriosTaxativos() {
@@ -94,10 +110,18 @@ public class Metodologia {
 	}
 
 	public void setCriteriosComparativosPonderacion(List<Pair<CriterioComparativo, Double>> tuplas) {
-		if(tuplas != null)
-			this.criteriosComparativosPonderacion = new LinkedList<>(
-					tuplas.stream().map(tupla -> new CriterioComparativoConPeso(tupla.getValue0(), tupla.getValue1()))
-							.collect(Collectors.toList()));
+		if (tuplas != null)
+			this.criteriosComparativosPonderacion = new LinkedList<>(this.transformarTuplasEnCriterios(tuplas));
+	}
+
+	private List<CriterioComparativoConPeso> transformarTuplasEnCriterios(
+			List<Pair<CriterioComparativo, Double>> tuplas) {
+		return tuplas.stream().map(tupla -> this.crearCriterioEnBaseA(tupla))
+				.collect(Collectors.toList());
+	}
+	
+	private CriterioComparativoConPeso crearCriterioEnBaseA(Pair<CriterioComparativo, Double> tupla) {
+		return new CriterioComparativoConPeso(tupla.getValue0(), tupla.getValue1());
 	}
 
 }
