@@ -7,6 +7,15 @@
   
     <persistence-unit name="db" transaction-type="RESOURCE_LOCAL">
     	<provider>org.hibernate.ejb.HibernatePersistence</provider>
+    	
+    	<class> model.Empresa </class>
+		<class> model.Cuenta </class>
+		<class> model.PeriodoFiscal </class>
+		<class> indicators.DataIndicador </class>
+		<class> criterios.CriterioTaxativo </class>
+		<class> indicators.Indicador </class>
+		<class> criterios.CriterioComparativo </class>
+		<class> criterios.modificador.Modificador </class>
 
         <properties> 
 	    <property name="hibernate.archive.autodetection" value="class"/>        

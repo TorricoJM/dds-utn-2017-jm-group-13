@@ -9,7 +9,7 @@
     	<provider>org.hibernate.ejb.HibernatePersistence</provider>
 
 		<class> model.Empresa </class>
-		<class> model.CuentaYValor </class>
+		<class> model.Cuenta </class>
 		<class> model.PeriodoFiscal </class>
 		<class> indicators.DataIndicador </class>
 		<class> criterios.CriterioTaxativo </class>
