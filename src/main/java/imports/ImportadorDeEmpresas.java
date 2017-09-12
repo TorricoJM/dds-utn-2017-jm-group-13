@@ -21,6 +21,7 @@ public abstract class ImportadorDeEmpresas implements Importador{
 
 	private void cargarEnRepositorio(List<LineaEmpresa> empresas) {
 		empresas.stream().forEach((empresa) -> this.insertarEmpresaEnRepositorioLocal(empresa));
+		RepositorioEmpresas.getInstance().persistirEmpresas();
 	}
 
 	private void insertarEmpresaEnRepositorioLocal(LineaEmpresa lineaEmpresa) {

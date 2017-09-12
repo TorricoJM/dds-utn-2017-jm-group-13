@@ -2,6 +2,7 @@ package repositories.repoArchivos;
 
 import java.util.NoSuchElementException;
 
+import exports.ExportadorDB;
 import imports.ImportadorDB;
 import model.Empresa;
 import model.LineaEmpresa;
@@ -57,5 +58,9 @@ public class RepositorioEmpresas extends RepoArchivos<Empresa> {
 		} catch (NoSuchElementException e){
 			throw new ErrorEvaluacionException("No se encuentra la cuenta: \""+ cuenta + "\" de la empresa: \"" + empresa + "\" para el periodo: " + periodo);
 		}
+	}
+	
+	public void persistirEmpresas() {
+		new ExportadorDB<>(this).exportar();
 	}
 }

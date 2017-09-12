@@ -1,4 +1,3 @@
-/** DESCOMENTAR SI SE QUIERE PROBAR CONEXION, FALLA TRAVIS SINO
 package db;
 
 import static org.junit.Assert.assertNotNull;
@@ -20,4 +19,3 @@ public class ContextTest extends AbstractPersistenceTest implements WithGlobalEn
 	}
 
 }
-**/
