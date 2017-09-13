@@ -3,26 +3,42 @@ package db;
 import static org.junit.Assert.assertTrue;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
-
 import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
+import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
 
 import indicators.DataIndicador;
 import indicators.Indicador;
+import model.Empresa;
+import model.LineaEmpresa;
+import repositories.reposDB.RepositorioEmpresasDB;
 import repositories.reposDB.RepositorioIndicadoresDB;
 
-public class RepositoriosTest {
+public class RepositoriosTest extends AbstractPersistenceTest {
 	
 	public DataIndicador indicador = new DataIndicador("ebitdamasmil","ebitda+1000");
 	EntityManager em = PerThreadEntityManagers.getEntityManager();
-	EntityTransaction tx = em.getTransaction();
+	
+	
+	LineaEmpresa lineaEmpresa1 = new LineaEmpresa();
+	Empresa empresa1;
+	
+	@Before
+	public void setUp() {
+		lineaEmpresa1.setNombre("coca cola");
+		lineaEmpresa1.setPeriodo("2017");
+		lineaEmpresa1.setCuenta("ebitda");
+		lineaEmpresa1.setValor("1025.55");
+		
+		empresa1 = new Empresa(lineaEmpresa1.getNombre());
+		empresa1.cargarOModificarCuentaParaUna(lineaEmpresa1);
+		
+	}
 	
 	@Test
-	public void buscarPorAlgoQueNoSeaID() {
-
-		tx.begin();
+	public void buscarIndicadorPorNombre() {
 		em.persist(indicador);
 		Indicador i1 = new RepositorioIndicadoresDB().obtenerIndicadorDesdeNombre(indicador.getNombre());
 		assertTrue(indicador.getNombre().equals(i1.getNombre()));
@@ -33,8 +49,28 @@ public class RepositoriosTest {
 		assertTrue(!new RepositorioIndicadoresDB().tieneIndicador(indicador.getNombre()));
 	}
 	
+	@Test
+	public void buscarEmpresaPorNombre() {
+		em.persist(empresa1);
+		Empresa empresaTraidaDeLaDB = new RepositorioEmpresasDB()
+				.obtenerEmpresaDesdeNombre(empresa1.getNombre());
+		assertTrue(empresa1.getNombre().equals(empresaTraidaDeLaDB.getNombre()));
+	}
+	
+	@Test
+	public void obtenerValorDeCuentaDeEmpresaEnPeriodo() {
+		Double resultado = new RepositorioEmpresasDB()
+				.obtenerValorDeCuentaDeEmpresaEnPeriodo("ebitda", "empresa1", "2017");
+		
+		assertTrue(resultado.equals(new Double(100.0)));
+	}
+	
 	@After
 	public void tearDown() {
-		em.clear();
+	}
+
+	@Override
+	public EntityManager entityManager() {
+		return PerThreadEntityManagers.getEntityManager();
 	}
 }

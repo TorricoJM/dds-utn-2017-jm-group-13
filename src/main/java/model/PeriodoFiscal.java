@@ -16,6 +16,7 @@ public class PeriodoFiscal {
 	private Long id;
 	private String periodo;
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+	@JoinColumn(name ="periodofiscal_id")
 	private List<Cuenta> cuentas = new LinkedList<>();
 	
 	public PeriodoFiscal() {

@@ -17,6 +17,7 @@ public class Empresa {
 	private Long id;
 	private String nombre;
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "empresa_id")
 	private List<PeriodoFiscal> periodos = new LinkedList<>();
 
 	public Empresa(String nombre) {

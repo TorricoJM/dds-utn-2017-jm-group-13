@@ -18,7 +18,7 @@ public class RepositorioIndicadoresDB extends RepositorioDB<DataIndicador>{
 	
 
 	public Indicador obtenerIndicadorDesdeNombre(String nombre) {
-		String query = "Select a from Indicador a where a.nombre = :name";
+		String query = "Select i from Indicador i where i.nombre = :name";
 		Indicador indicador = this.entityManager
 				.createQuery(query, Indicador.class)
 				.setParameter("name", nombre).getSingleResult();
