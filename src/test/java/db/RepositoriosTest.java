@@ -59,10 +59,11 @@ public class RepositoriosTest extends AbstractPersistenceTest {
 	
 	@Test
 	public void obtenerValorDeCuentaDeEmpresaEnPeriodo() {
+		em.persist(empresa1);
 		Double resultado = new RepositorioEmpresasDB()
-				.obtenerValorDeCuentaDeEmpresaEnPeriodo("ebitda", "empresa1", "2017");
+				.obtenerValorDeCuentaDeEmpresaEnPeriodo("ebitda", "coca cola", "2017");
 		
-		assertTrue(resultado.equals(new Double(100.0)));
+		assertTrue(resultado.equals(new Double(1025.55)));
 	}
 	
 	@After
