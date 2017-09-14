@@ -17,14 +17,18 @@ public abstract class RepositorioDB<T> implements Repositorio<T>{
 	
 	public void agregar(T elemento) {
 		tx = entityManager.getTransaction();
-		tx.begin();
+		if(!tx.isActive()) {
+			tx.begin();
+		}
 		entityManager.persist(elemento);
 		tx.commit();
 	}
 	
 	public void agregarMuchos(List<T> elementos) {
 		tx = entityManager.getTransaction();
-		tx.begin();
+		if(!tx.isActive()) {
+			tx.begin();
+		}
 		elementos.forEach(elemento->entityManager.persist(elemento));
 		tx.commit();
 	}

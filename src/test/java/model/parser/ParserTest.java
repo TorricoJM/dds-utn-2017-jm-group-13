@@ -6,13 +6,14 @@ import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
+import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
 
-import adapters.AdapterCuentasToJSON;
-import adapters.AdapterIndicadoresToJSON;
-import imports.ImportadorArchivos;
 import imports.ImportadorDeEmpresasCSV;
 import indicators.DataIndicador;
 import indicators.Indicador;
@@ -20,7 +21,7 @@ import model.parser.objetosParser.*;
 import repositories.repoArchivos.RepositorioEmpresas;
 import repositories.repoArchivos.RepositorioIndicadores;
 
-public class ParserTest{
+public class ParserTest extends AbstractPersistenceTest{
 	Indicador indicadorSimple;
 	DataIndicador indicadorA;
 	DataIndicador indicadorB;
@@ -40,8 +41,6 @@ public class ParserTest{
 		
 		importadorCSV = new ImportadorDeEmpresasCSV("empresas.csv");
 		importadorCSV.importar();
-		new ImportadorArchivos(new AdapterCuentasToJSON(), "./cuentas.json").importar();
-		new ImportadorArchivos(new AdapterIndicadoresToJSON(), "./indicadores.json").importar();
 		lexer = new ExpresionLexer();
 	}
 
@@ -120,5 +119,10 @@ public class ParserTest{
 	public void finalizar() {
 		RepositorioIndicadores.deleteInstance();
 		RepositorioEmpresas.deleteInstance();
+	}
+
+	@Override
+	public EntityManager entityManager() {
+		return PerThreadEntityManagers.getEntityManager();
 	}
 }

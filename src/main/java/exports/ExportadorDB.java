@@ -21,7 +21,9 @@ public class ExportadorDB<T> implements Exportador {
 	@Override
 	public void exportar() {
 		try{
-			tx.begin();
+			if(!tx.isActive()) {
+				tx.begin();
+			}
 			repo.getElementos().forEach(elemento->entityManager.persist(elemento));
 			tx.commit();
 		}catch (Exception e) {
