@@ -7,9 +7,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import indicators.Indicador;
 import model.parser.IdentificadorInvalidoException;
-import repositories.repoArchivos.RepositorioCuentas;
-import repositories.repoArchivos.RepositorioIndicadores;
+import repositories.reposDB.RepositorioCuentasDB;
+import repositories.reposDB.RepositorioIndicadoresDB;
 
 public class ExpresionLexer{
 	
@@ -52,11 +53,13 @@ public class ExpresionLexer{
 	}
 
 	public ExpresionParser identificar(String id) {
-		if (RepositorioCuentas.getInstance().tieneCuentaSegunNombre(id)){
+		RepositorioIndicadoresDB repoIndicadoresDB = new RepositorioIndicadoresDB();
+		if (new RepositorioCuentasDB().tieneCuentaSegunNombre(id)){
 			return new CuentaParser(id);
 		}
-		else if (RepositorioIndicadores.getInstance().tieneIndicador(id)){
-			return new IndicadorParser(id, RepositorioIndicadores.getInstance().obtenerIndicadorDesdeNombre(id).getOperacion());
+		else if (repoIndicadoresDB.tieneIndicador(id)){
+			Indicador indicador = repoIndicadoresDB.obtenerIndicadorDesdeNombre(id);
+			return new IndicadorParser(id, indicador.getOperacion());
 		}
 		else if (this.idMatcheaCon(id, "^(\\d+\\.)?\\d+$")){
 			return new ConstanteParser(id);

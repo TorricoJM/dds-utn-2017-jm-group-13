@@ -1,5 +1,7 @@
 package repositories.reposDB;
 
+import java.util.List;
+
 import javax.persistence.NoResultException;
 
 import indicators.DataIndicador;
@@ -23,5 +25,10 @@ public class RepositorioIndicadoresDB extends RepositorioDB<DataIndicador>{
 				.createQuery(query, Indicador.class)
 				.setParameter("name", nombre).getSingleResult();
 		return indicador;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<DataIndicador> getElementos(){
+		return this.entityManager.createQuery("from Indicador").getResultList();
 	}
 }

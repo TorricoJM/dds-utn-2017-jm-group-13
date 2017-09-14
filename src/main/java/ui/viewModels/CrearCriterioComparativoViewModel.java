@@ -7,11 +7,9 @@ import java.util.regex.Pattern;
 
 import org.uqbar.commons.utils.Observable;
 
-import adapters.AdapterCriteriosToJSON;
 import criterios.Criterio;
 import criterios.CriterioComparativo;
 import criterios.OperadorComparacion;
-import exports.ExportadorArchivos;
 import exports.ExportadorDB;
 import indicators.Indicador;
 import model.Exception;

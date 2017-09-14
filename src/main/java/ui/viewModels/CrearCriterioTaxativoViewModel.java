@@ -7,7 +7,6 @@ import java.util.regex.Pattern;
 
 import org.uqbar.commons.utils.Observable;
 
-import adapters.AdapterCriteriosToJSON;
 import criterios.Criterio;
 import criterios.CriterioTaxativo;
 import criterios.OperadorComparacion;
@@ -15,7 +14,6 @@ import criterios.modificador.Modificador;
 import criterios.modificador.Normal;
 import criterios.modificador.Promedio;
 import criterios.modificador.Sumatoria;
-import exports.ExportadorArchivos;
 import exports.ExportadorDB;
 import indicators.Indicador;
 import model.Exception;

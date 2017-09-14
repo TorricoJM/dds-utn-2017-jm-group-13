@@ -8,11 +8,9 @@ import org.javatuples.Pair;
 import org.uqbar.commons.model.ObservableUtils;
 import org.uqbar.commons.utils.Observable;
 
-import adapters.AdapterMetodologiasToJSON;
 import criterios.Criterio;
 import criterios.CriterioComparativo;
 import criterios.CriterioTaxativo;
-import exports.ExportadorArchivos;
 import exports.ExportadorDB;
 import methodologies.Metodologia;
 import methodologies.MetodologiesBuilder;

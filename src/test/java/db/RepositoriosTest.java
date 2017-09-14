@@ -27,7 +27,7 @@ public class RepositoriosTest extends AbstractPersistenceTest {
 	
 	@Before
 	public void setUp() {
-		lineaEmpresa1.setNombre("coca cola");
+		lineaEmpresa1.setNombre("empresaTest");
 		lineaEmpresa1.setPeriodo("2017");
 		lineaEmpresa1.setCuenta("ebitda");
 		lineaEmpresa1.setValor("1025.55");
@@ -61,7 +61,7 @@ public class RepositoriosTest extends AbstractPersistenceTest {
 	public void obtenerValorDeCuentaDeEmpresaEnPeriodo() {
 		em.persist(empresa1);
 		Double resultado = new RepositorioEmpresasDB()
-				.obtenerValorDeCuentaDeEmpresaEnPeriodo("ebitda", "coca cola", "2017");
+				.obtenerValorDeCuentaDeEmpresaEnPeriodo("ebitda", "empresaTest", "2017");
 		
 		assertTrue(resultado.equals(new Double(1025.55)));
 	}

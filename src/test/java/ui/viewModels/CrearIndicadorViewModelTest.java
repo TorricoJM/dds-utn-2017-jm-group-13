@@ -2,15 +2,20 @@ package ui.viewModels;
 
 import model.Exception;
 import repositories.repoArchivos.RepositorioIndicadores;
+import repositories.reposDB.RepositorioIndicadoresDB;
 
 import static org.junit.Assert.*;
 
+import javax.persistence.EntityManager;
+
 import org.junit.After;
 import org.junit.Test;
+import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
+import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
 
 import indicators.Indicador;
 
-public class CrearIndicadorViewModelTest {
+public class CrearIndicadorViewModelTest extends AbstractPersistenceTest{
 
 	public CrearIndicadorViewModel indicadorViewModel;
 
@@ -24,7 +29,8 @@ public class CrearIndicadorViewModelTest {
 		
 		indicadorViewModel.crearIndicador();
 		
-		Indicador indicador = RepositorioIndicadores.getInstance().obtenerIndicadorDesdeNombre("Indicador Nombre Test");
+		Indicador indicador = new RepositorioIndicadoresDB().obtenerIndicadorDesdeNombre("Indicador Nombre Test");
+		
 		assertTrue(indicador.getOperacion().equals(indicadorViewModel.getOperacion()));
 
 	}
@@ -34,6 +40,7 @@ public class CrearIndicadorViewModelTest {
 		indicadorViewModel = new CrearIndicadorViewModel();
 
 		indicadorViewModel.setOperacion("1000 + 500");
+
 		
 		indicadorViewModel.crearIndicador();
 	}
@@ -52,4 +59,11 @@ public class CrearIndicadorViewModelTest {
 	public void finalizar() {
 		RepositorioIndicadores.deleteInstance();
 	}
+
+	@Override
+	public EntityManager entityManager() {
+		
+		return PerThreadEntityManagers.getEntityManager();
+	}
+
 }

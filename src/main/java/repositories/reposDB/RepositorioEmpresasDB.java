@@ -1,5 +1,7 @@
 package repositories.reposDB;
 
+import java.util.List;
+
 import model.Empresa;
 
 public class RepositorioEmpresasDB extends RepositorioDB<Empresa>{
@@ -18,5 +20,10 @@ public class RepositorioEmpresasDB extends RepositorioDB<Empresa>{
 		
 		String query = "Select c.valor from Cuenta c join PeriodoFiscal p on (c.periodofiscal_id = p.id) join Empresa e on (e.id = p.empresa_id) where c.nombre= '"+ cuenta + "' and p.periodo='" + periodo + "' and e.nombre='" + empresa +"'";
 		return Double.parseDouble(this.entityManager.createNativeQuery(query).getSingleResult().toString());
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Empresa> getElementos(){
+		return this.entityManager.createQuery("from Empresa").getResultList();
 	}
 }
