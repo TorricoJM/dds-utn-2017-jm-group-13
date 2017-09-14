@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import methodologies.Metodologia;
-import methodologies.MetodologiesBuilder;
 
 public class RepositorioMetodologias extends RepoArchivos<Metodologia>{
 
@@ -13,7 +12,7 @@ public class RepositorioMetodologias extends RepoArchivos<Metodologia>{
 	public static RepositorioMetodologias getInstance() {
 		if (instance == null) {
 			instance = new RepositorioMetodologias();
-			instance.agregar(new MetodologiesBuilder().buildPredefWarrenBuffet().build());
+			//instance.agregar(new MetodologiesBuilder().buildPredefWarrenBuffet().build());
 		}
 		
 		return instance;

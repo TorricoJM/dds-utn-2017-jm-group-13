@@ -2,8 +2,6 @@ package repositories.reposDB;
 
 import java.util.List;
 
-import javax.persistence.NoResultException;
-
 import model.Cuenta;
 
 public class RepositorioCuentasDB extends RepositorioDB<Cuenta>{
