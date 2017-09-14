@@ -1,6 +1,7 @@
 package repositories.reposDB;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import model.Cuenta;
 
@@ -17,9 +18,8 @@ public class RepositorioCuentasDB extends RepositorioDB<Cuenta>{
 		}
 	}
 		
-	@SuppressWarnings("unchecked")
-	public List<Cuenta> getElementos(){	
-		return this.entityManager.createQuery("from Cuenta").getResultList();
+	public List<String> getElementos(){	
+		return this.entityManager.createQuery("from Cuenta",Cuenta.class).getResultList().stream().map(cuenta->cuenta.getNombre()).collect(Collectors.toSet()).stream().collect(Collectors.toList());
 	}
 	
 }

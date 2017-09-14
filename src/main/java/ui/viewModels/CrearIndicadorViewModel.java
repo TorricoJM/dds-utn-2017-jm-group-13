@@ -3,8 +3,6 @@ package ui.viewModels;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
-
 import org.uqbar.commons.utils.Observable;
 
 import indicators.DataIndicador;
@@ -26,7 +24,7 @@ public class CrearIndicadorViewModel {
 
 	public CrearIndicadorViewModel() {
 		this.indicadores = new RepositorioIndicadoresDB().getElementos();
-		this.cuentas = new RepositorioCuentasDB().getElementos().stream().map(cuenta->cuenta.getNombre()).collect(Collectors.toList());
+		this.cuentas = new RepositorioCuentasDB().getElementos();
 	}
 
 	public void crearIndicador() {

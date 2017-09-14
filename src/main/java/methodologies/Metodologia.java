@@ -23,8 +23,10 @@ public class Metodologia {
 	public Long id;
 	private String nombre;
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "criteriosTaxativos_id")
 	private List<CriterioTaxativo> criteriosTaxativos;
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "criteriosComparativos_id")
 	private List<CriterioComparativoConPeso> criteriosComparativosPonderacion;
 
 	public Metodologia() {
