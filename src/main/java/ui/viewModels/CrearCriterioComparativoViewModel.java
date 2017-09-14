@@ -14,7 +14,7 @@ import exports.ExportadorDB;
 import indicators.Indicador;
 import model.Exception;
 import repositories.repoArchivos.RepositorioCriterios;
-import repositories.repoArchivos.RepositorioIndicadores;
+import repositories.reposDB.RepositorioIndicadoresDB;
 import states.EstadoCrearComparativos;
 
 @Observable
@@ -28,7 +28,7 @@ public class CrearCriterioComparativoViewModel {
 	private EstadoCrearComparativos estado;
 
 	public CrearCriterioComparativoViewModel() {
-		this.indicadores = new LinkedList<>(RepositorioIndicadores.getInstance().getElementos());
+		this.indicadores = new LinkedList<>(new RepositorioIndicadoresDB().getElementos());
 		this.estado = new EstadoCrearComparativos();
 	}
 

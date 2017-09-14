@@ -18,7 +18,7 @@ import exports.ExportadorDB;
 import indicators.Indicador;
 import model.Exception;
 import repositories.repoArchivos.RepositorioCriterios;
-import repositories.repoArchivos.RepositorioIndicadores;
+import repositories.reposDB.RepositorioIndicadoresDB;
 import states.EstadoCrearTaxativos;
 
 @Observable
@@ -34,7 +34,7 @@ public class CrearCriterioTaxativoViewModel {
 	private EstadoCrearTaxativos estado;
 
 	public CrearCriterioTaxativoViewModel() {
-		this.indicadores = new LinkedList<>(RepositorioIndicadores.getInstance().getElementos());
+		this.indicadores = new LinkedList<>(new RepositorioIndicadoresDB().getElementos());
 		this.estado = new EstadoCrearTaxativos();
 	}
 

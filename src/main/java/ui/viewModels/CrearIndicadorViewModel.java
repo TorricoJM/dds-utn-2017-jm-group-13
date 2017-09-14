@@ -3,14 +3,14 @@ package ui.viewModels;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import org.uqbar.commons.utils.Observable;
 
 import indicators.DataIndicador;
 import indicators.Indicador;
 import model.Exception;
-import repositories.repoArchivos.RepositorioCuentas;
-import repositories.repoArchivos.RepositorioIndicadores;
+import repositories.reposDB.RepositorioCuentasDB;
 import repositories.reposDB.RepositorioIndicadoresDB;
 
 @Observable
@@ -25,15 +25,15 @@ public class CrearIndicadorViewModel {
 	private String nombreIndicador;
 
 	public CrearIndicadorViewModel() {
-		this.indicadores = RepositorioIndicadores.getInstance().getElementos();
-		this.cuentas = RepositorioCuentas.getInstance().getElementos();
+		this.indicadores = new RepositorioIndicadoresDB().getElementos();
+		this.cuentas = new RepositorioCuentasDB().getElementos().stream().map(cuenta->cuenta.getNombre()).collect(Collectors.toList());
 	}
 
 	public void crearIndicador() {
 		if (nombreIndicador == null || operacion == "") {
 			throw new Exception("Nombre o indicador vacio");
 		} else if (!this.tieneNombreValido(nombreIndicador)
-				|| RepositorioIndicadores.getInstance().tieneIndicador(nombreIndicador))
+				|| new RepositorioIndicadoresDB().tieneIndicador(nombreIndicador))
 			throw new Exception("Nombre repetido o no válido");
 		else {
 			DataIndicador nuevoIndicador = new DataIndicador(nombreIndicador, operacion);

@@ -12,8 +12,8 @@ import indicators.Indicador;
 import model.Empresa;
 import model.PeriodoFiscal;
 import model.parser.ErrorEvaluacionException;
-import repositories.repoArchivos.RepositorioEmpresas;
-import repositories.repoArchivos.RepositorioIndicadores;
+import repositories.reposDB.RepositorioEmpresasDB;
+import repositories.reposDB.RepositorioIndicadoresDB;
 
 @Observable
 public class ConsultarIndicadoresViewModel {
@@ -24,8 +24,8 @@ public class ConsultarIndicadoresViewModel {
 	private List<String> resultados;
 
 	public ConsultarIndicadoresViewModel() {
-		this.empresas = RepositorioEmpresas.getInstance().getElementos();
-		this.indicadores = RepositorioIndicadores.getInstance().getElementos();
+		this.empresas = new RepositorioEmpresasDB().getElementos();
+		this.indicadores = new RepositorioIndicadoresDB().getElementos();
 	}
 
 	public List<Empresa> getEmpresas() {

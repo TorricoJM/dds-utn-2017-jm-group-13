@@ -2,29 +2,26 @@ package model.parser;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import adapters.AdapterCuentasToJSON;
-import adapters.AdapterIndicadoresToJSON;
-import imports.ImportadorArchivos;
-import imports.ImportadorDeEmpresasCSV;
+import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
+import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
 import indicators.DataIndicador;
-import indicators.Indicador;
 import model.parser.objetosParser.*;
 import repositories.repoArchivos.RepositorioIndicadores;
 
-public class ParserTestErrores{
+public class ParserTestErrores extends AbstractPersistenceTest{
 	DataIndicador indicadorSinNombre;
 	DataIndicador indicadorSinOperacion;
 	DataIndicador indicadorA;
-	Indicador indicadorB;
-	Indicador indicadorC;
+	DataIndicador indicadorB;
+	DataIndicador indicadorC;
 	public double resultado;
 	public String resultadoString;
 	List<String> listaCuentas;
-	public ImportadorDeEmpresasCSV importadorCSV;
 	ExpresionLexer lexer;
 	
 	@Before
@@ -35,10 +32,6 @@ public class ParserTestErrores{
 		indicadorSinNombre = new DataIndicador(null, "ebitda - 5");
 		indicadorSinOperacion = new DataIndicador("indicadorFeo", null);
 		
-		importadorCSV = new ImportadorDeEmpresasCSV("empresas.csv");
-		importadorCSV.importar();
-		new ImportadorArchivos(new AdapterCuentasToJSON(), "./cuentas.json").importar();
-		new ImportadorArchivos(new AdapterIndicadoresToJSON(), "./indicadores.json").importar();
 		lexer = new ExpresionLexer();
 	}
 	@Test(expected=IdentificadorInvalidoException.class)
@@ -57,7 +50,6 @@ public class ParserTestErrores{
 	
 	@Test(expected=ErrorEvaluacionException.class)
 	public void evaluarEnEmpresaSinCuentaLanzaException(){
-		RepositorioIndicadores.getInstance().agregar(indicadorA);
 		indicadorA.evaluateEn(null, "2016");
 	}
 	@Test(expected=ErrorEvaluacionException.class)
@@ -76,19 +68,21 @@ public class ParserTestErrores{
 		indicadorA.evaluateEn("coca cola", "2015");
 	}
 	@Test(expected=ErrorEvaluacionException.class)
-	public void identificadorSinNombreLanzaException(){
-		RepositorioIndicadores.getInstance().agregar(indicadorSinNombre);
+	public void indicadorSinNombreLanzaException(){
 		indicadorSinNombre.evaluateEn("coca cola", "2017");
 	}
 	@Test(expected=IdentificadorInvalidoException.class)
-	public void identificadorSinOperacionLanzaException(){
-		RepositorioIndicadores.getInstance().agregar(indicadorSinOperacion);
+	public void indicadorSinOperacionLanzaException(){
 		indicadorSinOperacion.evaluateEn("coca cola", "2017");
 	}
 	
 	@After
 	public void tearDown(){
 		RepositorioIndicadores.deleteInstance();
+	}
+	@Override
+	public EntityManager entityManager() {
+		return PerThreadEntityManagers.getEntityManager();
 	}
 	
 }

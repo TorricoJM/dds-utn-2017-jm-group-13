@@ -28,7 +28,7 @@ public class RepositorioIndicadoresDB extends RepositorioDB<DataIndicador>{
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<DataIndicador> getElementos(){
+	public List<Indicador> getElementos(){
 		return this.entityManager.createQuery("from Indicador").getResultList();
 	}
 }

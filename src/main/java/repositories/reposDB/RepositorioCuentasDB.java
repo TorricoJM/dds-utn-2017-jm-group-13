@@ -14,7 +14,7 @@ public class RepositorioCuentasDB extends RepositorioDB<Cuenta>{
 		Cuenta cuenta = this.entityManager.createQuery(query, Cuenta.class)
 				.setParameter("name", nombre).getResultList().get(0);
 		return cuenta.getNombre()!=null;
-		} catch (NoResultException e) {
+		} catch (IndexOutOfBoundsException e) {
 			return false;
 		}
 	}
