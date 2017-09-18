@@ -4,13 +4,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.javatuples.Pair;
 import org.uqbar.commons.model.ObservableUtils;
 import org.uqbar.commons.utils.Observable;
 
-import criterios.Criterio;
-import criterios.CriterioComparativo;
-import criterios.CriterioTaxativo;
+import criterios.*;
 import exports.ExportadorDB;
 import methodologies.Metodologia;
 import methodologies.MetodologiesBuilder;
@@ -25,7 +22,7 @@ public class CrearMetodologiaViewModel {
 	private List<Double> ponderaciones = new LinkedList<>();
 	private Criterio criterioSeleccionado;
 	private String nombre;
-	private List<Pair<CriterioComparativo, Double>> criteriosComparativosElegidos = new LinkedList<>();
+	private List<ParComparativoPeso> criteriosComparativosElegidos = new LinkedList<>();
 	private List<CriterioTaxativo> criteriosTaxativosElegidos = new LinkedList<>();
 	private Double ponderacionSeleccionada;
 	private Boolean enableAgregate = false;
@@ -50,12 +47,11 @@ public class CrearMetodologiaViewModel {
 	}
 
 	public void crearMetodologia() {
-		
+
 		Metodologia nuevaMetodologia = new MetodologiesBuilder().setNombre(nombre)
 				.setCriterios(criteriosComparativosElegidos, criteriosTaxativosElegidos).build();
-		
+
 		RepositorioMetodologias.getInstance().agregar(nuevaMetodologia);
-		//new ExportadorArchivos(new AdapterMetodologiasToJSON(), "./metodologias.json").exportar();
 
 		new ExportadorDB<>(RepositorioMetodologias.getInstance()).exportar();
 	}
@@ -127,7 +123,7 @@ public class CrearMetodologiaViewModel {
 	private void controlarValidezCriterioComparativo() {
 		if (ponderacionSeleccionada != null)
 			criteriosComparativosElegidos
-					.add(Pair.with((CriterioComparativo) criterioSeleccionado, ponderacionSeleccionada));
+					.add(new ParComparativoPeso((CriterioComparativo) criterioSeleccionado, ponderacionSeleccionada));
 	}
 
 	public Boolean getEnableAgregate() {
@@ -147,12 +143,7 @@ public class CrearMetodologiaViewModel {
 	}
 
 	public List<CriterioComparativo> getCriteriosComparativosElegidos() {
-		return criteriosComparativosElegidos.stream().map(tupla -> tupla.getValue0()).collect(Collectors.toList());
-	}
-
-	public void setCriteriosComparativosElegidos(
-			List<Pair<CriterioComparativo, Double>> criteriosComparativosElegidos) {
-		this.criteriosComparativosElegidos = criteriosComparativosElegidos;
+		return criteriosComparativosElegidos.stream().map(tupla -> tupla.getCriterio()).collect(Collectors.toList());
 	}
 
 	public List<CriterioTaxativo> getCriteriosTaxativosElegidos() {

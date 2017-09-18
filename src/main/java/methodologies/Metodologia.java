@@ -6,8 +6,7 @@ import java.util.stream.Collectors;
 
 import javax.persistence.*;
 
-import criterios.CriterioComparativo;
-import criterios.CriterioComparativoConPeso;
+import criterios.ParComparativoPeso;
 import criterios.CriterioTaxativo;
 import model.Empresa;
 
@@ -19,7 +18,7 @@ import org.uqbar.commons.utils.Observable;
 public class Metodologia {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue
 	public Long id;
 	private String nombre;
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
@@ -27,13 +26,13 @@ public class Metodologia {
 	private List<CriterioTaxativo> criteriosTaxativos;
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "criteriosComparativos_id")
-	private List<CriterioComparativoConPeso> criteriosComparativosPonderacion;
+	private List<ParComparativoPeso> criteriosComparativosPonderacion;
 
 	public Metodologia() {
 	}
 	
 	public Metodologia(String nombre, List<CriterioTaxativo> criteriosTaxativos,
-			List<Pair<CriterioComparativo, Double>> criteriosComparativos) {
+			List<ParComparativoPeso> criteriosComparativos) {
 		this.setNombre(nombre);
 		this.setCriteriosTaxativos(criteriosTaxativos);
 		this.setCriteriosComparativosPonderacion(criteriosComparativos);
@@ -80,9 +79,9 @@ public class Metodologia {
 	}
 
 	private double puntajeParcialDe(Empresa empresa, List<Empresa> empresas, List<String> periodos,
-			Pair<CriterioComparativo, Double> criterio) {
+			ParComparativoPeso criterio) {
 
-		return criterio.getValue0().posicionLuegoDeAplicarDe(empresa, empresas, periodos) * criterio.getValue1();
+		return criterio.getCriterio().posicionLuegoDeAplicarDe(empresa, empresas, periodos) * criterio.getPeso();
 	}
 
 	public String getNombre() {
@@ -93,14 +92,8 @@ public class Metodologia {
 		this.nombre = nombre;
 	}
 
-	public List<Pair<CriterioComparativo, Double>> getCriteriosComparativosPonderacion() {
-		return criteriosComparativosPonderacion.stream()
-				.map(criterioConPeso -> this.crearTuplaEnBaseA(criterioConPeso))
-				.collect(Collectors.toList());
-	}
-	
-	private Pair<CriterioComparativo, Double> crearTuplaEnBaseA(CriterioComparativoConPeso criterio) {
-		return  Pair.with(criterio.getCriterio(), criterio.getPeso());
+	public List<ParComparativoPeso> getCriteriosComparativosPonderacion() {
+		return this.criteriosComparativosPonderacion;
 	}
 
 	public List<CriterioTaxativo> getCriteriosTaxativos() {
@@ -111,19 +104,8 @@ public class Metodologia {
 		this.criteriosTaxativos = criteriosTaxativos;
 	}
 
-	public void setCriteriosComparativosPonderacion(List<Pair<CriterioComparativo, Double>> tuplas) {
+	public void setCriteriosComparativosPonderacion(List<ParComparativoPeso> tuplas) {
 		if (tuplas != null)
-			this.criteriosComparativosPonderacion = new LinkedList<>(this.transformarTuplasEnCriterios(tuplas));
+			this.criteriosComparativosPonderacion = new LinkedList<>(tuplas);
 	}
-
-	private List<CriterioComparativoConPeso> transformarTuplasEnCriterios(
-			List<Pair<CriterioComparativo, Double>> tuplas) {
-		return tuplas.stream().map(tupla -> this.crearCriterioEnBaseA(tupla))
-				.collect(Collectors.toList());
-	}
-	
-	private CriterioComparativoConPeso crearCriterioEnBaseA(Pair<CriterioComparativo, Double> tupla) {
-		return new CriterioComparativoConPeso(tupla.getValue0(), tupla.getValue1());
-	}
-
 }

@@ -6,17 +6,17 @@ import org.uqbar.commons.utils.Observable;
 
 @Entity
 @Observable
-public class CriterioComparativoConPeso {
+public class ParComparativoPeso {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue
 	private Long id;
 	
 	@OneToOne
 	private CriterioComparativo criterio;
 	private Double peso;
 	
-	public CriterioComparativoConPeso(CriterioComparativo unCriterio, Double unPeso) {
+	public ParComparativoPeso(CriterioComparativo unCriterio, Double unPeso) {
 		this.criterio = unCriterio;
 		this.peso = unPeso;
 	}
