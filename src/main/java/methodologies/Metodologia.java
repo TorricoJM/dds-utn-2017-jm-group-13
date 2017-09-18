@@ -21,11 +21,9 @@ public class Metodologia {
 	@GeneratedValue
 	public Long id;
 	private String nombre;
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-	@JoinColumn(name = "criteriosTaxativos_id")
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
 	private List<CriterioTaxativo> criteriosTaxativos;
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-	@JoinColumn(name = "criteriosComparativos_id")
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
 	private List<ParComparativoPeso> criteriosComparativosPonderacion;
 
 	public Metodologia() {

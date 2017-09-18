@@ -13,7 +13,7 @@
 		<class> model.PeriodoFiscal </class>
 		<class> indicators.DataIndicador </class>
 		<class> criterios.CriterioTaxativo </class>
-		<class> criterios.CriterioComparativoConPeso </class>
+		<class> criterios.ParComparativoPeso </class>
 		<class> indicators.Indicador </class>
 		<class> criterios.CriterioComparativo </class>
 		<class> criterios.modificador.Modificador </class>
