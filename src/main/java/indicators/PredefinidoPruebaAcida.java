@@ -1,22 +1,21 @@
 package indicators;
 
+import javax.persistence.Entity;
+
 import model.parser.ErrorEvaluacionException;
 import repositories.repoArchivos.RepositorioEmpresas;
 
+@Entity
 public class PredefinidoPruebaAcida extends Indicador{
 
-	private static PredefinidoPruebaAcida instance;
+	private String nombre = "Prueba Acida";
 	
-	public static PredefinidoPruebaAcida getInstance() {
-		if (instance == null) {
-			instance = new PredefinidoPruebaAcida();
-		}
-		return instance;
+	public PredefinidoPruebaAcida() {
 	}
 	
 	@Override
 	public String getNombre() {
-		return "Prueba Acida";
+		return nombre;
 	}
 
 	@Override

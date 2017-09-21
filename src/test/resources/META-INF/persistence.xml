@@ -18,6 +18,7 @@
 		<class> indicators.PredefinidoROA </class>
 		<class> indicators.PredefinidoROE </class>
 		<class> indicators.PredefinidoROI </class>
+		<class> indicators.PredefinidoPruebaAcida </class>
 		<class> criterios.CriterioComparativo </class>
 		<class> criterios.modificador.Modificador </class>
 		<class> methodologies.Metodologia </class>

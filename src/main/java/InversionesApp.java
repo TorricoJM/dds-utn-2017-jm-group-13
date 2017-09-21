@@ -6,6 +6,7 @@ import org.uqbar.arena.Application;
 import org.uqbar.arena.windows.Window;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
+import indicators.PredefinidoPruebaAcida;
 import indicators.PredefinidoROA;
 import indicators.PredefinidoROE;
 import indicators.PredefinidoROI;
@@ -35,6 +36,8 @@ public class InversionesApp extends Application{
 			entityManager.persist(new PredefinidoROE());
 		if(entityManager.createQuery("from PredefinidoROI where nombre = 'ROI'").getResultList().isEmpty())
 			entityManager.persist(new PredefinidoROI());
+		if(entityManager.createQuery("from PredefinidoPruebaAcida where nombre = 'Prueba Acida'").getResultList().isEmpty())
+			entityManager.persist(new PredefinidoPruebaAcida());
 		
 		tx.commit();
 	}

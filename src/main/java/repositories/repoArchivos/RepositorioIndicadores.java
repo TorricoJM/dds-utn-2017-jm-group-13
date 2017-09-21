@@ -16,7 +16,7 @@ public class RepositorioIndicadores extends RepoArchivos<Indicador> {
 	public static RepositorioIndicadores getInstance() {
 		if (instance == null) {
 			instance = new RepositorioIndicadores();
-			instance.agregar(PredefinidoPruebaAcida.getInstance());
+			instance.agregar(new PredefinidoPruebaAcida());
 			instance.agregar(new PredefinidoROA());
 			instance.agregar(new PredefinidoROE());
 			instance.agregar(new PredefinidoROI());
@@ -32,7 +32,7 @@ public class RepositorioIndicadores extends RepoArchivos<Indicador> {
 	public List<Indicador> getIndicatorsForExport() {
 		List<Indicador> indicatorsForExport = new LinkedList<>(this.getElementos());
 		
-		indicatorsForExport.remove(indicatorsForExport.indexOf(PredefinidoPruebaAcida.getInstance()));
+		indicatorsForExport.remove(indicatorsForExport.indexOf(new PredefinidoPruebaAcida()));
 		indicatorsForExport.remove(indicatorsForExport.indexOf(new PredefinidoROE()));
 		indicatorsForExport.remove(indicatorsForExport.indexOf(new PredefinidoROI()));
 		
