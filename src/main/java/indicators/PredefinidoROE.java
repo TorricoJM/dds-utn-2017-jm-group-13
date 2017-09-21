@@ -1,25 +1,24 @@
 package indicators;
 
+import javax.persistence.Entity;
+
 import org.uqbar.commons.utils.Observable;
 
 import model.parser.ErrorEvaluacionException;
 import repositories.repoArchivos.RepositorioEmpresas;
 
 @Observable
+@Entity
 public class PredefinidoROE extends Indicador {
 
-	private static PredefinidoROE instance;
+	private String nombre = "ROE";
 	
-	public static PredefinidoROE getInstance() {
-		if (instance == null) {
-			instance = new PredefinidoROE();
-		}
-		return instance;
+	public PredefinidoROE() {
 	}
 	
 	@Override
 	public String getNombre() {
-		return "ROE";
+		return nombre;
 	}
 
 	@Override

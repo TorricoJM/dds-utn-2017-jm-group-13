@@ -38,12 +38,12 @@ public class MetodologiesBuilder {
 		List<CriterioTaxativo> criteriosTaxativos = new LinkedList<>();
 
 		criteriosTaxativos.add(new CriterioTaxativo("Margenes consistentemente crecientes", OperadorComparacion.MAYOR,
-				PredefinidoROA.getInstance(), new Normal(), 1));
+				new PredefinidoROA(), new Normal(), 1));
 		criteriosComparativos.add(new ParComparativoPeso(
-				new CriterioComparativo("Maximizar ROE", OperadorComparacion.MAYOR, PredefinidoROA.getInstance()),
+				new CriterioComparativo("Maximizar ROE", OperadorComparacion.MAYOR, new PredefinidoROA()),
 				1.0));
 		criteriosComparativos.add(new ParComparativoPeso(new CriterioComparativo("Minimizar el nivel de deuda",
-				OperadorComparacion.MENOR, PredefinidoROA.getInstance()), 1.0));
+				OperadorComparacion.MENOR, new PredefinidoROA()), 1.0));
 
 		this.metodologia.setCriteriosComparativosPonderacion(criteriosComparativos);
 		this.metodologia.setCriteriosTaxativos(criteriosTaxativos);

@@ -28,9 +28,9 @@ public class LectorIndicadoresTest {
 	public void inicializar() {
 		listaIndicadores = new LinkedList<>();
 		listaIndicadores.add(PredefinidoPruebaAcida.getInstance());
-		listaIndicadores.add(PredefinidoROA.getInstance());
-		listaIndicadores.add(PredefinidoROE.getInstance());
-		listaIndicadores.add(PredefinidoROI.getInstance());
+		listaIndicadores.add(new PredefinidoROA());
+		listaIndicadores.add(new PredefinidoROE());
+		listaIndicadores.add(new PredefinidoROI());
 	}
 
 	@Test

@@ -1,22 +1,21 @@
 package indicators;
 
+import javax.persistence.Entity;
+
 import model.parser.ErrorEvaluacionException;
 import repositories.repoArchivos.RepositorioEmpresas;
 
+@Entity
 public class PredefinidoROA extends Indicador {
 
-	private static PredefinidoROA instance;
+	private String nombre = "ROA";
 	
-	public static PredefinidoROA getInstance() {
-		if (instance == null) {
-			instance = new PredefinidoROA();
-		}
-		return instance;
+	public PredefinidoROA() {
 	}
 	
 	@Override
 	public String getNombre() {
-		return "ROA";
+		return this.nombre;
 	}
 
 	@Override
