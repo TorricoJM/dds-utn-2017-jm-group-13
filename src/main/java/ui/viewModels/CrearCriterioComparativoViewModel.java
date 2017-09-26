@@ -7,13 +7,10 @@ import java.util.regex.Pattern;
 
 import org.uqbar.commons.utils.Observable;
 
-import criterios.Criterio;
 import criterios.CriterioComparativo;
 import criterios.OperadorComparacion;
-import exports.ExportadorDB;
 import indicators.Indicador;
 import model.Exception;
-import repositories.repoArchivos.RepositorioCriterios;
 import repositories.reposDB.RepositorioIndicadoresDB;
 import states.EstadoCrearComparativos;
 
@@ -33,14 +30,13 @@ public class CrearCriterioComparativoViewModel {
 	}
 
 	public void crearCriterio() {
-		if (!this.tieneNombreValido(nombreCriterio) || RepositorioCriterios.getInstance().tieneCriterio(nombreCriterio))
+		if (!this.tieneNombreValido(nombreCriterio)) //|| RepositorioCriterios.getInstance().tieneCriterio(nombreCriterio))
 			throw new Exception("El nombre del criterio es invalido, o ya existe");
 		else {
-			Criterio nuevoCriterio = new CriterioComparativo(nombreCriterio, operador, indicadorSeleccionado);
-			RepositorioCriterios.getInstance().agregar(nuevoCriterio);
+			CriterioComparativo nuevoCriterio = new CriterioComparativo(nombreCriterio, operador, indicadorSeleccionado);
+			//RepositorioCriteriosComparativos.getInstance().agregar(nuevoCriterio);
 			//new ExportadorArchivos(new AdapterCriteriosToJSON(), "./criterios.json");
-
-			new ExportadorDB<>(RepositorioCriterios.getInstance()).exportar();
+			//new ExportadorDB<>(RepositorioCriteriosComparativos.getInstance()).exportar();
 		}
 	}
 

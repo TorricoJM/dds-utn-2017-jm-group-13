@@ -9,7 +9,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.After;
 
-import criterios.Criterio;
 import criterios.CriterioComparativo;
 import criterios.OperadorComparacion;
 import imports.ImportadorDeEmpresasCSV;
@@ -21,8 +20,8 @@ import repositories.repoArchivos.RepositorioIndicadores;
 public class CriterioComparativoTest {
 
 	public Indicador indicador1 = new DataIndicador("i1", "ebitda+1");
-	public Criterio comparativo = new CriterioComparativo("comp1", OperadorComparacion.MAYOR, indicador1);
-	public Criterio comparativo2 = new CriterioComparativo("comp2", OperadorComparacion.MENOR, indicador1);
+	public CriterioComparativo comparativo = new CriterioComparativo("comp1", OperadorComparacion.MAYOR, indicador1);
+	public CriterioComparativo comparativo2 = new CriterioComparativo("comp2", OperadorComparacion.MENOR, indicador1);
 	public List<String> periodos = new LinkedList<>();
 
 	@Before
@@ -32,12 +31,6 @@ public class CriterioComparativoTest {
 		periodos.add("2015");
 		periodos.add("2016");
 		periodos.add("2017");
-	}
-
-	@Test
-	public void verificarUnaEmpresaSiempreRetornaFalso() {
-		assertTrue(!comparativo
-				.verificarParaUna(RepositorioEmpresas.getInstance().obtenerEmpresaDesdeNombre("empresa1"), periodos));
 	}
 
 	@Test

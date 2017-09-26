@@ -7,17 +7,14 @@ import java.util.regex.Pattern;
 
 import org.uqbar.commons.utils.Observable;
 
-import criterios.Criterio;
 import criterios.CriterioTaxativo;
 import criterios.OperadorComparacion;
 import criterios.modificador.Modificador;
 import criterios.modificador.Normal;
 import criterios.modificador.Promedio;
 import criterios.modificador.Sumatoria;
-import exports.ExportadorDB;
 import indicators.Indicador;
 import model.Exception;
-import repositories.repoArchivos.RepositorioCriterios;
 import repositories.reposDB.RepositorioIndicadoresDB;
 import states.EstadoCrearTaxativos;
 
@@ -41,18 +38,16 @@ public class CrearCriterioTaxativoViewModel {
 	public void crearCriterio() {
 		this.validarCreacionDeCriterio();
 
-		Criterio nuevoCriterio = new CriterioTaxativo(nombreCriterio, operador, indicadorSeleccionado, modificador,
+		CriterioTaxativo nuevoCriterio = new CriterioTaxativo(nombreCriterio, operador, indicadorSeleccionado, modificador,
 				Double.valueOf(constante));
-		RepositorioCriterios.getInstance().agregar(nuevoCriterio);
-
+		//RepositorioCriteriosTaxativos.getInstance().agregar(nuevoCriterio);
 		//new ExportadorArchivos(new AdapterCriteriosToJSON(), "./criterios.json").exportar();
-		
-		new ExportadorDB<>(RepositorioCriterios.getInstance()).exportar();
+		//new ExportadorDB<>(RepositorioCriterios.getInstance()).exportar();
 
 	}
 
 	private void validarCreacionDeCriterio() {
-		if (!this.tieneNombreValido(nombreCriterio) || RepositorioCriterios.getInstance().tieneCriterio(nombreCriterio))
+		if (!this.tieneNombreValido(nombreCriterio)) //|| RepositorioCriterios.getInstance().tieneCriterio(nombreCriterio))
 			throw new Exception("El nombre del criterio ya existe, o es invalido");
 	}
 

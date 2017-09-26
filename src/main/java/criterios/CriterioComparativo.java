@@ -22,35 +22,32 @@ import model.Empresa;
 
 @Entity
 @Observable
-public class CriterioComparativo implements Criterio {
+public class CriterioComparativo {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	public Long id;
-	
+
 	public String nombre;
-	
+
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
 	public Indicador indicador;
-	
+
 	@Enumerated(EnumType.STRING)
 	public OperadorComparacion operador;
-	
+
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
 	public Modificador modificador = new Sumatoria();
-	
-	
 
 	public CriterioComparativo(String nombre, OperadorComparacion operador, Indicador indicador) {
 		this.nombre = nombre;
 		this.operador = operador;
 		this.indicador = indicador;
 	}
-	
-	public CriterioComparativo(){
+
+	public CriterioComparativo() {
 	}
 
-	@Override
 	public Double posicionLuegoDeAplicarDe(Empresa empresa, List<Empresa> empresas, List<String> periodos) {
 		return new Double(empresas.stream()
 				.sorted((e1, e2) -> Boolean.compare(
@@ -83,10 +80,6 @@ public class CriterioComparativo implements Criterio {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
-	}
-
-	public Boolean verificarParaUna(Empresa empresa, List<String> periodos) {
-		return false;
 	}
 
 }

@@ -20,28 +20,28 @@ import model.Empresa;
 
 @Entity
 @Observable
-public class CriterioTaxativo implements Criterio {
+public class CriterioTaxativo {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	public Long id;
-	
+
 	public String nombre;
-		
+
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
 	public Indicador indicador;
-	
+
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
 	public Modificador modificador;
-	
+
 	@Enumerated(EnumType.STRING)
 	public OperadorComparacion operador;
 
 	public double valor;
 
-	public CriterioTaxativo(){
+	public CriterioTaxativo() {
 	}
-	
+
 	public CriterioTaxativo(String nombre, OperadorComparacion operador, Indicador indicador, Modificador modificador,
 			double valor) {
 		this.nombre = nombre;
@@ -51,7 +51,6 @@ public class CriterioTaxativo implements Criterio {
 		this.valor = valor;
 	}
 
-	@Override
 	public Boolean verificarParaUna(Empresa empresa, List<String> periodos) {
 		return modificador.modificar(empresa, indicador, periodos).stream()
 				.allMatch((valorObtenido) -> operador.aplicar(valorObtenido, valor));
@@ -64,7 +63,7 @@ public class CriterioTaxativo implements Criterio {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	
+
 	public Indicador getIndicador() {
 		return indicador;
 	}
@@ -95,10 +94,6 @@ public class CriterioTaxativo implements Criterio {
 
 	public void setValor(double valor) {
 		this.valor = valor;
-	}
-
-	public Double posicionLuegoDeAplicarDe(Empresa empresa, List<Empresa> empresas, List<String> periodos) {
-		return null;
 	}
 
 }
