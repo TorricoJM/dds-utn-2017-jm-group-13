@@ -19,7 +19,7 @@ public class Metodologia {
 	
 	@Id
 	@GeneratedValue
-	public Long id;
+	private Long id;
 	private String nombre;
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
 	private List<CriterioTaxativo> criteriosTaxativos;

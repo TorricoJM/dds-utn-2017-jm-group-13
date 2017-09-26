@@ -5,7 +5,7 @@ import java.util.List;
 import org.uqbar.commons.utils.Observable;
 import model.Empresa;
 import model.PeriodoFiscal;
-import repositories.repoArchivos.RepositorioEmpresas;
+import repositories.RepositorioEmpresas;
 
 @Observable
 public class ConsultarCuentasViewModel {

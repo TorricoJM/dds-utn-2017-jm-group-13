@@ -1,11 +1,10 @@
-package repositories.repoArchivos;
+package repositories;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import methodologies.Metodologia;
 
-public class RepositorioMetodologias extends RepoArchivos<Metodologia>{
+public class RepositorioMetodologias extends Repositorio<Metodologia>{
 
 	private static RepositorioMetodologias instance;
 
@@ -22,9 +21,7 @@ public class RepositorioMetodologias extends RepoArchivos<Metodologia>{
 		instance = null;
 	}
 	
-	public List<Metodologia> getListaMetodologiasForExport() {
-		return this.getElementos().stream().filter(met -> !met.getNombre().equals("Warren Buffet"))
-				.collect(Collectors.toList());
+	public List<Metodologia> getElementos(){
+		return this.entityManager.createQuery("from Metodologia", Metodologia.class).getResultList();
 	}
-
 }

@@ -1,8 +1,7 @@
 package ui.viewModels;
 
 import model.Exception;
-import repositories.repoArchivos.RepositorioIndicadores;
-import repositories.reposDB.RepositorioIndicadoresDB;
+import repositories.RepositorioIndicadores;
 
 import static org.junit.Assert.*;
 
@@ -29,7 +28,7 @@ public class CrearIndicadorViewModelTest extends AbstractPersistenceTest{
 		
 		indicadorViewModel.crearIndicador();
 		
-		Indicador indicador = new RepositorioIndicadoresDB().obtenerIndicadorDesdeNombre("Indicador Nombre Test");
+		Indicador indicador = RepositorioIndicadores.getInstance().obtenerIndicadorDesdeNombre("Indicador Nombre Test");
 		
 		assertTrue(indicador.getOperacion().equals(indicadorViewModel.getOperacion()));
 

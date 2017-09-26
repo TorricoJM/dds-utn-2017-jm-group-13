@@ -10,8 +10,8 @@ import org.uqbar.commons.utils.Observable;
 import methodologies.Metodologia;
 import model.Empresa;
 import model.Exception;
-import repositories.repoArchivos.RepositorioEmpresas;
-import repositories.repoArchivos.RepositorioMetodologias;
+import repositories.RepositorioEmpresas;
+import repositories.RepositorioMetodologias;
 
 @Observable
 public class ConsultarMetodologiasViewModel {

@@ -1,14 +1,10 @@
-package repositories.repoArchivos;
+package repositories;
 
-import java.util.NoSuchElementException;
-
-import exports.ExportadorDB;
-import imports.ImportadorDB;
+import java.util.List;
 import model.Empresa;
 import model.LineaEmpresa;
-import model.parser.ErrorEvaluacionException;
 
-public class RepositorioEmpresas extends RepoArchivos<Empresa> {
+public class RepositorioEmpresas extends Repositorio<Empresa> {
 
 	private static RepositorioEmpresas instance;
 	
@@ -21,8 +17,6 @@ public class RepositorioEmpresas extends RepoArchivos<Empresa> {
 	}
 	
 	private RepositorioEmpresas(){
-		this.setElementos(new ImportadorDB<Empresa>()
-				.importar("from Empresa"));
 	}
 	
 	public static void deleteInstance() {
@@ -45,22 +39,24 @@ public class RepositorioEmpresas extends RepoArchivos<Empresa> {
 	}
 
 	public Empresa obtenerEmpresaDesdeNombre(String nombre) {
-		return this.getElementos().stream().filter(empresa -> empresa.getNombre().equals(nombre))
-				.findFirst().get();
-	}
-
-	public double obtenerValorDeCuentaDeEmpresaEnPeriodo(String cuenta, String empresa,
-			String periodo) {
-		try {
-		return Double.parseDouble(this.obtenerEmpresaDesdeNombre(empresa)
-				.obtenerPeriodoDesdeNombre(periodo).obtenerCuentaDesdeNombre(cuenta)
-				.getValor());
-		} catch (NoSuchElementException e){
-			throw new ErrorEvaluacionException("No se encuentra la cuenta: \""+ cuenta + "\" de la empresa: \"" + empresa + "\" para el periodo: " + periodo);
-		}
+		String query = "Select e from Empresa e where e.nombre = :name";
+		Empresa empresa = this.entityManager
+				.createQuery(query, Empresa.class)
+				.setParameter("name", nombre)
+				.getSingleResult();
+		return empresa;
 	}
 	
-	public void persistirEmpresas() {
-		new ExportadorDB<>(this).exportar();
+	public Double obtenerValorDeCuentaDeEmpresaEnPeriodo(String cuenta
+			,String empresa,String periodo) {
+		
+		String query = "Select c.valor from Cuenta c join PeriodoFiscal p on (c.periodofiscal_id = p.id) join Empresa e on (e.id = p.empresa_id) where c.nombre= '"+ cuenta + "' and p.periodo='" + periodo + "' and e.nombre='" + empresa +"'";
+		return Double.parseDouble(this.entityManager.createNativeQuery(query).getSingleResult().toString());
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Empresa> getElementos(){
+		return this.entityManager.createQuery("from Empresa").getResultList();
+	}
+	
 }

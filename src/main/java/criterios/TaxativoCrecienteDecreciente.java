@@ -14,7 +14,7 @@ public class TaxativoCrecienteDecreciente extends CriterioTaxativo{
 	}
 	
 	public Boolean verificarParaUna(Empresa empresa, List<String> periodos) {
-		return this.operador.verificar(modificador.modificar(empresa, this.indicador, periodos));
+		return this.getOperador().verificar(getModificador().modificar(empresa, getIndicador(), periodos));
 	}
 	
 }

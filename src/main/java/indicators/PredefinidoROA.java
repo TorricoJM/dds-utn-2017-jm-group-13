@@ -3,7 +3,7 @@ package indicators;
 import javax.persistence.Entity;
 
 import model.parser.ErrorEvaluacionException;
-import repositories.repoArchivos.RepositorioEmpresas;
+import repositories.RepositorioEmpresas;
 
 @Entity
 public class PredefinidoROA extends Indicador {

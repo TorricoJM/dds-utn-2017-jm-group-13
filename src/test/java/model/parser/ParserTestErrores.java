@@ -11,7 +11,7 @@ import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
 import indicators.DataIndicador;
 import model.parser.objetosParser.*;
-import repositories.repoArchivos.RepositorioIndicadores;
+import repositories.RepositorioIndicadores;
 
 public class ParserTestErrores extends AbstractPersistenceTest{
 	DataIndicador indicadorSinNombre;

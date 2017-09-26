@@ -9,8 +9,8 @@ import java.util.stream.Collectors;
 
 import indicators.Indicador;
 import model.parser.IdentificadorInvalidoException;
-import repositories.reposDB.RepositorioCuentasDB;
-import repositories.reposDB.RepositorioIndicadoresDB;
+import repositories.RepositorioCuentas;
+import repositories.RepositorioIndicadores;
 
 public class ExpresionLexer{
 	
@@ -53,12 +53,12 @@ public class ExpresionLexer{
 	}
 
 	public ExpresionParser identificar(String id) {
-		RepositorioIndicadoresDB repoIndicadoresDB = new RepositorioIndicadoresDB();
-		if (new RepositorioCuentasDB().tieneCuentaSegunNombre(id)){
+		RepositorioIndicadores repoIndicadores = RepositorioIndicadores.getInstance();
+		if (RepositorioCuentas.getInstance().tieneCuentaSegunNombre(id)){
 			return new CuentaParser(id);
 		}
-		else if (repoIndicadoresDB.tieneIndicador(id)){
-			Indicador indicador = repoIndicadoresDB.obtenerIndicadorDesdeNombre(id);
+		else if (repoIndicadores.tieneIndicador(id)){
+			Indicador indicador = repoIndicadores.obtenerIndicadorDesdeNombre(id);
 			return new IndicadorParser(id, indicador.getOperacion());
 		}
 		else if (this.idMatcheaCon(id, "^(\\d+\\.)?\\d+$")){

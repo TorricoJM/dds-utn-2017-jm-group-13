@@ -1,7 +1,5 @@
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-import javax.persistence.NoResultException;
-
 import org.uqbar.arena.Application;
 import org.uqbar.arena.windows.Window;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;

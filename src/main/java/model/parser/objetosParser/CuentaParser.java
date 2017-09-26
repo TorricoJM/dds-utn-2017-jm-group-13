@@ -1,6 +1,6 @@
 package model.parser.objetosParser;
 
-import repositories.repoArchivos.RepositorioEmpresas;
+import repositories.RepositorioEmpresas;
 
 public class CuentaParser implements ExpresionParser {
 	

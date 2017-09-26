@@ -8,12 +8,11 @@ import org.uqbar.commons.model.ObservableUtils;
 import org.uqbar.commons.utils.Observable;
 
 import criterios.*;
-import exports.ExportadorDB;
 import methodologies.Metodologia;
 import methodologies.MetodologiesBuilder;
 import model.Exception;
-import repositories.repoArchivos.RepositorioCriterios;
-import repositories.repoArchivos.RepositorioMetodologias;
+import repositories.RepositorioCriterios;
+import repositories.RepositorioMetodologias;
 
 @Observable
 public class CrearMetodologiaViewModel {
@@ -53,7 +52,6 @@ public class CrearMetodologiaViewModel {
 
 		RepositorioMetodologias.getInstance().agregar(nuevaMetodologia);
 
-		new ExportadorDB<>(RepositorioMetodologias.getInstance()).exportar();
 	}
 
 	public List<Criterio> getCriterios() {

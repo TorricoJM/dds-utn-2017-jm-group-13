@@ -19,8 +19,8 @@ import imports.ImportadorDeEmpresasCSV;
 import indicators.DataIndicador;
 import indicators.Indicador;
 import methodologies.Metodologia;
-import repositories.repoArchivos.RepositorioEmpresas;
-import repositories.repoArchivos.RepositorioIndicadores;
+import repositories.RepositorioEmpresas;
+import repositories.RepositorioIndicadores;
 
 public class MetodologiaTest {
 	

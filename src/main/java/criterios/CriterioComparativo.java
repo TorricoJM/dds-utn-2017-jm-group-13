@@ -26,18 +26,18 @@ public class CriterioComparativo implements Criterio {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	public Long id;
+	private Long id;
 	
-	public String nombre;
+	private String nombre;
 	
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-	public Indicador indicador;
+	private Indicador indicador;
 	
 	@Enumerated(EnumType.STRING)
-	public OperadorComparacion operador;
+	private OperadorComparacion operador;
 	
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-	public Modificador modificador = new Sumatoria();
+	private Modificador modificador = new Sumatoria();
 	
 	
 

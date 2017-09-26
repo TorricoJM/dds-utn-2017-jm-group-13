@@ -16,6 +16,8 @@ public class ParComparativoPeso {
 	private CriterioComparativo criterio;
 	private Double peso;
 	
+	public ParComparativoPeso() {}
+	
 	public ParComparativoPeso(CriterioComparativo unCriterio, Double unPeso) {
 		this.criterio = unCriterio;
 		this.peso = unPeso;

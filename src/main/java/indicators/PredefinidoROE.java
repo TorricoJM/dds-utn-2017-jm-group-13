@@ -5,7 +5,7 @@ import javax.persistence.Entity;
 import org.uqbar.commons.utils.Observable;
 
 import model.parser.ErrorEvaluacionException;
-import repositories.repoArchivos.RepositorioEmpresas;
+import repositories.RepositorioEmpresas;
 
 @Observable
 @Entity

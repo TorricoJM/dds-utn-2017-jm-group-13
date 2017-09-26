@@ -13,8 +13,8 @@ import indicators.DataIndicador;
 import indicators.Indicador;
 import model.Empresa;
 import model.LineaEmpresa;
-import repositories.reposDB.RepositorioEmpresasDB;
-import repositories.reposDB.RepositorioIndicadoresDB;
+import repositories.RepositorioEmpresas;
+import repositories.RepositorioIndicadores;
 
 public class RepositoriosTest extends AbstractPersistenceTest {
 	
@@ -40,19 +40,19 @@ public class RepositoriosTest extends AbstractPersistenceTest {
 	@Test
 	public void buscarIndicadorPorNombre() {
 		em.persist(indicador);
-		Indicador i1 = new RepositorioIndicadoresDB().obtenerIndicadorDesdeNombre(indicador.getNombre());
+		Indicador i1 = RepositorioIndicadores.getInstance().obtenerIndicadorDesdeNombre(indicador.getNombre());
 		assertTrue(indicador.getNombre().equals(i1.getNombre()));
 	}
 	
 	@Test
 	public void tieneIndicador() {
-		assertTrue(!new RepositorioIndicadoresDB().tieneIndicador(indicador.getNombre()));
+		assertTrue(!RepositorioIndicadores.getInstance().tieneIndicador(indicador.getNombre()));
 	}
 	
 	@Test
 	public void buscarEmpresaPorNombre() {
 		em.persist(empresa1);
-		Empresa empresaTraidaDeLaDB = new RepositorioEmpresasDB()
+		Empresa empresaTraidaDeLaDB = RepositorioEmpresas.getInstance()
 				.obtenerEmpresaDesdeNombre(empresa1.getNombre());
 		assertTrue(empresa1.getNombre().equals(empresaTraidaDeLaDB.getNombre()));
 	}
@@ -60,7 +60,7 @@ public class RepositoriosTest extends AbstractPersistenceTest {
 	@Test
 	public void obtenerValorDeCuentaDeEmpresaEnPeriodo() {
 		em.persist(empresa1);
-		Double resultado = new RepositorioEmpresasDB()
+		Double resultado = RepositorioEmpresas.getInstance()
 				.obtenerValorDeCuentaDeEmpresaEnPeriodo("ebitda", "empresaTest", "2017");
 		
 		assertTrue(resultado.equals(new Double(1025.55)));

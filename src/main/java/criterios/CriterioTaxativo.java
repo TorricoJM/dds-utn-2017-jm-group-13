@@ -24,20 +24,20 @@ public class CriterioTaxativo implements Criterio {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	public Long id;
+	private Long id;
 	
-	public String nombre;
+	private String nombre;
 		
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-	public Indicador indicador;
+	private Indicador indicador;
 	
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-	public Modificador modificador;
+	private Modificador modificador;
 	
 	@Enumerated(EnumType.STRING)
-	public OperadorComparacion operador;
+	private OperadorComparacion operador;
 
-	public double valor;
+	private double valor;
 
 	public CriterioTaxativo(){
 	}

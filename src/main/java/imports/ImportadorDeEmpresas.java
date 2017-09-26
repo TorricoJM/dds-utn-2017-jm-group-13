@@ -1,34 +1,22 @@
 package imports;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import model.Empresa;
 import model.LineaEmpresa;
-import repositories.repoArchivos.RepositorioCuentas;
-import repositories.repoArchivos.RepositorioEmpresas;
+import repositories.RepositorioEmpresas;
 
 public abstract class ImportadorDeEmpresas implements Importador{
 
 	@Override
 	public void importar(){
-		this.importarEmpresas();
-	}
-	
-	protected void importarEmpresas() {
-		this.cargarEnRepositorio(this.obtenerEmpresas());
-		RepositorioCuentas.getInstance().refrescar();//con esto, actualizo el repo de cuentas
+		this.cargarEnRepositorio(this.obtenerEmpresas());;
 	}
 
-	private void cargarEnRepositorio(List<LineaEmpresa> empresas) {
-		empresas.stream().forEach((empresa) -> this.insertarEmpresaEnRepositorioLocal(empresa));
-		RepositorioEmpresas.getInstance().persistirEmpresas();
-	}
-
-	private void insertarEmpresaEnRepositorioLocal(LineaEmpresa lineaEmpresa) {
-		if (RepositorioEmpresas.getInstance().yaEstaCargadaUna(lineaEmpresa)) {
-			this.actualizarValorDe(lineaEmpresa);
-		} else
-			RepositorioEmpresas.getInstance().agregar(this.crearEmpresaEnBaseA(lineaEmpresa));
+	private void cargarEnRepositorio(List<LineaEmpresa> lineasEmpresas) {
+		List<Empresa> empresas = lineasEmpresas.stream().map(lineaEmpresa -> this.crearEmpresaEnBaseA(lineaEmpresa)).collect(Collectors.toList());
+		RepositorioEmpresas.getInstance().agregarMuchos(empresas);
 	}
 
 	private Empresa crearEmpresaEnBaseA(LineaEmpresa lineaEmpresa) {
@@ -36,14 +24,6 @@ public abstract class ImportadorDeEmpresas implements Importador{
 		nuevaEmpresa.agregarPeriodoPara(lineaEmpresa);
 
 		return nuevaEmpresa;
-	}
-
-	private void actualizarValorDe(LineaEmpresa lineaEmpresa) {
-		this.traerEmpresaDelRepositorioDadaPor(lineaEmpresa).cargarOModificarCuentaParaUna(lineaEmpresa);
-	}
-
-	private Empresa traerEmpresaDelRepositorioDadaPor(LineaEmpresa lineaEmpresa) {
-		return RepositorioEmpresas.getInstance().obtenerEmpresaAActualizarPor(lineaEmpresa);
 	}
 
 	protected abstract List<LineaEmpresa> obtenerEmpresas();

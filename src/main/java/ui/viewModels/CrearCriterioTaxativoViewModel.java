@@ -14,11 +14,10 @@ import criterios.modificador.Modificador;
 import criterios.modificador.Normal;
 import criterios.modificador.Promedio;
 import criterios.modificador.Sumatoria;
-import exports.ExportadorDB;
 import indicators.Indicador;
 import model.Exception;
-import repositories.repoArchivos.RepositorioCriterios;
-import repositories.reposDB.RepositorioIndicadoresDB;
+import repositories.RepositorioCriteriosTaxativos;
+import repositories.RepositorioIndicadores;
 import states.EstadoCrearTaxativos;
 
 @Observable
@@ -34,7 +33,7 @@ public class CrearCriterioTaxativoViewModel {
 	private EstadoCrearTaxativos estado;
 
 	public CrearCriterioTaxativoViewModel() {
-		this.indicadores = new LinkedList<>(new RepositorioIndicadoresDB().getElementos());
+		this.indicadores = new LinkedList<>(RepositorioIndicadores.getInstance().getElementos());
 		this.estado = new EstadoCrearTaxativos();
 	}
 
@@ -43,16 +42,13 @@ public class CrearCriterioTaxativoViewModel {
 
 		Criterio nuevoCriterio = new CriterioTaxativo(nombreCriterio, operador, indicadorSeleccionado, modificador,
 				Double.valueOf(constante));
-		RepositorioCriterios.getInstance().agregar(nuevoCriterio);
+		RepositorioCriteriosTaxativos.getInstance().agregar(nuevoCriterio);
 
 		//new ExportadorArchivos(new AdapterCriteriosToJSON(), "./criterios.json").exportar();
-		
-		new ExportadorDB<>(RepositorioCriterios.getInstance()).exportar();
-
 	}
 
 	private void validarCreacionDeCriterio() {
-		if (!this.tieneNombreValido(nombreCriterio) || RepositorioCriterios.getInstance().tieneCriterio(nombreCriterio))
+		if (!this.tieneNombreValido(nombreCriterio) || RepositorioCriteriosTaxativos.getInstance().tieneCriterio(nombreCriterio))
 			throw new Exception("El nombre del criterio ya existe, o es invalido");
 	}
 

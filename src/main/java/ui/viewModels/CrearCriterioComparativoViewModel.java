@@ -10,11 +10,10 @@ import org.uqbar.commons.utils.Observable;
 import criterios.Criterio;
 import criterios.CriterioComparativo;
 import criterios.OperadorComparacion;
-import exports.ExportadorDB;
 import indicators.Indicador;
 import model.Exception;
-import repositories.repoArchivos.RepositorioCriterios;
-import repositories.reposDB.RepositorioIndicadoresDB;
+import repositories.RepositorioCriteriosComparativos;
+import repositories.RepositorioIndicadores;
 import states.EstadoCrearComparativos;
 
 @Observable
@@ -28,19 +27,19 @@ public class CrearCriterioComparativoViewModel {
 	private EstadoCrearComparativos estado;
 
 	public CrearCriterioComparativoViewModel() {
-		this.indicadores = new LinkedList<>(new RepositorioIndicadoresDB().getElementos());
+		this.indicadores = new LinkedList<>(RepositorioIndicadores.getInstance().getElementos());
 		this.estado = new EstadoCrearComparativos();
 	}
 
 	public void crearCriterio() {
-		if (!this.tieneNombreValido(nombreCriterio) || RepositorioCriterios.getInstance().tieneCriterio(nombreCriterio))
+		if (!this.tieneNombreValido(nombreCriterio) || RepositorioCriteriosComparativos.getInstance().tieneCriterio(nombreCriterio) || RepositorioCriteriosTaxativos.getInstance().tieneCriterio(nombreCriterio))
 			throw new Exception("El nombre del criterio es invalido, o ya existe");
 		else {
 			Criterio nuevoCriterio = new CriterioComparativo(nombreCriterio, operador, indicadorSeleccionado);
-			RepositorioCriterios.getInstance().agregar(nuevoCriterio);
+			RepositorioCriteriosComparativos.getInstance().agregar(nuevoCriterio);
 			//new ExportadorArchivos(new AdapterCriteriosToJSON(), "./criterios.json");
 
-			new ExportadorDB<>(RepositorioCriterios.getInstance()).exportar();
+			//TODO criterios distintos en listas distintas,hacer refactor
 		}
 	}
 

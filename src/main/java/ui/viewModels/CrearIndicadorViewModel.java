@@ -7,15 +7,16 @@ import org.uqbar.commons.utils.Observable;
 
 import indicators.DataIndicador;
 import indicators.Indicador;
+import model.Cuenta;
 import model.Exception;
-import repositories.reposDB.RepositorioCuentasDB;
-import repositories.reposDB.RepositorioIndicadoresDB;
+import repositories.RepositorioCuentas;
+import repositories.RepositorioIndicadores;
 
 @Observable
 public class CrearIndicadorViewModel {
 
 	private List<Indicador> indicadores;
-	private List<String> cuentas;
+	private List<Cuenta> cuentas;
 	private Indicador indicadorSeleccionado;
 	private String cuentaSeleccionada;
 	private String operacion = "";
@@ -23,22 +24,22 @@ public class CrearIndicadorViewModel {
 	private String nombreIndicador;
 
 	public CrearIndicadorViewModel() {
-		this.indicadores = new RepositorioIndicadoresDB().getElementos();
-		this.cuentas = new RepositorioCuentasDB().getElementos();
+		this.indicadores = RepositorioIndicadores.getInstance().getElementos();
+		this.cuentas = RepositorioCuentas.getInstance().getElementos();
 	}
 
 	public void crearIndicador() {
 		if (nombreIndicador == null || operacion == "") {
 			throw new Exception("Nombre o indicador vacio");
 		} else if (!this.tieneNombreValido(nombreIndicador)
-				|| new RepositorioIndicadoresDB().tieneIndicador(nombreIndicador))
+				|| RepositorioIndicadores.getInstance().tieneIndicador(nombreIndicador))
 			throw new Exception("Nombre repetido o no válido");
 		else {
 			DataIndicador nuevoIndicador = new DataIndicador(nombreIndicador, operacion);
 			//RepositorioIndicadores.getInstance().agregar(nuevoIndicador);
 			//new ExportadorArchivos(new AdapterIndicadoresToJSON(), "./indicadores.json").exportar();
 			
-			new RepositorioIndicadoresDB().agregar(nuevoIndicador);;
+			RepositorioIndicadores.getInstance().agregar(nuevoIndicador);;
 		}
 	}
 
@@ -101,11 +102,11 @@ public class CrearIndicadorViewModel {
 		this.indicadores = indicadores;
 	}
 
-	public List<String> getCuentas() {
+	public List<Cuenta> getCuentas() {
 		return cuentas;
 	}
 
-	public void setCuentas(List<String> cuentas) {
+	public void setCuentas(List<Cuenta> cuentas) {
 		this.cuentas = cuentas;
 	}
 
