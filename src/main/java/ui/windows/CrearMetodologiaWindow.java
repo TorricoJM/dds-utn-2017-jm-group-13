@@ -13,7 +13,8 @@ import org.uqbar.arena.windows.MessageBox;
 import org.uqbar.arena.windows.SimpleWindow;
 import org.uqbar.arena.windows.WindowOwner;
 
-import criterios.Criterio;
+import criterios.CriterioComparativo;
+import criterios.CriterioTaxativo;
 
 import org.uqbar.arena.windows.MessageBox.Type;
 
@@ -46,10 +47,15 @@ public class CrearMetodologiaWindow extends SimpleWindow<CrearMetodologiaViewMod
 
 		new Label(form).setText("Seleccionar un criterio");
 
-		Selector<Criterio> selectorCriterio = new Selector<Criterio>(form).allowNull(true);
-		selectorCriterio.bindItemsToProperty("criterios").setAdapter(new PropertyAdapter(Criterio.class, "nombre"));
-		selectorCriterio.bindValueToProperty("criterioSeleccionado");
-		selectorCriterio.setWidth(125);
+		Selector<CriterioComparativo> selectorCriterioComp = new Selector<CriterioComparativo>(form).allowNull(true);
+		selectorCriterioComp.bindItemsToProperty("criteriosComp").setAdapter(new PropertyAdapter(CriterioComparativo.class, "nombre"));
+		selectorCriterioComp.bindValueToProperty("criterioSeleccionado");
+		selectorCriterioComp.setWidth(125);
+		
+		Selector<CriterioTaxativo> selectorCriterioTax = new Selector<CriterioTaxativo>(form).allowNull(true);
+		selectorCriterioTax.bindItemsToProperty("criteriosTax").setAdapter(new PropertyAdapter(CriterioTaxativo.class, "nombre"));
+		selectorCriterioTax.bindValueToProperty("criterioSeleccionado");
+		selectorCriterioTax.setWidth(125);
 
 		new Button(form).setCaption("Agregar Criterio").onClick(() -> this.agregarCriterio()).setWidth(150)
 				.bindEnabledToProperty("enableAgregate");
@@ -67,13 +73,13 @@ public class CrearMetodologiaWindow extends SimpleWindow<CrearMetodologiaViewMod
 
 		List<String> criteriosTax = new List<String>(tabPanel);
 		criteriosTax.bindItemsToProperty("criteriosTaxativosElegidos")
-				.setAdapter(new PropertyAdapter(Criterio.class, "nombre"));
+				.setAdapter(new PropertyAdapter(CriterioTaxativo.class, "nombre"));
 		criteriosTax.setHeight(100);
 		criteriosTax.setWidth(200);
 		
 		List<String> criteriosComp = new List<String>(tabPanel);
 		criteriosComp.bindItemsToProperty("criteriosComparativosElegidos")
-				.setAdapter(new PropertyAdapter(Criterio.class, "nombre"));
+				.setAdapter(new PropertyAdapter(CriterioComparativo.class, "nombre"));
 		criteriosComp.setHeight(100);
 		criteriosComp.setWidth(200);
 
@@ -98,10 +104,8 @@ public class CrearMetodologiaWindow extends SimpleWindow<CrearMetodologiaViewMod
 	}
 
 	private void mostrarPonderaciones() {
-		if (!this.getModelObject().criterioSeleccionadoEsTaxativo()) {
 			Dialog<?> jerarquias = new PuntuarCriterioComparativoWindow(this, this.getModelObject());
 			jerarquias.open();
-		}
 	}
 
 	private void abrirCreadorCriteriosComparativos() {

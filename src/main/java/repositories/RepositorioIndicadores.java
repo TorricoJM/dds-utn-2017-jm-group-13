@@ -5,10 +5,6 @@ import java.util.List;
 import javax.persistence.NoResultException;
 
 import indicators.Indicador;
-import indicators.PredefinidoPruebaAcida;
-import indicators.PredefinidoROA;
-import indicators.PredefinidoROE;
-import indicators.PredefinidoROI;
 
 public class RepositorioIndicadores extends Repositorio<Indicador> {
 
@@ -17,10 +13,6 @@ public class RepositorioIndicadores extends Repositorio<Indicador> {
 	public static RepositorioIndicadores getInstance() {
 		if (instance == null) {
 			instance = new RepositorioIndicadores();
-			instance.agregar(new PredefinidoPruebaAcida());
-			instance.agregar(new PredefinidoROA());
-			instance.agregar(new PredefinidoROE());
-			instance.agregar(new PredefinidoROI());
 		}
 
 		return instance;

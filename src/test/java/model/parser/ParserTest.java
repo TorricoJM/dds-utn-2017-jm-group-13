@@ -107,8 +107,8 @@ public class ParserTest extends AbstractPersistenceTest{
 	
 	@Test
 	public void evaluarIndicadorC(){
-		RepositorioIndicadores.getInstance().agregar(indicadorA);
-		RepositorioIndicadores.getInstance().agregar(indicadorC);
+		this.entityManager().persist(indicadorA);
+		this.entityManager().persist(indicadorC);
 		resultado = indicadorC.evaluateEn("sprite", "2016");
 		DecimalFormat formato = new DecimalFormat("###############.############");
 		resultadoString = String.valueOf(formato.format(resultado));

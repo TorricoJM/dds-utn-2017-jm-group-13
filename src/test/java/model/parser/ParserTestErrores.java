@@ -3,6 +3,7 @@ package model.parser;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 
 import org.junit.After;
 import org.junit.Before;
@@ -48,19 +49,19 @@ public class ParserTestErrores extends AbstractPersistenceTest{
 		lexer.generarArbolExpresiones("");
 	}
 	
-	@Test(expected=ErrorEvaluacionException.class)
+	@Test(expected=NoResultException.class)
 	public void evaluarEnEmpresaSinCuentaLanzaException(){
 		indicadorA.evaluateEn(null, "2016");
 	}
-	@Test(expected=ErrorEvaluacionException.class)
+	@Test(expected=NoResultException.class)
 	public void evaluarEnEmpresaSinCuentaLanzaException2(){
 		indicadorA.evaluateEn("coca cola", "2016");
 	}
-	@Test(expected=ErrorEvaluacionException.class)
+	@Test(expected=NoResultException.class)
 	public void evaluarEnEmpresaSinPeriodoLanzaException(){
 		indicadorA.evaluateEn("coca cola", null);
 	}
-	@Test(expected=ErrorEvaluacionException.class)
+	@Test(expected=NoResultException.class)
 	public void evaluarEnEmpresaSinPeriodoLanzaException2(){
 		indicadorA.evaluateEn("coca cola", "2015");
 	}

@@ -20,7 +20,7 @@ import model.Empresa;
 
 @Entity
 @Observable
-public class CriterioTaxativo implements Criterio {
+public class CriterioTaxativo {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -51,7 +51,6 @@ public class CriterioTaxativo implements Criterio {
 		this.valor = valor;
 	}
 
-	@Override
 	public Boolean verificarParaUna(Empresa empresa, List<String> periodos) {
 		return modificador.modificar(empresa, indicador, periodos).stream()
 				.allMatch((valorObtenido) -> operador.aplicar(valorObtenido, valor));
@@ -95,10 +94,6 @@ public class CriterioTaxativo implements Criterio {
 
 	public void setValor(double valor) {
 		this.valor = valor;
-	}
-
-	public Double posicionLuegoDeAplicarDe(Empresa empresa, List<Empresa> empresas, List<String> periodos) {
-		return null;
 	}
 
 }

@@ -1,7 +1,6 @@
 package imports;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import model.Empresa;
 import model.LineaEmpresa;
@@ -11,12 +10,22 @@ public abstract class ImportadorDeEmpresas implements Importador{
 
 	@Override
 	public void importar(){
-		this.cargarEnRepositorio(this.obtenerEmpresas());;
+		this.importarEmpresas();
+	}
+	
+	protected void importarEmpresas() {
+		this.cargarEnRepositorio(this.obtenerEmpresas());
 	}
 
-	private void cargarEnRepositorio(List<LineaEmpresa> lineasEmpresas) {
-		List<Empresa> empresas = lineasEmpresas.stream().map(lineaEmpresa -> this.crearEmpresaEnBaseA(lineaEmpresa)).collect(Collectors.toList());
-		RepositorioEmpresas.getInstance().agregarMuchos(empresas);
+	private void cargarEnRepositorio(List<LineaEmpresa> empresas) {
+		empresas.stream().forEach((empresa) -> this.insertarEmpresaEnRepositorioLocal(empresa));
+	}
+
+	private void insertarEmpresaEnRepositorioLocal(LineaEmpresa lineaEmpresa) {
+		if (RepositorioEmpresas.getInstance().yaEstaCargadaUna(lineaEmpresa)) {
+			this.actualizarValorDe(lineaEmpresa);
+		} else
+			RepositorioEmpresas.getInstance().agregar(this.crearEmpresaEnBaseA(lineaEmpresa));
 	}
 
 	private Empresa crearEmpresaEnBaseA(LineaEmpresa lineaEmpresa) {
@@ -24,6 +33,14 @@ public abstract class ImportadorDeEmpresas implements Importador{
 		nuevaEmpresa.agregarPeriodoPara(lineaEmpresa);
 
 		return nuevaEmpresa;
+	}
+
+	private void actualizarValorDe(LineaEmpresa lineaEmpresa) {
+		this.traerEmpresaDelRepositorioDadaPor(lineaEmpresa).cargarOModificarCuentaParaUna(lineaEmpresa);
+	}
+
+	private Empresa traerEmpresaDelRepositorioDadaPor(LineaEmpresa lineaEmpresa) {
+		return RepositorioEmpresas.getInstance().obtenerEmpresaAActualizarPor(lineaEmpresa);
 	}
 
 	protected abstract List<LineaEmpresa> obtenerEmpresas();

@@ -11,15 +11,18 @@ import criterios.*;
 import methodologies.Metodologia;
 import methodologies.MetodologiesBuilder;
 import model.Exception;
-import repositories.RepositorioCriterios;
+import repositories.RepositorioCriteriosTaxativos;
+import repositories.RepositorioCriteriosComparativos;
 import repositories.RepositorioMetodologias;
 
 @Observable
 public class CrearMetodologiaViewModel {
 
-	private List<Criterio> criterios;
+	private List<CriterioComparativo> criteriosComp;
+	private List<CriterioTaxativo> criteriosTax;
 	private List<Double> ponderaciones = new LinkedList<>();
-	private Criterio criterioSeleccionado;
+	private CriterioTaxativo criterioTaxativoSeleccionado;
+	private CriterioComparativo criterioComparativoSeleccionado;
 	private String nombre;
 	private List<ParComparativoPeso> criteriosComparativosElegidos = new LinkedList<>();
 	private List<CriterioTaxativo> criteriosTaxativosElegidos = new LinkedList<>();
@@ -31,7 +34,7 @@ public class CrearMetodologiaViewModel {
 	}
 
 	public void agregarCriterio() {
-		if (criterioSeleccionado == null) {
+		if (criterioComparativoSeleccionado == null & criterioTaxativoSeleccionado == null) {
 			throw new Exception("Seleccione un criterio");
 		} else {
 			this.discriminarCriterio();
@@ -40,7 +43,8 @@ public class CrearMetodologiaViewModel {
 	}
 
 	private void finalizarAgregadoDeCriterio() {
-		this.setCriterioSeleccionado(null);
+		this.setCriterioComparativoSeleccionado(null);
+		this.setCriterioTaxativoSeleccionado(null);
 		this.setEnableAgregate(false);
 		this.setEnableSave(true);
 	}
@@ -51,23 +55,39 @@ public class CrearMetodologiaViewModel {
 				.setCriterios(criteriosComparativosElegidos, criteriosTaxativosElegidos).build();
 
 		RepositorioMetodologias.getInstance().agregar(nuevaMetodologia);
+}
 
+	public List<CriterioComparativo> getCriteriosComp() {
+		return criteriosComp;
 	}
 
-	public List<Criterio> getCriterios() {
-		return criterios;
+	public void setCriteriosComp(List<CriterioComparativo> criteriosComp) {
+		this.criteriosComp = criteriosComp;
 	}
 
-	public void setCriterios(List<Criterio> criterios) {
-		this.criterios = criterios;
+	public List<CriterioTaxativo> getCriteriosTax() {
+		return criteriosTax;
 	}
 
-	public Criterio getCriterioSeleccionado() {
-		return criterioSeleccionado;
+	public void setCriteriosTax(List<CriterioTaxativo> criteriosTax) {
+		this.criteriosTax = criteriosTax;
 	}
 
-	public void setCriterioSeleccionado(Criterio criterioSeleccionado) {
-		this.criterioSeleccionado = criterioSeleccionado;
+	public CriterioTaxativo getCriterioTaxativoSeleccionado() {
+		return criterioTaxativoSeleccionado;
+	}
+
+	public void setCriterioTaxativoSeleccionado(CriterioTaxativo criterioTaxativoSeleccionado) {
+		this.criterioTaxativoSeleccionado = criterioTaxativoSeleccionado;
+		this.setEnableAgregate(true);
+	}
+
+	public CriterioComparativo getCriterioComparativoSeleccionado() {
+		return criterioComparativoSeleccionado;
+	}
+
+	public void setCriterioComparativoSeleccionado(CriterioComparativo criterioComparativoSeleccionado) {
+		this.criterioComparativoSeleccionado = criterioComparativoSeleccionado;
 		this.setEnableAgregate(true);
 	}
 
@@ -96,8 +116,10 @@ public class CrearMetodologiaViewModel {
 	}
 
 	public void actualizarListaCriterios() {
-		this.criterios = new LinkedList<>(RepositorioCriterios.getInstance().getElementos());
-		ObservableUtils.firePropertyChanged(this, "criterios");
+		this.criteriosComp = new LinkedList<>(RepositorioCriteriosComparativos.getInstance().getElementos());
+		this.criteriosTax = new LinkedList<>(RepositorioCriteriosTaxativos.getInstance().getElementos());
+		ObservableUtils.firePropertyChanged(this, "criteriosComp");
+		ObservableUtils.firePropertyChanged(this, "criteriosTax");
 	}
 
 	public void borrarCriterios() {
@@ -108,22 +130,19 @@ public class CrearMetodologiaViewModel {
 	}
 
 	private void discriminarCriterio() {
-		if (this.criterioSeleccionadoEsTaxativo())
-			criteriosTaxativosElegidos.add((CriterioTaxativo) criterioSeleccionado);
-		else
+		if (this.criterioTaxativoSeleccionado != null) {
+			criteriosTaxativosElegidos.add(criterioTaxativoSeleccionado);
+		} else if (this.criterioComparativoSeleccionado != null) {
 			this.controlarValidezCriterioComparativo();
-	}
-
-	public Boolean criterioSeleccionadoEsTaxativo() {
-		return this.criterioSeleccionado.getClass().equals(CriterioTaxativo.class);
+		}
 	}
 
 	private void controlarValidezCriterioComparativo() {
 		if (ponderacionSeleccionada != null)
 			criteriosComparativosElegidos
-					.add(new ParComparativoPeso((CriterioComparativo) criterioSeleccionado, ponderacionSeleccionada));
+					.add(new ParComparativoPeso(criterioComparativoSeleccionado, ponderacionSeleccionada));
 	}
-
+	
 	public Boolean getEnableAgregate() {
 		return enableAgregate;
 	}

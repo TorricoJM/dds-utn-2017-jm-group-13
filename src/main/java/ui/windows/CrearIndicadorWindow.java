@@ -17,8 +17,6 @@ import org.uqbar.arena.windows.MessageBox.Type;
 import indicators.DataIndicador;
 
 import org.uqbar.arena.widgets.NumericField;
-
-import model.Cuenta;
 import model.Exception;
 import ui.viewModels.CrearIndicadorViewModel;
 
@@ -48,7 +46,7 @@ public class CrearIndicadorWindow extends SimpleWindow<CrearIndicadorViewModel> 
 
 		new Label(form).setText("Cuentas");
 		Selector<String> selectorCuenta = new Selector<String>(form).allowNull(true);
-		selectorCuenta.bindItemsToProperty("cuentas").setAdapter(new PropertyAdapter(Cuenta.class, "nombre"));
+		selectorCuenta.bindItemsToProperty("cuentas");
 		selectorCuenta.bindValueToProperty("cuentaSeleccionada");
 		selectorCuenta.setWidth(100);
 

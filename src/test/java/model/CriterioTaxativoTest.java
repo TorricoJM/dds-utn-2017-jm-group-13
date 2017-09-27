@@ -9,7 +9,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import criterios.Criterio;
 import criterios.CriterioTaxativo;
 import criterios.OperadorComparacion;
 import criterios.modificador.Normal;
@@ -24,10 +23,10 @@ import repositories.RepositorioIndicadores;
 public class CriterioTaxativoTest {
 
 	public Indicador indicador1 = new DataIndicador("i1", "ebitda*10");
-	public Criterio taxativo = new CriterioTaxativo("tax1", OperadorComparacion.MAYOR, indicador1, new Normal(), 500);
-	public Criterio taxativo2 = new CriterioTaxativo("tax2", OperadorComparacion.MAYOR, indicador1, new Sumatoria(),
+	public CriterioTaxativo taxativo = new CriterioTaxativo("tax1", OperadorComparacion.MAYOR, indicador1, new Normal(), 500);
+	public CriterioTaxativo taxativo2 = new CriterioTaxativo("tax2", OperadorComparacion.MAYOR, indicador1, new Sumatoria(),
 			2500);
-	public Criterio taxativo3 = new CriterioTaxativo("tax3", OperadorComparacion.MENOR, indicador1, new Promedio(),
+	public CriterioTaxativo taxativo3 = new CriterioTaxativo("tax3", OperadorComparacion.MENOR, indicador1, new Promedio(),
 			750);
 	public List<String> periodos = new LinkedList<>();
 
@@ -63,13 +62,6 @@ public class CriterioTaxativoTest {
 				.obtenerEmpresaDesdeNombre("empresa1"), periodos));
 	}
 	
-	@Test
-	public void metodoInherenteAOtroCriterioRetornaNull() {
-		assertNull(taxativo.posicionLuegoDeAplicarDe(RepositorioEmpresas.getInstance()
-				.obtenerEmpresaDesdeNombre("empresa1"), RepositorioEmpresas.getInstance()
-				.getElementos(), periodos));
-	}
-
 	@Test
 	public void seVerificaQueUnaEmpresaCumplaPromedioMenorA750() {
 		assertTrue(taxativo3.verificarParaUna(RepositorioEmpresas.getInstance()

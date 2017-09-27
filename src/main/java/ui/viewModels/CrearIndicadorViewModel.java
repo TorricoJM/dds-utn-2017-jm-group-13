@@ -3,11 +3,12 @@ package ui.viewModels;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+
 import org.uqbar.commons.utils.Observable;
 
 import indicators.DataIndicador;
 import indicators.Indicador;
-import model.Cuenta;
 import model.Exception;
 import repositories.RepositorioCuentas;
 import repositories.RepositorioIndicadores;
@@ -16,7 +17,7 @@ import repositories.RepositorioIndicadores;
 public class CrearIndicadorViewModel {
 
 	private List<Indicador> indicadores;
-	private List<Cuenta> cuentas;
+	private List<String> cuentas;
 	private Indicador indicadorSeleccionado;
 	private String cuentaSeleccionada;
 	private String operacion = "";
@@ -25,7 +26,7 @@ public class CrearIndicadorViewModel {
 
 	public CrearIndicadorViewModel() {
 		this.indicadores = RepositorioIndicadores.getInstance().getElementos();
-		this.cuentas = RepositorioCuentas.getInstance().getElementos();
+		this.cuentas = RepositorioCuentas.getInstance().getElementos().stream().map(cuenta->cuenta.getNombre()).collect(Collectors.toSet()).stream().collect(Collectors.toList());
 	}
 
 	public void crearIndicador() {
@@ -102,11 +103,11 @@ public class CrearIndicadorViewModel {
 		this.indicadores = indicadores;
 	}
 
-	public List<Cuenta> getCuentas() {
+	public List<String> getCuentas() {
 		return cuentas;
 	}
 
-	public void setCuentas(List<Cuenta> cuentas) {
+	public void setCuentas(List<String> cuentas) {
 		this.cuentas = cuentas;
 	}
 
