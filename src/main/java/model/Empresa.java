@@ -47,35 +47,35 @@ public class Empresa {
 		this.periodos = periodos;
 	}
 
-	public void agregarPeriodoPara(LineaEmpresa lineaEmpresa) {
-		PeriodoFiscal nuevoPeriodo = new PeriodoFiscal(lineaEmpresa.getPeriodo());
-
-		nuevoPeriodo.agregarUnaCuentaPara(lineaEmpresa);
-
+	public void agregarUn(PeriodoFiscal nuevoPeriodo) {
 		this.periodos.add(nuevoPeriodo);
 	}
 
-	public boolean yaExisteUnPeriodoPara(LineaEmpresa lineaEmpresa) {
+	public Boolean tieneUn(PeriodoFiscal nuevoPeriodo) {
 		return this.getPeriodos().stream()
-				.anyMatch((unPeriodo) -> unPeriodo.getPeriodo().equals(lineaEmpresa.getPeriodo()));
+				.anyMatch((unPeriodo) -> nuevoPeriodo.getPeriodo().equals(unPeriodo.getPeriodo()));
 	}
 
-	private PeriodoFiscal obtenerPeriodoDeEmpresaDadaPor(LineaEmpresa lineaEmpresa) {
+	private PeriodoFiscal obtenerPeriodoDeEmpresaDadaPor(PeriodoFiscal nuevoPeriodo) {
 		return this.getPeriodos().stream()
-				.filter((periodoDeLista) -> periodoDeLista.getPeriodo().equals(lineaEmpresa.getPeriodo())).findFirst()
-				.get();
-	}
-
-	public void cargarOModificarCuentaParaUna(LineaEmpresa lineaEmpresa) {
-		if (this.yaExisteUnPeriodoPara(lineaEmpresa)) {
-			this.obtenerPeriodoDeEmpresaDadaPor(lineaEmpresa).actualizarUnaCuentaPara(lineaEmpresa);
-		} else
-			this.agregarPeriodoPara(lineaEmpresa);
+				.filter((unPeriodo) -> nuevoPeriodo.getPeriodo().equals(unPeriodo.getPeriodo())) //logica repetida
+				.findFirst().get();
 	}
 
 	public PeriodoFiscal obtenerPeriodoDesdeNombre(String periodoNombre) {
 		return this.getPeriodos().stream().filter(periodo -> periodo.getPeriodo().equals(periodoNombre)).findFirst()
 				.get();
+	}
+
+	private void cargarOActualizarUn(PeriodoFiscal nuevoPeriodo) {
+		if (this.tieneUn(nuevoPeriodo)) {
+			this.obtenerPeriodoDeEmpresaDadaPor(nuevoPeriodo).mergearCon(nuevoPeriodo);
+		} else
+			this.agregarUn(nuevoPeriodo);
+	}
+	
+	public void mergearCon(Empresa nuevaEmpresa) {
+		nuevaEmpresa.getPeriodos().forEach((nuevoPeriodo) -> this.cargarOActualizarUn(nuevoPeriodo));
 	}
 
 }

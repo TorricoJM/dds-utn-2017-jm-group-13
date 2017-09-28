@@ -5,15 +5,20 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.opencsv.CSVReader;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.HeaderColumnNameMappingStrategy;
 
+import model.Cuenta;
+import model.Empresa;
 import model.Exception;
 import model.LineaEmpresa;
+import model.PeriodoFiscal;
+import repositories.RepositorioEmpresas;
 
-public class ImportadorDeEmpresasCSV extends ImportadorDeEmpresas {
+public class ImportadorDeEmpresasCSV implements Importador {
 
 	private String path;
 
@@ -25,8 +30,7 @@ public class ImportadorDeEmpresasCSV extends ImportadorDeEmpresas {
 		return path;
 	}
 
-	@Override
-	protected List<LineaEmpresa> obtenerEmpresas() {
+	private List<Empresa> obtenerEmpresas() {
 		CSVReader reader;
 		List<LineaEmpresa> empresasObtenidas = new LinkedList<>();
 
@@ -48,6 +52,25 @@ public class ImportadorDeEmpresasCSV extends ImportadorDeEmpresas {
 			throw new Exception("No se ha podido cargar el archivo. Formato incorrecto");
 		}
 
-		return empresasObtenidas;
+		return this.convertirAEmpresas(empresasObtenidas);
+	}
+	
+	public void importar() {
+		RepositorioEmpresas.getInstance().agregarMuchos(this.obtenerEmpresas());
+	}
+	
+	private List<Empresa> convertirAEmpresas(List<LineaEmpresa> empresas) {
+		return empresas.stream().map((linEmp) -> this.crearEmpresaEnBaseA(linEmp)).collect(Collectors.toList());
+	}
+	
+	private Empresa crearEmpresaEnBaseA(LineaEmpresa lineaEmpresa) {
+		Empresa nuevaEmpresa = new Empresa(lineaEmpresa.getNombre());
+		PeriodoFiscal periodo = new PeriodoFiscal(lineaEmpresa.getPeriodo());
+		Cuenta cuenta = new Cuenta(lineaEmpresa.getCuenta(),lineaEmpresa.getValor());
+		
+		periodo.agregarUna(cuenta);
+		nuevaEmpresa.getPeriodos().add(periodo);
+		
+		return nuevaEmpresa;
 	}
 }

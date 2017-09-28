@@ -1,4 +1,4 @@
-package db;
+/*package db;
 
 import static org.junit.Assert.assertTrue;
 
@@ -74,4 +74,4 @@ public class RepositoriosTest extends AbstractPersistenceTest {
 	public EntityManager entityManager() {
 		return PerThreadEntityManagers.getEntityManager();
 	}
-}
+}*/

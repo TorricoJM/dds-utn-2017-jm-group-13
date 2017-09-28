@@ -2,7 +2,6 @@ package repositories;
 
 import java.util.List;
 import model.Empresa;
-import model.LineaEmpresa;
 
 public class RepositorioEmpresas extends Repositorio<Empresa> {
 
@@ -23,18 +22,18 @@ public class RepositorioEmpresas extends Repositorio<Empresa> {
 		instance = null;
 	}
 
-	public Empresa obtenerEmpresaAActualizarPor(LineaEmpresa unaEmpresa) {
+	public Empresa obtenerEmpresaAActualizarPor(Empresa unaEmpresa) {
 		return this.getElementos().stream()
 				.filter((empresaExistente) -> this.mismoNombreQue(unaEmpresa, empresaExistente))
 				.findFirst().get();
 	}
 
-	public boolean yaEstaCargadaUna(LineaEmpresa lineaEmpresa) {
+	public boolean yaEstaCargadaUna(Empresa nuevaEmpresa) {
 		return this.getElementos().stream()
-				.anyMatch((empresaDeLaLista) -> this.mismoNombreQue(lineaEmpresa, empresaDeLaLista));
+				.anyMatch((empresaDeLaLista) -> this.mismoNombreQue(nuevaEmpresa, empresaDeLaLista));
 	}
 
-	private boolean mismoNombreQue(LineaEmpresa unaEmpresa, Empresa empresaDeLaLista) {
+	private boolean mismoNombreQue(Empresa unaEmpresa, Empresa empresaDeLaLista) {
 		return unaEmpresa.getNombre().equals(empresaDeLaLista.getNombre());
 	}
 
@@ -57,6 +56,22 @@ public class RepositorioEmpresas extends Repositorio<Empresa> {
 	@SuppressWarnings("unchecked")
 	public List<Empresa> getElementos(){
 		return this.entityManager.createQuery("from Empresa").getResultList();
+	}
+	
+	@Override
+	public void agregarMuchos(List<Empresa> nuevasEmpresas) {
+		nuevasEmpresas.forEach((nuevaEmpresa) -> this.actualizarOCargar(nuevaEmpresa));
+		
+		tx.begin();
+		RepositorioEmpresas.getInstance().getElementos().forEach((elem) -> entityManager.persist(elem));
+		tx.commit();
+	}
+	
+	private void actualizarOCargar(Empresa nuevaEmpresa) {
+		if (RepositorioEmpresas.getInstance().yaEstaCargadaUna(nuevaEmpresa)) {
+			this.obtenerEmpresaAActualizarPor(nuevaEmpresa).mergearCon(nuevaEmpresa);
+		} else
+			RepositorioEmpresas.getInstance().agregar(nuevaEmpresa);
 	}
 	
 }
