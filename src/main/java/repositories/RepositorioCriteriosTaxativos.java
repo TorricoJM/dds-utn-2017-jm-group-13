@@ -35,12 +35,12 @@ public class RepositorioCriteriosTaxativos extends Repositorio<CriterioTaxativo>
 	}
 	
 	public CriterioTaxativo obtenerCriterioDesdeNombre(String nombre) {
-		String query = "Select c from Criterio where c.nombre=:name";
+		String query = "Select c from CriterioTaxativo c where c.nombre=:name";
 		CriterioTaxativo criterio = this.entityManager.createQuery(query, CriterioTaxativo.class).setParameter("name", nombre).getSingleResult();
 		return criterio;
 	}
 	
 	public List<CriterioTaxativo> getElementos(){
-		return this.entityManager.createQuery("from Criterio", CriterioTaxativo.class).getResultList();
+		return this.entityManager.createQuery("from CriterioTaxativo", CriterioTaxativo.class).getResultList();
 	}
 }

@@ -35,12 +35,12 @@ public class RepositorioCriteriosComparativos extends Repositorio<CriterioCompar
 	}
 	
 	public CriterioComparativo obtenerCriterioDesdeNombre(String nombre) {
-		String query = "Select c from Criterio where c.nombre=:name";
+		String query = "Select c from CriterioComparativo c where c.nombre=:name";
 		CriterioComparativo criterio = this.entityManager.createQuery(query, CriterioComparativo.class).setParameter("name", nombre).getSingleResult();
 		return criterio;
 	}
 	
 	public List<CriterioComparativo> getElementos(){
-		return this.entityManager.createQuery("from Criterio", CriterioComparativo.class).getResultList();
+		return this.entityManager.createQuery("from CriterioComparativo", CriterioComparativo.class).getResultList();
 	}
 }

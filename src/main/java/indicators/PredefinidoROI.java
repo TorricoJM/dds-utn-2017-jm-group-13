@@ -1,6 +1,7 @@
 package indicators;
 
 import javax.persistence.Entity;
+import javax.persistence.NoResultException;
 
 import model.parser.ErrorEvaluacionException;
 import repositories.RepositorioEmpresas;
@@ -32,7 +33,7 @@ public class PredefinidoROI extends Indicador {
 			final double val3 = val1 - val2;
 			return val3 / val2 * 100;
 		}
-		catch (ErrorEvaluacionException e) {
+		catch (NoResultException e) {
 			throw new ErrorEvaluacionException("No se pudo resolver");
 		}
 	}

@@ -49,12 +49,12 @@ public class CrearMetodologiaWindow extends SimpleWindow<CrearMetodologiaViewMod
 
 		Selector<CriterioComparativo> selectorCriterioComp = new Selector<CriterioComparativo>(form).allowNull(true);
 		selectorCriterioComp.bindItemsToProperty("criteriosComp").setAdapter(new PropertyAdapter(CriterioComparativo.class, "nombre"));
-		selectorCriterioComp.bindValueToProperty("criterioSeleccionado");
+		selectorCriterioComp.bindValueToProperty("criterioComparativoSeleccionado");
 		selectorCriterioComp.setWidth(125);
 		
 		Selector<CriterioTaxativo> selectorCriterioTax = new Selector<CriterioTaxativo>(form).allowNull(true);
 		selectorCriterioTax.bindItemsToProperty("criteriosTax").setAdapter(new PropertyAdapter(CriterioTaxativo.class, "nombre"));
-		selectorCriterioTax.bindValueToProperty("criterioSeleccionado");
+		selectorCriterioTax.bindValueToProperty("criterioTaxativoSeleccionado");
 		selectorCriterioTax.setWidth(125);
 
 		new Button(form).setCaption("Agregar Criterio").onClick(() -> this.agregarCriterio()).setWidth(150)

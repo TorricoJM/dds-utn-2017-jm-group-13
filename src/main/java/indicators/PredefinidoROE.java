@@ -1,6 +1,7 @@
 package indicators;
 
 import javax.persistence.Entity;
+import javax.persistence.NoResultException;
 
 import org.uqbar.commons.utils.Observable;
 
@@ -33,7 +34,7 @@ public class PredefinidoROE extends Indicador {
 			final double val2 = RepositorioEmpresas.getInstance().obtenerValorDeCuentaDeEmpresaEnPeriodo("Patrimonio Total", empresaEvaluada, periodoEvaluado);
 			return val1 / val2;
 		}
-		catch (ErrorEvaluacionException e) {
+		catch (NoResultException e) {
 			throw new ErrorEvaluacionException("No se pudo resolver");
 		}
 	}

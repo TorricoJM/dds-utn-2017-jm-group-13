@@ -13,7 +13,7 @@ import ui.windows.*;
 public class InversionesApp extends Application{
 	
 	public static void main(String[] args) {
-		seed();
+		//seed();
 		new InversionesApp().start();
 	}
 	
@@ -22,6 +22,7 @@ public class InversionesApp extends Application{
 		return new MenuPrincipalWindow(this);
 	}
 	
+	@SuppressWarnings("unused")
 	private static void seed() {
 		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
 		EntityTransaction tx = entityManager.getTransaction();
