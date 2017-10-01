@@ -15,7 +15,7 @@ import indicators.PredefinidoROI;
 public class RepositorioIndicadores extends Repositorio<Indicador> {
 
 	private static RepositorioIndicadores instance;
-	private List<String> predefinidos = Arrays.asList("PredefinidoPruebaAcida,PredefinidoROA,PredefinidoROE,PredefinidoROI");
+	private List<String> predefinidos = Arrays.asList("Prueba Acida","ROA","ROE","ROI");
 
 	public static RepositorioIndicadores getInstance() {
 		if (instance == null) {
@@ -63,8 +63,7 @@ public class RepositorioIndicadores extends Repositorio<Indicador> {
 	@SuppressWarnings("unchecked")
 	public List<Indicador> getElementos(){
 		List<Indicador> indicadores = this.entityManager.createQuery("from Indicador").getResultList();
-		List<String> predefinidos = Arrays.asList("PredefinidoPruebaAcida","PredefinidoROA","PredefinidoROE","PredefinidoROI");
-		indicadores.stream().filter(indicador->!predefinidos.contains(indicador.getNombre())).collect(Collectors.toList());
+		indicadores.stream().filter(indicador->!this.predefinidos.contains(indicador.getNombre())).collect(Collectors.toList());
 		indicadores.add(new PredefinidoPruebaAcida());
 		indicadores.add(new PredefinidoROA());
 		indicadores.add(new PredefinidoROE());

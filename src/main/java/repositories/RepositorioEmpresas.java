@@ -61,8 +61,8 @@ public class RepositorioEmpresas extends Repositorio<Empresa> {
 	@Override
 	public void agregarMuchos(List<Empresa> nuevasEmpresas) {
 		nuevasEmpresas.forEach((nuevaEmpresa) -> this.actualizarOCargar(nuevaEmpresa));
-		
-		tx.begin();
+		if(!tx.isActive()) {
+		tx.begin();}
 		RepositorioEmpresas.getInstance().getElementos().forEach((elem) -> entityManager.persist(elem));
 		tx.commit();
 	}

@@ -18,7 +18,6 @@ import imports.ImportadorDeEmpresasCSV;
 import indicators.DataIndicador;
 import indicators.Indicador;
 import model.parser.objetosParser.*;
-import repositories.RepositorioEmpresas;
 import repositories.RepositorioIndicadores;
 
 public class ParserTest extends AbstractPersistenceTest{
@@ -95,7 +94,7 @@ public class ParserTest extends AbstractPersistenceTest{
 	public void evaluarIndicadorA(){
 		RepositorioIndicadores.getInstance().agregar(indicadorA);
 		resultado = indicadorA.evaluateEn("coca cola", "2017");
-		assertEquals(resultado,(double) 1125.55,(double) 2);
+		assertEquals(resultado,(double) 199.0,(double) 2);
 	}
 	
 	@Test
@@ -107,7 +106,6 @@ public class ParserTest extends AbstractPersistenceTest{
 	
 	@Test
 	public void evaluarIndicadorC(){
-		this.entityManager().persist(indicadorA);
 		this.entityManager().persist(indicadorC);
 		resultado = indicadorC.evaluateEn("sprite", "2016");
 		DecimalFormat formato = new DecimalFormat("###############.############");
@@ -117,12 +115,11 @@ public class ParserTest extends AbstractPersistenceTest{
 	
 	@After
 	public void finalizar() {
-		RepositorioIndicadores.deleteInstance();
-		RepositorioEmpresas.deleteInstance();
 	}
 
 	@Override
 	public EntityManager entityManager() {
 		return PerThreadEntityManagers.getEntityManager();
 	}
+
 }

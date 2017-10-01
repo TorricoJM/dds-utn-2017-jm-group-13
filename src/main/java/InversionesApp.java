@@ -13,7 +13,7 @@ import ui.windows.*;
 public class InversionesApp extends Application{
 	
 	public static void main(String[] args) {
-		//seed();
+		seed();
 		new InversionesApp().start();
 	}
 	
@@ -29,13 +29,13 @@ public class InversionesApp extends Application{
 		
 		tx.begin();
 		
-		if(entityManager.createQuery("from PredefinidoROA where nombre = 'ROA'").getResultList().isEmpty())
+		if(entityManager.createQuery("Select i from Indicador i where i.nombre = 'ROA'").getResultList().isEmpty())
 			entityManager.persist(new PredefinidoROA());
-		if(entityManager.createQuery("from PredefinidoROE where nombre = 'ROE'").getResultList().isEmpty())
+		if(entityManager.createQuery("Select i from Indicador i where i.nombre = 'ROE'").getResultList().isEmpty())
 			entityManager.persist(new PredefinidoROE());
-		if(entityManager.createQuery("from PredefinidoROI where nombre = 'ROI'").getResultList().isEmpty())
+		if(entityManager.createQuery("Select i from Indicador i where i.nombre = 'ROI'").getResultList().isEmpty())
 			entityManager.persist(new PredefinidoROI());
-		if(entityManager.createQuery("from PredefinidoPruebaAcida where nombre = 'Prueba Acida'").getResultList().isEmpty())
+		if(entityManager.createQuery("Select i from Indicador i where i.nombre = 'Prueba Acida'").getResultList().isEmpty())
 			entityManager.persist(new PredefinidoPruebaAcida());
 		
 		tx.commit();
