@@ -5,8 +5,12 @@ import static org.junit.Assert.*;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+
 import org.junit.Before;
 import org.junit.Test;
+import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
+import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
 import org.junit.After;
 
 import criterios.CriterioComparativo;
@@ -17,7 +21,7 @@ import indicators.Indicador;
 import repositories.RepositorioEmpresas;
 import repositories.RepositorioIndicadores;
 
-public class CriterioComparativoTest {
+public class CriterioComparativoTest extends AbstractPersistenceTest {
 
 	public Indicador indicador1 = new DataIndicador("i1", "ebitda+1");
 	public CriterioComparativo comparativo = new CriterioComparativo("comp1", OperadorComparacion.MAYOR, indicador1);
@@ -71,7 +75,10 @@ public class CriterioComparativoTest {
 
 	@After
 	public void tearDown() {
-		RepositorioIndicadores.deleteInstance();
-		RepositorioEmpresas.deleteInstance();
+	}
+
+	@Override
+	public EntityManager entityManager() {
+		return PerThreadEntityManagers.getEntityManager();
 	}
 }

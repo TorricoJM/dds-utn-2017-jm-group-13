@@ -22,7 +22,7 @@ public class InversionesApp extends Application{
 		return new MenuPrincipalWindow(this);
 	}
 	
-	@SuppressWarnings("unused")
+	
 	private static void seed() {
 		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
 		EntityTransaction tx = entityManager.getTransaction();

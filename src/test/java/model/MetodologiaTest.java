@@ -6,9 +6,13 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.persistence.EntityManager;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
+import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
 
 import criterios.CriterioComparativo;
 import criterios.CriterioTaxativo;
@@ -22,7 +26,7 @@ import methodologies.Metodologia;
 import repositories.RepositorioEmpresas;
 import repositories.RepositorioIndicadores;
 
-public class MetodologiaTest {
+public class MetodologiaTest extends AbstractPersistenceTest {
 	
 	public ImportadorDeEmpresasCSV importador = new ImportadorDeEmpresasCSV("empresasTest.csv");
 	public Indicador indicador1 = new DataIndicador("i1","ebitda*10");
@@ -91,11 +95,14 @@ public class MetodologiaTest {
 
 	@After
 	public void tearDown() {
-		RepositorioIndicadores.deleteInstance();
-		RepositorioEmpresas.deleteInstance();
 		empresasEsperadas.clear();
 		empresasRepo.clear();
 		taxativos.clear();
 		comparativos.clear();
+	}
+
+	@Override
+	public EntityManager entityManager() {
+		return PerThreadEntityManagers.getEntityManager();
 	}
 }
