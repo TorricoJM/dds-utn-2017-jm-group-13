@@ -10,13 +10,20 @@ import javax.persistence.Id;
 import indicators.Indicador;
 import model.Empresa;
 
+
 @Entity
 public abstract class Modificador{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+	public String nombre;
 
 	public abstract List<Double> modificar(Empresa empresa, Indicador indicador, List<String> listaPeriodos);
+
+	public abstract String getNombre();
+
+	public abstract void setNombre(String nombre);
+	
 
 }

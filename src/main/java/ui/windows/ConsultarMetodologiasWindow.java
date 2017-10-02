@@ -40,13 +40,13 @@ public class ConsultarMetodologiasWindow extends Dialog<ConsultarMetodologiasVie
 
 		new Label(form).setText("Periodo Inicio");
 		Selector<PeriodoFiscal> selectorPeriodoInicio = new Selector<PeriodoFiscal>(form);
-		selectorPeriodoInicio.setWidth(30);
+		selectorPeriodoInicio.setWidth(70);
 		selectorPeriodoInicio.bindItemsToProperty("periodos");
 		selectorPeriodoInicio.bindValueToProperty("periodoInicioSeleccionado");
 		
 		new Label(form).setText("Periodo Fin");
 		Selector<PeriodoFiscal> selectorPeriodoFin = new Selector<PeriodoFiscal>(form);
-		selectorPeriodoFin.setWidth(30);
+		selectorPeriodoFin.setWidth(70);
 		selectorPeriodoFin.bindItemsToProperty("periodos");
 		selectorPeriodoFin.bindValueToProperty("periodoFinSeleccionado");
 		

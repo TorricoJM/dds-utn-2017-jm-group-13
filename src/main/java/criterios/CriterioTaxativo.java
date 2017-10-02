@@ -31,6 +31,7 @@ public class CriterioTaxativo {
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
 	private Indicador indicador;
 	
+
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
 	private Modificador modificador;
 	

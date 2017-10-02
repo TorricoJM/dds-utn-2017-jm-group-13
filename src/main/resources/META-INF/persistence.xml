@@ -21,6 +21,9 @@
 		<class> indicators.PredefinidoPruebaAcida </class>
 		<class> criterios.CriterioComparativo </class>
 		<class> criterios.modificador.Modificador </class>
+		<class> criterios.modificador.Sumatoria</class>
+		<class> criterios.modificador.Normal</class>
+		<class> criterios.modificador.Promedio</class>
 		<class> methodologies.Metodologia </class>
 
         <properties> 

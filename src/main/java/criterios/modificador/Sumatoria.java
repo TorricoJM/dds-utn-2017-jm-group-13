@@ -4,9 +4,12 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.DoubleStream;
 
+import javax.persistence.Entity;
+
 import indicators.Indicador;
 import model.Empresa;
 
+@Entity
 public class Sumatoria extends Modificador {
 
 	@Override
@@ -27,6 +30,16 @@ public class Sumatoria extends Modificador {
 
 		return valores.sum();
 
+	}
+
+	@Override
+	public String getNombre() {
+		return this.nombre;
+	}
+
+	@Override
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 
 }

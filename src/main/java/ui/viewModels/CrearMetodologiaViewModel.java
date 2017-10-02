@@ -162,6 +162,10 @@ public class CrearMetodologiaViewModel {
 	public List<CriterioComparativo> getCriteriosComparativosElegidos() {
 		return criteriosComparativosElegidos.stream().map(tupla -> tupla.getCriterio()).collect(Collectors.toList());
 	}
+	
+	public void setCriteriosComparativosElegidos(List<ParComparativoPeso> comparativos) {
+		this.criteriosComparativosElegidos = comparativos;
+	}
 
 	public List<CriterioTaxativo> getCriteriosTaxativosElegidos() {
 		return criteriosTaxativosElegidos;

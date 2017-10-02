@@ -34,7 +34,7 @@ public class ConsultarIndicadoresWindow extends Dialog<ConsultarIndicadoresViewM
 		
 		new Label(form).setText("Periodo");
 		Selector<PeriodoFiscal> selectorPeriodo = new Selector<PeriodoFiscal>(form);
-		selectorPeriodo.setWidth(30);
+		selectorPeriodo.setWidth(70);
 		selectorPeriodo.bindItemsToProperty("empresaSeleccionada.periodos").setAdapter(new PropertyAdapter(PeriodoFiscal.class, "periodo"));
 		selectorPeriodo.bindValueToProperty("periodoSeleccionado");
 		

@@ -3,9 +3,12 @@ package criterios.modificador;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.persistence.Entity;
+
 import indicators.Indicador;
 import model.Empresa;
 
+@Entity
 public class Promedio extends Modificador {
 
 	@Override
@@ -17,5 +20,15 @@ public class Promedio extends Modificador {
 
 		return valoresResultantes;
 
+	}
+
+	@Override
+	public String getNombre() {
+		return this.nombre;
+	}
+
+	@Override
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 }
