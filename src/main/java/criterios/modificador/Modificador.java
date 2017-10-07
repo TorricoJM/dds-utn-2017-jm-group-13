@@ -17,7 +17,7 @@ public abstract class Modificador{
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	public String nombre;
+	protected String nombre;
 
 	public abstract List<Double> modificar(Empresa empresa, Indicador indicador, List<String> listaPeriodos);
 
@@ -25,5 +25,4 @@ public abstract class Modificador{
 
 	public abstract void setNombre(String nombre);
 	
-
 }
