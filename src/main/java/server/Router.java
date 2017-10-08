@@ -1,6 +1,6 @@
 package server;
 
-import Controllers.HomeController;
+import controllers.LoginController;
 import spark.Spark;
 import spark.TemplateEngine;
 import spark.utils.HandlebarsTemplateEngineBuilder;
@@ -12,7 +12,9 @@ public class Router {
 		TemplateEngine engine = HandlebarsTemplateEngineBuilder.create().build();
 		
 		Spark.staticFiles.location("/public");
-		Spark.get("home", HomeController::home, engine);
+		
+		Spark.get("/home", LoginController::home, engine);
+		Spark.post("/login", LoginController::login);
 	}
 
 }
