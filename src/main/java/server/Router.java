@@ -13,7 +13,7 @@ public class Router {
 		
 		Spark.staticFiles.location("/public");
 		
-		Spark.get("/home", LoginController::home, engine);
+		Spark.get("/", LoginController::home, engine);
 		Spark.post("/login", LoginController::login);
 	}
 

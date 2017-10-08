@@ -1,8 +1,10 @@
 package controllers;
 
+import repositories.RepositorioUsuarios;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
+import user.User;
 
 public class LoginController {
 
@@ -10,14 +12,15 @@ public class LoginController {
 		return new ModelAndView(null, "login/login.html");
 	}
 
-	public static ModelAndView login(Request req, Response res) {
-		//String nombre = req.queryParams("nombre");
+	public static ModelAndView login(Request request, Response response) {
+		String nombre = request.queryParams("nombre");
+		String password = request.queryParams("password");
+		User user = RepositorioUsuarios.getInstance().obtenerUserDesdeNombre(nombre);
 
-		
-		// Buscar usuario en base por nombre
-		// Agarrar usuario y comparar contraseña con req.queryParams("password")
-		if (req.queryParams("nombre").equals("admin") && req.queryParams("password").equals("admin")) {
-			res.redirect("/admin");
+		if(password == user.getPassword()){
+			response.redirect("/home");
+		} else {
+			response.redirect("/");
 		}
 		return null;
 	}

@@ -24,7 +24,7 @@ public class RepositorioUsuarios extends Repositorio<User> {
 	}
 
 	public User obtenerUserDesdeNombre(String nombre) {
-		String query = "Select i from User i where i.nombre = :name";
+		String query = "Select u from User u where u.nombre = :name";
 		User user = this.entityManager.createQuery(query, User.class).setParameter("name", nombre).getSingleResult();
 		return user;
 	}
