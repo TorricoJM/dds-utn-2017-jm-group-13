@@ -1,27 +1,24 @@
+package server;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-import org.uqbar.arena.Application;
-import org.uqbar.arena.windows.Window;
+
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import indicators.PredefinidoPruebaAcida;
 import indicators.PredefinidoROA;
 import indicators.PredefinidoROE;
 import indicators.PredefinidoROI;
-import ui.windows.*;
+import spark.Spark;
+import spark.debug.DebugScreen;
 
-public class InversionesApp extends Application{
-	
+public class Server {
 	public static void main(String[] args) {
 		seed();
-		new InversionesApp().start();
+		Spark.port(8000);
+		DebugScreen.enableDebugScreen();
+		Router.configure();
 	}
-	
-	@Override
-	protected Window<?> createMainWindow() {
-		return new MenuPrincipalWindow(this);
-	}
-	
 	
 	private static void seed() {
 		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
@@ -37,7 +34,9 @@ public class InversionesApp extends Application{
 			entityManager.persist(new PredefinidoROI());
 		if(entityManager.createQuery("Select i from Indicador i where i.nombre = 'Prueba Acida'").getResultList().isEmpty())
 			entityManager.persist(new PredefinidoPruebaAcida());
+	
 		
 		tx.commit();
 	}
+
 }
