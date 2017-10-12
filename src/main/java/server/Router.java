@@ -19,6 +19,22 @@ public class Router {
 		Spark.post("/login", LoginController::login);
 		Spark.get("/menu", MenuController::menu, engine);
 		Spark.get("/menu/cuentas", CuentasController::show, engine);
+		
+		/*
+		 
+		 /empresas
+		  * 	/cuentas
+		  * 	/nuevasEmpresas
+		  /indicadores
+		   * 	/nuevoIndicador
+		  /metodologias
+		   * 	/nuevaMetodologia
+		   * 		/criterios
+		   * 			/comparativo
+		   * 			/taxativo
+		   
+		   
+		 */
 	}
 
 }
