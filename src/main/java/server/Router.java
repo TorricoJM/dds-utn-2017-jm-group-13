@@ -1,8 +1,7 @@
 package server;
 
-import controllers.CuentasController;
+import controllers.HomeController;
 import controllers.LoginController;
-import controllers.MenuController;
 import spark.Spark;
 import spark.TemplateEngine;
 import spark.utils.HandlebarsTemplateEngineBuilder;
@@ -15,26 +14,9 @@ public class Router {
 		
 		Spark.staticFiles.location("/public");
 		
-		Spark.get("/", LoginController::home, engine);
+		Spark.get("/", HomeController::home, engine);
 		Spark.post("/login", LoginController::login);
-		Spark.get("/menu", MenuController::menu, engine);
-		Spark.get("/menu/cuentas", CuentasController::show, engine);
 		
-		/*
-		 
-		 /empresas
-		  * 	/cuentas
-		  * 	/nuevasEmpresas
-		  /indicadores
-		   * 	/nuevoIndicador
-		  /metodologias
-		   * 	/nuevaMetodologia
-		   * 		/criterios
-		   * 			/comparativo
-		   * 			/taxativo
-		   
-		   
-		 */
 	}
 
 }

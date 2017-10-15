@@ -14,6 +14,7 @@ import indicators.DataIndicador;
 import model.parser.objetosParser.*;
 import repositories.RepositorioIndicadores;
 
+@SuppressWarnings("unused")
 public class ParserTestErrores extends AbstractPersistenceTest{
 	DataIndicador indicadorSinNombre;
 	DataIndicador indicadorSinOperacion;
@@ -49,29 +50,29 @@ public class ParserTestErrores extends AbstractPersistenceTest{
 		lexer.generarArbolExpresiones("");
 	}
 	
-	@Test(expected=NoResultException.class)
+	@Test(expected=IdentificadorInvalidoException.class)
 	public void evaluarEnEmpresaSinCuentaLanzaException(){
 		indicadorA.evaluateEn(null, "2016");
 	}
-	@Test(expected=NoResultException.class)
+	@Test(expected=IdentificadorInvalidoException.class)
 	public void evaluarEnEmpresaSinCuentaLanzaException2(){
 		indicadorA.evaluateEn("coca cola", "2016");
 	}
-	@Test(expected=NoResultException.class)
+	@Test(expected=IdentificadorInvalidoException.class)
 	public void evaluarEnEmpresaSinPeriodoLanzaException(){
 		indicadorA.evaluateEn("coca cola", null);
 	}
-	@Test(expected=NoResultException.class)
+	@Test(expected=IdentificadorInvalidoException.class)
 	public void evaluarEnEmpresaSinPeriodoLanzaException2(){
 		indicadorA.evaluateEn("coca cola", "2015");
 	}
-	/*
-	@Test(expected=ErrorEvaluacionException.class)
+	
+	@Test(expected=IdentificadorInvalidoException.class)
 	public void indicadorSinNombreLanzaException(){
 		indicadorSinNombre.evaluateEn("coca cola", "2017");
 	}
 	//TODO
-	*/
+	
 	@Test(expected=IdentificadorInvalidoException.class)
 	public void indicadorSinOperacionLanzaException(){
 		indicadorSinOperacion.evaluateEn("coca cola", "2017");

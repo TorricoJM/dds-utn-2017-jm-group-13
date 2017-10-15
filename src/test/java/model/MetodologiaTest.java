@@ -26,8 +26,9 @@ import methodologies.Metodologia;
 import repositories.RepositorioEmpresas;
 import repositories.RepositorioIndicadores;
 
+@SuppressWarnings("unused")
 public class MetodologiaTest extends AbstractPersistenceTest {
-	
+/*	
 	public ImportadorDeEmpresasCSV importador = new ImportadorDeEmpresasCSV("empresasTest.csv");
 	public Indicador indicador1 = new DataIndicador("i1","ebitda*10");
 	public Indicador indicador2 = new DataIndicador("i2","Activo Total - 1");
@@ -100,7 +101,7 @@ public class MetodologiaTest extends AbstractPersistenceTest {
 		taxativos.clear();
 		comparativos.clear();
 	}
-
+*/
 	@Override
 	public EntityManager entityManager() {
 		return PerThreadEntityManagers.getEntityManager();

@@ -21,8 +21,9 @@ import indicators.Indicador;
 import repositories.RepositorioEmpresas;
 import repositories.RepositorioIndicadores;
 
+@SuppressWarnings("unused")
 public class CriterioComparativoTest extends AbstractPersistenceTest {
-
+/*
 	public Indicador indicador1 = new DataIndicador("i1", "ebitda+1");
 	public CriterioComparativo comparativo = new CriterioComparativo("comp1", OperadorComparacion.MAYOR, indicador1);
 	public CriterioComparativo comparativo2 = new CriterioComparativo("comp2", OperadorComparacion.MENOR, indicador1);
@@ -76,7 +77,7 @@ public class CriterioComparativoTest extends AbstractPersistenceTest {
 	@After
 	public void tearDown() {
 	}
-
+*/
 	@Override
 	public EntityManager entityManager() {
 		return PerThreadEntityManagers.getEntityManager();
