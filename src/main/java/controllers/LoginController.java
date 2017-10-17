@@ -26,7 +26,8 @@ public class LoginController {
 				request.session(true);
 				request.session().attribute("user", nombre);
 				request.session().attribute("password", password);
-				
+
+				response.cookie("username", nombre);
 				response.redirect(request.cookie("urlFrom"));
 			} else {
 				response.redirect("/login");

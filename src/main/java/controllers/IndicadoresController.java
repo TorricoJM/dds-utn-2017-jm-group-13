@@ -18,10 +18,13 @@ public class IndicadoresController extends Controller{
 		setearRutaAnterior(request,response);
 		auth.isAuthorized(request, response);
 
-		Map<String, List<Indicador>> model = new HashMap<>();
+		Map<String, Object> model = new HashMap<>();
 		List<Indicador> indicadores = RepositorioIndicadores.getInstance().getElementos();
 
-		model.put("Indicador", indicadores);
+		model.put("Indicadores", indicadores);
+		model.put("usuario", auth);
+		System.out.println(request.cookie("username"));
+		model.put("username", request.cookie("username"));
 
 		return new ModelAndView(model, "indicadores/indicadores.hbs");
 	}

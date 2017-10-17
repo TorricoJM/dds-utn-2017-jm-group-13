@@ -1,3 +1,8 @@
+{{#partial "custom-head"}}
+   <link rel="stylesheet" type="text/css" href="css/login.css">
+{{/partial}}
+
+{{#partial "custom-body"}}
 <div class = "container">
 	<div class="wrapper">
 		<form action="/login" method="post" name="Login_Form" class="form-signin">       
@@ -10,5 +15,6 @@
 		</form>			
 	</div>
 </div>
+{{/partial}}
 {{>base.hbs}}
 
