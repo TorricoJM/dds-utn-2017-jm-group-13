@@ -6,16 +6,11 @@ import spark.Response;
 public class AuthenticationFilter {
 
 	public void isAuthorized(Request req, Response res) {
-		boolean authenticated = req.session().attribute("usuario") != null;
+		boolean authenticated = req.session().attribute("user") != null;
 
-		if (!isPublic(req.pathInfo()) || !authenticated) {
-			res.redirect("/login");
-
+		if (!authenticated) {
+			res.redirect("/user/login");
 		}
 
-	}
-
-	public boolean isPublic(String path) {
-		return path.startsWith("/public/");
 	}
 }

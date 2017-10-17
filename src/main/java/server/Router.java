@@ -1,6 +1,7 @@
 package server;
 
 import controllers.HomeController;
+import controllers.IndicadoresController;
 import controllers.LoginController;
 import spark.Spark;
 import spark.TemplateEngine;
@@ -19,6 +20,7 @@ public class Router {
 		Spark.get("/user/login", LoginController::home, engine);
 		Spark.post("/login", LoginController::login);
 		
+		Spark.get("/indicadores", IndicadoresController::home, engine);
 	}
 
 }
