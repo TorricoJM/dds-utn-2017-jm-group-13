@@ -12,15 +12,17 @@ import spark.Request;
 import spark.Response;
 
 public class IndicadoresController extends Controller{
-	
-	public static ModelAndView listar(Request request, Response response){
+
+	public static ModelAndView listar(Request request, Response response) {
 		AuthenticationFilter auth = new AuthenticationFilter();
 		setearRutaAnterior(request,response);
 		auth.isAuthorized(request, response);
+
 		Map<String, List<Indicador>> model = new HashMap<>();
 		List<Indicador> indicadores = RepositorioIndicadores.getInstance().getElementos();
+
 		model.put("Indicador", indicadores);
+
 		return new ModelAndView(model, "indicadores/indicadores.hbs");
 	}
 }
-
