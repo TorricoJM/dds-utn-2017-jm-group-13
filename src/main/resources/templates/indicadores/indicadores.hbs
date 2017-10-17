@@ -1,0 +1,21 @@
+{{#partial "contenido"}}
+
+<h1>Lista de Indicadores</h1>
+
+<table class="table table-stripped">
+	<tr>
+		<th>Indicador</th>
+		<th>Operación</th>
+	</tr>
+	
+	{{#each Indicador}}
+		<tr>
+			<td>{{nombre}}</td>
+			<td>{{operacion}}</td>
+		</tr>
+	{{/each}}
+</table>
+
+{{/partial}}
+
+{{>layout.hbs}}
