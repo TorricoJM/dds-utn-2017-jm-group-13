@@ -29,7 +29,7 @@ public class LoginController {
 				
 				response.redirect("/");
 			} else {
-				response.redirect("login");
+				response.redirect("/login");
 			}
 		}
 		response.redirect("/login");
