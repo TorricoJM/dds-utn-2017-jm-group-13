@@ -1,8 +1,6 @@
 package server;
 
-import controllers.HomeController;
-import controllers.IndicadoresController;
-import controllers.LoginController;
+import controllers.*;
 import spark.Spark;
 import spark.TemplateEngine;
 import spark.utils.HandlebarsTemplateEngineBuilder;
@@ -20,6 +18,7 @@ public class Router {
 		Spark.get("/login", LoginController::home, engine);
 		Spark.post("/login", LoginController::login);
 		Spark.get("/indicadores", IndicadoresController::listar,engine);
+		Spark.get("/cuentas", CuentasController::listar,engine);
 	}
 
 }
