@@ -7,10 +7,12 @@ import java.util.Map;
 import indicators.DataIndicador;
 import indicators.Indicador;
 import repositories.RepositorioIndicadores;
+import repositories.RepositorioUsuarios;
 import server.AuthenticationFilter;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
+import user.User;
 
 public class IndicadoresController extends Controller{
 
@@ -20,11 +22,15 @@ public class IndicadoresController extends Controller{
 		auth.isAuthorized(request, response);
 
 		Map<String, Object> model = new HashMap<>();
-		List<Indicador> indicadores = RepositorioIndicadores.getInstance().getElementos();
+		String username = request.session().attribute("user");
+		User user = RepositorioUsuarios.getInstance().obtenerUserDesdeNombre(username);
+		System.out.println(user.getNombre());
+		System.out.println(user.getId());
+		List<Indicador> indicadores = RepositorioIndicadores.getInstance().getElementosByUserID(user.getId());
 
 		model.put("Indicadores", indicadores);
 		model.put("usuario", auth);
-		model.put("username", request.session().attribute("user"));
+		model.put("username", username);
 		return new ModelAndView(model, "indicadores/indicadores.hbs");
 	}
 
