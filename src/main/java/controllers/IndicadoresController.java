@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import indicators.DataIndicador;
 import indicators.Indicador;
 import repositories.RepositorioIndicadores;
 import server.AuthenticationFilter;
@@ -23,9 +24,26 @@ public class IndicadoresController extends Controller{
 
 		model.put("Indicadores", indicadores);
 		model.put("usuario", auth);
-		System.out.println(request.cookie("username"));
 		model.put("username", request.cookie("username"));
 
 		return new ModelAndView(model, "indicadores/indicadores.hbs");
+	}
+	
+	public static ModelAndView home(Request request, Response response) {
+		AuthenticationFilter auth = new AuthenticationFilter();
+		setearRutaAnterior(request,response);
+		auth.isAuthorized(request, response);
+		
+		return new ModelAndView(null, "indicadores/crearIndicador.hbs");
+	}
+	
+	public static ModelAndView crear(Request request, Response response) {
+		String nombre = request.queryParams("nombre");
+		String operacion = request.queryParams("operacion");
+		
+		DataIndicador nuevoIndicador = new DataIndicador(nombre, operacion);
+		RepositorioIndicadores.getInstance().agregar(nuevoIndicador);
+		response.redirect("/");
+		return null;
 	}
 }
