@@ -11,6 +11,7 @@ import indicators.PredefinidoROE;
 import indicators.PredefinidoROI;
 import spark.Spark;
 import spark.debug.DebugScreen;
+import user.User;
 
 public class Server {
 	public static void main(String[] args) {
@@ -34,7 +35,9 @@ public class Server {
 			entityManager.persist(new PredefinidoROI());
 		if(entityManager.createQuery("Select i from Indicador i where i.nombre = 'Prueba Acida'").getResultList().isEmpty())
 			entityManager.persist(new PredefinidoPruebaAcida());
-	
+		
+		if(entityManager.createQuery("Select u from User u where u.nombre = 'admin'").getResultList().isEmpty())
+			entityManager.persist(new User("admin","admin"));
 		
 		tx.commit();
 	}
