@@ -23,16 +23,16 @@ public class RepositorioUsuarios extends Repositorio<User> {
 		instance = null;
 	}
 
-	public List<User> obtenerUserDesdeNombre(String nombre) {
+	public User obtenerUserDesdeNombre(String nombre) {
 		return this.entityManager
 				.createQuery("from User where nombre like :nombre",User.class) 
-				.setParameter("nombre", "%" + nombre + "%") //
-				.getResultList();
+				.setParameter("nombre", "%" + nombre + "%")
+				.getSingleResult();
 	}
 
 	public List<User> getElementos() {
 		List<User> users = this.entityManager.createQuery("from User", User.class).getResultList();
 		return users;
 	}
-
+	
 }

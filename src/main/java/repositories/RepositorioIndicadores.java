@@ -46,4 +46,10 @@ public class RepositorioIndicadores extends Repositorio<Indicador> {
 		List<Indicador> indicadores = this.entityManager.createQuery("from Indicador",Indicador.class).getResultList();
 		return indicadores;
 	}
+	
+	public List<Indicador> getElementosByUserID(long id){
+		String query ="select * from Indicador where user_id = '"+String.valueOf(id)+"'";
+		List<Indicador> indicadores = this.entityManager.createNativeQuery(query, Indicador.class).getResultList();
+		return indicadores;
+	}
 }

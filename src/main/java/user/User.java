@@ -68,4 +68,8 @@ public class User {
 	public void setMetodologias(List<Metodologia> metodologias) {
 		this.metodologias = metodologias;
 	}
+	
+	public long getId() {
+		return this.id;
+	}
 }
