@@ -34,11 +34,13 @@ public class IndicadoresController extends Controller{
 	}
 	
 	public static ModelAndView home(Request request, Response response) {
+		Map<String, Object> model = new HashMap<>();
 		AuthenticationFilter auth = new AuthenticationFilter();
 		setearRutaAnterior(request,response);
 		auth.isAuthorized(request, response);
-		
-		return new ModelAndView(null, "indicadores/crearIndicador.hbs");
+		model.put("usuario", auth);
+		model.put("username", request.session().attribute("user"));
+		return new ModelAndView(model, "indicadores/crearIndicador.hbs");
 	}
 	
 	public static ModelAndView crear(Request request, Response response) {
