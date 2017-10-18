@@ -52,9 +52,10 @@ public class IndicadoresController extends Controller{
 	public static ModelAndView crear(Request request, Response response) {
 		String nombre = request.queryParams("nombre");
 		String operacion = request.queryParams("operacion");
-		
+		User usuario = RepositorioUsuarios.getInstance().obtenerUserDesdeNombre(request.session().attribute("user"));
 		DataIndicador nuevoIndicador = new DataIndicador(nombre, operacion);
-		RepositorioIndicadores.getInstance().agregar(nuevoIndicador);
+		usuario.agregarIndicador(nuevoIndicador);
+		RepositorioUsuarios.getInstance().agregar(usuario);
 		response.redirect("/");
 		return null;
 	}

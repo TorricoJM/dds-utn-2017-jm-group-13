@@ -72,4 +72,8 @@ public class User {
 	public long getId() {
 		return this.id;
 	}
+	
+	public void agregarIndicador(Indicador indicador) {
+		this.indicadores.add(indicador);
+	}
 }

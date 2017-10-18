@@ -52,4 +52,5 @@ public class RepositorioIndicadores extends Repositorio<Indicador> {
 		List<Indicador> indicadores = this.entityManager.createNativeQuery(query, Indicador.class).getResultList();
 		return indicadores;
 	}
+
 }
