@@ -24,13 +24,23 @@
   			<a class="navbar nav-link btn btn-dark Text-white" href="/cuentas" title="">Cuentas</a>
   		</li>
 
-  		<li class="nav-item">
-  			<a class="navbar nav-link btn btn-dark Text-white" href="/indicadores" title="">Indicadores</a>
-  		</li>
+  		<div class="dropdown">
+			<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color:#343a40;border-color: #343a40;">Indicadores</button>
+		  	<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+		    	<a class="dropdown-item" href="/indicadores">Listar Indicadores</a>
+		    	<a class="dropdown-item" href="/indicadores/consulta">Consultar Indicadores</a>
+		    	<a class="dropdown-item" href="/indicadores/new">Crear Indicadores</a>
+		  	</div>
+		</div>
 
-  		<li class="nav-item">
-  			<a class="navbar nav-link btn btn-dark Text-white" href="/metodologias" title="">Metodologías</a>
-  		</li>
+  		<div class="dropdown">
+			<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color:#343a40;border-color: #343a40;">Metodologias</button>
+		  	<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+		    	<a class="dropdown-item" href="/">Listar Metodologias</a>
+		    	<a class="dropdown-item" href="/">Consultar Metodologias</a>
+		    	<a class="dropdown-item" href="/metodologias/new">Crear Metodologias</a>
+		  	</div>
+		</div>
 	 </ul>
 
     <ul class="col-4 navbar-nav justify-content-end">
