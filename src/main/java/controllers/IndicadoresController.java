@@ -24,8 +24,6 @@ public class IndicadoresController extends Controller{
 		Map<String, Object> model = new HashMap<>();
 		String username = request.session().attribute("user");
 		User user = RepositorioUsuarios.getInstance().obtenerUserDesdeNombre(username);
-		System.out.println(user.getNombre());
-		System.out.println(user.getId());
 		List<Indicador> indicadores = RepositorioIndicadores.getInstance().getElementosByUserID(user.getId());
 
 		model.put("Indicadores", indicadores);
