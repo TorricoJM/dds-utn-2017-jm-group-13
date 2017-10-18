@@ -26,9 +26,12 @@ public class LoginController {
 				request.session(true);
 				request.session().attribute("user", nombre);
 				request.session().attribute("password", password);
-
-				response.cookie("username", nombre);
-				response.redirect(request.cookie("urlFrom"));
+				
+				String urlAnterior = request.session().attribute("urlFrom");
+				if(urlAnterior == null || urlAnterior.isEmpty() || urlAnterior.equals("/login"))
+					response.redirect("/home");
+					else
+					response.redirect(urlAnterior);
 			} else {
 				response.redirect("/login");
 			}

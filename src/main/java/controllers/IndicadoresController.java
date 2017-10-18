@@ -23,9 +23,15 @@ public class IndicadoresController extends Controller{
 
 		model.put("Indicadores", indicadores);
 		model.put("usuario", auth);
-		System.out.println(request.cookie("username"));
-		model.put("username", request.cookie("username"));
+		model.put("username", request.session().attribute("user"));
 
 		return new ModelAndView(model, "indicadores/indicadores.hbs");
+	}
+	
+	public static ModelAndView consultar(Request request, Response response) {
+		
+		
+		Map<String, Object> model = new HashMap<>();
+		return new ModelAndView(model, "indicadores/consultarIndicadores.hbs");
 	}
 }
