@@ -37,7 +37,7 @@ public class MetodologiasController{
 
 		Metodologia metodologiaElegida = RepositorioMetodologias.getInstance()
 				.obtenerDesdeNombreUna(request.queryParams("metodologia"));
-
+		
 		model.put("resultados",
 				metodologiaElegida.aplicarMetodologiaA(RepositorioEmpresas.getInstance().getElementos(),
 						MetodologiasController.construirRangoDePeriodosCon(request.queryParams("perIni"),
