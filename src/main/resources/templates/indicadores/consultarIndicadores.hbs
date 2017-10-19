@@ -1,28 +1,58 @@
 {{#partial "contenido"}}
-	<div class="container">
-	<div class="text-center"> 
-		<h1>Analisis de indicadores</h1>		
-		<h4>Elija la empresa a analizar</h4>
-	</div>
-	<!-- Formulario para seleccionar empresa y periodo -->
-	<div class="col-md-6 mx-auto">
-		<form action="/indicadores/resultadoConsulta" method="get">
-			<div class="form-group">
-	    		<select name="empresa" class="form-control empresas" id="empresa" required>
-	     			<option value="" disabled selected hidden>Seleccione alguna opción</option>
-	     			{{#each empresas}}
-	      			<option value="{{nombre}}">{{nombre}}</option>
-	     			{{/each}}
-	   			 </select>
- 			</div>
 
-			<div class="text-center">
-				<button type="submit" class="btn btn-default btn-lg">Analizar</button>
-			</div>
+<h1>Evaluar un indicador</h1>
+
+<table class="table table-striped table-bordered table-responsive metodologias">
+	<tr>
+		<form action="/indicadores/consulta" method="POST">
+			<th>
+				<label> Seleccionar indicador </label>
+			</th>
+			<th>
+				<div class="form-group">
+				  <select class="form-control" id="seleccionarIndicador" name="indicador">
+					{{#each Indicadores}}
+						<option>{{this.nombre}}</option>
+					{{/each}}
+				  </select>
+				</div>
+			</th>
+			<th>
+				<label> Empresa </label>
+			</th>
+			<th>
+				<div class="form-group">
+				  <select class="form-control" id="empresaElegida" name="empresaElegida">
+					{{#each empresas}}
+						<option>{{this.nombre}}</option>
+					{{/each}}
+				  </select>
+				</div>
+			</th>
+			<th>
+				<label> Periodo </label> 
+			</th>
+			<th>
+				<div class="form-group">
+				  <select class="form-control" id="periodo" name="periodo">
+					{{#each periodos}}
+						<option>{{this}}</option>
+					{{/each}}
+				  </select>
+				</div>
+			</th>
+			<th>
+				<button class="btn btn-info"  name="Submit" value="Submit" type="Submit">Evaluar</button>
+			</th>
 		</form>
-	</div>
-	<br>
-</div>
+	</tr>
+</table>
+
+
+	<h3> Resultado de indicador: </h3>
+	<li style="padding-left: 20px;">{{resultado}}</li>
+
+
 {{/partial}}
 
 {{>layout.hbs}}
