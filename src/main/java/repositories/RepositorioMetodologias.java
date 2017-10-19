@@ -24,4 +24,8 @@ public class RepositorioMetodologias extends Repositorio<Metodologia>{
 	public List<Metodologia> getElementos(){
 		return this.entityManager.createQuery("from Metodologia", Metodologia.class).getResultList();
 	}
+	
+	public Metodologia obtenerDesdeNombreUna(String metodologia) {
+		return this.getElementos().stream().filter((meto) -> meto.getNombre().equals(metodologia)).findFirst().get();
+	}
 }
