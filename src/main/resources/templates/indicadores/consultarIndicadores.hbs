@@ -48,10 +48,10 @@
 	</tr>
 </table>
 
-
-	<h3> Resultado de indicador: </h3>
+	{{#if resultado}}
+	<h3> Resultado de {{ indicadorResultado }} de {{ empresaResultado }} en {{ periodoResultado }}: </h3>
 	<li style="padding-left: 20px;">{{resultado}}</li>
-
+	{{/if}}
 
 {{/partial}}
 

@@ -50,14 +50,22 @@ public class IndicadoresController {
 		model.put("Indicadores", RepositorioIndicadores.getInstance().getElementos());
 		model.put("empresas", RepositorioEmpresas.getInstance().getElementos());
 		model.put("periodos", IndicadoresController.listaPeriodos());
-
-		Indicador indicadorElegido = RepositorioIndicadores.getInstance()
-				.obtenerIndicadorDesdeNombre(request.queryParams("indicador"));
 		
-		Empresa empresaElegida = RepositorioEmpresas.getInstance().obtenerEmpresaDesdeNombre(request.queryParams("empresaElegida"));
-		String periodoElegido = request.queryParams("periodo");
+		
+		String indicadorQP = request.queryParams("indicador");
+		String empresaQP = request.queryParams("empresaElegida");
+		String periodoQP = request.queryParams("periodo");
+		
+		model.put("indicadorResultado", indicadorQP);
+		model.put("empresaResultado", empresaQP);
+		model.put("periodoResultado", periodoQP);
+		
+		Indicador indicadorElegido = RepositorioIndicadores.getInstance()
+				.obtenerIndicadorDesdeNombre(indicadorQP);
+		
+		Empresa empresaElegida = RepositorioEmpresas.getInstance().obtenerEmpresaDesdeNombre(empresaQP);
 
-		model.put("resultado", indicadorElegido.evaluateEn(empresaElegida.getNombre(), periodoElegido));
+		model.put("resultado", indicadorElegido.evaluateEn(empresaElegida.getNombre(), periodoQP));
 
 		return new ModelAndView(model, "indicadores/consultarIndicadores.hbs");
 
