@@ -9,22 +9,17 @@ import java.util.stream.Collectors;
 import methodologies.Metodologia;
 import repositories.RepositorioEmpresas;
 import repositories.RepositorioMetodologias;
-import server.AuthenticationFilter;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
-public class MetodologiasController extends Controller {
+public class MetodologiasController{
 
 	public static ModelAndView home(Request request, Response response) {
-		AuthenticationFilter auth = new AuthenticationFilter();
-		setearRutaAnterior(request, response);
-		auth.isAuthorized(request, response);
 
 		Map<String, Object> model = new HashMap<>();
 		String username = request.session().attribute("user");
-		model.put("usuario", auth);
-		model.put("username", username);
+		model.put("user", username);
 
 		model.put("Metodologias", RepositorioMetodologias.getInstance().getElementos());
 		model.put("periodos", MetodologiasController.listaPeriodos());
@@ -33,14 +28,9 @@ public class MetodologiasController extends Controller {
 	}
 
 	public static ModelAndView listar(Request request, Response response) {
-		AuthenticationFilter auth = new AuthenticationFilter();
-		setearRutaAnterior(request, response);
-		auth.isAuthorized(request, response);
-
 		Map<String, Object> model = new HashMap<>();
 		String username = request.session().attribute("user");
-		model.put("usuario", auth);
-		model.put("username", username);
+		model.put("user", username);
 
 		model.put("metodologia", request.queryParams("metodologia"));
 		model.put("periodos", MetodologiasController.listaPeriodos());
@@ -54,6 +44,12 @@ public class MetodologiasController extends Controller {
 								request.queryParams("perFin"))));
 
 		return new ModelAndView(model, "metodologias/metodologias.hbs");
+	}
+	
+	public static ModelAndView crear(Request request, Response response) {
+		Map<String, Object> model = new HashMap<>();
+		model.put("user", request.session().attribute("user"));
+		return new ModelAndView(model, "proximamente.hbs");
 	}
 
 	private static List<String> listaPeriodos() {
