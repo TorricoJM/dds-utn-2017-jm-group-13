@@ -24,7 +24,7 @@ public class Router {
 		Spark.post("/indicadores/new", IndicadoresController::crear);
 		
 		Spark.get("/metodologias", MetodologiasController::home,engine);
-		Spark.get("/metodologias/consulta", MetodologiasController::consulta,engine);
+		Spark.post("/metodologias", MetodologiasController::listar,engine);
 		Spark.get("/metodologias/new", MetodologiasController::home,engine);
 		
 		Spark.get("/cuentas", CuentasController::listar,engine);
