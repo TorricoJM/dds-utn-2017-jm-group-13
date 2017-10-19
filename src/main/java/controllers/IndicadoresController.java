@@ -3,10 +3,12 @@ package controllers;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+
 import indicators.DataIndicador;
 import indicators.Indicador;
+import indicators.IndicadorConResultado;
 import model.Empresa;
-import model.PeriodoFiscal;
 import repositories.RepositorioEmpresas;
 import repositories.RepositorioIndicadores;
 import repositories.RepositorioUsuarios;
@@ -17,6 +19,15 @@ import spark.Spark;
 import user.User;
 
 public class IndicadoresController{
+	
+	public static ModelAndView buscarPeriodos(Request request, Response response) {
+		String empresaNombre = request.queryParams("nombre");
+		Empresa empresa = RepositorioEmpresas.getInstance().obtenerEmpresaDesdeNombre(empresaNombre);
+		Map<String, Object> model = new HashMap<>();
+		model.put("periodos", empresa.getPeriodos());
+		
+		return new ModelAndView(model, "indicadores/generarSelectorPeriodos.hbs");
+	}
 
 	public static ModelAndView listar(Request request, Response response) {
 		Map<String, Object> model = new HashMap<>();
@@ -39,18 +50,18 @@ public class IndicadoresController{
 	
 	public static ModelAndView resultadoConsulta(Request request, Response response) {
 		String empresaNombre = request.queryParams("empresa");
+		String periodo = request.queryParams("periodos");
 		if(empresaNombre == null) {
 			Spark.halt(500, "No se encontró el recurso, joven aventurero");
 		}
-		Empresa empresa = RepositorioEmpresas.getInstance().obtenerEmpresaDesdeNombre(empresaNombre);
 		long userId = RepositorioUsuarios.getInstance().obtenerUserDesdeNombre(request.session().attribute("user")).getId();
 		List<Indicador> indicadores = RepositorioIndicadores.getInstance().getElementosByUserID(userId);
-		List<PeriodoFiscal> periodos = empresa.getPeriodos();
 		Map<String, Object> model = new HashMap<>();
-		model.put("empresa", empresa);
-		model.put("periodos", periodos);
+		List<IndicadorConResultado> resultados = indicadores.stream().map(ind -> new IndicadorConResultado(ind.getNombre(),ind.evaluateEn(empresaNombre, periodo))).collect(Collectors.toList());
 		model.put("user", request.session().attribute("user"));
-		model.put("indicadores", indicadores);
+		model.put("resultados", resultados);
+		model.put("empresa", empresaNombre);
+		model.put("periodo", periodo);
 		return new ModelAndView(model, "indicadores/resultadoConsulta.hbs");
 	}
 	
@@ -70,4 +81,5 @@ public class IndicadoresController{
 		response.redirect("/");
 		return null;
 	}
+	
 }

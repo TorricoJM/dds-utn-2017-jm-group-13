@@ -1,42 +1,22 @@
 {{#partial "contenido"}}
-La empresa es {{empresa.nombre}}
-
-<div class="row">
-  <div class="col-4">
-
-  
-    <div class="list-group" id="list-tab" role="tablist">
-    {{#each periodos}}
-      <a class="list-group-item list-group-item-action" id="list-{{this.periodo}}-list" data-toggle="list" href="#list-{{this.periodo}}" role="tab" aria-controls="{{this.periodo}}">{{this.periodo}}</a>
+<p>La empresa es {{empresa}}</p>
+<p>El periodo es {{periodo}}</p>
+<table>
+  <thead>
+    <tr>
+      <th>Indicador</th>
+      <th>Resultado</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each resultados}}
+    <tr>
+      <td>{{this.nombre}}</td>
+      <td>{{this.valor}}</td>
+    </tr>
     {{/each}}
-    </div>
-
-  </div>
-  <div class="col-8">
-    <div class="tab-content" id="nav-tabContent">
-  	{{#each periodos}}
-      <div class="tab-pane fade" id="list-{{this.periodo}}" role="tabpanel" aria-labelledby="list-{{this.periodo}}-list">
-      	<table>
-      		<thead>
-      			<tr>
-      				<th>Indicadores</th>
-      				<th>Resultado</th>
-      			</tr>
-      		</thead>
-      		<tbody>
-      			{{#each indicadores}}
-      				<tr>
-      					<td>{{this.nombre}}</td>
-      					<td>Resultado</td>
-      				</tr>
-      			{{/each}}
-      		</tbody>
-      	</table>
-      </div>
-    {{/each}}
-    </div>
-  </div>
-</div>
+  </tbody>
+</table>
 
 {{/partial}}
 
