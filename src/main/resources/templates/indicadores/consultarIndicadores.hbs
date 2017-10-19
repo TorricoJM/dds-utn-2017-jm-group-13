@@ -1,3 +1,34 @@
-Consultar Indicadores Vista
+{{#partial "contenido"}}
+	<div class="container">
+	<div class="text-center"> 
+		<h1>Analisis de indicadores</h1>		
+		<h4>Elija la empresa y el periodo que desea aplicar</h4>
+	</div>
+	<!-- Formulario para seleccionar empresa y periodo -->
+	<div class="col-md-6 mx-auto">
+		<form action="/indicadores/consulta" method="get">
+			<div class="form-group">
+    			<label for="empresa">Seleccione empresa.</label>
+	    			<select name="empresa" class="form-control empresas" id="empresa" required>
+	     				<option value="" disabled selected hidden>Seleccione alguna opción</option>
+	     				{{#each empresas}}
+	      				<option value="{{nombre}}">{{nombre}}</option>
+	     				{{/each}}
+	   				 </select>
+<!--
+	   			<label for="periodos">Seleccione periodo.</label>
+	    			<select name="periodos" class="form-control" id="periodos">
+	     				<option disabled selected hidden>Elija una empresa primero</option>
+	   				 </select>
+ 				 </div>
+ -->
+			<div class="text-center">
+				<button type="submit" class="btn btn-default btn-lg">Analizar</button>
+			</div>
+		</form>
+	</div>
+	<br>
+</div>
+{{/partial}}
 
-<h1>Acá se consultan los indicadores</h1>
+{{>layout.hbs}}

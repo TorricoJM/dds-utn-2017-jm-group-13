@@ -6,6 +6,9 @@ import java.util.Map;
 
 import indicators.DataIndicador;
 import indicators.Indicador;
+import model.Empresa;
+import model.PeriodoFiscal;
+import repositories.RepositorioEmpresas;
 import repositories.RepositorioIndicadores;
 import repositories.RepositorioUsuarios;
 import server.AuthenticationFilter;
@@ -33,9 +36,13 @@ public class IndicadoresController extends Controller{
 	}
 
 	public static ModelAndView consultar(Request request, Response response) {
+		List<Empresa> empresas = RepositorioEmpresas.getInstance().getElementos();
 		Map<String, Object> model = new HashMap<>();
+		model.put("empresas", empresas);
+		
 		return new ModelAndView(model, "indicadores/consultarIndicadores.hbs");
 	}
+
 	
 	public static ModelAndView home(Request request, Response response) {
 		Map<String, Object> model = new HashMap<>();
