@@ -32,7 +32,7 @@ public class MetodologiasController{
 		String username = request.session().attribute("user");
 		model.put("user", username);
 
-		model.put("metodologia", request.queryParams("metodologia"));
+		model.put("Metodologias", RepositorioMetodologias.getInstance().getElementos());
 		model.put("periodos", MetodologiasController.listaPeriodos());
 
 		Metodologia metodologiaElegida = RepositorioMetodologias.getInstance()
