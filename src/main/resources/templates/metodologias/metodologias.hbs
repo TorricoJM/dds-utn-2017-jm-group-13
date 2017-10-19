@@ -10,9 +10,9 @@
 			</th>
 			<th>
 				<div class="form-group">
-				  <select class="form-control" id="elegirMetodologia">
+				  <select class="form-control" id="elegirMetodologia" name="metodologia">
 					{{#each Metodologias}}
-						<option name="metodologia">{{this.nombre}}</option>
+						<option>{{this.nombre}}</option>
 					{{/each}}
 				  </select>
 				</div>
@@ -22,9 +22,9 @@
 			</th>
 			<th>
 				<div class="form-group">
-				  <select class="form-control" id="perIni">
+				  <select class="form-control" id="perIni" name="perIni">
 					{{#each periodos}}
-						<option name="perIni">{{this}}</option>
+						<option>{{this}}</option>
 					{{/each}}
 				  </select>
 				</div>
@@ -34,28 +34,26 @@
 			</th>
 			<th>
 				<div class="form-group">
-				  <select class="form-control" id="perFin">
+				  <select class="form-control" id="perFin" name="perFin">
 					{{#each periodos}}
-						<option name="perFin">{{this}}</option>
+						<option>{{this}}</option>
 					{{/each}}
 				  </select>
 				</div>
 			</th>
 			<th>
-				<a href="/metodologias" class="btn btn-info" role="button">Evaluar</a>
+				<button class="btn btn-info"  name="Submit" value="Submit" type="Submit">Evaluar</button>
 			</th>
 		</form>
 	</tr>
 </table>
 
-<ul>
-	{{#if author}}
-		<h1>Hola</h1>
-	 {{/if}}
+
+	<h3> Empresas que cumplen: </h3>
 	{{#each resultados}}
-		<li>{{this.nombre}}</li>
+		<li style="padding-left: 20px;">{{this.nombre}}</li>
 	{{/each}}
-</ul>
+
 
 {{/partial}}
 
