@@ -69,6 +69,10 @@ public class User {
 		this.metodologias = metodologias;
 	}
 	
+	public void agregarMetodologia(Metodologia metodologia) {
+		this.metodologias.add(metodologia);
+	}
+	
 	public long getId() {
 		return this.id;
 	}

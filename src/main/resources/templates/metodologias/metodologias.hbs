@@ -1,0 +1,17 @@
+{{#partial "contenido"}}
+
+<h1>Consulta de metodologias</h1>
+
+<table class="table table-stripped">
+	<tr>
+	{{#each Metodologias}}
+		<th>{{this.nombre}}</th>
+		<th><a href="/metodologias/consulta?metodologia={{this.nombre}}" class="btn btn-info" role="button">Consultar</a> 
+		</th>
+	{{/each}}
+	</tr>
+</table>
+
+{{/partial}}
+
+{{>layout.hbs}}

@@ -36,8 +36,23 @@ public class Server {
 		if(entityManager.createQuery("Select i from Indicador i where i.nombre = 'Prueba Acida'").getResultList().isEmpty())
 			entityManager.persist(new PredefinidoPruebaAcida());
 		
-		if(entityManager.createQuery("Select u from User u where u.nombre = 'admin'").getResultList().isEmpty())
-			entityManager.persist(new User("admin","admin"));
+		if(entityManager.createQuery("Select u from User u where u.nombre = 'admin'").getResultList().isEmpty()){
+			User usuario = new User("admin","admin");
+			/*DataIndicador datI = new DataIndicador("IndicadorCustomDefault","ebitda+1");
+			usuario.agregarIndicador(datI);
+			
+			List<CriterioTaxativo> crits = new LinkedList<>();
+			crits.add(new CriterioTaxativo("Margenes consistentemente crecientes", OperadorComparacion.MAYOR,
+					datI, new Normal(), 1));
+			
+			Metodologia met = new Metodologia("metoCustom",crits,null);
+			
+			usuario.agregarMetodologia(met);*/ //este asco es para tener una meto de prueba 
+			
+			
+			entityManager.persist(usuario);
+		}
+			/* creo un user default con dependencias default*/
 		
 		tx.commit();
 	}
