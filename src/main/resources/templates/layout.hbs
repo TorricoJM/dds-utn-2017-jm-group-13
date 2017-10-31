@@ -47,6 +47,11 @@
     	 <li class="nav-item">
           <span class="navbar btn btn-success active Text-white" role="" href="" title="">Hola, {{user}}</span>
        </li>
+       <li class="nav-item">
+        <form action="/logout" method="post" name="Login_Form" class="form-signin">
+          <button class="navbar btn btn btn-danger active Text-white"  name="Submit" value="Logout" type="Submit">Salir</button>    
+        </form>
+       </li>
       {{else}}
         <li class="nav-item">
           <a class="navbar btn btn-outline-warning" href="/login" role="button">Ingresar</a>

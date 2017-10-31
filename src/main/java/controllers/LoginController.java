@@ -36,4 +36,12 @@ public class LoginController {
 		response.redirect("/login");
 		return null;
 	}
+	
+	public static ModelAndView logout(Request request, Response response) {
+		request.session(true);
+		request.session().attribute("user", null);
+		request.session().attribute("password", null);
+		response.redirect("/home");
+		return null;
+	}
 }
