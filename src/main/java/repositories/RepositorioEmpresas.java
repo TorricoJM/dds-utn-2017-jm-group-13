@@ -1,6 +1,9 @@
 package repositories;
 
 import java.util.List;
+
+import javax.persistence.EntityTransaction;
+
 import model.Empresa;
 
 public class RepositorioEmpresas extends Repositorio<Empresa> {
@@ -61,6 +64,8 @@ public class RepositorioEmpresas extends Repositorio<Empresa> {
 	@Override
 	public void agregarMuchos(List<Empresa> nuevasEmpresas) {
 		nuevasEmpresas.forEach((nuevaEmpresa) -> this.actualizarOCargar(nuevaEmpresa));
+		EntityTransaction tx = entityManager.getTransaction();
+		
 		if(!tx.isActive()) {
 		tx.begin();}
 		RepositorioEmpresas.getInstance().getElementos().forEach((elem) -> entityManager.persist(elem));

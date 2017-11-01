@@ -5,6 +5,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+
+import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
+
 import indicators.DataIndicador;
 import indicators.Indicador;
 import indicators.IndicadorConResultado;
@@ -19,6 +24,9 @@ import spark.Spark;
 import user.User;
 
 public class IndicadoresController{
+	
+	private static EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
+	private static EntityTransaction tx = entityManager.getTransaction();
 	
 	public static ModelAndView buscarPeriodos(Request request, Response response) {
 		String empresaNombre = request.queryParams("nombre");
@@ -75,9 +83,17 @@ public class IndicadoresController{
 		String nombre = request.queryParams("nombre");
 		String operacion = request.queryParams("operacion");
 		User usuario = RepositorioUsuarios.getInstance().obtenerUserDesdeNombre(request.session().attribute("user"));
+		
 		DataIndicador nuevoIndicador = new DataIndicador(nombre, operacion);
+		
+		tx.begin();			//TODO aca esta la transaccion
+		
 		usuario.agregarIndicador(nuevoIndicador);
+		entityManager.persist(usuario);
 		RepositorioUsuarios.getInstance().agregar(usuario);
+		
+		tx.commit();
+		
 		response.redirect("/");
 		return null;
 	}
