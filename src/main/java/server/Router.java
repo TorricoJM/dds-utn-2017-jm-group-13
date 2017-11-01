@@ -38,8 +38,6 @@ public class Router {
 		Spark.get("/metodologias", MetodologiasController::home,engine);
 		Spark.post("/metodologias", MetodologiasController::listar,engine);
 		Spark.get("/metodologias/new", MetodologiasController::crear,engine);
-		
-		Spark.get("/cuentas", CuentasController::listar,engine);
 	}
 	
 	public static boolean esRutaPublica(String ruta) {
