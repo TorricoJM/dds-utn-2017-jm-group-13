@@ -1,5 +1,9 @@
 package server;
 
+import javax.persistence.EntityTransaction;
+
+import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
+
 import controllers.*;
 import spark.Spark;
 import spark.TemplateEngine;
@@ -11,6 +15,8 @@ public class Router {
 
 		TemplateEngine engine = HandlebarsTemplateEngineBuilder.create().build();
 		
+		EntityTransaction tx = PerThreadEntityManagers.getEntityManager().getTransaction();
+		
 		Spark.staticFiles.location("/public");
 		
 		Spark.before((request, response) -> {
@@ -19,6 +25,14 @@ public class Router {
 				request.session().attribute("urlAnterior",request.pathInfo());
 				response.redirect("/login");
 			}
+			
+			if(request.requestMethod() != "GET")
+				tx.begin();
+		});
+		
+		Spark.after((request, response) -> {
+			if(tx.isActive())
+				tx.commit();
 		});
 		
 		Spark.get("/", HomeController::home, engine);

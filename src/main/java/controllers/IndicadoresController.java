@@ -6,7 +6,6 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
@@ -26,7 +25,6 @@ import user.User;
 public class IndicadoresController{
 	
 	private static EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
-	private static EntityTransaction tx = entityManager.getTransaction();
 	
 	public static ModelAndView buscarPeriodos(Request request, Response response) {
 		String empresaNombre = request.queryParams("nombre");
@@ -86,13 +84,9 @@ public class IndicadoresController{
 		
 		DataIndicador nuevoIndicador = new DataIndicador(nombre, operacion);
 		
-		tx.begin();			//TODO aca esta la transaccion
-		
 		usuario.agregarIndicador(nuevoIndicador);
-		entityManager.persist(usuario);
+		entityManager.persist(usuario);				//FIXME aca estoy persistiendo
 		RepositorioUsuarios.getInstance().agregar(usuario);
-		
-		tx.commit();
 		
 		response.redirect("/");
 		return null;
