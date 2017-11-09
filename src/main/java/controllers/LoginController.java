@@ -26,7 +26,7 @@ public class LoginController {
 				
 				String urlAnterior = request.session().attribute("urlAnterior");
 				if(urlAnterior == null || urlAnterior.isEmpty() || urlAnterior.equals("/login"))
-					response.redirect("/home");
+					response.redirect("/");
 					else
 					response.redirect(urlAnterior);
 			} else {
@@ -41,7 +41,7 @@ public class LoginController {
 		request.session(true);
 		request.session().attribute("user", null);
 		request.session().attribute("password", null);
-		response.redirect("/home");
+		response.redirect("/");
 		return null;
 	}
 }

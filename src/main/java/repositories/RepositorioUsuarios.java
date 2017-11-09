@@ -1,7 +1,7 @@
 package repositories;
 
 import java.util.List;
-
+import javax.persistence.NoResultException;
 import user.User;
 
 public class RepositorioUsuarios extends Repositorio<User> {
@@ -24,15 +24,21 @@ public class RepositorioUsuarios extends Repositorio<User> {
 	}
 
 	public User obtenerUserDesdeNombre(String nombre) {
-		return this.entityManager
-				.createQuery("from User where nombre like :nombre",User.class) 
-				.setParameter("nombre", "%" + nombre + "%")
-				.getSingleResult();
+		User user = null;
+		
+		try {
+			user = this.entityManager.createQuery("from User where nombre like :nombre", User.class)
+					.setParameter("nombre", "%" + nombre + "%").getSingleResult();
+		} catch (NoResultException exc) {
+				//FIXME: esto es horrible, pero hay que devolver null
+		}
+		
+		return user;
 	}
 
 	public List<User> getElementos() {
 		List<User> users = this.entityManager.createQuery("from User", User.class).getResultList();
 		return users;
 	}
-	
+
 }
