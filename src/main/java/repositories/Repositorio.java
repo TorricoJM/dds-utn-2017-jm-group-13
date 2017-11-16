@@ -11,11 +11,11 @@ public abstract class Repositorio<T>{
 	protected EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
 	
 	public void agregar(T elemento) {
-		//FIXME esto deberia ser una interfaz ahora
+		entityManager.persist(elemento);
 	}
 	
 	public void agregarMuchos(List<T> elementos) {
-		//
+		elementos.forEach(elemento->entityManager.persist(elemento));
 	}
 	
 }

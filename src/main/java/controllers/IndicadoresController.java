@@ -14,7 +14,6 @@ import indicators.Indicador;
 import indicators.IndicadorConResultado;
 import model.Empresa;
 import repositories.RepositorioEmpresas;
-import repositories.RepositorioIndicadores;
 import repositories.RepositorioUsuarios;
 import spark.ModelAndView;
 import spark.Request;
@@ -39,7 +38,7 @@ public class IndicadoresController{
 		Map<String, Object> model = new HashMap<>();
 		String username = request.session().attribute("user");
 		User user = RepositorioUsuarios.getInstance().obtenerUserDesdeNombre(username);
-		List<Indicador> indicadores = RepositorioIndicadores.getInstance().getElementosByUserID(user.getId());
+		List<Indicador> indicadores = user.getIndicadores();
 
 		model.put("Indicadores", indicadores);
 		model.put("user", username);
@@ -60,8 +59,8 @@ public class IndicadoresController{
 		if(empresaNombre == null) {
 			Spark.halt(500, "No se encontró el recurso, joven aventurero");
 		}
-		long userId = RepositorioUsuarios.getInstance().obtenerUserDesdeNombre(request.session().attribute("user")).getId();
-		List<Indicador> indicadores = RepositorioIndicadores.getInstance().getElementosByUserID(userId);
+		User user = RepositorioUsuarios.getInstance().obtenerUserDesdeNombre(request.session().attribute("user"));
+		List<Indicador> indicadores = user.getIndicadores();
 		Map<String, Object> model = new HashMap<>();
 		List<IndicadorConResultado> resultados = indicadores.stream().map(ind -> new IndicadorConResultado(ind.getNombre(),ind.evaluateEn(empresaNombre, periodo))).collect(Collectors.toList());
 		model.put("user", request.session().attribute("user"));
