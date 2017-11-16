@@ -20,12 +20,7 @@ public class Router {
 		Spark.staticFiles.location("/public");
 		
 		Spark.before((request, response) -> {
-			if(request.session().attribute("user") == null
-					&& !esRutaPublica(request.pathInfo())) {
-				request.session().attribute("urlAnterior",request.pathInfo());
-				response.redirect("/login");
-			}
-			
+			new AuthenticationFilter().autenticar(request, response);
 			if(request.requestMethod() != "GET")
 				tx.begin();
 		});
@@ -51,10 +46,6 @@ public class Router {
 		Spark.get("/metodologias", MetodologiasController::home,engine);
 		Spark.post("/metodologias", MetodologiasController::listar,engine);
 		Spark.get("/metodologias/new", MetodologiasController::crear,engine);
-	}
-	
-	public static boolean esRutaPublica(String ruta) {
-		return ruta.equals("/") || ruta.equals("/home") || ruta.equals("/login");
 	}
 
 }
