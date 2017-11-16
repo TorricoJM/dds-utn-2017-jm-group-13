@@ -39,8 +39,8 @@ public class LoginController {
 	
 	public static ModelAndView logout(Request request, Response response) {
 		request.session(true);
-		request.session().attribute("user", null);
-		request.session().attribute("password", null);
+		request.session().removeAttribute("user");
+		request.session().removeAttribute("password");
 		response.redirect("/");
 		return null;
 	}
