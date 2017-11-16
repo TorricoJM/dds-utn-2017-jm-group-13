@@ -1,9 +1,9 @@
 {{#partial "contenido"}}
-<p>La empresa es {{empresa}}</p>
-<p>El periodo es {{periodo}}</p>
-<table>
+<h5 class="info">Empresa: {{empresa}}</h5>
+<h5 class="info">Periodo: {{periodo}}</h5>
+<table class="table table-striped table-bordered table-responsive tabla">
   <thead>
-    <tr>
+    <tr class="table-info">
       <th>Indicador</th>
       <th>Resultado</th>
     </tr>
@@ -18,6 +18,17 @@
   </tbody>
 </table>
 
+<style>
+  table.tabla{
+  margin: auto;
+  border-collapse: collapse;
+  width: 50%;
+  }
+
+  h5.info{
+    text-align: center;
+  }
+</style>
 {{/partial}}
 
 {{>layout.hbs}}
