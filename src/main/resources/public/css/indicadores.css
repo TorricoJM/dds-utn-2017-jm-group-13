@@ -1,8 +1,9 @@
 .indicadores {
+	margin: auto;
 	border-collapse: collapse;
 	width: 50%;
 }
 
-.consultar {
-	padding-right: 30px
+.titulo {
+	text-align: center;
 }

@@ -1,14 +1,14 @@
 {{#partial "custom-head"}}
 
-<link rel="stylesheet" type="text/css" href="css/indicadores.css">
-
-
 {{/partial}}
 
 {{#partial "contenido"}}
 <div class="container-fluid">
-	<h1 class="text-center titulo"><u>Lista de Indicadores</u></h1>
-
+	<h1 class="text titulo"><u>Lista de Indicadores</u></h1>
+		<div class="row justify-content-center">
+				<a class="btn btn-info btn-lg" href="/indicadores/consulta" title="">Consultar</a>
+				<a class="btn btn-primary btn-lg" href="/indicadores/new" title="">Crear</a>
+		</div>
 	<table class="table table-striped table-bordered table-responsive indicadores">
 		<thead>
 			<tr class="table-info">
@@ -26,7 +26,7 @@
 		</tbody>
 	</table>
 </div>
-
+<link rel="stylesheet" type="text/css" href="css/indicadores.css">
 {{/partial}}
 
 {{>layout.hbs}}
