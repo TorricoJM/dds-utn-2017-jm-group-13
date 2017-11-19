@@ -5,9 +5,13 @@ import static org.junit.Assert.*;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
+import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
 
 import criterios.CriterioTaxativo;
 import criterios.OperadorComparacion;
@@ -20,7 +24,7 @@ import indicators.Indicador;
 import repositories.RepositorioEmpresas;
 import repositories.RepositorioIndicadores;
 
-public class CriterioTaxativoTest {
+public class CriterioTaxativoTest extends AbstractPersistenceTest {
 
 	public Indicador indicador1 = new DataIndicador("i1", "ebitda*10");
 	public CriterioTaxativo taxativo = new CriterioTaxativo("tax1", OperadorComparacion.MAYOR, indicador1, new Normal(), 500);
@@ -78,5 +82,10 @@ public class CriterioTaxativoTest {
 	public void tearDown() {
 		RepositorioIndicadores.deleteInstance();
 		RepositorioEmpresas.deleteInstance();
+	}
+
+	@Override
+	public EntityManager entityManager() {
+		return PerThreadEntityManagers.getEntityManager();
 	}
 }

@@ -28,7 +28,7 @@ import repositories.RepositorioIndicadores;
 
 @SuppressWarnings("unused")
 public class MetodologiaTest extends AbstractPersistenceTest {
-/*	
+/*	por favor de corregir quien los haya hecho
 	public ImportadorDeEmpresasCSV importador = new ImportadorDeEmpresasCSV("empresasTest.csv");
 	public Indicador indicador1 = new DataIndicador("i1","ebitda*10");
 	public Indicador indicador2 = new DataIndicador("i2","Activo Total - 1");

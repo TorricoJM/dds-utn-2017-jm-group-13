@@ -50,24 +50,24 @@ public class ParserTestErrores extends AbstractPersistenceTest{
 		lexer.generarArbolExpresiones("");
 	}
 	
-	@Test(expected=IdentificadorInvalidoException.class)
+	@Test(expected=NoResultException.class)
 	public void evaluarEnEmpresaSinCuentaLanzaException(){
 		indicadorA.evaluateEn(null, "2016");
 	}
-	@Test(expected=IdentificadorInvalidoException.class)
+	@Test(expected=NoResultException.class)
 	public void evaluarEnEmpresaSinCuentaLanzaException2(){
 		indicadorA.evaluateEn("coca cola", "2016");
 	}
-	@Test(expected=IdentificadorInvalidoException.class)
+	@Test(expected=NoResultException.class)
 	public void evaluarEnEmpresaSinPeriodoLanzaException(){
 		indicadorA.evaluateEn("coca cola", null);
 	}
-	@Test(expected=IdentificadorInvalidoException.class)
+	@Test(expected=NoResultException.class)
 	public void evaluarEnEmpresaSinPeriodoLanzaException2(){
 		indicadorA.evaluateEn("coca cola", "2015");
 	}
 	
-	@Test(expected=IdentificadorInvalidoException.class)
+	@Test(expected=NoResultException.class)
 	public void indicadorSinNombreLanzaException(){
 		indicadorSinNombre.evaluateEn("coca cola", "2017");
 	}
