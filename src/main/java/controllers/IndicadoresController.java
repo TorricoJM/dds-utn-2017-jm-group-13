@@ -62,7 +62,8 @@ public class IndicadoresController{
 		User user = RepositorioUsuarios.getInstance().obtenerUserDesdeNombre(request.session().attribute("user"));
 		List<Indicador> indicadores = user.getIndicadores();
 		Map<String, Object> model = new HashMap<>();
-		List<IndicadorConResultado> resultados = indicadores.stream().map(ind -> new IndicadorConResultado(ind.getNombre(),ind.evaluateEn(empresaNombre, periodo))).collect(Collectors.toList());
+		List<IndicadorConResultado> listaPrecalculados = indicadores.stream().map(indicador->indicador.getPrecalculados()).flatMap(precalculados->precalculados.stream()).collect(Collectors.toList());
+		List<IndicadorConResultado> resultados = listaPrecalculados.stream().filter(precalculado->precalculado.getEmpresa().equals(empresaNombre)).filter(precalculado->precalculado.getPeriodo().equals(periodo)).collect(Collectors.toList());
 		model.put("user", request.session().attribute("user"));
 		model.put("resultados", resultados);
 		model.put("empresa", empresaNombre);
@@ -82,7 +83,7 @@ public class IndicadoresController{
 		User usuario = RepositorioUsuarios.getInstance().obtenerUserDesdeNombre(request.session().attribute("user"));
 		
 		DataIndicador nuevoIndicador = new DataIndicador(nombre, operacion);
-		
+		nuevoIndicador.obtenerPrecalculados();
 		usuario.agregarIndicador(nuevoIndicador);
 		entityManager.persist(usuario);				//FIXME aca estoy persistiendo
 		RepositorioUsuarios.getInstance().agregar(usuario);

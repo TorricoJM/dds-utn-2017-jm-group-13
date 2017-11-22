@@ -1,5 +1,7 @@
 package indicators;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.NoResultException;
 
@@ -34,5 +36,17 @@ public class PredefinidoROA extends Indicador {
 		catch (NoResultException e) {
 			throw new ErrorEvaluacionException("No se pudo resolver");
 		}
+	}
+
+	@Override
+	public List<IndicadorConResultado> getPrecalculados() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void obtenerPrecalculados() {
+		// TODO Auto-generated method stub
+		
 	}
 }

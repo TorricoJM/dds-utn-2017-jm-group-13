@@ -1,10 +1,13 @@
 package repositories;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.persistence.EntityTransaction;
 
+import model.Cuenta;
 import model.Empresa;
+import model.PeriodoFiscal;
 
 public class RepositorioEmpresas extends Repositorio<Empresa> {
 
@@ -51,14 +54,16 @@ public class RepositorioEmpresas extends Repositorio<Empresa> {
 	
 	public Double obtenerValorDeCuentaDeEmpresaEnPeriodo(String cuenta
 			,String empresa,String periodo) {
-		
-		String query = "Select c.valor from Cuenta c join PeriodoFiscal p on (c.periodofiscal_id = p.id) join Empresa e on (e.id = p.empresa_id) where c.nombre= '"+ cuenta + "' and p.periodo='" + periodo + "' and e.nombre='" + empresa +"'";
-		return Double.parseDouble(this.entityManager.createNativeQuery(query).getSingleResult().toString());
+		//String query = "Select c.valor from Cuenta c join PeriodoFiscal p on (c.periodofiscal_id = p.id) join Empresa e on (e.id = p.empresa_id) where c.nombre= '"+ cuenta + "' and p.periodo='" + periodo + "' and e.nombre='" + empresa +"'";
+		//return Double.parseDouble(this.entityManager.createNativeQuery(query).getSingleResult().toString());
+		Empresa unaEmpresa = this.obtenerEmpresaDesdeNombre(empresa);
+		PeriodoFiscal periodoObtenido = unaEmpresa.getPeriodos().stream().filter(unPeriodo->unPeriodo.getPeriodo().equals(periodo)).collect(Collectors.toList()).get(0);
+		Cuenta cuentaObtenida = periodoObtenido.getCuentas().stream().filter(unaCuenta->unaCuenta.getNombre().equals(cuenta)).collect(Collectors.toList()).get(0);
+		return Double.parseDouble(cuentaObtenida.getValor());
 	}
 	
-	@SuppressWarnings("unchecked")
 	public List<Empresa> getElementos(){
-		return this.entityManager.createQuery("from Empresa").getResultList();
+		return this.entityManager.createQuery("from Empresa",Empresa.class).getResultList();
 	}
 	
 	@Override

@@ -1,12 +1,37 @@
 package indicators;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+import model.parser.ErrorEvaluacionException;
+import model.parser.objetosParser.IndicadorParser;
+
+@Entity
 public class IndicadorConResultado{
-	public String nombre;
-	public double valor;
-	public IndicadorConResultado(String nombre, double resultado) {
-		this.nombre=nombre;
-		this.valor=resultado;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
+	private String nombre;
+	private String empresa;
+	private String periodo;
+	private double valor;
+	
+	public IndicadorConResultado() {
 	}
+	
+	public IndicadorConResultado(String nombre, String empresa, String periodo) {
+		this.nombre=nombre;
+		this.empresa=empresa;
+		this.periodo=periodo;
+		
+	}
+	
+	//////////////////////////////////////////////////////
+	////////////GETTERS AND SETTERS///////////////////////
+	//////////////////////////////////////////////////////
 	public String getNombre() {
 		return nombre;
 	}
@@ -20,4 +45,33 @@ public class IndicadorConResultado{
 		this.valor = valor;
 	}
 	
+	public String getEmpresa() {
+		return this.empresa;
+	}
+	
+	public void setEmpresa(String unaEmpresa) {
+		this.empresa = unaEmpresa;
+	}
+	
+	public void setPeriodo(String unPeriodo) {
+		this.periodo = unPeriodo;
+	}
+	
+	public String getPeriodo() {
+		return this.periodo;
+	}
+	
+	//////////////////////////////////
+	//////////////////////////////////
+	
+	public void obtenerResultado(String operacion) {
+		try {
+			double resultado = new IndicadorParser(this.nombre, operacion).operar(this.empresa, this.periodo);
+			this.setValor(resultado);
+		} catch (ErrorEvaluacionException e) {				
+			throw new ErrorEvaluacionException("No se pudo resolver");
+		} catch (NullPointerException e) {
+			throw new ErrorEvaluacionException(e.getMessage());
+		}
+	}
 }

@@ -26,8 +26,9 @@ public class Router {
 		});
 		
 		Spark.after((request, response) -> {
-			if(tx.isActive())
+			if(tx.isActive()) {
 				tx.commit();
+				}
 		});
 		
 		Spark.get("/", HomeController::home, engine);

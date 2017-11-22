@@ -1,14 +1,18 @@
 package server;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
+import indicators.Indicador;
 import indicators.PredefinidoPruebaAcida;
 import indicators.PredefinidoROA;
 import indicators.PredefinidoROE;
 import indicators.PredefinidoROI;
+import repositories.RepositorioIndicadores;
 import spark.Spark;
 import spark.debug.DebugScreen;
 import user.User;
@@ -53,6 +57,10 @@ public class Server {
 			entityManager.persist(usuario);
 		}
 			/* creo un user default con dependencias default*/
+		
+		List<Indicador> indicadores = RepositorioIndicadores.getInstance().getElementos();
+		indicadores.forEach(indicador->indicador.obtenerPrecalculados());
+		RepositorioIndicadores.getInstance().agregarMuchos(indicadores);
 		
 		tx.commit();
 	}

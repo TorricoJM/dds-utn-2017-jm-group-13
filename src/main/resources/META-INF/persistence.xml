@@ -12,6 +12,7 @@
 		<class> model.Cuenta </class>
 		<class> model.PeriodoFiscal </class>
 		<class> indicators.DataIndicador </class>
+		<class> indicators.IndicadorConResultado</class>
 		<class> criterios.CriterioTaxativo </class>
 		<class> criterios.ParComparativoPeso </class>
 		<class> indicators.Indicador </class>
