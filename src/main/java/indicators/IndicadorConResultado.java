@@ -5,7 +5,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import model.parser.ErrorEvaluacionException;
 import model.parser.objetosParser.IndicadorParser;
 
 @Entity
@@ -17,7 +16,7 @@ public class IndicadorConResultado{
 	private String nombre;
 	private String empresa;
 	private String periodo;
-	private double valor;
+	private String valor;
 	
 	public IndicadorConResultado() {
 	}
@@ -38,10 +37,10 @@ public class IndicadorConResultado{
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	public double getValor() {
+	public String getValor() {
 		return valor;
 	}
-	public void setValor(double valor) {
+	public void setValor(String valor) {
 		this.valor = valor;
 	}
 	
@@ -67,11 +66,9 @@ public class IndicadorConResultado{
 	public void obtenerResultado(String operacion) {
 		try {
 			double resultado = new IndicadorParser(this.nombre, operacion).operar(this.empresa, this.periodo);
-			this.setValor(resultado);
-		} catch (ErrorEvaluacionException e) {				
-			throw new ErrorEvaluacionException("No se pudo resolver");
-		} catch (NullPointerException e) {
-			throw new ErrorEvaluacionException(e.getMessage());
+			this.setValor(String.valueOf(resultado));
+		} catch (Exception e) {
+			this.setValor("No se pudo calcular");
 		}
 	}
 }
