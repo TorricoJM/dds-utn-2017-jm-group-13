@@ -85,7 +85,6 @@ public class IndicadoresController{
 		DataIndicador nuevoIndicador = new DataIndicador(nombre, operacion);
 		nuevoIndicador.obtenerPrecalculados();
 		usuario.agregarIndicador(nuevoIndicador);
-		entityManager.persist(usuario);				//FIXME aca estoy persistiendo
 		RepositorioUsuarios.getInstance().agregar(usuario);
 		
 		response.redirect("/");
