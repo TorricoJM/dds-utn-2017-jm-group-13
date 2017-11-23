@@ -1,18 +1,14 @@
 package server;
 
-import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
-import indicators.Indicador;
 import indicators.PredefinidoPruebaAcida;
 import indicators.PredefinidoROA;
 import indicators.PredefinidoROE;
 import indicators.PredefinidoROI;
-import repositories.RepositorioIndicadores;
 import spark.Spark;
 import spark.debug.DebugScreen;
 import user.User;
@@ -22,6 +18,7 @@ public class Server {
 	public static void main(String[] args) {
 		ScheduledImport importProgramado = new ScheduledImport();
 		importProgramado.importarCadaXMinutos(1);
+		new SeedPrecalculados().removerResultadosActuales().precalcular();
 		seed();
 		Spark.port(8000);
 		DebugScreen.enableDebugScreen();
@@ -31,10 +28,6 @@ public class Server {
 	private static void seed() {
 		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
 		EntityTransaction tx = entityManager.getTransaction();
-	
-		tx.begin();
-		entityManager.createQuery("DELETE FROM IndicadorConResultado").executeUpdate();
-		tx.commit();
 		
 		tx.begin();
 		if(entityManager.createQuery("Select i from Indicador i where i.nombre = 'ROA'").getResultList().isEmpty())
@@ -64,10 +57,6 @@ public class Server {
 		}
 			/* creo un user default con dependencias default*/
 
-		List<Indicador> indicadores = RepositorioIndicadores.getInstance().getElementos();
-		indicadores.forEach(indicador->indicador.obtenerPrecalculados());
-		RepositorioIndicadores.getInstance().agregarMuchos(indicadores);
-	
 		tx.commit();
 	}
 

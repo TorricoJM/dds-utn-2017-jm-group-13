@@ -15,6 +15,7 @@
 		<class> criterios.CriterioTaxativo </class>
 		<class> criterios.ParComparativoPeso </class>
 		<class> indicators.Indicador </class>
+		<class> indicators.IndicadorConResultado</class>
 		<class> indicators.PredefinidoROA </class>
 		<class> indicators.PredefinidoROE </class>
 		<class> indicators.PredefinidoROI </class>
