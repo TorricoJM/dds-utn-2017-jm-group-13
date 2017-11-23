@@ -16,9 +16,12 @@ import repositories.RepositorioIndicadores;
 import spark.Spark;
 import spark.debug.DebugScreen;
 import user.User;
+import imports.ScheduledImport;
 
 public class Server {
 	public static void main(String[] args) {
+		ScheduledImport importProgramado = new ScheduledImport();
+		importProgramado.importarCadaXMinutos(5);
 		seed();
 		Spark.port(8000);
 		DebugScreen.enableDebugScreen();
@@ -30,7 +33,10 @@ public class Server {
 		EntityTransaction tx = entityManager.getTransaction();
 		
 		tx.begin();
+		entityManager.createQuery("DELETE FROM IndicadorConResultado").executeUpdate();
+		tx.commit();
 		
+		tx.begin();
 		if(entityManager.createQuery("Select i from Indicador i where i.nombre = 'ROA'").getResultList().isEmpty())
 			entityManager.persist(new PredefinidoROA());
 		if(entityManager.createQuery("Select i from Indicador i where i.nombre = 'ROE'").getResultList().isEmpty())
@@ -57,7 +63,7 @@ public class Server {
 			entityManager.persist(usuario);
 		}
 			/* creo un user default con dependencias default*/
-		
+
 		List<Indicador> indicadores = RepositorioIndicadores.getInstance().getElementos();
 		indicadores.forEach(indicador->indicador.obtenerPrecalculados());
 		RepositorioIndicadores.getInstance().agregarMuchos(indicadores);
