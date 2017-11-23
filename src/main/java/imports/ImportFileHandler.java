@@ -11,9 +11,10 @@ import java.time.format.DateTimeFormatter;
 public class ImportFileHandler{
 	
 	public void procesarArchivo(String path) {
+		System.out.println(path);
 		File archivo = new File(path);
 		File archivoProcesado = 
-				new File("/proyecto_anual/src/main/resources/cuentasBatch/directorioEspecial");
+				new File("cuentasBatch/archivosProcesados");
 		Path source = archivo.toPath();
 		Path destino = archivoProcesado.toPath();
 		if(archivo.isFile()) {
