@@ -7,10 +7,26 @@ import javax.persistence.EntityTransaction;
 
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
-import indicators.Indicador;
-import repositories.RepositorioIndicadores;
+import repositories.RepositorioUsuarios;
+import user.User;
 
 public class SeedPrecalculados{
+	
+	private static SeedPrecalculados instance;
+	
+	public static SeedPrecalculados getInstance() {
+		if(instance == null) {
+			instance = new SeedPrecalculados();
+		}
+		return instance;
+	}
+	
+	private SeedPrecalculados() {
+	}
+	
+	public static void deleteInstance() {
+		instance = null;
+	}
 	
 	EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
 	EntityTransaction tx = entityManager.getTransaction();
@@ -19,15 +35,20 @@ public class SeedPrecalculados{
 		tx.begin();
 		entityManager.createQuery("DELETE FROM IndicadorConResultado").executeUpdate();
 		tx.commit();
-		return this;
+		return instance;
 	}
 	
-	public void precalcular() {
+	public SeedPrecalculados precalcular() {
 		tx.begin();
-		List<Indicador> indicadores = RepositorioIndicadores.getInstance().getElementos();
-		indicadores.forEach(indicador->indicador.obtenerPrecalculados());
-		RepositorioIndicadores.getInstance().agregarMuchos(indicadores);
+		List<User> usuarios = RepositorioUsuarios.getInstance().getElementos();
+		usuarios.forEach(user->precalcularIndicadoresDeUsuario(user));
+		RepositorioUsuarios.getInstance().agregarMuchos(usuarios);
 		tx.commit();
+		return instance;
+	}
+
+	private void precalcularIndicadoresDeUsuario(User user) {
+		user.getIndicadores().forEach(indicador->indicador.obtenerPrecalculados());
 	}
 	
 	

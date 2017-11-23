@@ -18,7 +18,7 @@ public class Server {
 	public static void main(String[] args) {
 		ScheduledImport importProgramado = new ScheduledImport();
 		importProgramado.importarCadaXMinutos(1);
-		new SeedPrecalculados().removerResultadosActuales().precalcular();
+		SeedPrecalculados.getInstance().removerResultadosActuales().precalcular();
 		seed();
 		Spark.port(8000);
 		DebugScreen.enableDebugScreen();

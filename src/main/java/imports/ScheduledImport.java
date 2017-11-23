@@ -5,8 +5,6 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
-import server.SeedPrecalculados;
-
 public class ScheduledImport{
 	
 	private final String rutaDestino =
@@ -19,8 +17,7 @@ public class ScheduledImport{
 			public void run() {
 				new ImportFileHandler()
 				.procesarArchivo(rutaDestino);
-				new SeedPrecalculados().removerResultadosActuales().precalcular();
-				System.out.println("Indicadores precalculados");
+
 			}
 		};
 		@SuppressWarnings("unused")
