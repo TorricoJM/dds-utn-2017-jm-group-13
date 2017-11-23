@@ -1,10 +1,6 @@
 package imports;
 
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -13,18 +9,11 @@ public class ImportFileHandler{
 	public void procesarArchivo(String path) {
 		System.out.println(path);
 		File archivo = new File(path);
-		File archivoProcesado = 
-				new File("cuentasBatch/archivosProcesados");
-		Path source = archivo.toPath();
-		Path destino = archivoProcesado.toPath();
+		String destino = "/cuentasBatch/archivosProcesados/";
 		if(archivo.isFile()) {
+			System.out.println("voy a importar el archivo");
 			new ImportadorDeEmpresasCSV(path).importar();
-			try {
-				Files.move(source, destino.resolve(this.getHoraActualConFecha()), StandardCopyOption.REPLACE_EXISTING);
-			} catch (IOException e) {
-				System.out.println("Error al mover el archivo procesado");
-			}
-			
+			archivo.renameTo(new File(destino+this.getHoraActualConFecha()));
 			System.out.println("Archivo procesado correctamente");
 		}
 		else System.out.println("No se encontró el archivo para cargar cuentas");

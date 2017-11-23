@@ -21,7 +21,7 @@ import imports.ScheduledImport;
 public class Server {
 	public static void main(String[] args) {
 		ScheduledImport importProgramado = new ScheduledImport();
-		importProgramado.importarCadaXMinutos(5);
+		importProgramado.importarCadaXMinutos(1);
 		seed();
 		Spark.port(8000);
 		DebugScreen.enableDebugScreen();
