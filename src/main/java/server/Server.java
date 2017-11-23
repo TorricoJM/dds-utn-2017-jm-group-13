@@ -31,7 +31,7 @@ public class Server {
 	private static void seed() {
 		EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
 		EntityTransaction tx = entityManager.getTransaction();
-		
+	
 		tx.begin();
 		entityManager.createQuery("DELETE FROM IndicadorConResultado").executeUpdate();
 		tx.commit();
@@ -67,7 +67,7 @@ public class Server {
 		List<Indicador> indicadores = RepositorioIndicadores.getInstance().getElementos();
 		indicadores.forEach(indicador->indicador.obtenerPrecalculados());
 		RepositorioIndicadores.getInstance().agregarMuchos(indicadores);
-		
+	
 		tx.commit();
 	}
 

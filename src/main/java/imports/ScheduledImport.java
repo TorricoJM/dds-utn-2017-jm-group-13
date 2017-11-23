@@ -28,7 +28,7 @@ public class ScheduledImport{
 		// se guarda en una variable el schedule
 		// por si se requiere que se cancele después de un lapso de tiempo
 		final ScheduledFuture<?> schedulerHandler = 
-				importProgramado.scheduleAtFixedRate(scheduler, 1, 20, TimeUnit.SECONDS);
+				importProgramado.scheduleAtFixedRate(scheduler, 1, 10, TimeUnit.SECONDS);
 	}
 }
 
