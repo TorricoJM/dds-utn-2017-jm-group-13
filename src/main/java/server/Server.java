@@ -16,13 +16,17 @@ import imports.ScheduledImport;
 
 public class Server {
 	public static void main(String[] args) {
-		ScheduledImport importProgramado = new ScheduledImport();
-		importProgramado.importarCadaXMinutos(1);
-		SeedPrecalculados.getInstance().removerResultadosActuales().precalcular();
-		seed();
-		Spark.port(8000);
-		DebugScreen.enableDebugScreen();
-		Router.configure();
+		if ("app".equals(args[0])) {
+			SeedPrecalculados.getInstance().removerResultadosActuales().precalcular();
+			seed();
+			Spark.port(8000);
+			DebugScreen.enableDebugScreen();
+			Router.configure();
+		}
+		if ("batch".equals(args[0])) {
+			ScheduledImport importProgramado = new ScheduledImport();
+			importProgramado.importarCadaXMinutos(1);
+		}
 	}
 	
 	private static void seed() {
